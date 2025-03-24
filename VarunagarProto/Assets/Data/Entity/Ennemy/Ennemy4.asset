@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c8f182d232039848a3b32d7886df91f, type: 3}
+  m_Name: Ennemy4
+  m_EditorClassIdentifier: 
+  instance: {fileID: 0}
+  <UnitLife>k__BackingField: 23
+  BaseLife: 23
+  <UnitDef>k__BackingField: 0
+  <UnitSpeed>k__BackingField: 7
+  portrait: {fileID: 21300000, guid: 4a25613841629964a9f7c7656f9b7f3d, type: 3}
+  portraitUI: {fileID: 21300000, guid: 4a25613841629964a9f7c7656f9b7f3d, type: 3}
+  manimator: {fileID: 0}
+  capacity1: {fileID: 0}
+  capacity2: {fileID: 0}
+  namE: Ennemy4
+  position: 0

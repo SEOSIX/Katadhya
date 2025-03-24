@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c8f182d232039848a3b32d7886df91f, type: 3}
+  m_Name: "Prisonni\xE8re"
+  m_EditorClassIdentifier: 
+  <UnitLife>k__BackingField: 24
+  <UnitDef>k__BackingField: 8
+  <UnitSpeed>k__BackingField: 10
+  portrait: {fileID: 21300000, guid: abb90347574f90244a764b1f4ea81ac6, type: 3}
+  portraitUI: {fileID: 21300000, guid: 598b2c40672b0d84eab569ca14cbbbb4, type: 3}
+  manimator: {fileID: 0}
+  capacity1: {fileID: 21300000, guid: c7d6767b226091c4482d7d6ee37da679, type: 3}
+  capacity2: {fileID: 0}
+  namE: "Prisonni\xE8re"
+  position: -50
