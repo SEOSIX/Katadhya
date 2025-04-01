@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Garde
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 9
-  BaseLife: 0
-  UnitDef: 0
+  <UnitLife>k__BackingField: 20
+  BaseLife: 20
+  UnitDef: 62
   UnitSpeed: 3
   portrait: {fileID: 21300000, guid: 9b96e4b2f467f3e49b6d34a40e65b416, type: 3}
   portraitUI: {fileID: 21300000, guid: 4885f9c0c9e0c9f43bbba51adaffc06b, type: 3}
   bandeauUI: {fileID: 21300000, guid: 645982aba10f03c40a20607ed08cb6ac, type: 3}
   manimator: {fileID: 0}
-  capacity1: {fileID: 21300000, guid: d31943891d240bc438127249793e3feb, type: 3}
-  capacity2: {fileID: 0}
-  capacity3: {fileID: 0}
+  capacity1: {fileID: 21300000, guid: 3e9946186a02f5647876b0ce959ffebc, type: 3}
+  capacity2: {fileID: 21300000, guid: a5d849fd5fe36704eb0571d9d4f654a9, type: 3}
+  capacity3: {fileID: 21300000, guid: 7de2447ac3ed5e244bfb6ef4835aa7f5, type: 3}
   Ultimate: {fileID: 0}
   namE: Garde
   position: -50
