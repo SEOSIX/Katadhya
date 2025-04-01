@@ -18,6 +18,7 @@ public class CombatManager : MonoBehaviour
     [Header("Entity UI")]
     public TextMeshProUGUI textplayer;
     public TextMeshProUGUI speed;
+    public TextMeshProUGUI def;
     public Image playerPortrait;
     public Image[] ImagePortrait;
     public Image capacity1CM;
@@ -112,6 +113,7 @@ public class CombatManager : MonoBehaviour
         
         textplayer.text = currentEntity.name;
         speed.text = "Speed :" + currentEntity.UnitSpeed;
+        def.text = "Defence :" + currentEntity.UnitDef;
         playerPortrait.sprite = currentEntity.bandeauUI;
         capacity1CM.sprite = currentEntity.capacity1;
         LifePlayers.maxValue = currentEntity.UnitLife;
@@ -142,6 +144,7 @@ public class CombatManager : MonoBehaviour
             Debug.Log($"🔴 C'est au tour de l'ennemi {currentEntity.namE} !");
             TurnUI.SetActive(false);
             ennemyTurn.SetActive(true);
+            AI.SINGLETON.Attack1(10);
         }
         else
         {
@@ -178,7 +181,7 @@ public class CombatManager : MonoBehaviour
     {
         if (selectedEnemyIndex == -1)
         {
-            Debug.LogError("Aucun ennemi sélectionné !");
+            Debug.Log("Aucun ennemi sélectionné !");
             return;
         }
 
@@ -186,7 +189,5 @@ public class CombatManager : MonoBehaviour
         LifeEntity.SINGLETON.enemySliders[selectedEnemyIndex].value = entityHandler.ennemies[selectedEnemyIndex].UnitLife;
         
         Debug.Log($"Attaque infligée à {entityHandler.ennemies[selectedEnemyIndex].namE} pour {damage} dégâts.");
-        
-          entityManager.DestroyDeadEnemies();
     }
 }

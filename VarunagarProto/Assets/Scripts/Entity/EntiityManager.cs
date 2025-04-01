@@ -12,7 +12,6 @@ public class EntiityManager : MonoBehaviour
     private int currentLifeValue;
     
     
-    
     public void DestroyDeadEnemies()
     {
         for (int i = 0; i < entityHandler.ennemies.Length; i++)
@@ -23,6 +22,9 @@ public class EntiityManager : MonoBehaviour
                 GameObject enemyInstance = entityHandler.ennemies[i].instance;
                 CombatManager.SINGLETON.RemoveUnitFromList(entityHandler.ennemies[i]);
                 Destroy(enemyInstance);
+                GameObject enemySliderGO = LifeEntity.SINGLETON.enemySliders[i].gameObject;
+                enemySliderGO.SetActive(false);
+                CombatManager.SINGLETON.circles[i].SetActive(false);
             }
         }
     }

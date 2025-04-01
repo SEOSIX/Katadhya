@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager SINGLETON { get; private set; }
+    
     [Header("Spawn Positions")]
     public List<Transform> playerSpawnPoints;
     public List<Transform> enemySpawnPoints; 
@@ -11,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EntityHandler entityHandler;
 
     [Header("Player Prefabs")]
-    [SerializeField] private List<PlayerPrefabData> playerPrefabs;
+    public List<PlayerPrefabData> playerPrefabs;
 
     [Header("Custom")] 
     [SerializeField] private float sizeChara;
@@ -37,6 +39,16 @@ public class GameManager : MonoBehaviour
 
         SpawnPlayers();
         SpawnEnemies();
+    }
+    void Awake()
+    {
+        if (SINGLETON != null)
+        {
+            Debug.LogError("Trying to instantiate another CombatManager SINGLETON");
+            Destroy(gameObject);
+            return;
+        }
+        SINGLETON = this;
     }
 
     void SpawnPlayers()
