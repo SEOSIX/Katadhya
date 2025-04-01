@@ -12,13 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8f182d232039848a3b32d7886df91f, type: 3}
   m_Name: "Prisonni\xE8re"
   m_EditorClassIdentifier: 
+  instance: {fileID: 0}
   <UnitLife>k__BackingField: 24
-  <UnitDef>k__BackingField: 8
-  <UnitSpeed>k__BackingField: 10
+  BaseLife: 0
+  UnitDef: 0
+  UnitSpeed: 7
   portrait: {fileID: 21300000, guid: abb90347574f90244a764b1f4ea81ac6, type: 3}
-  portraitUI: {fileID: 21300000, guid: 598b2c40672b0d84eab569ca14cbbbb4, type: 3}
+  portraitUI: {fileID: 21300000, guid: 02da55dfbb442f24da7fd009d4689802, type: 3}
+  bandeauUI: {fileID: 21300000, guid: 645982aba10f03c40a20607ed08cb6ac, type: 3}
   manimator: {fileID: 0}
   capacity1: {fileID: 21300000, guid: c7d6767b226091c4482d7d6ee37da679, type: 3}
   capacity2: {fileID: 0}
+  capacity3: {fileID: 0}
+  Ultimate: {fileID: 0}
   namE: "Prisonni\xE8re"
   position: -50

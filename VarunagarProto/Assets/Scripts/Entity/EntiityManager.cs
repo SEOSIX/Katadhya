@@ -7,22 +7,11 @@ using UnityEngine.UI;
 public class EntiityManager : MonoBehaviour
 {
     public int playerIndex;
-    [SerializeField] private EntityHandler entityHandler;
-    public Slider[] enemySliders = new Slider[4];
-
+    [Header("entityHandler")]
+    public EntityHandler entityHandler;
     private int currentLifeValue;
-
-    public void LifeManage()
-    {
-        DataEntity currentEntity = CombatManager.SINGLETON.currentTurnOrder[0];
-        currentLifeValue = currentEntity.UnitLife;
-
-        for (int i = 0; i < entityHandler.ennemies.Length && i < enemySliders.Length; i++)
-        {
-            enemySliders[i].maxValue = entityHandler.ennemies[i].UnitLife;
-            enemySliders[i].value = enemySliders[i].maxValue;
-        }
-    }
+    
+    
     
     public void DestroyDeadEnemies()
     {
@@ -48,10 +37,9 @@ public class EntiityManager : MonoBehaviour
             }
         }
     }
-
     void Start()
     {
-        LifeManage();
+        LifeEntity.SINGLETON.LifeManage();
         RestoreEnemiesLife();
     }
 

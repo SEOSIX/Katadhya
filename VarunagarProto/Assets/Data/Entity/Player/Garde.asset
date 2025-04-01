@@ -10,15 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c8f182d232039848a3b32d7886df91f, type: 3}
-  m_Name: Adventurer
+  m_Name: Garde
   m_EditorClassIdentifier: 
+  instance: {fileID: 0}
   <UnitLife>k__BackingField: 9
-  <UnitDef>k__BackingField: 20
-  <UnitSpeed>k__BackingField: 32
+  BaseLife: 0
+  UnitDef: 0
+  UnitSpeed: 3
   portrait: {fileID: 21300000, guid: 9b96e4b2f467f3e49b6d34a40e65b416, type: 3}
-  portraitUI: {fileID: 21300000, guid: 411cb294ad0d7dd4a8d8877dee130888, type: 3}
+  portraitUI: {fileID: 21300000, guid: 4885f9c0c9e0c9f43bbba51adaffc06b, type: 3}
+  bandeauUI: {fileID: 21300000, guid: 645982aba10f03c40a20607ed08cb6ac, type: 3}
   manimator: {fileID: 0}
   capacity1: {fileID: 21300000, guid: d31943891d240bc438127249793e3feb, type: 3}
   capacity2: {fileID: 0}
-  namE: Adventurer
+  capacity3: {fileID: 0}
+  Ultimate: {fileID: 0}
+  namE: Garde
   position: -50

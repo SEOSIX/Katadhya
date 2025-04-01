@@ -17,6 +17,7 @@ public class CombatManager : MonoBehaviour
 
     [Header("Entity UI")]
     public TextMeshProUGUI textplayer;
+    public TextMeshProUGUI speed;
     public Image playerPortrait;
     public Image[] ImagePortrait;
     public Image capacity1CM;
@@ -110,7 +111,8 @@ public class CombatManager : MonoBehaviour
         DataEntity currentEntity = currentTurnOrder[0];
         
         textplayer.text = currentEntity.name;
-        playerPortrait.sprite = currentEntity.portraitUI;
+        speed.text = "Speed :" + currentEntity.UnitSpeed;
+        playerPortrait.sprite = currentEntity.bandeauUI;
         capacity1CM.sprite = currentEntity.capacity1;
         LifePlayers.maxValue = currentEntity.UnitLife;
         LifePlayers.value = LifePlayers.maxValue;
@@ -181,7 +183,7 @@ public class CombatManager : MonoBehaviour
         }
 
         entityHandler.ennemies[selectedEnemyIndex].UnitLife -= damage;
-        entityManager.enemySliders[selectedEnemyIndex].value = entityHandler.ennemies[selectedEnemyIndex].UnitLife;
+        LifeEntity.SINGLETON.enemySliders[selectedEnemyIndex].value = entityHandler.ennemies[selectedEnemyIndex].UnitLife;
         
         Debug.Log($"Attaque infligée à {entityHandler.ennemies[selectedEnemyIndex].namE} pour {damage} dégâts.");
         
