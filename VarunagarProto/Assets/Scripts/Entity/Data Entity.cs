@@ -12,17 +12,20 @@ public class DataEntity : ScriptableObject
     public int UnitLife { get; set; }
 
     public int BaseLife;
-    [field: SerializeField]  public int UnitDef { get; set; }
-    [field: SerializeField]  public int UnitSpeed { get; set; }
+    public int UnitDef;
+    public int UnitSpeed;
     
     [field: Header("Art"), SerializeField] 
     public Sprite portrait;
     public Sprite portraitUI;
+    public Sprite bandeauUI;
     public Animator manimator;
 
     [field: Header("Capacities"), SerializeField]
     public Sprite capacity1;
     public Sprite capacity2;
+    public Sprite capacity3;
+    public Sprite Ultimate;
 
     [field: Header("Custo"), SerializeField]
     public string namE;
