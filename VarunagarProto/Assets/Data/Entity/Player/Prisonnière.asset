@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: "Prisonni\xE8re"
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 20
-  BaseLife: 20
+  <UnitLife>k__BackingField: 40
+  BaseLife: 40
   UnitDef: 46
   UnitSpeed: 7
   portrait: {fileID: 21300000, guid: abb90347574f90244a764b1f4ea81ac6, type: 3}
@@ -26,4 +26,3 @@ MonoBehaviour:
   capacity3: {fileID: 21300000, guid: 3e9946186a02f5647876b0ce959ffebc, type: 3}
   Ultimate: {fileID: 21300000, guid: b9dfd3aed188eda4e925aa347812de99, type: 3}
   namE: "Prisonni\xE8re"
-  position: -50

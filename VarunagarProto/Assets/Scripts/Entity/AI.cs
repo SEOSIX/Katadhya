@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
@@ -6,7 +7,6 @@ using Random = UnityEngine.Random;
 public class AI : MonoBehaviour
 {
     public static AI SINGLETON { get; private set; }
-    
 
     void Awake()
     {
@@ -21,5 +21,38 @@ public class AI : MonoBehaviour
     }
     
     
+    public void Attack(int damages)
+    {
+        if (CombatManager.SINGLETON == null || 
+            CombatManager.SINGLETON.entityHandler == null || 
+            CombatManager.SINGLETON.entityHandler.players == null || 
+            CombatManager.SINGLETON.entityHandler.players.Length == 0)
+        {
+            Debug.LogWarning("Aucun joueur disponible pour le focus de l'ennemi.");
+            return;
+        }
+        int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Length);
+        DataEntity targetedPlayer = CombatManager.SINGLETON.entityHandler.players[randomIndex];
+        
+        Debug.Log($"L'ennemi a choisi de focus le joueur: {targetedPlayer.namE} (HP: {targetedPlayer.UnitLife}/{targetedPlayer.BaseLife})");
+
+        StartCoroutine(Attacking(targetedPlayer, damages));
+    }
     
+    IEnumerator Attacking(DataEntity target, int damage)
+    {
+        yield return new WaitForSeconds(2f);
+            
+        target.UnitLife -= damage;
+        target.UnitLife = Mathf.Max(0, target.UnitLife);
+        
+        Debug.Log($"L'ennemi a infligé {damage} dégâts à {target.namE} (PV restants: {target.UnitLife})");
+        if (target.UnitLife <= 0)
+        {
+            Debug.Log($"{target.namE} a été vaincu !");
+            //Logique qui fait disparaitre ou fait partir le joueur
+        }
+
+        CombatManager.SINGLETON.EndUnitTurn();
+    }
 }

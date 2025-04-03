@@ -1580,7 +1580,7 @@ GameObject:
   - component: {fileID: 259697778}
   - component: {fileID: 259697777}
   m_Layer: 5
-  m_Name: cpt1
+  m_Name: Ultimate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8738,8 +8738,10 @@ MonoBehaviour:
   - {fileID: 293054034}
   - {fileID: 744984396}
   - {fileID: 1572218411}
-  capacity1CM: {fileID: 0}
-  capacity2CM: {fileID: 0}
+  capacity1CM: {fileID: 1699094055}
+  capacity2CM: {fileID: 1877999345}
+  capacity3CM: {fileID: 1804738257}
+  UltimateCM: {fileID: 259697778}
   endTurnButton: {fileID: 556867487}
   LifePlayers: {fileID: 1539401420}
   ennemyTurn: {fileID: 500387294}
@@ -9026,7 +9028,7 @@ GameObject:
   - component: {fileID: 1699094055}
   - component: {fileID: 1699094054}
   m_Layer: 5
-  m_Name: cpt1
+  m_Name: Tactic 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9292,7 +9294,7 @@ GameObject:
   - component: {fileID: 1804738257}
   - component: {fileID: 1804738256}
   m_Layer: 5
-  m_Name: cpt1
+  m_Name: Tactic 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9592,7 +9594,7 @@ GameObject:
   - component: {fileID: 1877999345}
   - component: {fileID: 1877999344}
   m_Layer: 5
-  m_Name: cpt1
+  m_Name: Tactic 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
