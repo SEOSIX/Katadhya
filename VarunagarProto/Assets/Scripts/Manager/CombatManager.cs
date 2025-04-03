@@ -23,6 +23,8 @@ public class CombatManager : MonoBehaviour
     public Image[] ImagePortrait;
     public Image capacity1CM;
     public Image capacity2CM;
+    public Image capacity3CM;
+    public Image UltimateCM;
 
     [Header("Turn Management")]
     public Button endTurnButton;
@@ -116,6 +118,9 @@ public class CombatManager : MonoBehaviour
         def.text = "Defence :" + currentEntity.UnitDef;
         playerPortrait.sprite = currentEntity.bandeauUI;
         capacity1CM.sprite = currentEntity.capacity1;
+        capacity2CM.sprite = currentEntity.capacity2;
+        capacity3CM.sprite = currentEntity.capacity3;
+        UltimateCM.sprite = currentEntity.Ultimate;
         LifePlayers.maxValue = currentEntity.UnitLife;
         LifePlayers.value = LifePlayers.maxValue;
         
@@ -144,7 +149,7 @@ public class CombatManager : MonoBehaviour
             Debug.Log($"🔴 C'est au tour de l'ennemi {currentEntity.namE} !");
             TurnUI.SetActive(false);
             ennemyTurn.SetActive(true);
-            AI.SINGLETON.Attack1(10);
+            //Attaque de l'ennemy
         }
         else
         {
