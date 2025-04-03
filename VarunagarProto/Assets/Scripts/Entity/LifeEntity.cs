@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,21 +27,35 @@ public class LifeEntity : MonoBehaviour
             SINGLETON = this;
             DontDestroyOnLoad(gameObject);
         }
-        
+
+        private void Start()
+        {
+            for (int i = 0; i < entityHandler.players.Length; i++)
+            {
+                if (entityHandler.players[i] != null && PlayerSliders[i] != null)
+                {
+                    entityHandler.players[i].UnitLife = entityHandler.players[i].BaseLife;
+                }
+            }
+        }
+
         public void LifeManage()
         {
-            DataEntity currentEntity = CombatManager.SINGLETON.currentTurnOrder[0];
-            currentLifeValue = currentEntity.UnitLife;
-
             for (int i = 0; i < entityHandler.ennemies.Length && i < enemySliders.Length; i++)
             {
-                enemySliders[i].maxValue = entityHandler.ennemies[i].UnitLife;
-                enemySliders[i].value = enemySliders[i].maxValue;
+                if (entityHandler.ennemies[i] != null && enemySliders[i] != null)
+                {
+                    enemySliders[i].maxValue = entityHandler.ennemies[i].BaseLife;
+                    enemySliders[i].value = entityHandler.ennemies[i].UnitLife;
+                }
             }
             for (int i = 0; i < entityHandler.players.Length && i < PlayerSliders.Length; i++)
             {
-                PlayerSliders[i].maxValue = entityHandler.players[i].UnitLife;
-                PlayerSliders[i].value = PlayerSliders[i].maxValue;
+                if (entityHandler.players[i] != null && PlayerSliders[i] != null)
+                {
+                    PlayerSliders[i].maxValue = entityHandler.players[i].BaseLife;
+                    PlayerSliders[i].value = entityHandler.players[i].UnitLife;
+                }
             }
         }
 }

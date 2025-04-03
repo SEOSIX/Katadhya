@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
@@ -6,18 +7,6 @@ using Random = UnityEngine.Random;
 public class AI : MonoBehaviour
 {
     public static AI SINGLETON { get; private set; }
-
-    
-    /*
-    private void Start()
-    {
-        for (int i = 0; i < CombatManager.SINGLETON.entityHandler.players.Length && i < LifeEntity.SINGLETON.PlayerSliders.Length; i++)
-        {
-            LifeEntity.SINGLETON.PlayerSliders[i].maxValue = CombatManager.SINGLETON.entityHandler.players[i].BaseLife;
-            LifeEntity.SINGLETON.PlayerSliders[i].value = LifeEntity.SINGLETON.PlayerSliders[i].maxValue;
-        }
-    }
-    */
 
     void Awake()
     {
@@ -30,29 +19,40 @@ public class AI : MonoBehaviour
         SINGLETON = this;
         DontDestroyOnLoad(gameObject);
     }
-
-    public void Attack1(int damagesHeal)
+    
+    
+    public void Attack(DataEntity attacker, int damages)
     {
-        if (CombatManager.SINGLETON.entityHandler == null || CombatManager.SINGLETON.entityHandler.players == null)
+        if (CombatManager.SINGLETON == null || 
+            CombatManager.SINGLETON.entityHandler == null || 
+            CombatManager.SINGLETON.entityHandler.players == null || 
+            CombatManager.SINGLETON.entityHandler.players.Length == 0)
         {
-            Debug.LogError("EntityHandler ou players non référé !");
+            Debug.LogWarning("Aucun joueur disponible pour l'attaque.");
             return;
         }
-        List<DataEntity> alivePlayers = new List<DataEntity>();
 
-        if (alivePlayers.Count == 0)
+        int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Length);
+        DataEntity targetedPlayer = CombatManager.SINGLETON.entityHandler.players[randomIndex];
+        
+        Debug.Log($"{attacker.namE} prépare une attaque contre {targetedPlayer.namE} (HP: {targetedPlayer.UnitLife}/{targetedPlayer.BaseLife})");
+
+        StartCoroutine(Attacking(attacker, targetedPlayer, damages));
+    }
+    
+    IEnumerator Attacking(DataEntity attacker ,DataEntity target, int damage)
+    {
+        yield return new WaitForSeconds(2f);
+        target.UnitLife -= damage;
+        target.UnitLife = Mathf.Max(0, target.UnitLife);
+        
+        Debug.Log($"{attacker.namE} a infligé {damage} dégâts à {target.namE} (PV restants: {target.UnitLife})");
+        if (target.UnitLife <= 0)
         {
-            Debug.Log("Tous les joueurs sont morts !");
-            CombatManager.SINGLETON.EndUnitTurn();
-            return;
+            Debug.Log($"{target.namE} a été vaincu !");
+            //Logique qui fait disparaitre ou fait partir le joueur
         }
-        int randomIndex = Random.Range(0, alivePlayers.Count);
-        DataEntity targetPlayer = alivePlayers[randomIndex];
-        
-        targetPlayer.UnitLife -= damagesHeal;
-        LifeEntity.SINGLETON.PlayerSliders[randomIndex].value = CombatManager.SINGLETON.entityHandler.players[randomIndex].UnitLife;
-        Debug.Log($"{CombatManager.SINGLETON.currentTurnOrder[0].namE} attaque {targetPlayer.namE} et inflige {damagesHeal} dégâts !");
-        
+
         CombatManager.SINGLETON.EndUnitTurn();
     }
 }

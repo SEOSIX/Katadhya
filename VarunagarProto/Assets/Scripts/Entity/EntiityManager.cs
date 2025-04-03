@@ -45,6 +45,11 @@ public class EntiityManager : MonoBehaviour
         RestoreEnemiesLife();
     }
 
+    private void Update()
+    {
+        LifeEntity.SINGLETON.LifeManage();
+    }
+
     void OnMouseDown()
     {
         CombatManager.SINGLETON.SelectEnemy(playerIndex);

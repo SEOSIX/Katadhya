@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Fishman
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 7
-  BaseLife: 0
-  UnitDef: 0
+  <UnitLife>k__BackingField: 40
+  BaseLife: 40
+  UnitDef: 26
   UnitSpeed: 1
   portrait: {fileID: 21300000, guid: ecb1de8b557c5cc4596686380885dcda, type: 3}
   portraitUI: {fileID: 21300000, guid: d36caf34c8098664da7fac51165d703b, type: 3}
@@ -26,4 +26,3 @@ MonoBehaviour:
   capacity3: {fileID: 0}
   Ultimate: {fileID: 0}
   namE: Fishman
-  position: -50

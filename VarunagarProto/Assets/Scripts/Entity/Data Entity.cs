@@ -29,7 +29,4 @@ public class DataEntity : ScriptableObject
 
     [field: Header("Custo"), SerializeField]
     public string namE;
-
-    [field: Header("Line"), SerializeField]
-    public float position;
 }
