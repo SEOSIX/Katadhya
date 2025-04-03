@@ -150,7 +150,7 @@ public class CombatManager : MonoBehaviour
             TurnUI.SetActive(false);
             ennemyTurn.SetActive(true);
             //Attaque de l'ennemy
-            AI.SINGLETON.Attack(20);
+            AI.SINGLETON.Attack(currentEntity, 10);
         }
         else
         {
