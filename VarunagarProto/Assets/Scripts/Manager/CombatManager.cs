@@ -183,17 +183,21 @@ public class CombatManager : MonoBehaviour
         Debug.Log($"L'ennemi sélectionné est {selectedEnemy.namE}");
     }
 
-    public void AttackSelectedEnemy(int damage)
+    public void UseCapacity(CapacityData cpt)
     {
         if (selectedEnemyIndex == -1)
         {
             Debug.Log("Aucun ennemi sélectionné !");
-            return;
+            UseCapacity(cpt);
         }
-
-        entityHandler.ennemies[selectedEnemyIndex].UnitLife -= damage;
-        LifeEntity.SINGLETON.enemySliders[selectedEnemyIndex].value = entityHandler.ennemies[selectedEnemyIndex].UnitLife;
-        
-        Debug.Log($"Attaque infligée à {entityHandler.ennemies[selectedEnemyIndex].namE} pour {damage} dégâts.");
+        AttackDamage(cpt.atk);
     }
-}
+    
+    public void AttackDamage(int damage)
+    {
+        DataEntity currentEntity = currentTurnOrder[0];
+        int calculatedDamage = (((currentEntity.UnitAtk / 100) * damage) * 100 / (100 + 2 * entityHandler.ennemies[selectedEnemyIndex].UnitDef));
+        entityHandler.ennemies[selectedEnemyIndex].UnitLife -= calculatedDamage;
+        Debug.Log($"attaque {calculatedDamage}");
+    }
+}  
