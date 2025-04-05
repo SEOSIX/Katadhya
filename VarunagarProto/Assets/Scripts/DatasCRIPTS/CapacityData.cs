@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObject/CapacityData", order = 4)]
 public class CapacityData : ScriptableObject
-    //on appelle les compétences Cpt1a1 (1 : premier perso, a : première cpt, 1 : premier niveau de la cpt)
+    //on appelle les compï¿½tences Cpt1a1 (1 : premier perso, a : premiï¿½re cpt, 1 : premier niveau de la cpt)
 {
     [field: Header("Cpt Stat"), SerializeField]
     public int atk;
@@ -13,4 +13,9 @@ public class CapacityData : ScriptableObject
     public int buffType;
     public int buffValue;
     public int buffTime;
+
+    [field: Header("Cpt Effect"), SerializeField]
+    public int Shield;
+    public int Electrik;
+    public bool CanHeal;
 }

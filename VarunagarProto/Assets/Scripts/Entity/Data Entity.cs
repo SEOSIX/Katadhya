@@ -24,9 +24,14 @@ public class DataEntity : ScriptableObject
 
     [field: Header("Capacities"), SerializeField]
     public Sprite capacity1;
+
+    public CapacityData _CapacityData1;
     public Sprite capacity2;
+    public CapacityData _CapacityData2;
     public Sprite capacity3;
+    public CapacityData _CapacityData3;
     public Sprite Ultimate;
+    public CapacityData _CapacityDataUltimate;
 
     [field: Header("Custo"), SerializeField]
     public string namE;

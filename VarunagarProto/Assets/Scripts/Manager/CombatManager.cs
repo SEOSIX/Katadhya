@@ -25,6 +25,9 @@ public class CombatManager : MonoBehaviour
     public Image capacity2CM;
     public Image capacity3CM;
     public Image UltimateCM;
+    
+    public Button[] capacityButtons;
+    private DataEntity currentPlayer;
 
     [Header("Turn Management")]
     public Button endTurnButton;
@@ -91,6 +94,12 @@ public class CombatManager : MonoBehaviour
     {
         UpdateUi();
         DetectEnnemyTurn();
+        
+        if (!entityHandler.ennemies.Contains(currentTurnOrder[0]))
+        {
+            currentPlayer = currentTurnOrder[0];
+            SetupCapacityButtons(currentPlayer);
+        }
     }
 
     private void EndGlobalTurn()
@@ -117,10 +126,6 @@ public class CombatManager : MonoBehaviour
         speed.text = "Speed :" + currentEntity.UnitSpeed;
         def.text = "Defence :" + currentEntity.UnitDef;
         playerPortrait.sprite = currentEntity.bandeauUI;
-        capacity1CM.sprite = currentEntity.capacity1;
-        capacity2CM.sprite = currentEntity.capacity2;
-        capacity3CM.sprite = currentEntity.capacity3;
-        UltimateCM.sprite = currentEntity.Ultimate;
         LifePlayers.maxValue = currentEntity.UnitLife;
         LifePlayers.value = LifePlayers.maxValue;
         
@@ -182,22 +187,93 @@ public class CombatManager : MonoBehaviour
     
         Debug.Log($"L'ennemi sélectionné est {selectedEnemy.namE}");
     }
+    
+    private void SetupCapacityButtons(DataEntity player)
+    {
+        foreach (var button in capacityButtons)
+        {
+            button.gameObject.SetActive(false);
+        }
+        
+        if (player.capacity1 != null)
+        {
+            capacityButtons[0].gameObject.SetActive(true);
+            capacityButtons[0].GetComponent<Image>().sprite = player.capacity1;
+            capacityButtons[0].onClick.RemoveAllListeners();
+            capacityButtons[0].onClick.AddListener(() => UseCapacity(player._CapacityData1));
+        }
+
+        if (player.capacity2 != null)
+        {
+            capacityButtons[1].gameObject.SetActive(true);
+            capacityButtons[1].GetComponent<Image>().sprite = player.capacity2;
+            capacityButtons[1].onClick.RemoveAllListeners();
+            capacityButtons[1].onClick.AddListener(() => UseCapacity(player._CapacityData2));
+        }
+        
+        if (player.capacity3 != null)
+        {
+            capacityButtons[2].gameObject.SetActive(true);
+            capacityButtons[2].GetComponent<Image>().sprite = player.capacity3;
+            capacityButtons[2].onClick.RemoveAllListeners();
+            capacityButtons[2].onClick.AddListener(() => UseCapacity(player._CapacityData3));
+        }
+
+        if (player.Ultimate != null)
+        {
+            capacityButtons[3].gameObject.SetActive(true);
+            capacityButtons[3].GetComponent<Image>().sprite = player.Ultimate;
+            capacityButtons[3].onClick.RemoveAllListeners();
+            capacityButtons[3].onClick.AddListener(() => UseCapacity(player._CapacityDataUltimate));
+        }
+    }
 
     public void UseCapacity(CapacityData cpt)
     {
+        
         if (selectedEnemyIndex == -1)
         {
             Debug.Log("Aucun ennemi sélectionné !");
             UseCapacity(cpt);
         }
-        AttackDamage(cpt.atk);
+        if (cpt.atk > 0)
+        {
+            AttackDamage(cpt);
+        }
     }
     
-    public void AttackDamage(int damage)
+    public void AttackDamage(CapacityData capacity)
     {
+        if (selectedEnemyIndex == -1)
+        {
+            Debug.Log("Aucun ennemi sélectionné !");
+            return;
+        }
+
         DataEntity currentEntity = currentTurnOrder[0];
-        int calculatedDamage = (((currentEntity.UnitAtk / 100) * damage) * 100 / (100 + 2 * entityHandler.ennemies[selectedEnemyIndex].UnitDef));
-        entityHandler.ennemies[selectedEnemyIndex].UnitLife -= calculatedDamage;
-        Debug.Log($"attaque {calculatedDamage}");
+        DataEntity target = entityHandler.ennemies[selectedEnemyIndex];
+        if (capacity.atk > 0)
+        {
+            int calculatedDamage = capacity.atk; //(((currentEntity.UnitAtk / 100) * capacity.atk) * 100 / (100 + 2 * target.UnitDef));
+            target.UnitLife -= calculatedDamage;
+            Debug.Log($"{currentEntity.namE} inflige {calculatedDamage} dégâts à {target.namE}");
+        }
+        if (capacity.buffValue > 0)
+        {
+            // Implémentez ici la logique des buffs
+            Debug.Log($"{currentEntity.namE} reçoit un buff de type {capacity.buffType} (+{capacity.buffValue})");
+        }
+
+        // Appliquer les effets spéciaux
+        if (capacity.Shield > 0)
+        {
+            Debug.Log($"{currentEntity.namE} gagne un bouclier de {capacity.Shield}");
+        }
+
+        if (capacity.Electrik > 0)
+        {
+            Debug.Log($"{target.namE} est électrocuté !");
+        }
+        UpdateUi();
     }
 }  

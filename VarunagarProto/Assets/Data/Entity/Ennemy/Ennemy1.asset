@@ -14,15 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
   <UnitLife>k__BackingField: 20
-  BaseLife: 20
+  BaseLife: 50
   UnitDef: 0
   UnitSpeed: 2
+  UnitAtk: 0
   portrait: {fileID: 21300000, guid: 139f0cd143a86cd4991af2749015bb4b, type: 3}
   portraitUI: {fileID: 21300000, guid: 139f0cd143a86cd4991af2749015bb4b, type: 3}
   bandeauUI: {fileID: 0}
   manimator: {fileID: 0}
   capacity1: {fileID: 0}
+  _CapacityData1: {fileID: 0}
   capacity2: {fileID: 0}
+  _CapacityData2: {fileID: 0}
   capacity3: {fileID: 0}
+  _CapacityData3: {fileID: 0}
   Ultimate: {fileID: 0}
+  _CapacityDataUltimate: {fileID: 0}
   namE: Ennemy1
