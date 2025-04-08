@@ -48,6 +48,8 @@ public class CombatManager : MonoBehaviour
     
     private int selectedEnemyIndex = -1;
 
+    private bool isEnnemyTurn = false;
+
     void Awake()
     {
         if (SINGLETON != null)
@@ -129,7 +131,7 @@ public class CombatManager : MonoBehaviour
         LifePlayers.maxValue = currentEntity.UnitLife;
         LifePlayers.value = LifePlayers.maxValue;
         
-        
+        //Debug.Log($"{currentEntity.namE} à {LifePlayers.maxValue} points de vie");
         for (int i = 0; i < ImagePortrait.Length; i++)
         {
             if (i < currentTurnOrder.Count)
@@ -143,14 +145,22 @@ public class CombatManager : MonoBehaviour
                 ImagePortrait[i].sprite = null;
             }
         }
-        Debug.Log($"{currentEntity.namE} à {LifePlayers.maxValue} points de vie");
+        if (isEnnemyTurn)
+        {
+            foreach (var circle in circles)
+            {
+                circle.SetActive(false);
+            }
+            return;
+        }
     }
     
-    private void DetectEnnemyTurn()
+    public void DetectEnnemyTurn()
     {
         DataEntity currentEntity = currentTurnOrder[0];
         if (entityHandler.ennemies.Contains(currentEntity))
         {
+            isEnnemyTurn = true;
             Debug.Log($"🔴 C'est au tour de l'ennemi {currentEntity.namE} !");
             TurnUI.SetActive(false);
             ennemyTurn.SetActive(true);
@@ -159,6 +169,7 @@ public class CombatManager : MonoBehaviour
         }
         else
         {
+            isEnnemyTurn = false;
             TurnUI.SetActive(true);
             ennemyTurn.SetActive(false);
         }
@@ -184,7 +195,6 @@ public class CombatManager : MonoBehaviour
         {
             circles[enemyIndex].SetActive(true);
         }
-    
         Debug.Log($"L'ennemi sélectionné est {selectedEnemy.namE}");
     }
     
@@ -258,13 +268,13 @@ public class CombatManager : MonoBehaviour
             target.UnitLife -= calculatedDamage;
             Debug.Log($"{currentEntity.namE} inflige {calculatedDamage} dégâts à {target.namE}");
         }
+        /*
         if (capacity.buffValue > 0)
         {
-            // Implémentez ici la logique des buffs
+            //logique des buffs
             Debug.Log($"{currentEntity.namE} reçoit un buff de type {capacity.buffType} (+{capacity.buffValue})");
         }
-
-        // Appliquer les effets spéciaux
+        //effets spéciaux
         if (capacity.Shield > 0)
         {
             Debug.Log($"{currentEntity.namE} gagne un bouclier de {capacity.Shield}");
@@ -274,6 +284,7 @@ public class CombatManager : MonoBehaviour
         {
             Debug.Log($"{target.namE} est électrocuté !");
         }
+        */
         UpdateUi();
     }
 }  

@@ -6,10 +6,9 @@ using UnityEngine.UI;
 
 public class LifeEntity : MonoBehaviour
 {
-      [Header("Enemy Health Bars")]
-        [Tooltip("Tableau de sliders (entre 1 et 4 éléments requis)")]
-        public Slider[] enemySliders = new Slider[4];
-        public Slider[] PlayerSliders = new Slider[4];
+    [Header("Enemy Health Bars")] [Tooltip("Tableau de sliders (entre 1 et 4 éléments requis)")]
+    public Slider[] enemySliders;
+        public Slider[] PlayerSliders;
         private int currentLifeValue;
         public EntityHandler entityHandler;
         

@@ -42,11 +42,10 @@ public class AI : MonoBehaviour
     
     IEnumerator Attacking(DataEntity attacker ,DataEntity target, int damage)
     {
+        Debug.Log($"{attacker.namE} a infligé {damage} dégâts à {target.namE} (PV restants: {target.UnitLife})");
         yield return new WaitForSeconds(2f);
         target.UnitLife -= damage;
         target.UnitLife = Mathf.Max(0, target.UnitLife);
-        
-        Debug.Log($"{attacker.namE} a infligé {damage} dégâts à {target.namE} (PV restants: {target.UnitLife})");
         if (target.UnitLife <= 0)
         {
             Debug.Log($"{target.namE} a été vaincu !");
