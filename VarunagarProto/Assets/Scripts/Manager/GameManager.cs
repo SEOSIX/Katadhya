@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
             {
                 spriteRenderer.sprite = data.portrait;
                 spriteRenderer.sortingOrder = 3;
-                newPlayer.transform.localScale = new Vector3(sizeChara, sizeChara, sizeChara);
+                newPlayer.transform.localScale = new Vector3(data.size, data.size, data.size);
             }
         }
     }

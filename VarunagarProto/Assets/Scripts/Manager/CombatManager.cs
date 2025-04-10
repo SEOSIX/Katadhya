@@ -18,6 +18,7 @@ public class CombatManager : MonoBehaviour
     [Header("Entity UI")]
     public TextMeshProUGUI textplayer;
     public TextMeshProUGUI speed;
+    public TextMeshProUGUI atck;
     public TextMeshProUGUI def;
     public Image playerPortrait;
     public Image[] ImagePortrait;
@@ -73,7 +74,7 @@ public class CombatManager : MonoBehaviour
         List<DataEntity> speedValue = new List<DataEntity>();
         speedValue.AddRange(entityHandler.ennemies);
         speedValue.AddRange(entityHandler.players);
-        return speedValue.OrderBy(x => x.UnitSpeed).ToList();
+        return speedValue.OrderByDescending(x => x.UnitSpeed).ToList();
     }
 
     public void EndUnitTurn()
@@ -127,6 +128,7 @@ public class CombatManager : MonoBehaviour
         textplayer.text = currentEntity.name;
         speed.text = "Speed :" + currentEntity.UnitSpeed;
         def.text = "Defence :" + currentEntity.UnitDef;
+        atck.text = "Attack :" + currentEntity.UnitAtk;
         playerPortrait.sprite = currentEntity.bandeauUI;
         LifePlayers.maxValue = currentEntity.UnitLife;
         LifePlayers.value = LifePlayers.maxValue;

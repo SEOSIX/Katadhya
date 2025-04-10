@@ -35,4 +35,5 @@ public class DataEntity : ScriptableObject
 
     [field: Header("Custo"), SerializeField]
     public string namE;
+    public float size;
 }
