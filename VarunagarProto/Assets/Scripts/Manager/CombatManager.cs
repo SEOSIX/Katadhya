@@ -21,7 +21,7 @@ public class CombatManager : MonoBehaviour
     public TextMeshProUGUI atck;
     public TextMeshProUGUI def;
     public Image playerPortrait;
-    public Image[] ImagePortrait; // Ces portraits restent fixes maintenant
+    public Image[] ImagePortrait; 
     public Image capacity1CM;
     public Image capacity2CM;
     public Image capacity3CM;
@@ -65,7 +65,13 @@ public class CombatManager : MonoBehaviour
         InitializeStaticUI();
         StartUnitTurn();
     }
-    
+
+    private void Update()
+    {
+        InitializeStaticUI();
+        currentTurnOrder = GetUnitTurn();
+    }
+
     private void InitializeStaticUI()
     {
         if (currentTurnOrder == null) return;
@@ -81,6 +87,7 @@ public class CombatManager : MonoBehaviour
         LifePlayers.value = currentEntity.UnitLife;
         
         List<DataEntity> initialTurnOrder = GetUnitTurn();
+        //Ton lerp pour le zoom sur le currentTurn
         for (int i = 0; i < ImagePortrait.Length; i++)
         {
             if (i < initialTurnOrder.Count)
@@ -116,7 +123,6 @@ public class CombatManager : MonoBehaviour
         {
             EndGlobalTurn();
         }
-
         StartUnitTurn();
     }
 
@@ -143,8 +149,6 @@ public class CombatManager : MonoBehaviour
 
         currentTurnOrder.Remove(_currentUnit);
     }
-
-    // UpdateUi() supprimé car l'UI ne change plus
     
     public void DetectEnnemyTurn()
     {
