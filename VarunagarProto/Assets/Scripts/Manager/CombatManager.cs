@@ -21,7 +21,7 @@ public class CombatManager : MonoBehaviour
     public TextMeshProUGUI atck;
     public TextMeshProUGUI def;
     public Image playerPortrait;
-    public Image[] ImagePortrait;
+    public Image[] ImagePortrait; // Ces portraits restent fixes maintenant
     public Image capacity1CM;
     public Image capacity2CM;
     public Image capacity3CM;
@@ -32,10 +32,8 @@ public class CombatManager : MonoBehaviour
 
     [Header("Turn Management")]
     public Button endTurnButton;
-
     public Slider LifePlayers;
 
-    
     [Header("TurnObject")]
     public GameObject ennemyTurn;
     public GameObject TurnUI;
@@ -43,13 +41,13 @@ public class CombatManager : MonoBehaviour
     [Header("Selected One")] 
     public GameObject[] circles;
 
-    [HideInInspector]public List<DataEntity> currentTurnOrder = new List<DataEntity>();
-    [HideInInspector]public List<DataEntity> unitPlayedThisTurn = new List<DataEntity>();
+    [HideInInspector] public List<DataEntity> currentTurnOrder = new List<DataEntity>();
+    [HideInInspector] public List<DataEntity> unitPlayedThisTurn = new List<DataEntity>();
     private System.Random r = new System.Random();
     
     private int selectedEnemyIndex = -1;
-
     private bool isEnnemyTurn = false;
+    private DataEntity currentPlayerEntity;
 
     void Awake()
     {
@@ -65,11 +63,42 @@ public class CombatManager : MonoBehaviour
     void Start()
     {
         currentTurnOrder = GetUnitTurn();
+        currentPlayerEntity = entityHandler.players.FirstOrDefault();
+        InitializeStaticUI();
         StartUnitTurn();
     }
     
+    private void InitializeStaticUI()
+    {
+        if (currentPlayerEntity == null) return;
+        textplayer.text = currentPlayerEntity.name;
+        speed.text = "Speed :" + currentPlayerEntity.UnitSpeed;
+        def.text = "Defence :" + currentPlayerEntity.UnitDef;
+        atck.text = "Attack :" + currentPlayerEntity.UnitAtk;
+        playerPortrait.sprite = currentPlayerEntity.bandeauUI;
+        LifePlayers.maxValue = currentPlayerEntity.BaseLife;
+        LifePlayers.value = currentPlayerEntity.UnitLife;
+        
+        int i = 0;
+        foreach (var enemy in entityHandler.ennemies)
+        {
+            if (i >= ImagePortrait.Length) break;
+            ImagePortrait[i].enabled = true;
+            ImagePortrait[i].sprite = enemy.portraitUI;
+            i++;
+        }
 
-    private List<DataEntity> GetUnitTurn()
+        foreach (var player in entityHandler.players)
+        {
+            if (i >= ImagePortrait.Length) break;
+            ImagePortrait[i].enabled = true;
+            ImagePortrait[i].sprite = player.portraitUI;
+            i++;
+        }
+
+    }
+
+    public List<DataEntity> GetUnitTurn()
     {
         List<DataEntity> speedValue = new List<DataEntity>();
         speedValue.AddRange(entityHandler.ennemies);
@@ -93,9 +122,8 @@ public class CombatManager : MonoBehaviour
         StartUnitTurn();
     }
 
-    private void StartUnitTurn()
+    public void StartUnitTurn()
     {
-        UpdateUi();
         DetectEnnemyTurn();
         
         if (!entityHandler.ennemies.Contains(currentTurnOrder[0]))
@@ -105,7 +133,7 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private void EndGlobalTurn()
+    public void EndGlobalTurn()
     {
         currentTurnOrder.AddRange(unitPlayedThisTurn);
         unitPlayedThisTurn.Clear();
@@ -116,46 +144,9 @@ public class CombatManager : MonoBehaviour
         if (_currentUnit == null || !currentTurnOrder.Contains(_currentUnit)) return;
 
         currentTurnOrder.Remove(_currentUnit);
-        UpdateUi();
     }
 
-    private void UpdateUi()
-    {
-        if (currentTurnOrder.Count == 0) return;
-
-        DataEntity currentEntity = currentTurnOrder[0];
-        
-        textplayer.text = currentEntity.name;
-        speed.text = "Speed :" + currentEntity.UnitSpeed;
-        def.text = "Defence :" + currentEntity.UnitDef;
-        atck.text = "Attack :" + currentEntity.UnitAtk;
-        playerPortrait.sprite = currentEntity.bandeauUI;
-        LifePlayers.maxValue = currentEntity.UnitLife;
-        LifePlayers.value = LifePlayers.maxValue;
-        
-        //Debug.Log($"{currentEntity.namE} à {LifePlayers.maxValue} points de vie");
-        for (int i = 0; i < ImagePortrait.Length; i++)
-        {
-            if (i < currentTurnOrder.Count)
-            {
-                ImagePortrait[i].enabled = true;
-                ImagePortrait[i].sprite = currentTurnOrder[i].portraitUI;
-            }
-            else
-            {
-                ImagePortrait[i].enabled = false;
-                ImagePortrait[i].sprite = null;
-            }
-        }
-        if (isEnnemyTurn)
-        {
-            foreach (var circle in circles)
-            {
-                circle.SetActive(false);
-            }
-            return;
-        }
-    }
+    // UpdateUi() supprimé car l'UI ne change plus
     
     public void DetectEnnemyTurn()
     {
@@ -166,7 +157,6 @@ public class CombatManager : MonoBehaviour
             Debug.Log($"🔴 C'est au tour de l'ennemi {currentEntity.namE} !");
             TurnUI.SetActive(false);
             ennemyTurn.SetActive(true);
-            //Attaque de l'ennemy
             AI.SINGLETON.Attack(currentEntity, 10);
         }
         else
@@ -242,11 +232,10 @@ public class CombatManager : MonoBehaviour
 
     public void UseCapacity(CapacityData cpt)
     {
-        
         if (selectedEnemyIndex == -1)
         {
             Debug.Log("Aucun ennemi sélectionné !");
-            UseCapacity(cpt);
+            return;
         }
         if (cpt.atk > 0)
         {
@@ -266,27 +255,15 @@ public class CombatManager : MonoBehaviour
         DataEntity target = entityHandler.ennemies[selectedEnemyIndex];
         if (capacity.atk > 0)
         {
-            int calculatedDamage = capacity.atk; //(((currentEntity.UnitAtk / 100) * capacity.atk) * 100 / (100 + 2 * target.UnitDef));
+            int calculatedDamage = capacity.atk;
             target.UnitLife -= calculatedDamage;
             Debug.Log($"{currentEntity.namE} inflige {calculatedDamage} dégâts à {target.namE}");
+            
+            // Mise à jour de la vie du joueur si c'est lui qui attaque
+            if (currentPlayerEntity != null && currentEntity == currentPlayerEntity)
+            {
+                LifePlayers.value = currentPlayerEntity.UnitLife;
+            }
         }
-        /*
-        if (capacity.buffValue > 0)
-        {
-            //logique des buffs
-            Debug.Log($"{currentEntity.namE} reçoit un buff de type {capacity.buffType} (+{capacity.buffValue})");
-        }
-        //effets spéciaux
-        if (capacity.Shield > 0)
-        {
-            Debug.Log($"{currentEntity.namE} gagne un bouclier de {capacity.Shield}");
-        }
-
-        if (capacity.Electrik > 0)
-        {
-            Debug.Log($"{target.namE} est électrocuté !");
-        }
-        */
-        UpdateUi();
     }
-}  
+}
