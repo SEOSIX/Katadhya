@@ -80,21 +80,18 @@ public class CombatManager : MonoBehaviour
         LifePlayers.maxValue = currentEntity.BaseLife;
         LifePlayers.value = currentEntity.UnitLife;
         
-        int i = 0;
-        foreach (var enemy in entityHandler.ennemies)
+        List<DataEntity> initialTurnOrder = GetUnitTurn();
+        for (int i = 0; i < ImagePortrait.Length; i++)
         {
-            if (i >= ImagePortrait.Length) break;
-            ImagePortrait[i].enabled = true;
-            ImagePortrait[i].sprite = enemy.portraitUI;
-            i++;
-        }
-
-        foreach (var player in entityHandler.players)
-        {
-            if (i >= ImagePortrait.Length) break;
-            ImagePortrait[i].enabled = true;
-            ImagePortrait[i].sprite = player.portraitUI;
-            i++;
+            if (i < initialTurnOrder.Count)
+            {
+                ImagePortrait[i].enabled = true;
+                ImagePortrait[i].sprite = initialTurnOrder[i].portraitUI;
+            }
+            else
+            {
+                ImagePortrait[i].enabled = false;
+            }
         }
 
     }
