@@ -22,6 +22,10 @@ public class EntiityManager : MonoBehaviour
                 GameObject enemyInstance = entityHandler.ennemies[i].instance;
                 CombatManager.SINGLETON.RemoveUnitFromList(entityHandler.ennemies[i]);
                 Destroy(enemyInstance);
+                if (i >= LifeEntity.SINGLETON.PlayerSliders.Length )
+                {
+                    continue;
+                }
                 GameObject enemySliderGO = LifeEntity.SINGLETON.enemySliders[i].gameObject;
                 enemySliderGO.SetActive(false);
                 CombatManager.SINGLETON.circles[i].SetActive(false);
@@ -39,6 +43,10 @@ public class EntiityManager : MonoBehaviour
                 GameObject PlayerInstance = entityHandler.players[i].instance;
                 CombatManager.SINGLETON.RemoveUnitFromList(entityHandler.players[i]);
                 Destroy(PlayerInstance);
+                if (i >= LifeEntity.SINGLETON.PlayerSliders.Length )
+                {
+                    continue;
+                }
                 GameObject PlayerSliderGO = LifeEntity.SINGLETON.PlayerSliders[i].gameObject;
                 PlayerSliderGO.SetActive(false);
             }

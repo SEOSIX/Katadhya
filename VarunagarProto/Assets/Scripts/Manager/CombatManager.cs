@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,12 +21,9 @@ public class CombatManager : MonoBehaviour
     public TextMeshProUGUI speed;
     public TextMeshProUGUI atck;
     public TextMeshProUGUI def;
+    public TextMeshProUGUI lifeText;
     public Image playerPortrait;
-    public Image[] ImagePortrait; 
-    public Image capacity1CM;
-    public Image capacity2CM;
-    public Image capacity3CM;
-    public Image UltimateCM;
+    public Image[] ImagePortrait;
     
     public Button[] capacityButtons;
     private DataEntity currentPlayer;
@@ -71,7 +69,7 @@ public class CombatManager : MonoBehaviour
         InitializeStaticUI();
     }
 
-    private void InitializeStaticUI()
+    public void InitializeStaticUI()
     {
         if (currentTurnOrder == null) return;
         
@@ -81,25 +79,26 @@ public class CombatManager : MonoBehaviour
         speed.text = "Speed :" + currentEntity.UnitSpeed;
         def.text = "Defence :" + currentEntity.UnitDef;
         atck.text = "Attack :" + currentEntity.UnitAtk;
+        lifeText.text = currentEntity.UnitLife + "/" + currentEntity.BaseLife;
         playerPortrait.sprite = currentEntity.bandeauUI;
         LifePlayers.maxValue = currentEntity.BaseLife;
         LifePlayers.value = currentEntity.UnitLife;
         
         List<DataEntity> initialTurnOrder = GetUnitTurn();
-        //Ton lerp pour le zoom sur le currentTurn
         for (int i = 0; i < ImagePortrait.Length; i++)
         {
-            if (i < initialTurnOrder.Count)
+            if (initialTurnOrder[i].UnitLife > 0)
             {
                 ImagePortrait[i].enabled = true;
                 ImagePortrait[i].sprite = initialTurnOrder[i].portraitUI;
+                ImagePortrait[i].transform.parent.gameObject.SetActive(true);
             }
             else
             {
                 ImagePortrait[i].enabled = false;
+                ImagePortrait[i].transform.parent.gameObject.SetActive(false);
             }
         }
-
     }
 
     public List<DataEntity> GetUnitTurn()
@@ -235,12 +234,13 @@ public class CombatManager : MonoBehaviour
     {
         if (selectedEnemyIndex == -1)
         {
-            Debug.Log("Aucun ennemi sélectionné !");
+            Debug.Log("Aucun ennemi sélectionné");
             return;
         }
         if (cpt.atk > 0)
         {
             AttackDamage(cpt);
+            
         }
     }
     
@@ -248,7 +248,7 @@ public class CombatManager : MonoBehaviour
     {
         if (selectedEnemyIndex == -1)
         {
-            Debug.Log("Aucun ennemi sélectionné !");
+            Debug.Log("Aucun ennemi sélectionné");
             return;
         }
 
@@ -256,9 +256,10 @@ public class CombatManager : MonoBehaviour
         DataEntity target = entityHandler.ennemies[selectedEnemyIndex];
         if (capacity.atk > 0)
         {
-            int calculatedDamage = capacity.atk;
-            target.UnitLife -= calculatedDamage;
-            Debug.Log($"{currentEntity.namE} inflige {calculatedDamage} dégâts à {target.namE}");
+            float calculatedDamage = (((float)currentEntity.UnitAtk / 100) * capacity.atk) * 100 / (100 + 2 * target.UnitDef);
+            int icalculatedDamage = (int)Math.Round(calculatedDamage);
+            target.UnitLife -= icalculatedDamage;
+            Debug.Log($"{currentEntity.namE} inflige {icalculatedDamage} dégâts à {target.namE}");
         }
         InitializeStaticUI();
     }
