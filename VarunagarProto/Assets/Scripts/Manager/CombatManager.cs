@@ -47,7 +47,6 @@ public class CombatManager : MonoBehaviour
     
     private int selectedEnemyIndex = -1;
     private bool isEnnemyTurn = false;
-    private DataEntity currentPlayerEntity;
 
     void Awake()
     {
@@ -63,21 +62,23 @@ public class CombatManager : MonoBehaviour
     void Start()
     {
         currentTurnOrder = GetUnitTurn();
-        currentPlayerEntity = entityHandler.players.FirstOrDefault();
         InitializeStaticUI();
         StartUnitTurn();
     }
     
     private void InitializeStaticUI()
     {
-        if (currentPlayerEntity == null) return;
-        textplayer.text = currentPlayerEntity.name;
-        speed.text = "Speed :" + currentPlayerEntity.UnitSpeed;
-        def.text = "Defence :" + currentPlayerEntity.UnitDef;
-        atck.text = "Attack :" + currentPlayerEntity.UnitAtk;
-        playerPortrait.sprite = currentPlayerEntity.bandeauUI;
-        LifePlayers.maxValue = currentPlayerEntity.BaseLife;
-        LifePlayers.value = currentPlayerEntity.UnitLife;
+        if (currentTurnOrder == null) return;
+        
+        DataEntity currentEntity = currentTurnOrder[0];
+        
+        textplayer.text = currentEntity.name;
+        speed.text = "Speed :" + currentEntity.UnitSpeed;
+        def.text = "Defence :" + currentEntity.UnitDef;
+        atck.text = "Attack :" + currentEntity.UnitAtk;
+        playerPortrait.sprite = currentEntity.bandeauUI;
+        LifePlayers.maxValue = currentEntity.BaseLife;
+        LifePlayers.value = currentEntity.UnitLife;
         
         int i = 0;
         foreach (var enemy in entityHandler.ennemies)
@@ -258,12 +259,7 @@ public class CombatManager : MonoBehaviour
             int calculatedDamage = capacity.atk;
             target.UnitLife -= calculatedDamage;
             Debug.Log($"{currentEntity.namE} inflige {calculatedDamage} dégâts à {target.namE}");
-            
-            // Mise à jour de la vie du joueur si c'est lui qui attaque
-            if (currentPlayerEntity != null && currentEntity == currentPlayerEntity)
-            {
-                LifePlayers.value = currentPlayerEntity.UnitLife;
-            }
         }
+        InitializeStaticUI();
     }
 }
