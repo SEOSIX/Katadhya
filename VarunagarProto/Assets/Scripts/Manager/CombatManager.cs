@@ -9,8 +9,7 @@ using UnityEngine.UI;
 public class CombatManager : MonoBehaviour
 {
     public static CombatManager SINGLETON { get; private set; }
-
-    public EntiityManager entityManager;
+    
 
     [Header("Entity Handler")]
     [SerializeField]
