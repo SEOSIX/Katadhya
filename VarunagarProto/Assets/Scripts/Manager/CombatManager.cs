@@ -159,7 +159,7 @@ public class CombatManager : MonoBehaviour
             Debug.Log($"🔴 C'est au tour de l'ennemi {currentEntity.namE} !");
             TurnUI.SetActive(false);
             ennemyTurn.SetActive(true);
-            AI.SINGLETON.Attack(currentEntity, 10);
+            AI.SINGLETON.Attack(currentEntity, 50);
         }
         else
         {
@@ -267,7 +267,7 @@ public class CombatManager : MonoBehaviour
             int icalculatedDamage = (int)Math.Round(calculatedDamage);
             if (target.UnitShield > 0)
             {
-                if (target.UnitShield > icalculatedDamage)
+                if (target.UnitShield < icalculatedDamage)
                 {
                     icalculatedDamage -= target.UnitShield;
                     target.UnitShield = 0;

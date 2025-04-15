@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Ennemy1
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 15
+  <UnitLife>k__BackingField: 10
   BaseLife: 20
   UnitDef: 0
   UnitSpeed: 1
-  UnitAtk: 0
+  UnitAtk: 20
+  UnitShield: 0
   portrait: {fileID: 21300000, guid: 139f0cd143a86cd4991af2749015bb4b, type: 3}
   portraitUI: {fileID: 21300000, guid: 139f0cd143a86cd4991af2749015bb4b, type: 3}
   bandeauUI: {fileID: 0}
