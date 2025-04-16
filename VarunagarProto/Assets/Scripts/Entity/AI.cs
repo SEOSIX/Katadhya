@@ -8,6 +8,9 @@ public class AI : MonoBehaviour
 {
     public static AI SINGLETON { get; private set; }
 
+    public GameObject playerTarget1;
+    public GameObject playerTarget2;
+
     void Awake()
     {
         if (SINGLETON != null)
@@ -19,8 +22,7 @@ public class AI : MonoBehaviour
         SINGLETON = this;
         DontDestroyOnLoad(gameObject);
     }
-    
-    
+
     public void Attack(DataEntity attacker, int damages)
     {
         if (CombatManager.SINGLETON == null || 
@@ -34,6 +36,23 @@ public class AI : MonoBehaviour
 
         int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Length);
         DataEntity targetedPlayer = CombatManager.SINGLETON.entityHandler.players[randomIndex];
+
+        if (randomIndex == 1)
+        {
+            playerTarget1.SetActive(true);  
+            playerTarget2.SetActive(false);   
+        }
+        else if (randomIndex == 0)
+        {
+            playerTarget1.SetActive(false); 
+            playerTarget2.SetActive(true);   
+        }
+        else
+        {
+            playerTarget1.SetActive(false); 
+            playerTarget2.SetActive(false);   
+        }
+            
         
         Debug.Log($"{attacker.namE} prépare une attaque contre {targetedPlayer.namE} (HP: {targetedPlayer.UnitLife}/{targetedPlayer.BaseLife})");
 
@@ -49,7 +68,7 @@ public class AI : MonoBehaviour
         if (target.UnitLife <= 0)
         {
             Debug.Log($"{target.namE} a été vaincu !");
-            //Logique qui fait disparaitre ou fait partir le joueur
+           
         }
 
         CombatManager.SINGLETON.EndUnitTurn();

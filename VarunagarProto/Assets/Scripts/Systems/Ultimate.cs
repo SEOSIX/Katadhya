@@ -7,36 +7,110 @@ public class Ultimate : MonoBehaviour
     public Slider sliderUltimate;
     public Button UltButton;
     public Image fill;
+
+    private DataEntity previousEntity;
     
-    private DataEntity CurrentEntity => CombatManager.SINGLETON?.currentTurnOrder.Count > 0 ? 
+    public Animator qteAnimator;
+    public GameObject qteUI;
+
+    private DataEntity CurrentEntity => CombatManager.SINGLETON?.currentTurnOrder.Count > 0 ?
         CombatManager.SINGLETON.currentTurnOrder[0] : null;
-    
+
     private void Start()
     {
-        sliderUltimate.value = sliderUltimate.maxValue;
         UltButton.interactable = false;
-        sliderUltimate.onValueChanged.AddListener(delegate { SliderManager(); });
-        SliderManager();
-        StartCoroutine(SliderUpdate());
+        StartCoroutine(CheckEntityChange());
+        StartCoroutine(SyncSliderWithEntity());
+        StartCoroutine(DrainUltimateOverTime());
     }
 
+    private IEnumerator CheckEntityChange()
+    {
+        while (true)
+        {
+            if (CurrentEntity != previousEntity)
+            {
+                previousEntity = CurrentEntity;
+                UpdateSliderFromEntity();
+            }
+
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private void UpdateSliderFromEntity()
+    {
+        if (CurrentEntity == null) return;
+
+        sliderUltimate.maxValue = 100;
+        sliderUltimate.minValue = 0;
+        sliderUltimate.value = CurrentEntity.UltimateSlider;
+
+        fill.sprite = CurrentEntity.UltimateEmpty;
+    }
+    
+    private IEnumerator SyncSliderWithEntity()
+    {
+        while (true)
+        {
+            if (CurrentEntity != null)
+            {
+                if ((int)sliderUltimate.value != CurrentEntity.UltimateSlider)
+                {
+                    sliderUltimate.value = CurrentEntity.UltimateSlider;
+                }
+            }
+
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private IEnumerator DrainUltimateOverTime()
+    {
+        while (true)
+        {
+            if (CurrentEntity != null && CurrentEntity.UltimateSlider > 0)
+            {
+                CurrentEntity.UltimateSlider -= 1;
+            }
+
+            yield return new WaitForSeconds(1f);
+            SliderManager();
+        }
+    }
     public void SliderManager()
     {
         if (CurrentEntity == null) return;
-        
         CurrentEntity.UltimateSlider = (int)sliderUltimate.value;
-        fill.sprite = CurrentEntity.UltimateEmpty;
-        
-        UltButton.interactable = (sliderUltimate.value == sliderUltimate.minValue);
-        CurrentEntity.UltIsReady = UltButton.interactable;
+        bool isReady = (sliderUltimate.value == sliderUltimate.minValue);
+        UltButton.interactable = isReady;
+        CurrentEntity.UltIsReady = isReady;
     }
-
-    IEnumerator SliderUpdate()
+    public void QTE_Start()
     {
-        while (sliderUltimate.value != sliderUltimate.minValue)
+        if (qteAnimator == null || qteUI == null)
         {
-            sliderUltimate.value -= 1;
-            yield return new WaitForSeconds(1f);
+            Debug.LogWarning("QTE Animator ou UI non assigné.");
+            return;
+        }
+
+        qteUI.SetActive(true);
+        qteAnimator.Play("QTEarrow");
+        StartCoroutine(CheckQTEInput());
+    }
+    
+    IEnumerator CheckQTEInput()
+    {
+        while (true)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                qteAnimator.speed = 0f;
+                Debug.Log("QTE: Animation mise en pause par l'utilisateur.");
+                break;
+            }
+
+            yield return null;
         }
     }
 }

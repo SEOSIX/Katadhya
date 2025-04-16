@@ -38,6 +38,8 @@ public class CombatManager : MonoBehaviour
     [Header("Selected One")] 
     public GameObject[] circles;
 
+    [Header("Selected One")] public Ultimate ultimateScript;
+
     [HideInInspector] public List<DataEntity> currentTurnOrder = new List<DataEntity>();
     [HideInInspector] public List<DataEntity> unitPlayedThisTurn = new List<DataEntity>();
     private System.Random r = new System.Random();
@@ -225,7 +227,7 @@ public class CombatManager : MonoBehaviour
             capacityButtons[3].gameObject.SetActive(true);
             capacityButtons[3].GetComponent<Image>().sprite = player.Ultimate;
             capacityButtons[3].onClick.RemoveAllListeners();
-            capacityButtons[3].onClick.AddListener(() => UseCapacity(player._CapacityDataUltimate));
+            capacityButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start());
         }
     }
 
