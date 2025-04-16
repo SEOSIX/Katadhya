@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,13 @@ public class Ultimate : MonoBehaviour
 
     private DataEntity CurrentEntity => CombatManager.SINGLETON?.currentTurnOrder.Count > 0 ?
         CombatManager.SINGLETON.currentTurnOrder[0] : null;
+    
+    
+    public Transform pointer; 
+    public Transform center;
+
+    public float blueZoneStart = 330f;
+    public float blueZoneEnd = 30f;
 
     private void Start()
     {
@@ -95,7 +103,6 @@ public class Ultimate : MonoBehaviour
         }
 
         qteUI.SetActive(true);
-        qteAnimator.Play("QTEarrow");
         StartCoroutine(CheckQTEInput());
     }
     
@@ -107,10 +114,31 @@ public class Ultimate : MonoBehaviour
             {
                 qteAnimator.speed = 0f;
                 Debug.Log("QTE: Animation mise en pause par l'utilisateur.");
-                break;
+                CheckPointerInZone();
             }
 
             yield return null;
+        }
+    }
+
+    private void CheckPointerInZone()
+    {
+        if (pointer == null || center == null) return;
+
+        float angle = pointer.eulerAngles.z;
+        angle = (angle + 360f) % 360f;
+
+        bool isInZone = (angle >= blueZoneStart || angle <= blueZoneEnd);
+
+        Debug.DrawLine(center.position, center.position + Quaternion.Euler(0, 0, angle) * Vector3.up * 2f, isInZone ? Color.cyan : Color.yellow);
+
+        if (isInZone)
+        {
+            Debug.Log("🟡 Pointeur DANS la zone bleue !");
+        }
+        else
+        {
+            Debug.Log("n'est pas dedans");
         }
     }
 }
