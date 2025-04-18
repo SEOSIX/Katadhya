@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
-  m_Name: Cpt3d0
+  m_Name: Cpt4a1
   m_EditorClassIdentifier: 
-  atk: 31
+  atk: 10
   heal: 0
   buffType: 0
   buffValue: 0
   buffTime: 0
-  critique: 0
-  "pr\xE9cision": 100
   Shield: 0
-  Shock: 0
-  MultipleHeal: 0
-  MultipleAttack: 0
+  Electrik: 0
+  CanHeal: 0
+  CanHadMultipleTarget: 0
