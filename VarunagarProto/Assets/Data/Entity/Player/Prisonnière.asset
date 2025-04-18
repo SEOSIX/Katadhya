@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8f182d232039848a3b32d7886df91f, type: 3}
   m_Name: "Prisonni\xE8re"
   m_EditorClassIdentifier: 
-  instance: {fileID: 0}
-  <UnitLife>k__BackingField: 40
-  BaseLife: 40
+  instance: {fileID: 8539139673700364530, guid: d85e6f40df659f24eb8062e147479634, type: 3}
+  <UnitLife>k__BackingField: 19
+  BaseLife: 19
   UnitDef: 62
   UnitSpeed: 51
   UnitAtk: 20
@@ -31,7 +31,7 @@ MonoBehaviour:
   Ultimate: {fileID: 21300000, guid: b9dfd3aed188eda4e925aa347812de99, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: 32f764f830a8d39449df9ac27bfb030e, type: 3}
   _CapacityDataUltimate: {fileID: 11400000, guid: e91b81a4e494f3040aa47d2214ae07aa, type: 2}
-  UltimateSlider: 35
-  UltIsReady: 0
+  UltimateSlider: 0
+  UltIsReady: 1
   namE: "Prisonni\xE8re"
   size: 0.21

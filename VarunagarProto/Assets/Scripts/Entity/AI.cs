@@ -22,6 +22,7 @@ public class AI : MonoBehaviour
         SINGLETON = this;
         DontDestroyOnLoad(gameObject);
     }
+    
 
     public void Attack(DataEntity attacker, int damages)
     {
@@ -52,7 +53,6 @@ public class AI : MonoBehaviour
             playerTarget1.SetActive(false); 
             playerTarget2.SetActive(false);   
         }
-            
         
         Debug.Log($"{attacker.namE} prépare une attaque contre {targetedPlayer.namE} (HP: {targetedPlayer.UnitLife}/{targetedPlayer.BaseLife})");
 
@@ -61,16 +61,34 @@ public class AI : MonoBehaviour
     
     IEnumerator Attacking(DataEntity attacker ,DataEntity target, int damage)
     {
-        Debug.Log($"{attacker.namE} a infligé {damage} dégâts à {target.namE} (PV restants: {target.UnitLife})");
+        Animation animationTarget1 = playerTarget1.GetComponent<Animation>();
+        Animation animationTarget2 = playerTarget2.GetComponent<Animation>();
+        
+        int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Length);
+        
+        //Debug.Log($"{attacker.namE} a infligé {damage} dégâts à {target.namE} (PV restants: {target.UnitLife})");
         yield return new WaitForSeconds(2f);
+        if (randomIndex == 1)
+        {
+            animationTarget2.Play();
+        }
+        else if (randomIndex == 0)
+        {
+            animationTarget1.Play();
+        }
         target.UnitLife -= damage;
-        target.UnitLife = Mathf.Max(0, target.UnitLife);
         if (target.UnitLife <= 0)
         {
             Debug.Log($"{target.namE} a été vaincu !");
-           
         }
-
+        yield return new WaitForSeconds(1f);
         CombatManager.SINGLETON.EndUnitTurn();
+        
+        //retire le target du dernier player
+        if (!CombatManager.SINGLETON.isEnnemyTurn)
+        {
+            playerTarget1.SetActive(false); 
+            playerTarget2.SetActive(false);   
+        }
     }
 }

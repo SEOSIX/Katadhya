@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 606583045566125203}
   - component: {fileID: 1419605989392636868}
   - component: {fileID: -4347204830234045359}
+  - component: {fileID: 6954772661405684193}
   m_Layer: 0
   m_Name: "Prisonni\xE8re"
   m_TagString: Untagged
@@ -855,3 +856,17 @@ PolygonCollider2D:
       - {x: -6.3599997, y: 3.6499999}
       - {x: -6.37, y: 3.6599998}
   m_UseDelaunayMesh: 0
+--- !u!114 &6954772661405684193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8539139673700364530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec9c554d987a3545b3a8aef68532713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerIndex: 5
+  entityHandler: {fileID: 11400000, guid: 47a834e79b0175a418d05f2ad7ab7ddd, type: 2}

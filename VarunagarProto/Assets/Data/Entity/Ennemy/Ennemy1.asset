@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Ennemy1
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 15
-  BaseLife: 20
+  <UnitLife>k__BackingField: 58
+  BaseLife: 100
   UnitDef: 0
   UnitSpeed: 1
   UnitAtk: 0
@@ -23,12 +23,15 @@ MonoBehaviour:
   bandeauUI: {fileID: 0}
   manimator: {fileID: 0}
   capacity1: {fileID: 0}
-  _CapacityData1: {fileID: 0}
+  _CapacityData1: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
   capacity2: {fileID: 0}
-  _CapacityData2: {fileID: 0}
+  _CapacityData2: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
   capacity3: {fileID: 0}
-  _CapacityData3: {fileID: 0}
+  _CapacityData3: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
   Ultimate: {fileID: 0}
-  _CapacityDataUltimate: {fileID: 0}
+  UltimateEmpty: {fileID: 0}
+  _CapacityDataUltimate: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
+  UltimateSlider: 0
+  UltIsReady: 1
   namE: Ennemy1
   size: 0

@@ -25,7 +25,6 @@ public class DataEntity : ScriptableObject
 
     [field: Header("Capacities"), SerializeField]
     public Sprite capacity1;
-
     public CapacityData _CapacityData1;
     public Sprite capacity2;
     public CapacityData _CapacityData2;

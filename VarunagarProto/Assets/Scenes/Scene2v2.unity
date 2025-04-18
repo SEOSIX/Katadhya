@@ -882,7 +882,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a8c370173d8d21043b5cae15b4fe27c1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dbfd70067cb4ed54596897f19cf038de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1215,7 +1215,7 @@ GameObject:
   m_Layer: 0
   m_Name: PlayerInstance3
   m_TagString: Untagged
-  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1280,7 +1280,7 @@ GameObject:
   - component: {fileID: 280377025}
   - component: {fileID: 280377024}
   m_Layer: 5
-  m_Name: ChoosePlayer3
+  m_Name: Enemy2Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1534,7 +1534,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d44e05a51a6079049a283f37c58e4709, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1564,7 +1564,7 @@ GameObject:
   - component: {fileID: 326075293}
   - component: {fileID: 326075292}
   m_Layer: 5
-  m_Name: ChoosePlayer1
+  m_Name: Enemy1Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1896,19 +1896,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 391437955}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1329118468}
-        m_TargetAssemblyTypeName: CombatManager, Assembly-CSharp
-        m_MethodName: EndUnitTurn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &391437955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1929,7 +1917,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3e9946186a02f5647876b0ce959ffebc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2675,7 +2663,7 @@ GameObject:
   m_Layer: 0
   m_Name: Ennemy3
   m_TagString: Untagged
-  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2694,6 +2682,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1368407640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &503636397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 503636398}
+  - component: {fileID: 503636400}
+  - component: {fileID: 503636399}
+  m_Layer: 5
+  m_Name: Player1Circle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &503636398
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503636397}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.2197948, y: 2.219796, z: 2.219796}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1685626445}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -320.8, y: 573.12}
+  m_SizeDelta: {x: 137.89, y: 49.61}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &503636399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503636397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 45dc3fc4f7894c24cb20dc7ee19e6310, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &503636400
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503636397}
+  m_CullTransparentMesh: 1
 --- !u!1 &537608685
 GameObject:
   m_ObjectHideFlags: 0
@@ -3449,6 +3512,7 @@ GameObject:
   - component: {fileID: 712382130}
   - component: {fileID: 712382129}
   - component: {fileID: 712382128}
+  - component: {fileID: 712382131}
   m_Layer: 5
   m_Name: Target2
   m_TagString: Untagged
@@ -3513,6 +3577,97 @@ RectTransform:
   m_AnchoredPosition: {x: -5.366578, y: 2.0005486}
   m_SizeDelta: {x: 86, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!111 &712382131
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712382127}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 2feb606723f6ac946b150451228ca81c, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 2feb606723f6ac946b150451228ca81c, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!1 &716412274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 716412275}
+  - component: {fileID: 716412277}
+  - component: {fileID: 716412276}
+  m_Layer: 5
+  m_Name: 'Player2Circle '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &716412275
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716412274}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.2197948, y: 2.219796, z: 2.219796}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1685626445}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -801, y: 691}
+  m_SizeDelta: {x: 137.89, y: 49.61}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &716412276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716412274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 45dc3fc4f7894c24cb20dc7ee19e6310, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &716412277
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716412274}
+  m_CullTransparentMesh: 1
 --- !u!1 &737275355
 GameObject:
   m_ObjectHideFlags: 0
@@ -3855,19 +4010,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 799908878}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1329118468}
-        m_TargetAssemblyTypeName: CombatManager, Assembly-CSharp
-        m_MethodName: EndUnitTurn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &799908878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3888,7 +4031,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: a5d849fd5fe36704eb0571d9d4f654a9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4391,7 +4534,7 @@ GameObject:
   m_Layer: 0
   m_Name: PlayerInstance
   m_TagString: Untagged
-  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -5118,7 +5261,7 @@ GameObject:
   m_Layer: 0
   m_Name: Ennemy1
   m_TagString: Untagged
-  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -5794,8 +5937,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -61, y: 61}
-  m_SizeDelta: {x: 1920, y: 1350}
+  m_AnchoredPosition: {x: 20.385, y: -287.21}
+  m_SizeDelta: {x: 1776.8, y: 470.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1163544509
 MonoBehaviour:
@@ -5817,7 +5960,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c84bd7d9cec484e46a72d2c171d7aa67, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e24bb183dd0385c4eb79fabee763a216, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6075,6 +6218,7 @@ GameObject:
   - component: {fileID: 1213612032}
   - component: {fileID: 1213612034}
   - component: {fileID: 1213612033}
+  - component: {fileID: 1213612035}
   m_Layer: 5
   m_Name: Target1
   m_TagString: Untagged
@@ -6095,10 +6239,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 181820923}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -32.286}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.9055873, y: 1.2465203}
+  m_AnchoredPosition: {x: -1.8801, y: 1.2783}
   m_SizeDelta: {x: 86, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1213612033
@@ -6139,6 +6283,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213612031}
   m_CullTransparentMesh: 1
+--- !u!111 &1213612035
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213612031}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 5ed65f65d27ae314bb59d93f08880ce6, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 5ed65f65d27ae314bb59d93f08880ce6, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1260436068
 GameObject:
   m_ObjectHideFlags: 0
@@ -6704,12 +6864,16 @@ MonoBehaviour:
   LifePlayers: {fileID: 490790676}
   ennemyTurn: {fileID: 1163544507}
   TurnUI: {fileID: 498016538}
-  circles:
+  circlesEnnemy:
   - {fileID: 326075290}
   - {fileID: 280377022}
+  circlesPlayer:
+  - {fileID: 503636397}
+  - {fileID: 716412274}
   ultimateScript: {fileID: 711964558}
   currentTurnOrder: []
   unitPlayedThisTurn: []
+  isEnnemyTurn: 0
 --- !u!4 &1329118469
 Transform:
   m_ObjectHideFlags: 0
@@ -7934,6 +8098,8 @@ RectTransform:
   m_Children:
   - {fileID: 326075291}
   - {fileID: 280377023}
+  - {fileID: 503636398}
+  - {fileID: 716412275}
   m_Father: {fileID: 1828092753}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -8875,19 +9041,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1897926945}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1329118468}
-        m_TargetAssemblyTypeName: CombatManager, Assembly-CSharp
-        m_MethodName: EndUnitTurn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1897926945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8908,7 +9062,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7de2447ac3ed5e244bfb6ef4835aa7f5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9468,10 +9622,10 @@ SceneRoots:
   m_Roots:
   - {fileID: 1173274094}
   - {fileID: 946444840}
-  - {fileID: 642715972}
-  - {fileID: 221121161}
   - {fileID: 1512717739}
   - {fileID: 1540998338}
+  - {fileID: 221121161}
+  - {fileID: 642715972}
   - {fileID: 1925918769}
   - {fileID: 711964557}
   - {fileID: 1329118469}

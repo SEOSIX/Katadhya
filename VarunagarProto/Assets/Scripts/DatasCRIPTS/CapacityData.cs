@@ -18,4 +18,5 @@ public class CapacityData : ScriptableObject
     public int Shield;
     public int Electrik;
     public bool CanHeal;
+    public bool CanHadMultipleTarget;
 }

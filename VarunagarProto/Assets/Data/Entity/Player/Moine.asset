@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8f182d232039848a3b32d7886df91f, type: 3}
   m_Name: Moine
   m_EditorClassIdentifier: 
-  instance: {fileID: 0}
-  <UnitLife>k__BackingField: 40
-  BaseLife: 40
+  instance: {fileID: 1524617609976576852, guid: 2cb662c8006bcc2448eed9ba485ac957, type: 3}
+  <UnitLife>k__BackingField: 19
+  BaseLife: 19
   UnitDef: 62
   UnitSpeed: 10
   UnitAtk: 20
@@ -29,9 +29,9 @@ MonoBehaviour:
   capacity3: {fileID: 21300000, guid: b3a56775c42bab44884e5d04562a368e, type: 3}
   _CapacityData3: {fileID: 11400000, guid: 0ce1682e094e2a04db274f2edc8a7778, type: 2}
   Ultimate: {fileID: 21300000, guid: 47156ee7c606bda4db4e0c7d377a295c, type: 3}
-  UltimateEmpty: {fileID: 0}
+  UltimateEmpty: {fileID: 21300000, guid: ce4265b8a8608f148b8c0bdfbd50f510, type: 3}
   _CapacityDataUltimate: {fileID: 11400000, guid: c6af6d2eab0b6614ba61c1eca41da1b1, type: 2}
   UltimateSlider: 0
-  UltIsReady: 0
+  UltIsReady: 1
   namE: Moine
   size: 0.23

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +8,6 @@ using UnityEngine.UI;
 public class CombatManager : MonoBehaviour
 {
     public static CombatManager SINGLETON { get; private set; }
-    
 
     [Header("Entity Handler")]
     [SerializeField]
@@ -23,7 +21,7 @@ public class CombatManager : MonoBehaviour
     public TextMeshProUGUI lifeText;
     public Image playerPortrait;
     public Image[] ImagePortrait;
-    
+
     public Button[] capacityButtons;
     private DataEntity currentPlayer;
 
@@ -35,17 +33,19 @@ public class CombatManager : MonoBehaviour
     public GameObject ennemyTurn;
     public GameObject TurnUI;
 
-    [Header("Selected One")] 
-    public GameObject[] circles;
+    [Header("Target Indicators")]
+    public GameObject[] circlesEnnemy;
+    public GameObject[] circlesPlayer;
 
-    [Header("Selected One")] public Ultimate ultimateScript;
+    [Header("Ultimate")]
+    public Ultimate ultimateScript;
 
     [HideInInspector] public List<DataEntity> currentTurnOrder = new List<DataEntity>();
     [HideInInspector] public List<DataEntity> unitPlayedThisTurn = new List<DataEntity>();
     private System.Random r = new System.Random();
-    
-    private int selectedEnemyIndex = -1;
-    private bool isEnnemyTurn = false;
+
+    private CapacityData currentSelectedCapacity;
+    public bool isEnnemyTurn;
 
     void Awake()
     {
@@ -65,17 +65,17 @@ public class CombatManager : MonoBehaviour
         StartUnitTurn();
     }
 
-    private void Update()
+    void Update()
     {
         InitializeStaticUI();
     }
 
     public void InitializeStaticUI()
     {
-        if (currentTurnOrder == null) return;
-        
+        if (currentTurnOrder == null || currentTurnOrder.Count == 0) return;
+
         DataEntity currentEntity = currentTurnOrder[0];
-        
+
         textplayer.text = currentEntity.name;
         speed.text = "Speed :" + currentEntity.UnitSpeed;
         def.text = "Defence :" + currentEntity.UnitDef;
@@ -84,11 +84,11 @@ public class CombatManager : MonoBehaviour
         playerPortrait.sprite = currentEntity.bandeauUI;
         LifePlayers.maxValue = currentEntity.BaseLife;
         LifePlayers.value = currentEntity.UnitLife;
-        
+
         List<DataEntity> initialTurnOrder = GetUnitTurn();
         for (int i = 0; i < ImagePortrait.Length; i++)
         {
-            if (initialTurnOrder[i].UnitLife > 0)
+            if (i < initialTurnOrder.Count && initialTurnOrder[i].UnitLife > 0)
             {
                 ImagePortrait[i].enabled = true;
                 ImagePortrait[i].sprite = initialTurnOrder[i].portraitUI;
@@ -104,7 +104,7 @@ public class CombatManager : MonoBehaviour
 
     public List<DataEntity> GetUnitTurn()
     {
-        List<DataEntity> speedValue = new List<DataEntity>();
+        var speedValue = new List<DataEntity>();
         speedValue.AddRange(entityHandler.ennemies);
         speedValue.AddRange(entityHandler.players);
         return speedValue.OrderByDescending(x => x.UnitSpeed).ToList();
@@ -125,10 +125,16 @@ public class CombatManager : MonoBehaviour
         StartUnitTurn();
     }
 
+    public void EndGlobalTurn()
+    {
+        currentTurnOrder.AddRange(unitPlayedThisTurn);
+        unitPlayedThisTurn.Clear();
+    }
+
     public void StartUnitTurn()
     {
         DetectEnnemyTurn();
-        
+
         if (!entityHandler.ennemies.Contains(currentTurnOrder[0]))
         {
             currentPlayer = currentTurnOrder[0];
@@ -136,19 +142,12 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public void EndGlobalTurn()
-    {
-        currentTurnOrder.AddRange(unitPlayedThisTurn);
-        unitPlayedThisTurn.Clear();
-    }
-
     public void RemoveUnitFromList(DataEntity _currentUnit)
     {
         if (_currentUnit == null || !currentTurnOrder.Contains(_currentUnit)) return;
-
         currentTurnOrder.Remove(_currentUnit);
     }
-    
+
     public void DetectEnnemyTurn()
     {
         DataEntity currentEntity = currentTurnOrder[0];
@@ -168,41 +167,111 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    public void UseCapacity(CapacityData cpt)
+    {
+        StartTargetSelectionMode(cpt);
+    }
+
+    public void StartTargetSelectionMode(CapacityData capacity)
+    {
+        HideTargetIndicators();
+        currentSelectedCapacity = capacity;
+        if (capacity.heal > 0)
+        {
+            foreach (var ally in entityHandler.players)
+            {
+                if (ally.UnitLife > 0)
+                {
+                    ApplyCapacityToTarget(capacity, ally);
+                }
+            }
+
+            currentSelectedCapacity = null;
+            Debug.Log("Capacité de soin appliquée à tous les alliés !");
+            return;
+        }
+        Debug.Log("Sélectionnez une ou plusieurs cibles pour " + capacity.name);
+        ShowTargetIndicators(capacity);
+    }
+
     public void SelectEnemy(int enemyIndex)
     {
-        if (enemyIndex < 0 || enemyIndex >= entityHandler.ennemies.Length) 
+        if (currentSelectedCapacity == null)
         {
-            Debug.LogError("Index invalide pour la sélection d'ennemi !");
+            Debug.Log("Aucune capacité sélectionnée !");
             return;
         }
 
-        selectedEnemyIndex = enemyIndex;
-        DataEntity selectedEnemy = entityHandler.ennemies[enemyIndex];
-        
-        foreach (var circle in circles)
+        if (enemyIndex < 0 || enemyIndex >= entityHandler.ennemies.Length)
         {
-            circle.SetActive(false);
+            Debug.LogError("Index d'ennemi invalide !");
+            return;
         }
-        
-        if (enemyIndex < circles.Length)
-        {
-            circles[enemyIndex].SetActive(true);
-        }
-        Debug.Log($"L'ennemi sélectionné est {selectedEnemy.namE}");
+
+        DataEntity target = entityHandler.ennemies[enemyIndex];
+
+        ApplyCapacityToTarget(currentSelectedCapacity, target);
+        currentSelectedCapacity = null;
+        HideTargetIndicators();
+        EndUnitTurn();
     }
+
+    public void SelectAlly(int allyIndex)
+    {
+        if (currentSelectedCapacity == null)
+        {
+            Debug.Log("Aucune capacité sélectionnée !");
+            return;
+        }
+
+        if (allyIndex < 0 || allyIndex >= entityHandler.players.Length)
+        {
+            Debug.LogError("Index d'allié invalide !");
+            return;
+        }
+
+        DataEntity target = entityHandler.players[allyIndex];
+
+        ApplyCapacityToTarget(currentSelectedCapacity, target);
+        currentSelectedCapacity = null;
+        HideTargetIndicators();
+        EndUnitTurn();
+    }
+
+    public void ApplyCapacityToTarget(CapacityData capacity, DataEntity target)
+    {
+        DataEntity caster = currentTurnOrder[0];
+
+        if (capacity.atk > 0)
+        {
+            float calculatedDamage = (((float)caster.UnitAtk / 100) * capacity.atk) * 100 / (100 + 2 * target.UnitDef);
+            int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
+            target.UnitLife -= icalculatedDamage;
+            Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts à {target.namE}");
+        }
+        if (capacity.heal > 0)
+        {
+            int healAmount = Mathf.RoundToInt((caster.UnitAtk / 100f) * capacity.heal);
+            target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
+            Debug.Log($"{caster.namE} soigne {target.namE} pour {healAmount} PV");
+        }
     
+
+        InitializeStaticUI();
+    }
+
     private void SetupCapacityButtons(DataEntity player)
     {
-        foreach (var button in capacityButtons)
+        for (int i = 0; i < capacityButtons.Length; i++)
         {
-            button.gameObject.SetActive(false);
+            capacityButtons[i].gameObject.SetActive(false);
+            capacityButtons[i].onClick.RemoveAllListeners();
         }
-        
+
         if (player.capacity1 != null)
         {
             capacityButtons[0].gameObject.SetActive(true);
             capacityButtons[0].GetComponent<Image>().sprite = player.capacity1;
-            capacityButtons[0].onClick.RemoveAllListeners();
             capacityButtons[0].onClick.AddListener(() => UseCapacity(player._CapacityData1));
         }
 
@@ -210,15 +279,13 @@ public class CombatManager : MonoBehaviour
         {
             capacityButtons[1].gameObject.SetActive(true);
             capacityButtons[1].GetComponent<Image>().sprite = player.capacity2;
-            capacityButtons[1].onClick.RemoveAllListeners();
             capacityButtons[1].onClick.AddListener(() => UseCapacity(player._CapacityData2));
         }
-        
+
         if (player.capacity3 != null)
         {
             capacityButtons[2].gameObject.SetActive(true);
             capacityButtons[2].GetComponent<Image>().sprite = player.capacity3;
-            capacityButtons[2].onClick.RemoveAllListeners();
             capacityButtons[2].onClick.AddListener(() => UseCapacity(player._CapacityData3));
         }
 
@@ -226,42 +293,46 @@ public class CombatManager : MonoBehaviour
         {
             capacityButtons[3].gameObject.SetActive(true);
             capacityButtons[3].GetComponent<Image>().sprite = player.Ultimate;
-            capacityButtons[3].onClick.RemoveAllListeners();
             capacityButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start());
         }
     }
 
-    public void UseCapacity(CapacityData cpt)
+    void ShowTargetIndicators(CapacityData capacity)
     {
-        if (selectedEnemyIndex == -1)
-        {
-            Debug.Log("Aucun ennemi sélectionné");
-            return;
-        }
-        if (cpt.atk > 0)
-        {
-            AttackDamage(cpt);
-            
-        }
-    }
-    
-    public void AttackDamage(CapacityData capacity)
-    {
-        if (selectedEnemyIndex == -1)
-        {
-            Debug.Log("Aucun ennemi sélectionné");
-            return;
-        }
-
-        DataEntity currentEntity = currentTurnOrder[0];
-        DataEntity target = entityHandler.ennemies[selectedEnemyIndex];
         if (capacity.atk > 0)
         {
-            float calculatedDamage = (((float)currentEntity.UnitAtk / 100) * capacity.atk) * 100 / (100 + 2 * target.UnitDef);
-            int icalculatedDamage = (int)Math.Round(calculatedDamage);
-            target.UnitLife -= icalculatedDamage;
-            Debug.Log($"{currentEntity.namE} inflige {icalculatedDamage} dégâts à {target.namE}");
+            if (!capacity.CanHeal)
+            {
+                for (int i = 0; i < entityHandler.ennemies.Length && i < circlesEnnemy.Length; i++)
+                {
+                    if (entityHandler.ennemies[i].UnitLife > 0)
+                        circlesEnnemy[i].SetActive(true);
+                }   
+            }
         }
-        InitializeStaticUI();
+        
+        else if (capacity.heal > 0)
+        {
+            if (capacity.CanHeal)
+            {
+                for (int i = 0; i < entityHandler.players.Length && i < circlesPlayer.Length; i++)
+                {
+                    if (entityHandler.players[i].UnitLife > 0)
+                        circlesPlayer[i].SetActive(true);
+                }
+            }
+        }
+    }
+
+    void HideTargetIndicators()
+    {
+        foreach (var circle in circlesEnnemy)
+        {
+            circle.SetActive(false);
+        }
+        foreach (var circle in circlesPlayer)
+        {
+            circle.SetActive(false);
+        }
     }
 }
