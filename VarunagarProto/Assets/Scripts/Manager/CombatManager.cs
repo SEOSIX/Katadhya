@@ -176,6 +176,7 @@ public class CombatManager : MonoBehaviour
     {
         HideTargetIndicators();
         currentSelectedCapacity = capacity;
+
         if (capacity.heal > 0)
         {
             foreach (var ally in entityHandler.players)
@@ -188,12 +189,29 @@ public class CombatManager : MonoBehaviour
 
             currentSelectedCapacity = null;
             Debug.Log("Capacité de soin appliquée à tous les alliés !");
+            EndUnitTurn();
             return;
         }
+
+        if (capacity.CanHadMultipleTarget)
+        {
+            foreach (var enemy in entityHandler.ennemies)
+            {
+                if (enemy.UnitLife > 0)
+                {
+                    ApplyCapacityToTarget(capacity, enemy);
+                }
+            }
+
+            currentSelectedCapacity = null;
+            Debug.Log("Capacité de zone appliquée à tous les ennemis !");
+            EndUnitTurn();
+            return;
+        }
+
         Debug.Log("Sélectionnez une ou plusieurs cibles pour " + capacity.name);
         ShowTargetIndicators(capacity);
     }
-
     public void SelectEnemy(int enemyIndex)
     {
         if (currentSelectedCapacity == null)
@@ -234,8 +252,8 @@ public class CombatManager : MonoBehaviour
 
         ApplyCapacityToTarget(currentSelectedCapacity, target);
         currentSelectedCapacity = null;
-        HideTargetIndicators();
         EndUnitTurn();
+        HideTargetIndicators();
     }
 
     public void ApplyCapacityToTarget(CapacityData capacity, DataEntity target)
@@ -310,7 +328,6 @@ public class CombatManager : MonoBehaviour
                 }   
             }
         }
-        
         else if (capacity.heal > 0)
         {
             if (capacity.CanHeal)
