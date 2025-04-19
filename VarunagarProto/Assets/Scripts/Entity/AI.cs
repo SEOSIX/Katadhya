@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
+using static UnityEditor.Experimental.GraphView.Port;
 
 public class AI : MonoBehaviour
 {
@@ -68,6 +69,29 @@ public class AI : MonoBehaviour
         
         //Debug.Log($"{attacker.namE} a infligé {damage} dégâts à {target.namE} (PV restants: {target.UnitLife})");
         yield return new WaitForSeconds(2f);
+        float calculatedDamage = (((float)attacker.UnitAtk / 100) * damage) * 100 / (100 + 2 * target.UnitDef);
+        int icalculatedDamage = (int)Math.Round(calculatedDamage);
+        if (target.UnitShield > 0)
+        {
+            if (target.UnitShield < icalculatedDamage)
+            {
+                icalculatedDamage -= target.UnitShield;
+                target.UnitShield = 0;
+                Debug.Log($"{attacker.namE} a brisé le shield de {target.namE}");
+            }
+            else
+            {
+                target.UnitShield -= icalculatedDamage;
+                Debug.Log($"{attacker.namE} inflige {icalculatedDamage} dégâts au bouclier de {target.namE}");
+                icalculatedDamage = 0;
+            }
+        }
+        if (icalculatedDamage > 0)
+        {
+            target.UnitLife -= icalculatedDamage;
+            Debug.Log($"{attacker.namE} inflige {icalculatedDamage} dégâts à {target.namE}");
+        }
+        target.UnitLife = Mathf.Max(0, target.UnitLife);
         if (randomIndex == 1)
         {
             animationTarget2.Play();

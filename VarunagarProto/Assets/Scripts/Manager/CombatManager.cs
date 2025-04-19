@@ -4,6 +4,8 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.Port;
+using static UnityEngine.GraphicsBuffer;
 
 public class CombatManager : MonoBehaviour
 {
@@ -157,7 +159,7 @@ public class CombatManager : MonoBehaviour
             Debug.Log($"🔴 C'est au tour de l'ennemi {currentEntity.namE} !");
             TurnUI.SetActive(false);
             ennemyTurn.SetActive(true);
-            AI.SINGLETON.Attack(currentEntity, 10);
+            AI.SINGLETON.Attack(currentEntity, 50);
         }
         else
         {
@@ -338,7 +340,19 @@ public class CombatManager : MonoBehaviour
                         circlesPlayer[i].SetActive(true);
                 }
             }
+        Debug.Log($"test{unitPlayedThisTurn[(unitPlayedThisTurn.Count)-1]}");
+        if (cpt.atk > 0)
+        {
+            AttackDamage(cpt);
+            
         }
+        if (cpt.Shield > 0)
+        {
+            GiveShield(cpt);
+        }
+    }
+    
+    public void AttackDamage(CapacityData capacity)
     }
 
     void HideTargetIndicators()
@@ -348,8 +362,47 @@ public class CombatManager : MonoBehaviour
             circle.SetActive(false);
         }
         foreach (var circle in circlesPlayer)
+
+        DataEntity currentEntity = unitPlayedThisTurn[(unitPlayedThisTurn.Count) - 1];
+        DataEntity target = entityHandler.ennemies[selectedEnemyIndex];
+        if (capacity.atk > 0)
         {
+            float calculatedDamage = (((float)currentEntity.UnitAtk / 100) * capacity.atk) * 100 / (100 + 2 * target.UnitDef);
+            int icalculatedDamage = (int)Math.Round(calculatedDamage);
+            if (target.UnitShield > 0)
+            {
+                if (target.UnitShield < icalculatedDamage)
+                {
+                    icalculatedDamage -= target.UnitShield;
+                    target.UnitShield = 0;
+                    Debug.Log($"{currentEntity.namE} a brisé le shield de {target.namE}");
+                } else
+                {
+                    target.UnitShield -= icalculatedDamage;
+                    icalculatedDamage = 0;
+                    Debug.Log($"{currentEntity.namE} inflige {icalculatedDamage} dégâts au bouclier de {target.namE}");
+                }
+                
+            } 
+            if (icalculatedDamage > 0)
+            {
+                target.UnitLife -= icalculatedDamage;
+                Debug.Log($"{currentEntity.namE} inflige {icalculatedDamage} dégâts à {target.namE}");
+            }
+        }
+
+        InitializeStaticUI();
             circle.SetActive(false);
+        }
+    }
+
+    public void GiveShield(CapacityData capacity)
+    {
+        DataEntity currentEntity = unitPlayedThisTurn[(unitPlayedThisTurn.Count) - 1];
+        if (capacity.Shield > 0)
+        {
+            currentEntity.UnitShield += capacity.Shield;
+            Debug.Log($"{currentEntity.namE} se donne {capacity.Shield} de bouclier");
         }
     }
 }

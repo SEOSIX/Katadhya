@@ -16,6 +16,7 @@ public class DataEntity : ScriptableObject
     public int UnitDef;
     public int UnitSpeed;
     public int UnitAtk;
+    public int UnitShield;
     
     [field: Header("Art"), SerializeField] 
     public Sprite portrait;

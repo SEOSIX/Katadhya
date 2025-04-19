@@ -61,10 +61,28 @@ public class EntiityManager : MonoBehaviour
             }
         }
     }
+    private void RestoreShield()
+    {
+        for (int i = 0; i < entityHandler.ennemies.Length; i++)
+        {
+            if (entityHandler.ennemies[i] != null)
+            {
+                entityHandler.ennemies[i].UnitShield = 0;
+            }
+        }
+        for (int i = 0; i < entityHandler.players.Length; i++)
+        {
+            if (entityHandler.players[i] != null)
+            {
+                entityHandler.players[i].UnitShield = 0;
+            }
+        }
+    }
     void Start()
     {
         LifeEntity.SINGLETON.LifeManage();
         RestoreEnemiesLife();
+        RestoreShield();
     }
 
     private void Update()
