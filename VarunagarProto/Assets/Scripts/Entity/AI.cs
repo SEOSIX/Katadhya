@@ -8,6 +8,9 @@ public class AI : MonoBehaviour
 {
     public static AI SINGLETON { get; private set; }
 
+    public GameObject playerTarget1;
+    public GameObject playerTarget2;
+
     void Awake()
     {
         if (SINGLETON != null)
@@ -20,7 +23,7 @@ public class AI : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     
-    
+
     public void Attack(DataEntity attacker, int damages)
     {
         if (CombatManager.SINGLETON == null || 
@@ -34,6 +37,22 @@ public class AI : MonoBehaviour
 
         int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Length);
         DataEntity targetedPlayer = CombatManager.SINGLETON.entityHandler.players[randomIndex];
+
+        if (randomIndex == 1)
+        {
+            playerTarget1.SetActive(true);  
+            playerTarget2.SetActive(false);   
+        }
+        else if (randomIndex == 0)
+        {
+            playerTarget1.SetActive(false); 
+            playerTarget2.SetActive(true);   
+        }
+        else
+        {
+            playerTarget1.SetActive(false); 
+            playerTarget2.SetActive(false);   
+        }
         
         Debug.Log($"{attacker.namE} prépare une attaque contre {targetedPlayer.namE} (HP: {targetedPlayer.UnitLife}/{targetedPlayer.BaseLife})");
 
@@ -42,17 +61,34 @@ public class AI : MonoBehaviour
     
     IEnumerator Attacking(DataEntity attacker ,DataEntity target, int damage)
     {
-        yield return new WaitForSeconds(2f);
-        target.UnitLife -= damage;
-        target.UnitLife = Mathf.Max(0, target.UnitLife);
+        Animation animationTarget1 = playerTarget1.GetComponent<Animation>();
+        Animation animationTarget2 = playerTarget2.GetComponent<Animation>();
         
-        Debug.Log($"{attacker.namE} a infligé {damage} dégâts à {target.namE} (PV restants: {target.UnitLife})");
+        int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Length);
+        
+        //Debug.Log($"{attacker.namE} a infligé {damage} dégâts à {target.namE} (PV restants: {target.UnitLife})");
+        yield return new WaitForSeconds(2f);
+        if (randomIndex == 1)
+        {
+            animationTarget2.Play();
+        }
+        else if (randomIndex == 0)
+        {
+            animationTarget1.Play();
+        }
+        target.UnitLife -= damage;
         if (target.UnitLife <= 0)
         {
             Debug.Log($"{target.namE} a été vaincu !");
-            //Logique qui fait disparaitre ou fait partir le joueur
         }
-
+        yield return new WaitForSeconds(1f);
         CombatManager.SINGLETON.EndUnitTurn();
+        
+        //retire le target du dernier player
+        if (!CombatManager.SINGLETON.isEnnemyTurn)
+        {
+            playerTarget1.SetActive(false); 
+            playerTarget2.SetActive(false);   
+        }
     }
 }
