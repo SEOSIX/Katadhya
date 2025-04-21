@@ -1,7 +1,10 @@
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.UI;
+using JetBrains.Annotations;
+using System.Linq;
 
 public class EntiityManager : MonoBehaviour
 {
@@ -33,7 +36,7 @@ public class EntiityManager : MonoBehaviour
             entityHandler.ennemies[i] = null;
         }
     }
-    
+
     public void DestroyDeadPlayers()
     {
         for (int i = 0; i < entityHandler.players.Length; i++)
@@ -42,7 +45,7 @@ public class EntiityManager : MonoBehaviour
             GameObject PlayerInstance = entityHandler.players[i].instance;
             CombatManager.SINGLETON.RemoveUnitFromList(entityHandler.players[i]);
             Destroy(PlayerInstance);
-            if (i >= LifeEntity.SINGLETON.PlayerSliders.Length )
+            if (i >= LifeEntity.SINGLETON.PlayerSliders.Length)
             {
                 continue;
             }
@@ -50,7 +53,7 @@ public class EntiityManager : MonoBehaviour
             PlayerSliderGO.SetActive(false);
         }
     }
-    
+
     private void RestoreEnemiesLife()
     {
         for (int i = 0; i < entityHandler.ennemies.Length; i++)
@@ -112,9 +115,30 @@ public class EntiityManager : MonoBehaviour
         }
     }
 
+
+
     void OnMouseDown()
     {
         CombatManager.SINGLETON.SelectEnemy(playerIndex);
         CombatManager.SINGLETON.SelectAlly(playerIndex);
+    }
+
+    public void UpdateSpellData(DataEntity player)
+    {
+        CapacityData[] allData = Resources.LoadAll<CapacityData>("Data");
+        Debug.Log($"{allData.Length}");
+        Debug.Log($"{allData[20]}");
+        Debug.Log($"{player.index} skibidi {player.Affinity}");
+        player._CapacityData1 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}a{player.Affinity}");
+        player._CapacityData2 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}b{player.Affinity}");
+        player._CapacityData3 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}c{player.Affinity}");
+    }
+    void LateUpdate()
+    {
+        if(Input.GetKey("k"))
+        {
+            UpdateSpellData(entityHandler.players[1]);
+            UpdateSpellData(entityHandler.players[0]);
+        }
     }
 }

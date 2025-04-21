@@ -14,22 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
   <UnitLife>k__BackingField: 40
+  UnitAtk: 0
+  UnitSpeed: 0
+  UnitDef: 0
+  Affinity: 1
   BaseLife: 40
-  UnitDef: 62
-  UnitSpeed: 5
-  UnitAtk: 20
-  UnitShield: 27
+  BaseAtk: 0
+  BaseSpeed: 0
+  BaseDef: 0
+  UnitShield: 0
+  ShockMark: 0
   portrait: {fileID: 21300000, guid: f7ea394e9e4f4ce4299ae8792a31ce97, type: 3}
   portraitUI: {fileID: 21300000, guid: 525f1e84f52da0b45a6ff757dd1c09df, type: 3}
   bandeauUI: {fileID: 21300000, guid: 6c06cf1fd04d2c44b829c9f002d658bf, type: 3}
   manimator: {fileID: 0}
-  capacity1: {fileID: 21300000, guid: dcde882f952e8fd4e8e49fa1202c8a90, type: 3}
-  _CapacityData1: {fileID: 11400000, guid: f471b76f13b76fb4195bddb231c75ac1, type: 2}
-  capacity2: {fileID: 21300000, guid: dcde882f952e8fd4e8e49fa1202c8a90, type: 3}
-  _CapacityData2: {fileID: 11400000, guid: 5c492647456f861468e82b06030b9f4e, type: 2}
-  capacity3: {fileID: 0}
-  _CapacityData3: {fileID: 11400000, guid: 0ce1682e094e2a04db274f2edc8a7778, type: 2}
-  Ultimate: {fileID: 0}
+  capacity1: {fileID: 21300000, guid: 28eddfdb0cfd2934494e6ea859813e73, type: 3}
+  _CapacityData1: {fileID: 0}
+  capacity2: {fileID: 21300000, guid: 9b83362f7b7519341b4fded2e00e2213, type: 3}
+  _CapacityData2: {fileID: 0}
+  capacity3: {fileID: 21300000, guid: b3a56775c42bab44884e5d04562a368e, type: 3}
+  _CapacityData3: {fileID: 0}
+  Ultimate: {fileID: 21300000, guid: 47156ee7c606bda4db4e0c7d377a295c, type: 3}
+  UltimateEmpty: {fileID: 21300000, guid: ce4265b8a8608f148b8c0bdfbd50f510, type: 3}
   _CapacityDataUltimate: {fileID: 11400000, guid: c6af6d2eab0b6614ba61c1eca41da1b1, type: 2}
+  UltimateSlider: 0
+  UltIsReady: 1
   namE: Moine
   size: 0.23
+  index: 3

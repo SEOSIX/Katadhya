@@ -56,11 +56,10 @@ public class AI : MonoBehaviour
         }
         
         Debug.Log($"{attacker.namE} prépare une attaque contre {targetedPlayer.namE} (HP: {targetedPlayer.UnitLife}/{targetedPlayer.BaseLife})");
-
         StartCoroutine(Attacking(attacker, targetedPlayer, damages));
     }
     
-    IEnumerator Attacking(DataEntity attacker ,DataEntity target, int damage)
+    IEnumerator Attacking(DataEntity attacker ,DataEntity target, int damages)
     {
         Animation animationTarget1 = playerTarget1.GetComponent<Animation>();
         Animation animationTarget2 = playerTarget2.GetComponent<Animation>();
@@ -69,7 +68,8 @@ public class AI : MonoBehaviour
         
         //Debug.Log($"{attacker.namE} a infligé {damage} dégâts à {target.namE} (PV restants: {target.UnitLife})");
         yield return new WaitForSeconds(2f);
-        float calculatedDamage = (((float)attacker.UnitAtk / 100) * damage) * 100 / (100 + 2 * target.UnitDef);
+        
+        float calculatedDamage = (((float)attacker.UnitAtk / 100) * damages) * 100 / (100 + 2 * target.UnitDef);
         int icalculatedDamage = (int)Math.Round(calculatedDamage);
         if (target.UnitShield > 0)
         {
@@ -100,7 +100,6 @@ public class AI : MonoBehaviour
         {
             animationTarget1.Play();
         }
-        target.UnitLife -= damage;
         if (target.UnitLife <= 0)
         {
             Debug.Log($"{target.namE} a été vaincu !");
@@ -113,6 +112,19 @@ public class AI : MonoBehaviour
         {
             playerTarget1.SetActive(false); 
             playerTarget2.SetActive(false);   
+        }
+    }
+
+    public CapacityData SelectSpell(DataEntity ennemies)
+    {
+        int randomInt = Random.Range(0,1);
+        if (randomInt == 1)
+        {
+            return ennemies._CapacityData1;
+        }
+        else 
+        {
+            return ennemies._CapacityData2;
         }
     }
 }

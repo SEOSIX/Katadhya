@@ -44,9 +44,9 @@ public class LifeEntity : MonoBehaviour
 
     public void LifeManage()
     {
-        for (int i = 0; i < entityHandler.ennemies.Length && i < enemySliders.Length; i++)
+        for (int i = 0; i < entityHandler.ennemies.Length && i < enemySliders.Length && i < enemyShieldSliders.Length; i++)
         {
-            if (entityHandler.ennemies[i] != null && enemySliders[i] != null)
+            if (entityHandler.ennemies[i] != null && enemySliders[i] != null && enemyShieldSliders != null)
             {
                 enemySliders[i].maxValue = entityHandler.ennemies[i].BaseLife;
                 enemySliders[i].value = entityHandler.ennemies[i].UnitLife;
@@ -54,9 +54,9 @@ public class LifeEntity : MonoBehaviour
                 enemyShieldSliders[i].value = entityHandler.ennemies[i].UnitShield;
             }
         }
-        for (int i = 0; i < entityHandler.players.Length && i < PlayerSliders.Length; i++)
+        for (int i = 0; i < entityHandler.players.Length && i < PlayerSliders.Length && i < PlayerShieldSliders.Length; i++)
         {
-            if (entityHandler.players[i] != null && PlayerSliders[i] != null)
+            if (entityHandler.players[i] != null && PlayerSliders[i] != null && PlayerShieldSliders != null)
             {
                 PlayerSliders[i].maxValue = entityHandler.players[i].BaseLife;
                 PlayerSliders[i].value = entityHandler.players[i].UnitLife;
