@@ -108,7 +108,7 @@ public class EntiityManager : MonoBehaviour
         }
         if (entityHandler.players.Length == 0)
         {
-            Debug.Log("enemis ont gagnés");
+            Debug.Log("ennemis ont gagnés");
         }
         else if (entityHandler.ennemies.Length == 0)
         {

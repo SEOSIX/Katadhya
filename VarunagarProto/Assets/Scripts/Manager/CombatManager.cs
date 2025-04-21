@@ -174,7 +174,7 @@ public class CombatManager : MonoBehaviour
         if (entityHandler.ennemies.Contains(currentEntity))
         {
             isEnnemyTurn = true;
-            Debug.Log($"🔴 C'est au tour de l'ennemi {currentEntity.namE} !");
+            //Debug.Log($"🔴 C'est au tour de l'ennemi {currentEntity.namE} !");
             TurnUI.SetActive(false);
             ennemyTurn.SetActive(true);
             AI.SINGLETON.Attack(currentEntity, 50);
@@ -294,7 +294,6 @@ public class CombatManager : MonoBehaviour
             return;
         }
         float modifier = lancer(100, capacity.critique);
-        Debug.Log($"modificateur de la compétence : {modifier}");
         if (capacity.atk > 0)
         {
             float calculatedDamage = (((float)caster.UnitAtk / 100) * capacity.atk*modifier) * 100 / (100 + 2 * target.UnitDef);
