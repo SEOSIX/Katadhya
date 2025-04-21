@@ -1,28 +1,43 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public class QTEZone
+{
+    public string zoneName;
+    public float startAngle;
+    public float endAngle;
+    public Color debugColor = Color.white;
+    public bool successZone = true;
+}
+
 public class Ultimate : MonoBehaviour
 {
+    [Header("UI")]
     public Slider sliderUltimate;
     public Button UltButton;
     public Image fill;
 
-    private DataEntity previousEntity;
-    
+    [Header("QTE")]
     public Animator qteAnimator;
     public GameObject qteUI;
-
-    private DataEntity CurrentEntity => CombatManager.SINGLETON?.currentTurnOrder.Count > 0 ?
-        CombatManager.SINGLETON.currentTurnOrder[0] : null;
-    
-    
-    public Transform pointer; 
+    public Transform pointer;
     public Transform center;
+    public Transform zoneParent;
 
-    public float blueZoneStart = 330f;
-    public float blueZoneEnd = 30f;
+    private DataEntity previousEntity;
+    private List<QTEZone> qteZones = new List<QTEZone>();
+
+    private DataEntity CurrentEntity => CombatManager.SINGLETON?.currentTurnOrder.Count > 0
+        ? CombatManager.SINGLETON.currentTurnOrder[0]
+        : null;
+
+    private void Awake()
+    {
+        LoadZonesFromChildren();
+    }
 
     private void Start()
     {
@@ -30,6 +45,38 @@ public class Ultimate : MonoBehaviour
         StartCoroutine(CheckEntityChange());
         StartCoroutine(SyncSliderWithEntity());
         StartCoroutine(DrainUltimateOverTime());
+    }
+
+    private void LoadZonesFromChildren()
+    {
+        qteZones.Clear();
+
+        if (zoneParent == null)
+        {
+            Debug.LogWarning("Zone parent non assigné !");
+            return;
+        }
+
+        foreach (Transform child in zoneParent)
+        {
+            QTEZoneMarker marker = child.GetComponent<QTEZoneMarker>();
+            if (marker != null)
+            {
+                float angle = child.eulerAngles.z;
+                float halfSpan = marker.angleSpan / 2f;
+
+                QTEZone zone = new QTEZone
+                {
+                    zoneName = marker.zoneName,
+                    startAngle = (angle - halfSpan + 360f) % 360f,
+                    endAngle = (angle + halfSpan) % 360f,
+                    debugColor = marker.debugColor,
+                    successZone = marker.successZone
+                };
+
+                qteZones.Add(zone);
+            }
+        }
     }
 
     private IEnumerator CheckEntityChange()
@@ -56,17 +103,14 @@ public class Ultimate : MonoBehaviour
 
         fill.sprite = CurrentEntity.UltimateEmpty;
     }
-    
+
     private IEnumerator SyncSliderWithEntity()
     {
         while (true)
         {
-            if (CurrentEntity != null)
+            if (CurrentEntity != null && (int)sliderUltimate.value != CurrentEntity.UltimateSlider)
             {
-                if ((int)sliderUltimate.value != CurrentEntity.UltimateSlider)
-                {
-                    sliderUltimate.value = CurrentEntity.UltimateSlider;
-                }
+                sliderUltimate.value = CurrentEntity.UltimateSlider;
             }
 
             yield return new WaitForSeconds(0.1f);
@@ -86,14 +130,17 @@ public class Ultimate : MonoBehaviour
             SliderManager();
         }
     }
+
     public void SliderManager()
     {
         if (CurrentEntity == null) return;
+
         CurrentEntity.UltimateSlider = (int)sliderUltimate.value;
         bool isReady = (sliderUltimate.value == sliderUltimate.minValue);
         UltButton.interactable = isReady;
         CurrentEntity.UltIsReady = isReady;
     }
+
     public void QTE_Start()
     {
         if (qteAnimator == null || qteUI == null)
@@ -105,7 +152,7 @@ public class Ultimate : MonoBehaviour
         qteUI.SetActive(true);
         StartCoroutine(CheckQTEInput());
     }
-    
+
     IEnumerator CheckQTEInput()
     {
         while (true)
@@ -123,22 +170,54 @@ public class Ultimate : MonoBehaviour
 
     private void CheckPointerInZone()
     {
-        if (pointer == null || center == null) return;
+        if (pointer == null || center == null || qteZones == null) return;
 
         float angle = pointer.eulerAngles.z;
         angle = (angle + 360f) % 360f;
 
-        bool isInZone = (angle >= blueZoneStart || angle <= blueZoneEnd);
+        bool hitSuccess = false;
 
-        Debug.DrawLine(center.position, center.position + Quaternion.Euler(0, 0, angle) * Vector3.up * 2f, isInZone ? Color.cyan : Color.yellow);
-
-        if (isInZone)
+        foreach (var zone in qteZones)
         {
-            Debug.Log("🟡 Pointeur DANS la zone bleue !");
+            bool inZone = IsAngleInRange(angle, zone.startAngle, zone.endAngle);
+
+            Debug.DrawLine(center.position, center.position + Quaternion.Euler(0, 0, zone.startAngle) * Vector3.up * 2f, zone.debugColor, 1f);
+            Debug.DrawLine(center.position, center.position + Quaternion.Euler(0, 0, zone.endAngle) * Vector3.up * 2f, zone.debugColor, 1f);
+
+            if (inZone)
+            {
+                Debug.Log($"🎯 Le pointeur est dans la zone '{zone.zoneName}' ({(zone.successZone ? "réussite" : "échec")})");
+
+                if (zone.successZone)
+                    hitSuccess = true;
+            }
+        }
+
+        if (hitSuccess)
+        {
+            Debug.Log("QTE réussie !");
+            // Logique de réussite
         }
         else
         {
-            Debug.Log("n'est pas dedans");
+            Debug.Log(" QTE ratée !");
+            // Logique d'échec
+        }
+    }
+
+    private bool IsAngleInRange(float angle, float start, float end)
+    {
+        angle = (angle + 360f) % 360f;
+        start = (start + 360f) % 360f;
+        end = (end + 360f) % 360f;
+
+        if (start < end)
+        {
+            return angle >= start && angle <= end;
+        }
+        else
+        {
+            return angle >= start || angle <= end;
         }
     }
 }

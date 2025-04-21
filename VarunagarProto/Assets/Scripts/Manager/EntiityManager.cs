@@ -108,7 +108,7 @@ public class EntiityManager : MonoBehaviour
         }
         if (entityHandler.players.Length == 0)
         {
-            Debug.Log("ennemis ont gagnés");
+            Debug.Log("enemis ont gagnés");
         }
         else if (entityHandler.ennemies.Length == 0)
         {
@@ -144,39 +144,39 @@ public class EntiityManager : MonoBehaviour
     }
     
     private void AssignPlayerIndices()
+{
+    for (int i = 0; i < entityHandler.players.Length; i++)
     {
-        for (int i = 0; i < entityHandler.players.Length; i++)
+        if (entityHandler.players[i] != null)
         {
-            if (entityHandler.players[i] != null)
+            EntiityManager manager = entityHandler.players[i].instance.GetComponent<EntiityManager>();
+            if (manager != null)
             {
-                EntiityManager manager = entityHandler.players[i].instance.GetComponent<EntiityManager>();
-                if (manager != null)
-                {
-                    manager.playerIndex = i;
-                    Debug.Log($"Index assigné à {entityHandler.players[i].namE} : {i}");
-                }
-                else
-                {
-                    Debug.LogWarning($"Aucun EntiityManager trouvé sur {entityHandler.players[i].namE}");
-                }
+                manager.playerIndex = i;
+                Debug.Log($"Index assigné à {entityHandler.players[i].namE} : {i}");
             }
-        }
-
-        for (int i = 0; i < entityHandler.ennemies.Length; i++)
-        {
-            if (entityHandler.ennemies[i] != null)
+            else
             {
-                EntiityManager manager = entityHandler.ennemies[i].instance.GetComponent<EntiityManager>();
-                if (manager != null)
-                {
-                    manager.playerIndex = i;
-                    Debug.Log($"Index assigné à ennemi {entityHandler.ennemies[i].namE} : {i}");
-                }
-                else
-                {
-                    Debug.LogWarning($"Aucun EntityManager trouvé sur {entityHandler.ennemies[i].namE}");
-                }
+                Debug.LogWarning($"Aucun EntiityManager trouvé sur {entityHandler.players[i].namE}");
             }
         }
     }
+
+    for (int i = 0; i < entityHandler.ennemies.Length; i++)
+    {
+        if (entityHandler.ennemies[i] != null)
+        {
+            EntiityManager manager = entityHandler.ennemies[i].instance.GetComponent<EntiityManager>();
+            if (manager != null)
+            {
+                manager.playerIndex = i;
+                Debug.Log($"Index assigné à ennemi {entityHandler.ennemies[i].namE} : {i}");
+            }
+            else
+            {
+                Debug.LogWarning($"Aucun EntiityManager trouvé sur {entityHandler.ennemies[i].namE}");
+            }
+        }
+    }
+}
 }

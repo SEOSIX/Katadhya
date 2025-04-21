@@ -23,15 +23,15 @@ MonoBehaviour:
   BaseSpeed: 0
   BaseDef: 0
   UnitShield: 0
-  ShockMark: 0
+  ShockMark: 3
   portrait: {fileID: 21300000, guid: 38143f535456992438e985b58e4bbfe4, type: 3}
   portraitUI: {fileID: 21300000, guid: 38143f535456992438e985b58e4bbfe4, type: 3}
   bandeauUI: {fileID: 0}
   manimator: {fileID: 0}
   capacity1: {fileID: 0}
-  _CapacityData1: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
+  _CapacityData1: {fileID: 0}
   capacity2: {fileID: 0}
-  _CapacityData2: {fileID: 11400000, guid: 0dce4f00902c7664087b92eb65ac541c, type: 2}
+  _CapacityData2: {fileID: 0}
   capacity3: {fileID: 0}
   _CapacityData3: {fileID: 0}
   Ultimate: {fileID: 0}
@@ -41,4 +41,4 @@ MonoBehaviour:
   UltIsReady: 1
   namE: Ennemy2
   size: 0
-  index: 5
+  index: 0
