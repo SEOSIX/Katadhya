@@ -242,12 +242,6 @@ public class CombatManager : MonoBehaviour
     }
     public void SelectEnemy(int enemyIndex)
     {
-        if (currentSelectedCapacity == null)
-        {
-            Debug.Log("Aucune capacité sélectionnée !");
-            return;
-        }
-
         if (enemyIndex < 0 || enemyIndex >= entityHandler.ennemies.Length)
         {
             Debug.LogError("Index d'ennemi invalide !");
@@ -264,12 +258,6 @@ public class CombatManager : MonoBehaviour
 
     public void SelectAlly(int allyIndex)
     {
-        if (currentSelectedCapacity == null)
-        {
-            Debug.Log("Aucune capacité sélectionnée !");
-            return;
-        }
-
         if (allyIndex < 0 || allyIndex >= entityHandler.players.Length)
         {
             Debug.LogError("Index d'allié invalide !");
@@ -296,7 +284,7 @@ public class CombatManager : MonoBehaviour
         float modifier = lancer(100, capacity.critique);
         if (capacity.atk > 0)
         {
-            float calculatedDamage = (((float)caster.UnitAtk / 100) * capacity.atk*modifier) * 100 / (100 + 2 * target.UnitDef);
+            float calculatedDamage = (((caster.UnitAtk+1) * capacity.atk*modifier)/( 2 +caster.UnitAtk+ target.UnitDef));
             int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
             if (target.UnitShield > 0)
             {

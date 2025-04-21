@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
   <UnitLife>k__BackingField: 20
-  UnitAtk: 10
+  UnitAtk: 15
   UnitSpeed: 0
   UnitDef: 0
   Affinity: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
   BaseSpeed: 0
   BaseDef: 0
   UnitShield: 0
-  ShockMark: 0
+  ShockMark: 6
   portrait: {fileID: 21300000, guid: 139f0cd143a86cd4991af2749015bb4b, type: 3}
   portraitUI: {fileID: 21300000, guid: 139f0cd143a86cd4991af2749015bb4b, type: 3}
   bandeauUI: {fileID: 0}

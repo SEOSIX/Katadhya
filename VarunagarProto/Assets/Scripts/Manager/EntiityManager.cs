@@ -174,7 +174,7 @@ public class EntiityManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning($"Aucun EntiityManager trouvé sur {entityHandler.ennemies[i].namE}");
+                    Debug.LogWarning($"Aucun EntityManager trouvé sur {entityHandler.ennemies[i].namE}");
                 }
             }
         }
