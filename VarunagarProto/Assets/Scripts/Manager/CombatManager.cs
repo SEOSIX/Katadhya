@@ -287,7 +287,7 @@ public class CombatManager : MonoBehaviour
     public void ApplyCapacityToTarget(CapacityData capacity, DataEntity target)
     {
         DataEntity caster = currentTurnOrder[0];
-        float réussite = lancer(capacity.précision,2);
+        float réussite = lancer(capacity.précision,1);
         if (réussite == 2)
         {
             Debug.Log("échec de la compétence");
@@ -313,7 +313,6 @@ public class CombatManager : MonoBehaviour
                     icalculatedDamage = 0;
                     Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts au bouclier de {target.namE}");
                 }
-
             }
             if (icalculatedDamage > 0)
             {
