@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
   m_Name: cpt5a0
   m_EditorClassIdentifier: 
-  atk: 10
+  atk: 8
   heal: 0
   buffType: 0
   buffValue: 0
@@ -23,3 +23,4 @@ MonoBehaviour:
   Shock: 0
   MultipleHeal: 0
   MultipleAttack: 0
+  TargetingAlly: 0

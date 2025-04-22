@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Ennemy2
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 30
-  UnitAtk: 0
-  UnitSpeed: 0
-  UnitDef: 0
+  <UnitLife>k__BackingField: 22
+  UnitAtk: 5
+  UnitSpeed: 43
+  UnitDef: 10
   Affinity: 0
   BaseLife: 30
-  BaseAtk: 0
-  BaseSpeed: 0
-  BaseDef: 0
+  BaseAtk: 5
+  BaseSpeed: 43
+  BaseDef: 10
   UnitShield: 0
   ShockMark: 12
   portrait: {fileID: 21300000, guid: 38143f535456992438e985b58e4bbfe4, type: 3}

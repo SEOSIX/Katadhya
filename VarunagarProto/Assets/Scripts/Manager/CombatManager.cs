@@ -274,16 +274,16 @@ public class CombatManager : MonoBehaviour
     public void ApplyCapacityToTarget(CapacityData capacity, DataEntity target)
     {
         DataEntity caster = currentTurnOrder[0];
-        float réussite = lancer(capacity.précision,2f);
+        float réussite = lancer(capacity.précision, 2f,1f);
         if (réussite == 2)
         {
             Debug.Log("échec de la compétence");
             return;
         }
-        float modifier = lancer(100, capacity.critique);
+        float modifier = lancer(capacity.critique,1f, 1.5f);
         if (capacity.atk > 0)
         {
-            float calculatedDamage = (((caster.UnitAtk+1) * capacity.atk*modifier)/( 2 +caster.UnitAtk+ target.UnitDef));
+            float calculatedDamage = (((caster.UnitAtk + 1) * capacity.atk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
             int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
             if (target.UnitShield > 0)
             {
@@ -304,18 +304,18 @@ public class CombatManager : MonoBehaviour
             {
                 target.UnitLife -= icalculatedDamage;
                 Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts à {target.namE}");
-            }        
+            }
         }
         if (capacity.heal > 0)
         {
-            int healAmount = Mathf.RoundToInt((caster.UnitAtk / 100f) * capacity.heal*modifier);
+            int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.heal) / 2) * modifier);
             target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
             Debug.Log($"{caster.namE} soigne {target.namE} pour {healAmount} PV");
 
         }
-        if (capacity.Shield > 0)  
+        if (capacity.Shield > 0)
         {
-            target.UnitShield += Mathf.RoundToInt(capacity.Shield*modifier);
+            target.UnitShield += Mathf.RoundToInt(capacity.Shield * modifier);
             Debug.Log($"{target.namE} se donne {capacity.Shield} de bouclier");
         }
         if (capacity.buffType > 0)
@@ -324,10 +324,11 @@ public class CombatManager : MonoBehaviour
             if (capacity.buffValue > 1)
             {
                 Debug.Log($"{target.namE} gagne un buff ({capacity.buffType})");
-            } else
+            }
+            else
             {
                 Debug.Log($"{target.namE} prend un nerf ({capacity.buffType})");
-            }       
+            }
         }
         if (capacity.Shock > 0)
         {
@@ -433,9 +434,9 @@ public class CombatManager : MonoBehaviour
             Debug.Log($"{caster.name} a appliqué {capacity.Shock} marque(s) à {target.namE}");
             if (target.ShockMark >= 3)
             {
-            
-                float calculatedDamage = caster.UnitSpeed-20/2;
-                float fcalculatedDamage = (float)calculatedDamage*150/100;
+
+                float calculatedDamage = caster.UnitSpeed - 20 / 2;
+                float fcalculatedDamage = (float)calculatedDamage * 150 / 100;
                 int ishieldDamage = Mathf.RoundToInt(fcalculatedDamage);
                 if (target.UnitShield > 0)
                 {
@@ -458,17 +459,17 @@ public class CombatManager : MonoBehaviour
                     target.UnitLife -= ishieldDamage;
                     Debug.Log($"{caster.namE} inflige {ishieldDamage} dégâts à {target.namE} grâce au choc");
                 }
-            
+
             }
         }
     }
-    public float lancer(int valeur, float modifier)
+    public float lancer(int valeur, float above, float under)
     {
         int lancer = UnityEngine.Random.Range(0, 101);
         if (lancer > valeur)
         {
-            return modifier;
+            return above;
         }
-        return 1;
+        return under;
     }
 }
