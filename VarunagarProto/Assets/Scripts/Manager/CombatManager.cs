@@ -275,6 +275,7 @@ public class CombatManager : MonoBehaviour
     {
         DataEntity caster = currentTurnOrder[0];
         float réussite = lancer(capacity.précision, 2f,1f);
+        int DamageDone = 0;
         if (réussite == 2)
         {
             Debug.Log("échec de la compétence");
@@ -285,6 +286,7 @@ public class CombatManager : MonoBehaviour
         {
             float calculatedDamage = (((caster.UnitAtk + 1) * capacity.atk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
             int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
+            DamageDone += icalculatedDamage;
             if (target.UnitShield > 0)
             {
                 if (target.UnitShield < icalculatedDamage)
@@ -296,8 +298,8 @@ public class CombatManager : MonoBehaviour
                 else
                 {
                     target.UnitShield -= icalculatedDamage;
-                    icalculatedDamage = 0;
                     Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts au bouclier de {target.namE}");
+                    icalculatedDamage = 0;  
                 }
             }
             if (icalculatedDamage > 0)
@@ -333,6 +335,11 @@ public class CombatManager : MonoBehaviour
         if (capacity.Shock > 0)
         {
             ShockProc(capacity, target);
+        }
+        if (capacity.ShieldRatioAtk>0)
+        {
+            int Shielding =Mathf.RoundToInt(((float)capacity.ShieldRatioAtk/100)*((float)DamageDone));
+            caster.UnitShield += Shielding;
         }
         InitializeStaticUI();
     }

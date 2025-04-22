@@ -19,6 +19,7 @@ public class CapacityData : ScriptableObject
     [field: Header("Cpt Effect"), SerializeField]
     public int Shield;
     public int Shock;
+    public int ShieldRatioAtk;
     public bool MultipleHeal;
     public bool MultipleAttack;
     public bool TargetingAlly;
