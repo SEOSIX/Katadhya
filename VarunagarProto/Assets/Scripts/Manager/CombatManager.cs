@@ -48,7 +48,10 @@ public class CombatManager : MonoBehaviour
     [HideInInspector] public List<DataEntity> unitPlayedThisTurn = new List<DataEntity>();
     private System.Random r = new System.Random();
 
-    private CapacityData currentSelectedCapacity;
+    public static class GlobalVars
+    {
+        public static CapacityData currentSelectedCapacity;
+    }
     public bool isEnnemyTurn;
 
     void Awake()
@@ -203,7 +206,7 @@ public class CombatManager : MonoBehaviour
     public void StartTargetSelectionMode(CapacityData capacity)
     {
         HideTargetIndicators();
-        currentSelectedCapacity = capacity;
+        GlobalVars.currentSelectedCapacity = capacity;
 
         if (capacity.MultipleHeal)
         {
@@ -215,7 +218,7 @@ public class CombatManager : MonoBehaviour
                 }
             }
 
-            currentSelectedCapacity = null;
+            GlobalVars.currentSelectedCapacity = null;
             Debug.Log("Capacité de soin appliquée à tous les alliés !");
             EndUnitTurn();
             return;
@@ -231,13 +234,13 @@ public class CombatManager : MonoBehaviour
                 }
             }
 
-            currentSelectedCapacity = null;
+            GlobalVars.currentSelectedCapacity = null;
             Debug.Log("Capacité de zone appliquée à tous les ennemis !");
             EndUnitTurn();
             return;
         }
 
-        Debug.Log("Sélectionnez une ou plusieurs cibles pour " + capacity.name);
+        //Debug.Log("Sélectionnez une ou plusieurs cibles pour " + capacity.name);
         ShowTargetIndicators(capacity);
     }
     public void SelectEnemy(int enemyIndex)
@@ -247,11 +250,9 @@ public class CombatManager : MonoBehaviour
             Debug.LogError("Index d'ennemi invalide !");
             return;
         }
-
         DataEntity target = entityHandler.ennemies[enemyIndex];
-
-        ApplyCapacityToTarget(currentSelectedCapacity, target);
-        currentSelectedCapacity = null;
+        ApplyCapacityToTarget(GlobalVars.currentSelectedCapacity, target);
+        GlobalVars.currentSelectedCapacity = null;
         HideTargetIndicators();
         EndUnitTurn();
     }
@@ -263,11 +264,9 @@ public class CombatManager : MonoBehaviour
             Debug.LogError("Index d'allié invalide !");
             return;
         }
-
         DataEntity target = entityHandler.players[allyIndex];
-
-        ApplyCapacityToTarget(currentSelectedCapacity, target);
-        currentSelectedCapacity = null;
+        ApplyCapacityToTarget(GlobalVars.currentSelectedCapacity, target);
+        GlobalVars.currentSelectedCapacity = null;
         EndUnitTurn();
         HideTargetIndicators();
     }
@@ -275,7 +274,7 @@ public class CombatManager : MonoBehaviour
     public void ApplyCapacityToTarget(CapacityData capacity, DataEntity target)
     {
         DataEntity caster = currentTurnOrder[0];
-        float réussite = lancer(capacity.précision,1);
+        float réussite = lancer(capacity.précision,2f);
         if (réussite == 2)
         {
             Debug.Log("échec de la compétence");
@@ -328,15 +327,12 @@ public class CombatManager : MonoBehaviour
             } else
             {
                 Debug.Log($"{target.namE} prend un nerf ({capacity.buffType})");
-            }
-                
+            }       
         }
         if (capacity.Shock > 0)
         {
             ShockProc(capacity, target);
         }
-
-
         InitializeStaticUI();
     }
 

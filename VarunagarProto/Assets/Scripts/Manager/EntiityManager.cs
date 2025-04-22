@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using JetBrains.Annotations;
 using System.Linq;
+using static CombatManager;
 
 public class EntiityManager : MonoBehaviour
 {
@@ -83,6 +84,8 @@ public class EntiityManager : MonoBehaviour
     }
     void Start()
     {
+        UpdateSpellData(entityHandler.players[1]);
+        UpdateSpellData(entityHandler.players[0]);
         LifeEntity.SINGLETON.LifeManage();
         RestoreEnemiesLife();
         RestoreShield();
@@ -120,27 +123,26 @@ public class EntiityManager : MonoBehaviour
 
     void OnMouseDown()
     {
-        CombatManager.SINGLETON.SelectEnemy(playerIndex);
-        CombatManager.SINGLETON.SelectAlly(playerIndex);
+        if(GlobalVars.currentSelectedCapacity != null)
+        {
+            if (GlobalVars.currentSelectedCapacity.TargetingAlly)
+            {
+                CombatManager.SINGLETON.SelectAlly(playerIndex);
+            }
+            else
+            {
+                CombatManager.SINGLETON.SelectEnemy(playerIndex);
+            }
+        }
+        
     }
 
     public void UpdateSpellData(DataEntity player)
     {
         CapacityData[] allData = Resources.LoadAll<CapacityData>("Data");
-        Debug.Log($"{allData.Length}");
-        Debug.Log($"{allData[20]}");
-        Debug.Log($"{player.index} skibidi {player.Affinity}");
         player._CapacityData1 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}a{player.Affinity}");
         player._CapacityData2 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}b{player.Affinity}");
         player._CapacityData3 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}c{player.Affinity}");
-    }
-    void LateUpdate()
-    {
-        if(Input.GetKey("k"))
-        {
-            UpdateSpellData(entityHandler.players[1]);
-            UpdateSpellData(entityHandler.players[0]);
-        }
     }
     
     private void AssignPlayerIndices()
@@ -153,7 +155,7 @@ public class EntiityManager : MonoBehaviour
             if (manager != null)
             {
                 manager.playerIndex = i;
-                Debug.Log($"Index assigné à {entityHandler.players[i].namE} : {i}");
+                //Debug.Log($"Index assigné à {entityHandler.players[i].namE} : {i}");
             }
             else
             {
@@ -170,7 +172,7 @@ public class EntiityManager : MonoBehaviour
             if (manager != null)
             {
                 manager.playerIndex = i;
-                Debug.Log($"Index assigné à ennemi {entityHandler.ennemies[i].namE} : {i}");
+                //Debug.Log($"Index assigné à ennemi {entityHandler.ennemies[i].namE} : {i}");
             }
             else
             {

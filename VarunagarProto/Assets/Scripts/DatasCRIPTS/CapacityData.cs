@@ -21,4 +21,5 @@ public class CapacityData : ScriptableObject
     public int Shock;
     public bool MultipleHeal;
     public bool MultipleAttack;
+    public bool TargetingAlly;
 }

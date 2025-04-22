@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager SINGLETON { get; private set; }
+    public static GameManager SINGLETON { get; set; }
     
     [Header("Spawn Positions")]
     public List<Transform> playerSpawnPoints;
