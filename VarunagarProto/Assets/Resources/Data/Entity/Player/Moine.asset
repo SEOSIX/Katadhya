@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8f182d232039848a3b32d7886df91f, type: 3}
   m_Name: Moine
   m_EditorClassIdentifier: 
-  instance: {fileID: 0}
-  <UnitLife>k__BackingField: 35
-  UnitAtk: 0
-  UnitSpeed: 0
+  instance: {fileID: 8051075074999306315, guid: 2cb662c8006bcc2448eed9ba485ac957, type: 3}
+  <UnitLife>k__BackingField: 80
+  UnitAtk: 4
+  UnitSpeed: 40
   UnitDef: 0
   Affinity: 1
   BaseLife: 80
@@ -29,9 +29,9 @@ MonoBehaviour:
   bandeauUI: {fileID: 21300000, guid: 6c06cf1fd04d2c44b829c9f002d658bf, type: 3}
   manimator: {fileID: 0}
   capacity1: {fileID: 21300000, guid: 430094b588f0ce8448b16531b6de98f0, type: 3}
-  _CapacityData1: {fileID: 0}
+  _CapacityData1: {fileID: 11400000, guid: f471b76f13b76fb4195bddb231c75ac1, type: 2}
   capacity2: {fileID: 21300000, guid: 739fe7d4b9e4a6048a20091e45e066f1, type: 3}
-  _CapacityData2: {fileID: 0}
+  _CapacityData2: {fileID: 11400000, guid: 5c492647456f861468e82b06030b9f4e, type: 2}
   capacity3: {fileID: 21300000, guid: b3a56775c42bab44884e5d04562a368e, type: 3}
   _CapacityData3: {fileID: 11400000, guid: 0ce1682e094e2a04db274f2edc8a7778, type: 2}
   Ultimate: {fileID: 21300000, guid: 47156ee7c606bda4db4e0c7d377a295c, type: 3}
