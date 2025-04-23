@@ -118,23 +118,21 @@ public class EntiityManager : MonoBehaviour
             Debug.Log("players ont gagnés");
         }
     }
-
-
-
+    
+    public bool Clickable = true;
     void OnMouseDown()
     {
-        if(GlobalVars.currentSelectedCapacity != null)
+        if (GlobalVars.currentSelectedCapacity != null)
         {
             if (GlobalVars.currentSelectedCapacity.TargetingAlly)
             {
-                CombatManager.SINGLETON.SelectAlly(playerIndex);
+                SINGLETON.SelectAlly(playerIndex);
             }
             else
             {
-                CombatManager.SINGLETON.SelectEnemy(playerIndex);
+                SINGLETON.SelectEnemy(playerIndex);
             }
         }
-        
     }
 
     public void UpdateSpellData(DataEntity player)
@@ -172,7 +170,6 @@ public class EntiityManager : MonoBehaviour
             if (manager != null)
             {
                 manager.playerIndex = i;
-                //Debug.Log($"Index assigné à ennemi {entityHandler.ennemies[i].namE} : {i}");
             }
             else
             {

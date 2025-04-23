@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
 
             GameObject newPlayer = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
             newPlayer.name = data.namE;
+            data.instance = newPlayer;
 
             SpriteRenderer spriteRenderer = newPlayer.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
@@ -88,6 +89,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
 
     void SpawnEnemies()
     {

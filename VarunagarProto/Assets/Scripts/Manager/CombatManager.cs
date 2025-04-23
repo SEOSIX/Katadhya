@@ -47,6 +47,8 @@ public class CombatManager : MonoBehaviour
     [HideInInspector] public List<DataEntity> currentTurnOrder = new List<DataEntity>();
     [HideInInspector] public List<DataEntity> unitPlayedThisTurn = new List<DataEntity>();
     private System.Random r = new System.Random();
+    [HideInInspector]public bool PlayerClickable;
+    [HideInInspector]public bool EnemyClickable;
 
     public static class GlobalVars
     {
@@ -245,6 +247,8 @@ public class CombatManager : MonoBehaviour
     }
     public void SelectEnemy(int enemyIndex)
     {
+        PlayerClickable = false;
+        EnemyClickable = true;
         if (enemyIndex < 0 || enemyIndex >= entityHandler.ennemies.Length)
         {
             Debug.LogError("Index d'ennemi invalide !");
@@ -373,31 +377,79 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    void ShowTargetIndicators(CapacityData capacity)
+   void ShowTargetIndicators(CapacityData capacity)
+{
+    // Désactive tous les colliders ennemis
+    foreach (DataEntity enemy in entityHandler.ennemies)
     {
-        if (capacity.atk > 0)
+        GameObject enemyGO = enemy.GameObject();
+        if (enemyGO == null)
         {
-            if (!capacity.MultipleAttack)
-            {
-                for (int i = 0; i < entityHandler.ennemies.Length && i < circlesEnnemy.Length; i++)
-                {
-                    if (entityHandler.ennemies[i].UnitLife > 0)
-                        circlesEnnemy[i].SetActive(true);
-                }
-            }
+            Debug.LogWarning("Un ennemi n'a pas de GameObject !");
+            continue;
         }
-        else if (capacity.heal > 0)
+
+        PolygonCollider2D enemyColl = enemyGO.GetComponent<PolygonCollider2D>();
+        if (enemyColl != null)
+            enemyColl.enabled = false;
+        else
+            Debug.LogWarning($"L'ennemi {enemyGO.name} n'a pas de PolygonCollider2D !");
+    }
+    
+    foreach (DataEntity player in entityHandler.players)
+    {
+        GameObject playerGO = player.GameObject();
+        if (playerGO == null)
         {
-            if (!capacity.MultipleHeal)
+            continue;
+        }
+
+        PolygonCollider2D playerColl = playerGO.GetComponent<PolygonCollider2D>();
+        if (playerColl != null)
+            playerColl.enabled = false;
+        else
+            Debug.LogWarning($"Le joueur {playerGO.name} n'a pas de PolygonCollider2D !");
+    }
+
+    if (capacity.atk > 0 && !capacity.MultipleAttack)
+    {
+        for (int i = 0; i < entityHandler.ennemies.Length && i < circlesEnnemy.Length; i++)
+        {
+            if (entityHandler.ennemies[i].UnitLife > 0)
             {
-                for (int i = 0; i < entityHandler.players.Length && i < circlesPlayer.Length; i++)
-                {
-                    if (entityHandler.players[i].UnitLife > 0)
-                        circlesPlayer[i].SetActive(true);
-                }
+                circlesEnnemy[i].SetActive(true);
+
+                GameObject enemyGO = entityHandler.ennemies[i].GameObject();
+                if (enemyGO == null)
+                    continue;
+
+                PolygonCollider2D enemyColl = enemyGO.GetComponent<PolygonCollider2D>();
+                if (enemyColl != null)
+                    enemyColl.enabled = true;
             }
         }
     }
+    else if (capacity.heal > 0 && !capacity.MultipleHeal)
+    {
+        for (int i = 0; i < entityHandler.players.Length && i < circlesPlayer.Length; i++)
+        {
+            if (entityHandler.players[i].UnitLife > 0)
+            {
+                circlesPlayer[i].SetActive(true);
+
+                GameObject playerGO = entityHandler.players[i].GameObject();
+                if (playerGO == null)
+                    continue;
+
+                PolygonCollider2D playerColl = playerGO.GetComponent<PolygonCollider2D>();
+                if (playerColl != null)
+                    playerColl.enabled = true;
+            }
+        }
+    }
+}
+
+
 
     public void GiveBuff(CapacityData capacity, DataEntity target)
     {

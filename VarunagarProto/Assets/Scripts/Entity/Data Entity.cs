@@ -53,4 +53,10 @@ public class DataEntity : ScriptableObject
     public string namE;
     public float size;
     public int index;
+    
+    
+    public GameObject GameObject()
+    {
+        return instance;
+    }
 }
