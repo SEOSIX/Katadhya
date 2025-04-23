@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8f182d232039848a3b32d7886df91f, type: 3}
   m_Name: Moine
   m_EditorClassIdentifier: 
-  instance: {fileID: 1524617609976576852, guid: 2cb662c8006bcc2448eed9ba485ac957, type: 3}
-  <UnitLife>k__BackingField: 67
-  UnitAtk: 4
-  UnitSpeed: 40
+  instance: {fileID: 0}
+  <UnitLife>k__BackingField: 35
+  UnitAtk: 0
+  UnitSpeed: 0
   UnitDef: 0
   Affinity: 1
   BaseLife: 80
@@ -24,14 +24,14 @@ MonoBehaviour:
   BaseDef: 0
   UnitShield: 0
   ShockMark: 0
-  portrait: {fileID: 21300000, guid: f7ea394e9e4f4ce4299ae8792a31ce97, type: 3}
+  portrait: {fileID: 21300000, guid: 720a7ef09d762164291f08f84ceca96b, type: 3}
   portraitUI: {fileID: 21300000, guid: 525f1e84f52da0b45a6ff757dd1c09df, type: 3}
   bandeauUI: {fileID: 21300000, guid: 6c06cf1fd04d2c44b829c9f002d658bf, type: 3}
   manimator: {fileID: 0}
-  capacity1: {fileID: 21300000, guid: 28eddfdb0cfd2934494e6ea859813e73, type: 3}
-  _CapacityData1: {fileID: 11400000, guid: f471b76f13b76fb4195bddb231c75ac1, type: 2}
-  capacity2: {fileID: 21300000, guid: 9b83362f7b7519341b4fded2e00e2213, type: 3}
-  _CapacityData2: {fileID: 11400000, guid: 5c492647456f861468e82b06030b9f4e, type: 2}
+  capacity1: {fileID: 21300000, guid: 430094b588f0ce8448b16531b6de98f0, type: 3}
+  _CapacityData1: {fileID: 0}
+  capacity2: {fileID: 21300000, guid: 739fe7d4b9e4a6048a20091e45e066f1, type: 3}
+  _CapacityData2: {fileID: 0}
   capacity3: {fileID: 21300000, guid: b3a56775c42bab44884e5d04562a368e, type: 3}
   _CapacityData3: {fileID: 11400000, guid: 0ce1682e094e2a04db274f2edc8a7778, type: 2}
   Ultimate: {fileID: 21300000, guid: 47156ee7c606bda4db4e0c7d377a295c, type: 3}
