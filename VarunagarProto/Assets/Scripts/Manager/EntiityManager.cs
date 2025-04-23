@@ -10,128 +10,143 @@ using static CombatManager;
 public class EntiityManager : MonoBehaviour
 {
     public int playerIndex;
+    
     [Header("entityHandler")]
     public EntityHandler entityHandler;
 
     private int currentLifeValue;
+    public bool Clickable = true;
 
     public void DestroyDeadEnemies()
     {
-        for (int i = 0; i < entityHandler.ennemies.Length; i++)
+        for (int i = entityHandler.ennemies.Count - 1; i >= 0; i--)
         {
             var enemy = entityHandler.ennemies[i];
             if (enemy == null || enemy.UnitLife > 0)
                 continue;
 
             Debug.Log($"L'ennemi {enemy.namE} est mort et va être détruit.");
-            GameObject enemyInstance = enemy.instance;
-            CombatManager.SINGLETON.RemoveUnitFromList(enemy);
-            Destroy(enemyInstance);
 
+            CombatManager.SINGLETON.RemoveUnitFromList(enemy);
+            if (i < CombatManager.SINGLETON.circlesEnnemy.Count)
+            {
+                Destroy(CombatManager.SINGLETON.circlesEnnemy[i]);
+                CombatManager.SINGLETON.circlesEnnemy.RemoveAt(i);
+            }
             if (i < LifeEntity.SINGLETON.enemySliders.Length)
             {
-                GameObject enemySliderGO = LifeEntity.SINGLETON.enemySliders[i].gameObject;
-                enemySliderGO.SetActive(false);
-                CombatManager.SINGLETON.circlesEnnemy[i].SetActive(false);
+                LifeEntity.SINGLETON.enemySliders[i].gameObject.SetActive(false);
             }
-            entityHandler.ennemies[i] = null;
+            
+            if (enemy.instance != null)
+                Destroy(enemy.instance);
+            
+            entityHandler.ennemies.RemoveAt(i);
         }
     }
 
+
     public void DestroyDeadPlayers()
     {
-        for (int i = 0; i < entityHandler.players.Length; i++)
+        for (int i = entityHandler.players.Count - 1; i >= 0; i--)
         {
-            Debug.Log($"Le jouer {entityHandler.players[i].namE} est mort et va être détruit.");
-            GameObject PlayerInstance = entityHandler.players[i].instance;
-            CombatManager.SINGLETON.RemoveUnitFromList(entityHandler.players[i]);
-            Destroy(PlayerInstance);
-            if (i >= LifeEntity.SINGLETON.PlayerSliders.Length)
-            {
+            var player = entityHandler.players[i];
+            if (player == null || player.UnitLife > 0)
                 continue;
+
+            Debug.Log($"Le joueur {player.namE} est mort et va être détruit.");
+
+            GameObject playerInstance = player.instance;
+            CombatManager.SINGLETON.RemoveUnitFromList(player);
+
+            if (playerInstance != null)
+                Destroy(playerInstance);
+
+            if (i < LifeEntity.SINGLETON.PlayerSliders.Length)
+            {
+                LifeEntity.SINGLETON.PlayerSliders[i].gameObject.SetActive(false);
             }
-            GameObject PlayerSliderGO = LifeEntity.SINGLETON.PlayerSliders[i].gameObject;
-            PlayerSliderGO.SetActive(false);
+
+            entityHandler.players.RemoveAt(i);
         }
+        AssignPlayerIndices();
     }
 
     private void RestoreEnemiesLife()
     {
-        for (int i = 0; i < entityHandler.ennemies.Length; i++)
+        foreach (var enemy in entityHandler.ennemies)
         {
-            if (entityHandler.ennemies[i] != null)
-            {
-                entityHandler.ennemies[i].UnitLife = entityHandler.ennemies[i].BaseLife;
-            }
+            if (enemy != null)
+                enemy.UnitLife = enemy.BaseLife;
         }
     }
+
     private void RestoreShield()
     {
-        for (int i = 0; i < entityHandler.ennemies.Length; i++)
+        foreach (var enemy in entityHandler.ennemies)
         {
-            if (entityHandler.ennemies[i] != null)
-            {
-                entityHandler.ennemies[i].UnitShield = 0;
-            }
+            if (enemy != null)
+                enemy.UnitShield = 0;
         }
-        for (int i = 0; i < entityHandler.players.Length; i++)
+
+        foreach (var player in entityHandler.players)
         {
-            if (entityHandler.players[i] != null)
-            {
-                entityHandler.players[i].UnitShield = 0;
-            }
+            if (player != null)
+                player.UnitShield = 0;
         }
     }
+
     void Start()
     {
-        UpdateSpellData(entityHandler.players[1]);
-        UpdateSpellData(entityHandler.players[0]);
+        if (entityHandler.players.Count > 1)
+        {
+            UpdateSpellData(entityHandler.players[1]);
+            UpdateSpellData(entityHandler.players[0]);
+        }
+
         LifeEntity.SINGLETON.LifeManage();
         RestoreEnemiesLife();
         RestoreShield();
         AssignPlayerIndices();
     }
 
-    private void Update()
+    void Update()
     {
+        if (entityHandler.ennemies.Any(e => e != null && e.UnitLife <= 0))
+            DestroyDeadEnemies();
+
+        if (entityHandler.players.Any(p => p != null && p.UnitLife <= 0))
+            DestroyDeadPlayers();
+
         LifeEntity.SINGLETON.LifeManage();
-        for (int i = 0; i < entityHandler.ennemies.Length; i++)
+
+        bool anyPlayerAlive = entityHandler.players.Any(p => p != null);
+        bool anyEnemyAlive = entityHandler.ennemies.Any(e => e != null);
+
+        if (!anyPlayerAlive)
         {
-            if (entityHandler.ennemies[i] != null && entityHandler.ennemies[i].UnitLife <= 0)
-            {
-                DestroyDeadEnemies();
-            }
+            Debug.Log("Les ennemis ont gagné !");
         }
-        for (int i = 0; i < entityHandler.players.Length; i++)
+        else if (!anyEnemyAlive)
         {
-            if (entityHandler.players[i] != null && entityHandler.players[i].UnitLife <= 0)
-            {
-                DestroyDeadPlayers();
-            }
-        }
-        if (entityHandler.players.Length == 0)
-        {
-            Debug.Log("enemis ont gagnés");
-        }
-        else if (entityHandler.ennemies.Length == 0)
-        {
-            Debug.Log("players ont gagnés");
+            Debug.Log("Les joueurs ont gagné !");
         }
     }
-    
-    public bool Clickable = true;
+
     void OnMouseDown()
     {
-        if (GlobalVars.currentSelectedCapacity != null)
+        if (!Clickable || GlobalVars.currentSelectedCapacity == null)
+            return;
+
+        if (GlobalVars.currentSelectedCapacity.TargetingAlly)
         {
-            if (GlobalVars.currentSelectedCapacity.TargetingAlly)
-            {
+            if (playerIndex < entityHandler.players.Count && entityHandler.players[playerIndex] != null)
                 SINGLETON.SelectAlly(playerIndex);
-            }
-            else
-            {
+        }
+        else
+        {
+            if (playerIndex < entityHandler.ennemies.Count && entityHandler.ennemies[playerIndex] != null)
                 SINGLETON.SelectEnemy(playerIndex);
-            }
         }
     }
 
@@ -142,40 +157,41 @@ public class EntiityManager : MonoBehaviour
         player._CapacityData2 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}b{player.Affinity}");
         player._CapacityData3 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}c{player.Affinity}");
     }
-    
-    private void AssignPlayerIndices()
-{
-    for (int i = 0; i < entityHandler.players.Length; i++)
-    {
-        if (entityHandler.players[i] != null)
-        {
-            EntiityManager manager = entityHandler.players[i].instance.GetComponent<EntiityManager>();
-            if (manager != null)
-            {
-                manager.playerIndex = i;
-                //Debug.Log($"Index assigné à {entityHandler.players[i].namE} : {i}");
-            }
-            else
-            {
-                Debug.LogWarning($"Aucun EntiityManager trouvé sur {entityHandler.players[i].namE}");
-            }
-        }
-    }
 
-    for (int i = 0; i < entityHandler.ennemies.Length; i++)
+    private void AssignPlayerIndices()
     {
-        if (entityHandler.ennemies[i] != null)
+        for (int i = 0; i < entityHandler.players.Count; i++)
         {
-            EntiityManager manager = entityHandler.ennemies[i].instance.GetComponent<EntiityManager>();
-            if (manager != null)
+            var player = entityHandler.players[i];
+            if (player?.instance != null)
             {
-                manager.playerIndex = i;
+                EntiityManager manager = player.instance.GetComponent<EntiityManager>();
+                if (manager != null)
+                {
+                    manager.playerIndex = i;
+                }
+                else
+                {
+                    Debug.LogWarning($"Aucun EntiityManager trouvé sur {player.namE}");
+                }
             }
-            else
+        }
+
+        for (int i = 0; i < entityHandler.ennemies.Count; i++)
+        {
+            var enemy = entityHandler.ennemies[i];
+            if (enemy?.instance != null)
             {
-                Debug.LogWarning($"Aucun EntiityManager trouvé sur {entityHandler.ennemies[i].namE}");
+                EntiityManager manager = enemy.instance.GetComponent<EntiityManager>();
+                if (manager != null)
+                {
+                    manager.playerIndex = i;
+                }
+                else
+                {
+                    Debug.LogWarning($"Aucun EntiityManager trouvé sur {enemy.namE}");
+                }
             }
         }
     }
-}
 }

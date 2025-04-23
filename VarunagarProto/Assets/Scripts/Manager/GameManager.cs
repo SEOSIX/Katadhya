@@ -53,13 +53,13 @@ public class GameManager : MonoBehaviour
 
     void SpawnPlayers()
     {
-        if (entityHandler.players == null || entityHandler.players.Length == 0)
+        if (entityHandler.players == null || entityHandler.players.Count == 0)
         {
             Debug.LogError("Aucun joueur dans EntityHandler !");
             return;
         }
 
-        for (int i = 0; i < entityHandler.players.Length; i++)
+        for (int i = 0; i < entityHandler.players.Count; i++)
         {
             if (i >= playerSpawnPoints.Count)
             {
@@ -93,13 +93,13 @@ public class GameManager : MonoBehaviour
 
     void SpawnEnemies()
     {
-        if (entityHandler.ennemies == null || entityHandler.ennemies.Length == 0)
+        if (entityHandler.ennemies == null || entityHandler.ennemies.Count == 0)
         {
             Debug.LogError("Aucun ennemi dans EntityHandler !");
             return;
         }
 
-        for (int i = 0; i < entityHandler.ennemies.Length; i++)
+        for (int i = 0; i < entityHandler.ennemies.Count; i++)
         {
             if (i >= enemySpawnPoints.Count)
             {

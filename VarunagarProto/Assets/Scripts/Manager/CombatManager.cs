@@ -38,8 +38,8 @@ public class CombatManager : MonoBehaviour
     public GameObject TurnUI;
 
     [Header("Target Indicators")]
-    public GameObject[] circlesEnnemy;
-    public GameObject[] circlesPlayer;
+    public List<GameObject> circlesEnnemy;
+    public List<GameObject> circlesPlayer;
 
     [Header("Ultimate")]
     public Ultimate ultimateScript;
@@ -82,13 +82,13 @@ public class CombatManager : MonoBehaviour
 
     public void SetupBaseStat()
     {
-        for (int i = 0; i < entityHandler.ennemies.Length; i++)
+        for (int i = 0; i < entityHandler.ennemies.Count; i++)
         {
             entityHandler.ennemies[i].UnitAtk = entityHandler.ennemies[i].BaseAtk;
             entityHandler.ennemies[i].UnitDef = entityHandler.ennemies[i].BaseDef;
             entityHandler.ennemies[i].UnitSpeed = entityHandler.ennemies[i].BaseSpeed;
         }
-        for (int i = 0; i < entityHandler.players.Length; i++)
+        for (int i = 0; i < entityHandler.players.Count; i++)
         {
             entityHandler.players[i].UnitAtk = entityHandler.players[i].BaseAtk;
             entityHandler.players[i].UnitDef = entityHandler.players[i].BaseDef;
@@ -130,8 +130,8 @@ public class CombatManager : MonoBehaviour
     public List<DataEntity> GetUnitTurn()
     {
         var speedValue = new List<DataEntity>();
-        speedValue.AddRange(entityHandler.ennemies);
-        speedValue.AddRange(entityHandler.players);
+        speedValue.AddRange(entityHandler.ennemies.Where(e => e != null));
+        speedValue.AddRange(entityHandler.players.Where(p => p != null));
         return speedValue.OrderByDescending(x => x.UnitSpeed).ToList();
     }
 
@@ -247,13 +247,15 @@ public class CombatManager : MonoBehaviour
     }
     public void SelectEnemy(int enemyIndex)
     {
-        PlayerClickable = false;
-        EnemyClickable = true;
-        if (enemyIndex < 0 || enemyIndex >= entityHandler.ennemies.Length)
+        if (enemyIndex < 0 || 
+            enemyIndex >= entityHandler.ennemies.Count || 
+            entityHandler.ennemies[enemyIndex] == null || 
+            entityHandler.ennemies[enemyIndex].UnitLife <= 0) // <-- Nouvelle vérification
         {
-            Debug.LogError("Index d'ennemi invalide !");
+            Debug.LogError("Cible invalide ou ennemi mort !");
             return;
         }
+
         DataEntity target = entityHandler.ennemies[enemyIndex];
         ApplyCapacityToTarget(GlobalVars.currentSelectedCapacity, target);
         GlobalVars.currentSelectedCapacity = null;
@@ -263,7 +265,7 @@ public class CombatManager : MonoBehaviour
 
     public void SelectAlly(int allyIndex)
     {
-        if (allyIndex < 0 || allyIndex >= entityHandler.players.Length)
+        if (allyIndex < 0 || allyIndex >= entityHandler.players.Count)
         {
             Debug.LogError("Index d'allié invalide !");
             return;
@@ -379,7 +381,6 @@ public class CombatManager : MonoBehaviour
 
    void ShowTargetIndicators(CapacityData capacity)
 {
-    // Désactive tous les colliders ennemis
     foreach (DataEntity enemy in entityHandler.ennemies)
     {
         GameObject enemyGO = enemy.GameObject();
@@ -413,7 +414,7 @@ public class CombatManager : MonoBehaviour
 
     if (capacity.atk > 0 && !capacity.MultipleAttack)
     {
-        for (int i = 0; i < entityHandler.ennemies.Length && i < circlesEnnemy.Length; i++)
+        for (int i = 0; i < entityHandler.ennemies.Count && i < circlesEnnemy.Count; i++)
         {
             if (entityHandler.ennemies[i].UnitLife > 0)
             {
@@ -431,7 +432,7 @@ public class CombatManager : MonoBehaviour
     }
     else if (capacity.heal > 0 && !capacity.MultipleHeal)
     {
-        for (int i = 0; i < entityHandler.players.Length && i < circlesPlayer.Length; i++)
+        for (int i = 0; i < entityHandler.players.Count && i < circlesPlayer.Count; i++)
         {
             if (entityHandler.players[i].UnitLife > 0)
             {
