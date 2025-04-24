@@ -30,13 +30,13 @@ public class AI : MonoBehaviour
         if (CombatManager.SINGLETON == null || 
             CombatManager.SINGLETON.entityHandler == null || 
             CombatManager.SINGLETON.entityHandler.players == null || 
-            CombatManager.SINGLETON.entityHandler.players.Length == 0)
+            CombatManager.SINGLETON.entityHandler.players.Count == 0)
         {
             Debug.LogWarning("Aucun joueur disponible pour l'attaque.");
             return;
         }
 
-        int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Length);
+        int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Count);
         DataEntity targetedPlayer = CombatManager.SINGLETON.entityHandler.players[randomIndex];
 
         if (randomIndex == 1)
@@ -64,7 +64,7 @@ public class AI : MonoBehaviour
         Animation animationTarget1 = playerTarget1.GetComponent<Animation>();
         Animation animationTarget2 = playerTarget2.GetComponent<Animation>();
         
-        int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Length);
+        int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Count);
         
         //Debug.Log($"{attacker.namE} a infligé {damage} dégâts à {target.namE} (PV restants: {target.UnitLife})");
         yield return new WaitForSeconds(2f);

@@ -33,7 +33,7 @@ public class LifeEntity : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < entityHandler.players.Length; i++)
+        for (int i = 0; i < entityHandler.players.Count; i++)
         {
             if (entityHandler.players[i] != null && PlayerSliders[i] != null)
             {
@@ -44,7 +44,7 @@ public class LifeEntity : MonoBehaviour
 
     public void LifeManage()
     {
-        for (int i = 0; i < entityHandler.ennemies.Length && i < enemySliders.Length && i < enemyShieldSliders.Length; i++)
+        for (int i = 0; i < entityHandler.ennemies.Count && i < enemySliders.Length && i < enemyShieldSliders.Length; i++)
         {
             if (entityHandler.ennemies[i] != null && enemySliders[i] != null && enemyShieldSliders != null)
             {
@@ -54,7 +54,7 @@ public class LifeEntity : MonoBehaviour
                 enemyShieldSliders[i].value = entityHandler.ennemies[i].UnitShield;
             }
         }
-        for (int i = 0; i < entityHandler.players.Length && i < PlayerSliders.Length && i < PlayerShieldSliders.Length; i++)
+        for (int i = 0; i < entityHandler.players.Count && i < PlayerSliders.Length && i < PlayerShieldSliders.Length; i++)
         {
             if (entityHandler.players[i] != null && PlayerSliders[i] != null && PlayerShieldSliders != null)
             {
