@@ -27,6 +27,7 @@ public class CombatManager : MonoBehaviour
     public Image[] ImagePortrait;
 
     public Button[] capacityButtons;
+    public Button[] capacityAnimButtons;
     private DataEntity currentPlayer;
 
     [Header("Turn Management")]
@@ -36,6 +37,7 @@ public class CombatManager : MonoBehaviour
     [Header("TurnObject")]
     public GameObject ennemyTurn;
     public GameObject TurnUI;
+    public CanvasGroup canvasGroup;
 
     [Header("Target Indicators")]
     public List<GameObject> circlesEnnemy;
@@ -180,14 +182,18 @@ public class CombatManager : MonoBehaviour
         {
             isEnnemyTurn = true;
             //Debug.Log($"🔴 C'est au tour de l'ennemi {currentEntity.namE} !");
-            TurnUI.SetActive(false);
+            canvasGroup.alpha = 0f;
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
             ennemyTurn.SetActive(true);
             AI.SINGLETON.Attack(currentEntity, 50);
         }
         else
         {
             isEnnemyTurn = false;
-            TurnUI.SetActive(true);
+            canvasGroup.alpha = 1f;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
             ennemyTurn.SetActive(false);
         }
     }
@@ -355,35 +361,36 @@ public class CombatManager : MonoBehaviour
         for (int i = 0; i < capacityButtons.Length; i++)
         {
             capacityButtons[i].gameObject.SetActive(false);
-            capacityButtons[i].onClick.RemoveAllListeners();
+            capacityAnimButtons[i].onClick.RemoveAllListeners();
+            capacityAnimButtons[i].animator.SetTrigger("Normal");
         }
 
         if (player.capacity1 != null)
         {
             capacityButtons[0].gameObject.SetActive(true);
             capacityButtons[0].GetComponent<Image>().sprite = player.capacity1;
-            capacityButtons[0].onClick.AddListener(() => UseCapacity(player._CapacityData1));
+            capacityAnimButtons[0].onClick.AddListener(() => UseCapacity(player._CapacityData1));
         }
 
         if (player.capacity2 != null)
         {
             capacityButtons[1].gameObject.SetActive(true);
             capacityButtons[1].GetComponent<Image>().sprite = player.capacity2;
-            capacityButtons[1].onClick.AddListener(() => UseCapacity(player._CapacityData2));
+            capacityAnimButtons[1].onClick.AddListener(() => UseCapacity(player._CapacityData2));
         }
 
         if (player.capacity3 != null)
         {
             capacityButtons[2].gameObject.SetActive(true);
             capacityButtons[2].GetComponent<Image>().sprite = player.capacity3;
-            capacityButtons[2].onClick.AddListener(() => UseCapacity(player._CapacityData3));
+            capacityAnimButtons[2].onClick.AddListener(() => UseCapacity(player._CapacityData3));
         }
 
         if (player.Ultimate != null)
         {
             capacityButtons[3].gameObject.SetActive(true);
             capacityButtons[3].GetComponent<Image>().sprite = player.Ultimate;
-            capacityButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start());
+            capacityAnimButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start());
         }
     }
 
