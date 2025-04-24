@@ -25,27 +25,26 @@ public class EntiityManager : MonoBehaviour
             if (enemy == null || enemy.UnitLife > 0)
                 continue;
 
-            Debug.Log($"L'ennemi {enemy.namE} est mort et va être détruit.");
-
+            Debug.Log($"L'ennemi {enemy.namE} est mort et va être désactivé.");
             CombatManager.SINGLETON.RemoveUnitFromList(enemy);
+
             if (i < CombatManager.SINGLETON.circlesEnnemy.Count)
             {
-                Destroy(CombatManager.SINGLETON.circlesEnnemy[i]);
-                CombatManager.SINGLETON.circlesEnnemy.RemoveAt(i);
+                CombatManager.SINGLETON.circlesEnnemy[i].SetActive(false);
             }
+
             if (i < LifeEntity.SINGLETON.enemySliders.Length)
             {
                 LifeEntity.SINGLETON.enemySliders[i].gameObject.SetActive(false);
             }
-            
+
             if (enemy.instance != null)
-                Destroy(enemy.instance);
-            
-            entityHandler.ennemies.RemoveAt(i);
+            {
+                enemy.instance.SetActive(false);
+                enemy.UnitLife = -1;
+            }
         }
     }
-
-
     public void DestroyDeadPlayers()
     {
         for (int i = entityHandler.players.Count - 1; i >= 0; i--)
@@ -137,6 +136,8 @@ public class EntiityManager : MonoBehaviour
     {
         if (!Clickable || GlobalVars.currentSelectedCapacity == null)
             return;
+        Debug.Log($"Tentative de sélection. Index: {playerIndex}");
+
 
         if (GlobalVars.currentSelectedCapacity.TargetingAlly)
         {

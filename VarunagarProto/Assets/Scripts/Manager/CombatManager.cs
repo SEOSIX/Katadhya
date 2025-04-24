@@ -127,13 +127,13 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public List<DataEntity> GetUnitTurn()
-    {
-        var speedValue = new List<DataEntity>();
-        speedValue.AddRange(entityHandler.ennemies.Where(e => e != null));
-        speedValue.AddRange(entityHandler.players.Where(p => p != null));
-        return speedValue.OrderByDescending(x => x.UnitSpeed).ToList();
-    }
+   public List<DataEntity> GetUnitTurn()
+{
+    var speedValue = new List<DataEntity>();
+    speedValue.AddRange(entityHandler.ennemies.Where(e => e != null && e.UnitLife > 0));
+    speedValue.AddRange(entityHandler.players.Where(p => p != null && p.UnitLife > 0));
+    return speedValue.OrderByDescending(x => x.UnitSpeed).ToList();
+}
 
     public void EndUnitTurn()
     {
@@ -245,18 +245,18 @@ public class CombatManager : MonoBehaviour
         //Debug.Log("Sélectionnez une ou plusieurs cibles pour " + capacity.name);
         ShowTargetIndicators(capacity);
     }
+
     public void SelectEnemy(int enemyIndex)
     {
-        if (enemyIndex < 0 || 
-            enemyIndex >= entityHandler.ennemies.Count || 
-            entityHandler.ennemies[enemyIndex] == null || 
-            entityHandler.ennemies[enemyIndex].UnitLife <= 0) // <-- Nouvelle vérification
+        if (enemyIndex < 0 || enemyIndex >= entityHandler.ennemies.Count)
+            return;
+        DataEntity target = entityHandler.ennemies[enemyIndex];
+        
+        if (target == null || target.UnitLife <= 0)
         {
-            Debug.LogError("Cible invalide ou ennemi mort !");
+            Debug.LogError("Cible invalide ou morte.");
             return;
         }
-
-        DataEntity target = entityHandler.ennemies[enemyIndex];
         ApplyCapacityToTarget(GlobalVars.currentSelectedCapacity, target);
         GlobalVars.currentSelectedCapacity = null;
         HideTargetIndicators();
@@ -379,54 +379,33 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-   void ShowTargetIndicators(CapacityData capacity)
+  void ShowTargetIndicators(CapacityData capacity)
 {
-    foreach (DataEntity enemy in entityHandler.ennemies)
-    {
-        GameObject enemyGO = enemy.GameObject();
-        if (enemyGO == null)
-        {
-            Debug.LogWarning("Un ennemi n'a pas de GameObject !");
-            continue;
-        }
-
-        PolygonCollider2D enemyColl = enemyGO.GetComponent<PolygonCollider2D>();
-        if (enemyColl != null)
-            enemyColl.enabled = false;
-        else
-            Debug.LogWarning($"L'ennemi {enemyGO.name} n'a pas de PolygonCollider2D !");
-    }
+    HideTargetIndicators();
     
-    foreach (DataEntity player in entityHandler.players)
-    {
-        GameObject playerGO = player.GameObject();
-        if (playerGO == null)
-        {
-            continue;
-        }
-
-        PolygonCollider2D playerColl = playerGO.GetComponent<PolygonCollider2D>();
-        if (playerColl != null)
-            playerColl.enabled = false;
-        else
-            Debug.LogWarning($"Le joueur {playerGO.name} n'a pas de PolygonCollider2D !");
-    }
-
     if (capacity.atk > 0 && !capacity.MultipleAttack)
     {
         for (int i = 0; i < entityHandler.ennemies.Count && i < circlesEnnemy.Count; i++)
         {
-            if (entityHandler.ennemies[i].UnitLife > 0)
+            DataEntity enemy = entityHandler.ennemies[i];
+            
+            // Vérifie si l'ennemi est valide et vivant
+            if (enemy == null || enemy.UnitLife <= 0) 
+                continue;
+            circlesEnnemy[i].SetActive(true);
+
+            // Active le collider si le GameObject existe
+            if (enemy.instance != null)
             {
-                circlesEnnemy[i].SetActive(true);
-
-                GameObject enemyGO = entityHandler.ennemies[i].GameObject();
-                if (enemyGO == null)
-                    continue;
-
-                PolygonCollider2D enemyColl = enemyGO.GetComponent<PolygonCollider2D>();
+                PolygonCollider2D enemyColl = enemy.instance.GetComponent<PolygonCollider2D>();
                 if (enemyColl != null)
+                {
                     enemyColl.enabled = true;
+                }
+                else
+                {
+                    Debug.LogWarning($"Pas de PolygonCollider2D sur {enemy.namE}");
+                }
             }
         }
     }
@@ -434,17 +413,21 @@ public class CombatManager : MonoBehaviour
     {
         for (int i = 0; i < entityHandler.players.Count && i < circlesPlayer.Count; i++)
         {
-            if (entityHandler.players[i].UnitLife > 0)
+            DataEntity player = entityHandler.players[i];
+            
+            if (player == null || player.UnitLife <= 0) 
+            circlesPlayer[i].SetActive(true);
+            if (player.instance != null)
             {
-                circlesPlayer[i].SetActive(true);
-
-                GameObject playerGO = entityHandler.players[i].GameObject();
-                if (playerGO == null)
-                    continue;
-
-                PolygonCollider2D playerColl = playerGO.GetComponent<PolygonCollider2D>();
+                PolygonCollider2D playerColl = player.instance.GetComponent<PolygonCollider2D>();
                 if (playerColl != null)
+                {
                     playerColl.enabled = true;
+                }
+                else
+                {
+                    Debug.LogWarning($"Pas de PolygonCollider2D sur {player.namE}");
+                }
             }
         }
     }
