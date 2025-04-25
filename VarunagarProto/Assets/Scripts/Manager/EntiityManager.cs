@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using JetBrains.Annotations;
 using System.Linq;
 using static CombatManager;
+using System.IO.IsolatedStorage;
 
 
 public class EntiityManager : MonoBehaviour

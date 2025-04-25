@@ -440,7 +440,8 @@ public class CombatManager : MonoBehaviour
         {
             DataEntity player = entityHandler.players[i];
             
-            if (player == null || player.UnitLife <= 0) 
+            if (player == null || player.UnitLife <= 0)
+                    continue;
             circlesPlayer[i].SetActive(true);
             if (player.instance != null)
             {

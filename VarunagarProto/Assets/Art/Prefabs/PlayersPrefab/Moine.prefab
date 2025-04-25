@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1736636517690177881}
   - component: {fileID: 196405800687718788}
-  - component: {fileID: 3112849347684734451}
   - component: {fileID: 8415852747150147344}
+  - component: {fileID: 2766384821145672828}
   m_Layer: 0
   m_Name: Moine
   m_TagString: Untagged
@@ -86,7 +86,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &3112849347684734451
+--- !u!114 &8415852747150147344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8051075074999306315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec9c554d987a3545b3a8aef68532713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerIndex: 3
+  entityHandler: {fileID: 11400000, guid: 47a834e79b0175a418d05f2ad7ab7ddd, type: 2}
+  Clickable: 1
+--- !u!60 &2766384821145672828
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1160,17 +1175,3 @@ PolygonCollider2D:
       - {x: -3.771377, y: 5.751575}
       - {x: -3.7623763, y: 5.7605762}
   m_UseDelaunayMesh: 0
---- !u!114 &8415852747150147344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8051075074999306315}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec9c554d987a3545b3a8aef68532713, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerIndex: 3
-  entityHandler: {fileID: 11400000, guid: 47a834e79b0175a418d05f2ad7ab7ddd, type: 2}
