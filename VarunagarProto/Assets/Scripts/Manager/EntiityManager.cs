@@ -7,12 +7,14 @@ using JetBrains.Annotations;
 using System.Linq;
 using static CombatManager;
 
+
 public class EntiityManager : MonoBehaviour
 {
     public int playerIndex;
     
     [Header("entityHandler")]
     public EntityHandler entityHandler;
+
 
     private int currentLifeValue;
     public bool Clickable = true;
@@ -153,6 +155,7 @@ public class EntiityManager : MonoBehaviour
 
     public void UpdateSpellData(DataEntity player)
     {
+
         CapacityData[] allData = Resources.LoadAll<CapacityData>("Data");
         player._CapacityData1 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}a{player.Affinity}");
         player._CapacityData2 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}b{player.Affinity}");

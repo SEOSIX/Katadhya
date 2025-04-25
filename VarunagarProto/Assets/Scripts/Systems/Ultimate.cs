@@ -11,6 +11,7 @@ public class QTEZone
     public float endAngle;
     public Color debugColor = Color.white;
     public bool successZone = true;
+    public int Affinity = 0;
 }
 
 public class Ultimate : MonoBehaviour
@@ -71,7 +72,8 @@ public class Ultimate : MonoBehaviour
                     startAngle = (angle - halfSpan + 360f) % 360f,
                     endAngle = (angle + halfSpan) % 360f,
                     debugColor = marker.debugColor,
-                    successZone = marker.successZone
+                    successZone = marker.successZone,
+                    Affinity = marker.Affinity
                 };
 
                 qteZones.Add(zone);
@@ -190,6 +192,7 @@ public class Ultimate : MonoBehaviour
 
                 if (zone.successZone)
                     hitSuccess = true;
+                CombatManager.SINGLETON.SetupNewAffinity(zone.Affinity);
             }
         }
 
@@ -203,6 +206,7 @@ public class Ultimate : MonoBehaviour
             Debug.Log(" QTE ratée !");
             // Logique d'échec
         }
+        
     }
 
     private bool IsAngleInRange(float angle, float start, float end)

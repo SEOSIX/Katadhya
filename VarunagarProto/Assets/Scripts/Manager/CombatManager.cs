@@ -16,6 +16,7 @@ public class CombatManager : MonoBehaviour
     [Header("Entity Handler")]
     [SerializeField]
     public EntityHandler entityHandler;
+    public EntiityManager entiityManager;
 
     [Header("Entity UI")]
     public TextMeshProUGUI textplayer;
@@ -28,6 +29,7 @@ public class CombatManager : MonoBehaviour
 
     public Button[] capacityButtons;
     public Button[] capacityAnimButtons;
+    public GameObject[] Banderoles;
     private DataEntity currentPlayer;
 
     [Header("Turn Management")]
@@ -358,6 +360,14 @@ public class CombatManager : MonoBehaviour
 
     private void SetupCapacityButtons(DataEntity player)
     {
+        for (int i = 0; i < Banderoles.Count(); i++)
+        {
+            Banderoles[i].SetActive(false);
+        }
+        if (player.Affinity > 0)
+        {
+            Banderoles[player.Affinity - 1].SetActive(true);
+        }
         for (int i = 0; i < capacityButtons.Length; i++)
         {
             capacityButtons[i].gameObject.SetActive(false);
@@ -521,5 +531,10 @@ public class CombatManager : MonoBehaviour
             return above;
         }
         return under;
+    }
+    public void SetupNewAffinity(int NewAffinity)
+    {
+        currentPlayer.Affinity = NewAffinity;
+        entiityManager.UpdateSpellData(currentPlayer);
     }
 }

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8f182d232039848a3b32d7886df91f, type: 3}
   m_Name: "Prisonni\xE8re"
   m_EditorClassIdentifier: 
-  instance: {fileID: 8539139673700364530, guid: d85e6f40df659f24eb8062e147479634, type: 3}
-  <UnitLife>k__BackingField: 90
-  UnitAtk: 0
-  UnitSpeed: 0
+  instance: {fileID: 0}
+  <UnitLife>k__BackingField: 100
+  UnitAtk: 10
+  UnitSpeed: 50
   UnitDef: 0
   Affinity: 0
   BaseLife: 100
@@ -29,11 +29,11 @@ MonoBehaviour:
   bandeauUI: {fileID: 21300000, guid: d44e05a51a6079049a283f37c58e4709, type: 3}
   manimator: {fileID: 0}
   capacity1: {fileID: 21300000, guid: 7de2447ac3ed5e244bfb6ef4835aa7f5, type: 3}
-  _CapacityData1: {fileID: 11400000, guid: ea9aa5da7ac13ab41af817f5a6a47216, type: 2}
+  _CapacityData1: {fileID: 0}
   capacity2: {fileID: 21300000, guid: a5d849fd5fe36704eb0571d9d4f654a9, type: 3}
-  _CapacityData2: {fileID: 11400000, guid: 1a41267a51c50ba4eba7870f31a0ca5a, type: 2}
+  _CapacityData2: {fileID: 0}
   capacity3: {fileID: 21300000, guid: 3e9946186a02f5647876b0ce959ffebc, type: 3}
-  _CapacityData3: {fileID: 11400000, guid: 5f364eb68e3793a4083208ce78d819f9, type: 2}
+  _CapacityData3: {fileID: 0}
   Ultimate: {fileID: 21300000, guid: b9dfd3aed188eda4e925aa347812de99, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: 32f764f830a8d39449df9ac27bfb030e, type: 3}
   _CapacityDataUltimate: {fileID: 11400000, guid: 670ee59696a50a644bc08dbbf6dfc34c, type: 2}

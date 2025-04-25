@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8f182d232039848a3b32d7886df91f, type: 3}
   m_Name: Moine
   m_EditorClassIdentifier: 
-  instance: {fileID: 8051075074999306315, guid: 2cb662c8006bcc2448eed9ba485ac957, type: 3}
+  instance: {fileID: 0}
   <UnitLife>k__BackingField: 80
   UnitAtk: 4
   UnitSpeed: 40
   UnitDef: 0
-  Affinity: 1
+  Affinity: 0
   BaseLife: 80
   BaseAtk: 4
   BaseSpeed: 40
