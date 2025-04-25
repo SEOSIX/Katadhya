@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
+using static UnityEditor.Experimental.GraphView.Port;
 
 public class AI : MonoBehaviour
 {
@@ -29,13 +30,13 @@ public class AI : MonoBehaviour
         if (CombatManager.SINGLETON == null || 
             CombatManager.SINGLETON.entityHandler == null || 
             CombatManager.SINGLETON.entityHandler.players == null || 
-            CombatManager.SINGLETON.entityHandler.players.Length == 0)
+            CombatManager.SINGLETON.entityHandler.players.Count == 0)
         {
             Debug.LogWarning("Aucun joueur disponible pour l'attaque.");
             return;
         }
 
-        int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Length);
+        int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Count);
         DataEntity targetedPlayer = CombatManager.SINGLETON.entityHandler.players[randomIndex];
 
         if (randomIndex == 1)
@@ -53,34 +54,21 @@ public class AI : MonoBehaviour
             playerTarget1.SetActive(false); 
             playerTarget2.SetActive(false);   
         }
-        
-        Debug.Log($"{attacker.namE} prépare une attaque contre {targetedPlayer.namE} (HP: {targetedPlayer.UnitLife}/{targetedPlayer.BaseLife})");
-
+        CapacityData Cpt = SelectSpell(attacker);
+        CombatManager.SINGLETON.ApplyCapacityToTarget(Cpt,targetedPlayer);
         StartCoroutine(Attacking(attacker, targetedPlayer, damages));
     }
     
-    IEnumerator Attacking(DataEntity attacker ,DataEntity target, int damage)
+    IEnumerator Attacking(DataEntity attacker ,DataEntity target, int damages)
     {
         Animation animationTarget1 = playerTarget1.GetComponent<Animation>();
         Animation animationTarget2 = playerTarget2.GetComponent<Animation>();
         
-        int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Length);
+        int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Count);
         
         //Debug.Log($"{attacker.namE} a infligé {damage} dégâts à {target.namE} (PV restants: {target.UnitLife})");
         yield return new WaitForSeconds(2f);
-        if (randomIndex == 1)
-        {
-            animationTarget2.Play();
-        }
-        else if (randomIndex == 0)
-        {
-            animationTarget1.Play();
-        }
-        target.UnitLife -= damage;
-        if (target.UnitLife <= 0)
-        {
-            Debug.Log($"{target.namE} a été vaincu !");
-        }
+        
         yield return new WaitForSeconds(1f);
         CombatManager.SINGLETON.EndUnitTurn();
         
@@ -89,6 +77,19 @@ public class AI : MonoBehaviour
         {
             playerTarget1.SetActive(false); 
             playerTarget2.SetActive(false);   
+        }
+    }
+
+    public CapacityData SelectSpell(DataEntity ennemies)
+    {
+        int randomInt = Random.Range(0,1);
+        if (randomInt == 1)
+        {
+            return ennemies._CapacityData1;
+        }
+        else 
+        {
+            return ennemies._CapacityData2;
         }
     }
 }

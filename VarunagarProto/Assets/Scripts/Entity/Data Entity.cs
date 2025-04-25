@@ -9,14 +9,24 @@ public class DataEntity : ScriptableObject
 {
     
     public GameObject instance;
-    [field: Header("Unit Stat"), SerializeField] 
+    [field: Header("Unit Current Stat"), SerializeField] 
     public int UnitLife { get; set; }
-
-    public int BaseLife;
-    public int UnitDef;
-    public int UnitSpeed;
     public int UnitAtk;
+    public int UnitSpeed;
+    public int UnitDef;
+    public int Affinity;
     
+
+    [field: Header("Unit Base Stat"), SerializeField]
+    public int BaseLife;
+    public int BaseAtk;
+    public int BaseSpeed;
+    public int BaseDef;
+
+    [field: Header("Special Effect"), SerializeField]
+    public int UnitShield;
+    public int ShockMark;
+
     [field: Header("Art"), SerializeField] 
     public Sprite portrait;
     public Sprite portraitUI;
@@ -42,4 +52,11 @@ public class DataEntity : ScriptableObject
     [field: Header("Custo"), SerializeField]
     public string namE;
     public float size;
+    public int index;
+    
+    
+    public GameObject GameObject()
+    {
+        return instance;
+    }
 }

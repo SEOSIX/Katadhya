@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6448713036757603292}
   - component: {fileID: 6249183204665952791}
-  - component: {fileID: 887860886241043616}
   - component: {fileID: 8535680008730884599}
   m_Layer: 0
   m_Name: Ennemy4
@@ -86,20 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &887860886241043616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3615916808240503178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec9c554d987a3545b3a8aef68532713, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerIndex: 3
-  entityHandler: {fileID: 11400000, guid: 1cc40bc093adcb3448f740e083c81fbe, type: 2}
 --- !u!60 &8535680008730884599
 PolygonCollider2D:
   m_ObjectHideFlags: 0

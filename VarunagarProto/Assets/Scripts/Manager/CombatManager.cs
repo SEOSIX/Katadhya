@@ -2,8 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.Port;
+using static UnityEngine.GraphicsBuffer;
 
 public class CombatManager : MonoBehaviour
 {
@@ -23,6 +27,7 @@ public class CombatManager : MonoBehaviour
     public Image[] ImagePortrait;
 
     public Button[] capacityButtons;
+    public Button[] capacityAnimButtons;
     private DataEntity currentPlayer;
 
     [Header("Turn Management")]
@@ -32,10 +37,11 @@ public class CombatManager : MonoBehaviour
     [Header("TurnObject")]
     public GameObject ennemyTurn;
     public GameObject TurnUI;
+    public CanvasGroup canvasGroup;
 
     [Header("Target Indicators")]
-    public GameObject[] circlesEnnemy;
-    public GameObject[] circlesPlayer;
+    public List<GameObject> circlesEnnemy;
+    public List<GameObject> circlesPlayer;
 
     [Header("Ultimate")]
     public Ultimate ultimateScript;
@@ -43,8 +49,13 @@ public class CombatManager : MonoBehaviour
     [HideInInspector] public List<DataEntity> currentTurnOrder = new List<DataEntity>();
     [HideInInspector] public List<DataEntity> unitPlayedThisTurn = new List<DataEntity>();
     private System.Random r = new System.Random();
+    [HideInInspector]public bool PlayerClickable;
+    [HideInInspector]public bool EnemyClickable;
 
-    private CapacityData currentSelectedCapacity;
+    public static class GlobalVars
+    {
+        public static CapacityData currentSelectedCapacity;
+    }
     public bool isEnnemyTurn;
 
     void Awake()
@@ -63,6 +74,7 @@ public class CombatManager : MonoBehaviour
         currentTurnOrder = GetUnitTurn();
         InitializeStaticUI();
         StartUnitTurn();
+        SetupBaseStat();
     }
 
     void Update()
@@ -70,6 +82,21 @@ public class CombatManager : MonoBehaviour
         InitializeStaticUI();
     }
 
+    public void SetupBaseStat()
+    {
+        for (int i = 0; i < entityHandler.ennemies.Count; i++)
+        {
+            entityHandler.ennemies[i].UnitAtk = entityHandler.ennemies[i].BaseAtk;
+            entityHandler.ennemies[i].UnitDef = entityHandler.ennemies[i].BaseDef;
+            entityHandler.ennemies[i].UnitSpeed = entityHandler.ennemies[i].BaseSpeed;
+        }
+        for (int i = 0; i < entityHandler.players.Count; i++)
+        {
+            entityHandler.players[i].UnitAtk = entityHandler.players[i].BaseAtk;
+            entityHandler.players[i].UnitDef = entityHandler.players[i].BaseDef;
+            entityHandler.players[i].UnitSpeed = entityHandler.players[i].BaseSpeed;
+        }
+    }
     public void InitializeStaticUI()
     {
         if (currentTurnOrder == null || currentTurnOrder.Count == 0) return;
@@ -102,13 +129,13 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public List<DataEntity> GetUnitTurn()
-    {
-        var speedValue = new List<DataEntity>();
-        speedValue.AddRange(entityHandler.ennemies);
-        speedValue.AddRange(entityHandler.players);
-        return speedValue.OrderByDescending(x => x.UnitSpeed).ToList();
-    }
+   public List<DataEntity> GetUnitTurn()
+{
+    var speedValue = new List<DataEntity>();
+    speedValue.AddRange(entityHandler.ennemies.Where(e => e != null && e.UnitLife > 0));
+    speedValue.AddRange(entityHandler.players.Where(p => p != null && p.UnitLife > 0));
+    return speedValue.OrderByDescending(x => x.UnitSpeed).ToList();
+}
 
     public void EndUnitTurn()
     {
@@ -154,19 +181,31 @@ public class CombatManager : MonoBehaviour
         if (entityHandler.ennemies.Contains(currentEntity))
         {
             isEnnemyTurn = true;
-            Debug.Log($"🔴 C'est au tour de l'ennemi {currentEntity.namE} !");
-            TurnUI.SetActive(false);
+            //Debug.Log($"🔴 C'est au tour de l'ennemi {currentEntity.namE} !");
+            canvasGroup.alpha = 0f;
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
             ennemyTurn.SetActive(true);
-            AI.SINGLETON.Attack(currentEntity, 10);
+            AI.SINGLETON.Attack(currentEntity, 50);
         }
         else
         {
             isEnnemyTurn = false;
-            TurnUI.SetActive(true);
+            canvasGroup.alpha = 1f;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
             ennemyTurn.SetActive(false);
         }
     }
-
+    void HideTargetIndicators()
+    {
+        foreach (var circle in circlesEnnemy)
+        {
+            circle.SetActive(false);
+        }
+        foreach (var circle in circlesPlayer)
+            circle.SetActive(false);
+    }
     public void UseCapacity(CapacityData cpt)
     {
         StartTargetSelectionMode(cpt);
@@ -175,9 +214,9 @@ public class CombatManager : MonoBehaviour
     public void StartTargetSelectionMode(CapacityData capacity)
     {
         HideTargetIndicators();
-        currentSelectedCapacity = capacity;
+        GlobalVars.currentSelectedCapacity = capacity;
 
-        if (capacity.heal > 0)
+        if (capacity.MultipleHeal)
         {
             foreach (var ally in entityHandler.players)
             {
@@ -187,13 +226,13 @@ public class CombatManager : MonoBehaviour
                 }
             }
 
-            currentSelectedCapacity = null;
+            GlobalVars.currentSelectedCapacity = null;
             Debug.Log("Capacité de soin appliquée à tous les alliés !");
             EndUnitTurn();
             return;
         }
 
-        if (capacity.CanHadMultipleTarget)
+        if (capacity.MultipleAttack)
         {
             foreach (var enemy in entityHandler.ennemies)
             {
@@ -203,55 +242,43 @@ public class CombatManager : MonoBehaviour
                 }
             }
 
-            currentSelectedCapacity = null;
+            GlobalVars.currentSelectedCapacity = null;
             Debug.Log("Capacité de zone appliquée à tous les ennemis !");
             EndUnitTurn();
             return;
         }
 
-        Debug.Log("Sélectionnez une ou plusieurs cibles pour " + capacity.name);
+        //Debug.Log("Sélectionnez une ou plusieurs cibles pour " + capacity.name);
         ShowTargetIndicators(capacity);
     }
+
     public void SelectEnemy(int enemyIndex)
     {
-        if (currentSelectedCapacity == null)
-        {
-            Debug.Log("Aucune capacité sélectionnée !");
+        if (enemyIndex < 0 || enemyIndex >= entityHandler.ennemies.Count)
             return;
-        }
-
-        if (enemyIndex < 0 || enemyIndex >= entityHandler.ennemies.Length)
-        {
-            Debug.LogError("Index d'ennemi invalide !");
-            return;
-        }
-
         DataEntity target = entityHandler.ennemies[enemyIndex];
-
-        ApplyCapacityToTarget(currentSelectedCapacity, target);
-        currentSelectedCapacity = null;
+        
+        if (target == null || target.UnitLife <= 0)
+        {
+            Debug.LogError("Cible invalide ou morte.");
+            return;
+        }
+        ApplyCapacityToTarget(GlobalVars.currentSelectedCapacity, target);
+        GlobalVars.currentSelectedCapacity = null;
         HideTargetIndicators();
         EndUnitTurn();
     }
 
     public void SelectAlly(int allyIndex)
     {
-        if (currentSelectedCapacity == null)
-        {
-            Debug.Log("Aucune capacité sélectionnée !");
-            return;
-        }
-
-        if (allyIndex < 0 || allyIndex >= entityHandler.players.Length)
+        if (allyIndex < 0 || allyIndex >= entityHandler.players.Count)
         {
             Debug.LogError("Index d'allié invalide !");
             return;
         }
-
         DataEntity target = entityHandler.players[allyIndex];
-
-        ApplyCapacityToTarget(currentSelectedCapacity, target);
-        currentSelectedCapacity = null;
+        ApplyCapacityToTarget(GlobalVars.currentSelectedCapacity, target);
+        GlobalVars.currentSelectedCapacity = null;
         EndUnitTurn();
         HideTargetIndicators();
     }
@@ -259,22 +286,73 @@ public class CombatManager : MonoBehaviour
     public void ApplyCapacityToTarget(CapacityData capacity, DataEntity target)
     {
         DataEntity caster = currentTurnOrder[0];
-
+        float réussite = lancer(capacity.précision, 2f,1f);
+        int DamageDone = 0;
+        if (réussite == 2)
+        {
+            Debug.Log("échec de la compétence");
+            return;
+        }
+        float modifier = lancer(capacity.critique,1f, 1.5f);
         if (capacity.atk > 0)
         {
-            float calculatedDamage = (((float)caster.UnitAtk / 100) * capacity.atk) * 100 / (100 + 2 * target.UnitDef);
+            float calculatedDamage = (((caster.UnitAtk + 1) * capacity.atk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
             int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
-            target.UnitLife -= icalculatedDamage;
-            Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts à {target.namE}");
+            DamageDone += icalculatedDamage;
+            if (target.UnitShield > 0)
+            {
+                if (target.UnitShield < icalculatedDamage)
+                {
+                    icalculatedDamage -= target.UnitShield;
+                    target.UnitShield = 0;
+                    Debug.Log($"{caster.namE} a brisé le shield de {target.namE}");
+                }
+                else
+                {
+                    target.UnitShield -= icalculatedDamage;
+                    Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts au bouclier de {target.namE}");
+                    icalculatedDamage = 0;  
+                }
+            }
+            if (icalculatedDamage > 0)
+            {
+                target.UnitLife -= icalculatedDamage;
+                Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts à {target.namE}");
+            }
         }
         if (capacity.heal > 0)
         {
-            int healAmount = Mathf.RoundToInt((caster.UnitAtk / 100f) * capacity.heal);
+            int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.heal) / 2) * modifier);
             target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
             Debug.Log($"{caster.namE} soigne {target.namE} pour {healAmount} PV");
-        }
-    
 
+        }
+        if (capacity.Shield > 0)
+        {
+            target.UnitShield += Mathf.RoundToInt(capacity.Shield * modifier);
+            Debug.Log($"{target.namE} se donne {capacity.Shield} de bouclier");
+        }
+        if (capacity.buffType > 0)
+        {
+            GiveBuff(capacity, target);
+            if (capacity.buffValue > 1)
+            {
+                Debug.Log($"{target.namE} gagne un buff ({capacity.buffType})");
+            }
+            else
+            {
+                Debug.Log($"{target.namE} prend un nerf ({capacity.buffType})");
+            }
+        }
+        if (capacity.Shock > 0)
+        {
+            ShockProc(capacity, target);
+        }
+        if (capacity.ShieldRatioAtk>0)
+        {
+            int Shielding =Mathf.RoundToInt(((float)capacity.ShieldRatioAtk/100)*((float)DamageDone));
+            caster.UnitShield += Shielding;
+        }
         InitializeStaticUI();
     }
 
@@ -283,73 +361,165 @@ public class CombatManager : MonoBehaviour
         for (int i = 0; i < capacityButtons.Length; i++)
         {
             capacityButtons[i].gameObject.SetActive(false);
-            capacityButtons[i].onClick.RemoveAllListeners();
+            capacityAnimButtons[i].onClick.RemoveAllListeners();
+            capacityAnimButtons[i].animator.SetTrigger("Normal");
         }
 
         if (player.capacity1 != null)
         {
             capacityButtons[0].gameObject.SetActive(true);
             capacityButtons[0].GetComponent<Image>().sprite = player.capacity1;
-            capacityButtons[0].onClick.AddListener(() => UseCapacity(player._CapacityData1));
+            capacityAnimButtons[0].onClick.AddListener(() => UseCapacity(player._CapacityData1));
         }
 
         if (player.capacity2 != null)
         {
             capacityButtons[1].gameObject.SetActive(true);
             capacityButtons[1].GetComponent<Image>().sprite = player.capacity2;
-            capacityButtons[1].onClick.AddListener(() => UseCapacity(player._CapacityData2));
+            capacityAnimButtons[1].onClick.AddListener(() => UseCapacity(player._CapacityData2));
         }
 
         if (player.capacity3 != null)
         {
             capacityButtons[2].gameObject.SetActive(true);
             capacityButtons[2].GetComponent<Image>().sprite = player.capacity3;
-            capacityButtons[2].onClick.AddListener(() => UseCapacity(player._CapacityData3));
+            capacityAnimButtons[2].onClick.AddListener(() => UseCapacity(player._CapacityData3));
         }
 
         if (player.Ultimate != null)
         {
             capacityButtons[3].gameObject.SetActive(true);
             capacityButtons[3].GetComponent<Image>().sprite = player.Ultimate;
-            capacityButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start());
+            capacityAnimButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start());
         }
     }
 
-    void ShowTargetIndicators(CapacityData capacity)
+  void ShowTargetIndicators(CapacityData capacity)
+{
+    HideTargetIndicators();
+    
+    if (capacity.atk > 0 && !capacity.MultipleAttack)
     {
-        if (capacity.atk > 0)
+        for (int i = 0; i < entityHandler.ennemies.Count && i < circlesEnnemy.Count; i++)
         {
-            if (!capacity.CanHeal)
+            DataEntity enemy = entityHandler.ennemies[i];
+            
+            // Vérifie si l'ennemi est valide et vivant
+            if (enemy == null || enemy.UnitLife <= 0) 
+                continue;
+            circlesEnnemy[i].SetActive(true);
+
+            // Active le collider si le GameObject existe
+            if (enemy.instance != null)
             {
-                for (int i = 0; i < entityHandler.ennemies.Length && i < circlesEnnemy.Length; i++)
+                PolygonCollider2D enemyColl = enemy.instance.GetComponent<PolygonCollider2D>();
+                if (enemyColl != null)
                 {
-                    if (entityHandler.ennemies[i].UnitLife > 0)
-                        circlesEnnemy[i].SetActive(true);
-                }   
-            }
-        }
-        else if (capacity.heal > 0)
-        {
-            if (capacity.CanHeal)
-            {
-                for (int i = 0; i < entityHandler.players.Length && i < circlesPlayer.Length; i++)
+                    enemyColl.enabled = true;
+                }
+                else
                 {
-                    if (entityHandler.players[i].UnitLife > 0)
-                        circlesPlayer[i].SetActive(true);
+                    Debug.LogWarning($"Pas de PolygonCollider2D sur {enemy.namE}");
                 }
             }
         }
     }
-
-    void HideTargetIndicators()
+    else if (capacity.heal > 0 && !capacity.MultipleHeal)
     {
-        foreach (var circle in circlesEnnemy)
+        for (int i = 0; i < entityHandler.players.Count && i < circlesPlayer.Count; i++)
         {
-            circle.SetActive(false);
+            DataEntity player = entityHandler.players[i];
+            
+            if (player == null || player.UnitLife <= 0) 
+            circlesPlayer[i].SetActive(true);
+            if (player.instance != null)
+            {
+                PolygonCollider2D playerColl = player.instance.GetComponent<PolygonCollider2D>();
+                if (playerColl != null)
+                {
+                    playerColl.enabled = true;
+                }
+                else
+                {
+                    Debug.LogWarning($"Pas de PolygonCollider2D sur {player.namE}");
+                }
+            }
         }
-        foreach (var circle in circlesPlayer)
+    }
+}
+
+
+
+    public void GiveBuff(CapacityData capacity, DataEntity target)
+    {
+        // buffType; 1 = Atk, 2 = Def, 3 = Speed
+        float calculatedBuff;
+        if (capacity.buffType > 0)
         {
-            circle.SetActive(false);
+            if (capacity.buffType == 1)
+            {
+                calculatedBuff = (float)target.BaseAtk * capacity.buffValue;
+                target.UnitAtk = Mathf.RoundToInt(calculatedBuff);
+            }
+            if (capacity.buffType == 2)
+            {
+                calculatedBuff = (float)target.BaseDef * capacity.buffValue;
+                target.UnitDef = Mathf.RoundToInt(calculatedBuff);
+            }
+            if (capacity.buffType == 3)
+            {
+                calculatedBuff = (float)target.BaseSpeed + capacity.buffValue;
+                target.UnitSpeed = Mathf.RoundToInt(calculatedBuff);
+            }
+
         }
+    }
+
+    public void ShockProc(CapacityData capacity, DataEntity target)
+    {
+        DataEntity caster = currentTurnOrder[0];
+        if (capacity.Shock > 0)
+        {
+            target.ShockMark += capacity.Shock;
+            Debug.Log($"{caster.name} a appliqué {capacity.Shock} marque(s) à {target.namE}");
+            if (target.ShockMark >= 3)
+            {
+
+                float calculatedDamage = caster.UnitSpeed - 20 / 2;
+                float fcalculatedDamage = (float)calculatedDamage * 150 / 100;
+                int ishieldDamage = Mathf.RoundToInt(fcalculatedDamage);
+                if (target.UnitShield > 0)
+                {
+                    if (target.UnitShield < ishieldDamage)
+                    {
+                        ishieldDamage -= target.UnitShield;
+                        target.UnitShield = 0;
+                        Debug.Log($"{caster.namE} a brisé le shield de {target.namE} grâce au choc");
+                    }
+                    else
+                    {
+                        target.UnitShield -= ishieldDamage;
+                        ishieldDamage = 0;
+                        Debug.Log($"{caster.namE} inflige {ishieldDamage} dégâts au bouclier de {target.namE} grâce au choc");
+                    }
+
+                }
+                if (ishieldDamage > 0)
+                {
+                    target.UnitLife -= ishieldDamage;
+                    Debug.Log($"{caster.namE} inflige {ishieldDamage} dégâts à {target.namE} grâce au choc");
+                }
+
+            }
+        }
+    }
+    public float lancer(int valeur, float above, float under)
+    {
+        int lancer = UnityEngine.Random.Range(0, 101);
+        if (lancer > valeur)
+        {
+            return above;
+        }
+        return under;
     }
 }
