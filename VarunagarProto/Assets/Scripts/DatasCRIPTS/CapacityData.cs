@@ -12,7 +12,7 @@ public class CapacityData : ScriptableObject
     public int heal;
     public int buffType;
     public float buffValue;
-    public int buffTime;
+    public int buffDuration;
     public int critique;
     public int précision;
 

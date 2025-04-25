@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -14,6 +16,7 @@ public class DataEntity : ScriptableObject
     public int UnitAtk;
     public int UnitSpeed;
     public int UnitDef;
+    public List<ActiveBuff> ActiveBuffs;
     public int Affinity;
     
 
@@ -59,4 +62,23 @@ public class DataEntity : ScriptableObject
     {
         return instance;
     }
+
+    [System.Serializable]
+    public class ActiveBuff
+    {
+        public int type;
+        public float value;
+        public int duration;
+
+        public ActiveBuff(int type, float value, int duration)
+        {
+            this.type = type;
+            this.value = value;
+            this.duration = duration;
+        }
+    }
+    
+
 }
+
+

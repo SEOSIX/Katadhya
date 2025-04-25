@@ -6,6 +6,7 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static DataEntity;
 using static UnityEditor.Experimental.GraphView.Port;
 using static UnityEngine.GraphicsBuffer;
 
@@ -51,8 +52,8 @@ public class CombatManager : MonoBehaviour
     [HideInInspector] public List<DataEntity> currentTurnOrder = new List<DataEntity>();
     [HideInInspector] public List<DataEntity> unitPlayedThisTurn = new List<DataEntity>();
     private System.Random r = new System.Random();
-    [HideInInspector]public bool PlayerClickable;
-    [HideInInspector]public bool EnemyClickable;
+    [HideInInspector] public bool PlayerClickable;
+    [HideInInspector] public bool EnemyClickable;
 
     public static class GlobalVars
     {
@@ -91,12 +92,14 @@ public class CombatManager : MonoBehaviour
             entityHandler.ennemies[i].UnitAtk = entityHandler.ennemies[i].BaseAtk;
             entityHandler.ennemies[i].UnitDef = entityHandler.ennemies[i].BaseDef;
             entityHandler.ennemies[i].UnitSpeed = entityHandler.ennemies[i].BaseSpeed;
+            entityHandler.ennemies[i].ActiveBuffs.Clear();
         }
         for (int i = 0; i < entityHandler.players.Count; i++)
         {
             entityHandler.players[i].UnitAtk = entityHandler.players[i].BaseAtk;
             entityHandler.players[i].UnitDef = entityHandler.players[i].BaseDef;
             entityHandler.players[i].UnitSpeed = entityHandler.players[i].BaseSpeed;
+            entityHandler.players[i].ActiveBuffs.Clear();
         }
     }
     public void InitializeStaticUI()
@@ -131,13 +134,13 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-   public List<DataEntity> GetUnitTurn()
-{
-    var speedValue = new List<DataEntity>();
-    speedValue.AddRange(entityHandler.ennemies.Where(e => e != null && e.UnitLife > 0));
-    speedValue.AddRange(entityHandler.players.Where(p => p != null && p.UnitLife > 0));
-    return speedValue.OrderByDescending(x => x.UnitSpeed).ToList();
-}
+    public List<DataEntity> GetUnitTurn()
+    {
+        var speedValue = new List<DataEntity>();
+        speedValue.AddRange(entityHandler.ennemies.Where(e => e != null && e.UnitLife > 0));
+        speedValue.AddRange(entityHandler.players.Where(p => p != null && p.UnitLife > 0));
+        return speedValue.OrderByDescending(x => x.UnitSpeed).ToList();
+    }
 
     public void EndUnitTurn()
     {
@@ -259,7 +262,7 @@ public class CombatManager : MonoBehaviour
         if (enemyIndex < 0 || enemyIndex >= entityHandler.ennemies.Count)
             return;
         DataEntity target = entityHandler.ennemies[enemyIndex];
-        
+
         if (target == null || target.UnitLife <= 0)
         {
             Debug.LogError("Cible invalide ou morte.");
@@ -288,14 +291,15 @@ public class CombatManager : MonoBehaviour
     public void ApplyCapacityToTarget(CapacityData capacity, DataEntity target)
     {
         DataEntity caster = currentTurnOrder[0];
-        float réussite = lancer(capacity.précision, 2f,1f);
+        float réussite = lancer(capacity.précision, 2f, 1f);
         int DamageDone = 0;
         if (réussite == 2)
         {
             Debug.Log("échec de la compétence");
+            DecrementBuffDurations(caster);
             return;
         }
-        float modifier = lancer(capacity.critique,1f, 1.5f);
+        float modifier = lancer(capacity.critique, 1f, 1.5f);
         if (capacity.atk > 0)
         {
             float calculatedDamage = (((caster.UnitAtk + 1) * capacity.atk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
@@ -313,7 +317,7 @@ public class CombatManager : MonoBehaviour
                 {
                     target.UnitShield -= icalculatedDamage;
                     Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts au bouclier de {target.namE}");
-                    icalculatedDamage = 0;  
+                    icalculatedDamage = 0;
                 }
             }
             if (icalculatedDamage > 0)
@@ -350,11 +354,12 @@ public class CombatManager : MonoBehaviour
         {
             ShockProc(capacity, target);
         }
-        if (capacity.ShieldRatioAtk>0)
+        if (capacity.ShieldRatioAtk > 0)
         {
-            int Shielding =Mathf.RoundToInt(((float)capacity.ShieldRatioAtk/100)*((float)DamageDone));
+            int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * ((float)DamageDone));
             caster.UnitShield += Shielding;
         }
+        DecrementBuffDurations(caster);
         InitializeStaticUI();
     }
 
@@ -404,20 +409,20 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-  void ShowTargetIndicators(CapacityData capacity)
-{
-    HideTargetIndicators();
-    
-    if (capacity.atk > 0 && !capacity.MultipleAttack)
+    void ShowTargetIndicators(CapacityData capacity)
     {
-        for (int i = 0; i < entityHandler.ennemies.Count && i < circlesEnnemy.Count; i++)
+        HideTargetIndicators();
+
+        if (capacity.atk > 0 && !capacity.MultipleAttack)
         {
-            DataEntity enemy = entityHandler.ennemies[i];
-            
-            // Vérifie si l'ennemi est valide et vivant
-            if (enemy == null || enemy.UnitLife <= 0) 
-                continue;
-            circlesEnnemy[i].SetActive(true);
+            for (int i = 0; i < entityHandler.ennemies.Count && i < circlesEnnemy.Count; i++)
+            {
+                DataEntity enemy = entityHandler.ennemies[i];
+
+                // Vérifie si l'ennemi est valide et vivant
+                if (enemy == null || enemy.UnitLife <= 0)
+                    continue;
+                circlesEnnemy[i].SetActive(true);
 
             // Active le collider si le GameObject existe
             if (enemy.instance != null)
@@ -464,25 +469,21 @@ public class CombatManager : MonoBehaviour
     public void GiveBuff(CapacityData capacity, DataEntity target)
     {
         // buffType; 1 = Atk, 2 = Def, 3 = Speed
-        float calculatedBuff;
+        //float calculatedBuff;
         if (capacity.buffType > 0)
         {
-            if (capacity.buffType == 1)
+            ActiveBuff existingBuff = target.ActiveBuffs.Find(b => b.type == capacity.buffType);
+            if (existingBuff != null)
             {
-                calculatedBuff = (float)target.BaseAtk * capacity.buffValue;
-                target.UnitAtk = Mathf.RoundToInt(calculatedBuff);
+                existingBuff.value *= capacity.buffValue;
+                existingBuff.duration = Mathf.Max(existingBuff.duration, capacity.buffDuration);
             }
-            if (capacity.buffType == 2)
+            else
             {
-                calculatedBuff = (float)target.BaseDef * capacity.buffValue;
-                target.UnitDef = Mathf.RoundToInt(calculatedBuff);
-            }
-            if (capacity.buffType == 3)
-            {
-                calculatedBuff = (float)target.BaseSpeed + capacity.buffValue;
-                target.UnitSpeed = Mathf.RoundToInt(calculatedBuff);
+                target.ActiveBuffs.Add(new ActiveBuff(capacity.buffType, capacity.buffValue, capacity.buffDuration));
             }
 
+            RecalculateStats(target);
         }
     }
 
@@ -532,6 +533,39 @@ public class CombatManager : MonoBehaviour
             return above;
         }
         return under;
+    }
+
+    public void RecalculateStats(DataEntity target)
+    {
+        float atkMultiplier = 1f;
+        float defMultiplier = 1f;
+        float speedMultiplier = 1f;
+
+        foreach (var buff in target.ActiveBuffs)
+        {
+            switch (buff.type)
+            {
+                case 1: atkMultiplier *= buff.value; break;
+                case 2: defMultiplier *= buff.value; break;
+                case 3: speedMultiplier *= buff.value; break;
+            }
+        }
+
+        target.UnitAtk = Mathf.RoundToInt(target.BaseAtk * atkMultiplier);
+        target.UnitDef = Mathf.RoundToInt(target.BaseDef * defMultiplier);
+        target.UnitSpeed = Mathf.RoundToInt(target.BaseSpeed * speedMultiplier);
+    }
+    public void DecrementBuffDurations(DataEntity target)
+    {
+        for (int i = target.ActiveBuffs.Count - 1; i >= 0; i--)
+        {
+            Debug.Log($"{target.ActiveBuffs[i]}");
+            target.ActiveBuffs[i].duration--;
+            if (target.ActiveBuffs[i].duration <= 0)
+                target.ActiveBuffs.RemoveAt(i);
+        }
+
+        RecalculateStats(target);
     }
     public void SetupNewAffinity(int NewAffinity)
     {
