@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static DataEntity;
 using static UnityEditor.Experimental.GraphView.Port;
+using static UnityEngine.EventSystems.EventTrigger;
 using static UnityEngine.GraphicsBuffer;
 
 public class CombatManager : MonoBehaviour
@@ -96,6 +97,9 @@ public class CombatManager : MonoBehaviour
             entityHandler.ennemies[i].UnitDef = entityHandler.ennemies[i].BaseDef;
             entityHandler.ennemies[i].UnitSpeed = entityHandler.ennemies[i].BaseSpeed;
             entityHandler.ennemies[i].ActiveBuffs.Clear();
+            entityHandler.ennemies[i].ActiveCooldowns.Clear();
+            entityHandler.ennemies[i].skipNextTurn = false;
+            entityHandler.ennemies[i].delayedActions.Clear();
         }
         for (int i = 0; i < entityHandler.players.Count; i++)
         {
@@ -103,6 +107,9 @@ public class CombatManager : MonoBehaviour
             entityHandler.players[i].UnitDef = entityHandler.players[i].BaseDef;
             entityHandler.players[i].UnitSpeed = entityHandler.players[i].BaseSpeed;
             entityHandler.players[i].ActiveBuffs.Clear();
+            entityHandler.players[i].ActiveCooldowns.Clear();
+            entityHandler.players[i].skipNextTurn = false;
+            entityHandler.players[i].delayedActions.Clear();
         }
     }
     public void InitializeStaticUI()
@@ -327,8 +334,21 @@ public class CombatManager : MonoBehaviour
 
         DecrementBuffDurations(caster);
         DecrementCooldowns(caster);
-        caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown));
+
+        // Vérifie s'il y a vraiment un cooldown à appliquer
+        if (capacity.cooldown > 0)
+        {
+            // Vérifie si un cooldown pour cette capacité existe déjà
+            bool alreadyInCooldown = caster.ActiveCooldowns.Exists(cd => cd.capacity == capacity);
+
+            if (!alreadyInCooldown)
+            {
+                caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown));
+            }
+        }
+
         InitializeStaticUI();
+
     }
 
 
@@ -452,29 +472,58 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private void SetupButtonFunction(int i,CapacityData CData, Sprite CSprite)
+    private void SetupButtonFunction(int i, CapacityData CData, Sprite CSprite)
     {
-        Debug.Log(CData, CSprite);
-        if (CData.cooldown == 0)
+        DataEntity caster = currentTurnOrder[0];
+        // Chercher si la capacité est déjà dans ActiveCooldowns du caster
+        DataEntity.CooldownData? cooldownData = caster.ActiveCooldowns.Find(cd => cd.capacity == CData);
+
+        // Si la capacité a un cooldown actif
+        if (cooldownData.HasValue)
         {
+            // On récupère le cooldown restant
+            int remainingCooldown = cooldownData.Value.remainingCooldown;
+
+            // Si le cooldown est encore actif (plus grand que zéro)
+            if (remainingCooldown > 0)
+            {
+                // Afficher le cooldown restant sur le texte associé au bouton
+                CoolDownTexts[i].SetText($"{remainingCooldown}");
+
+                // Désactiver le bouton et l'afficher en gris
+                capacityButtons[i].gameObject.SetActive(true);
+                capacityButtons[i].GetComponent<Image>().sprite = CSprite;
+                capacityButtons[i].GetComponent<Image>().material = GreyScale;
+                capacityAnimButtons[i].GetComponent<Button>().interactable = false;
+            }
+            else
+            {
+                // Si le cooldown est terminé, activer le bouton pour pouvoir utiliser la capacité
+                capacityButtons[i].gameObject.SetActive(true);
+                capacityButtons[i].GetComponent<Image>().sprite = CSprite;
+                capacityButtons[i].GetComponent<Image>().material = null;
+                capacityAnimButtons[i].GetComponent<Button>().interactable = true;
+                capacityAnimButtons[i].onClick.AddListener(() => UseCapacity(CData));
+
+                // Masquer le cooldown restant
+                CoolDownTexts[i].SetText("");
+            }
+        }
+        else
+        {
+            // Si la capacité n'est pas dans ActiveCooldowns, c'est qu'elle est prête à être utilisée
             capacityButtons[i].gameObject.SetActive(true);
             capacityButtons[i].GetComponent<Image>().sprite = CSprite;
             capacityButtons[i].GetComponent<Image>().material = null;
             capacityAnimButtons[i].GetComponent<Button>().interactable = true;
             capacityAnimButtons[i].onClick.AddListener(() => UseCapacity(CData));
+
+            // Masquer le cooldown restant
             CoolDownTexts[i].SetText("");
         }
-        else
-        {
-            capacityButtons[i].gameObject.SetActive(true);
-            capacityButtons[i].GetComponent<Image>().sprite = CSprite;
-            capacityButtons[i].GetComponent<Image>().material = GreyScale;
-            capacityAnimButtons[i].GetComponent<Button>().interactable = false;
-            CoolDownTexts[i].SetText($"{CData.cooldown}");
-        }
     }
-               
-void ShowTargetIndicators(CapacityData capacity)
+
+    void ShowTargetIndicators(CapacityData capacity)
     {
         HideTargetIndicators();
 
@@ -651,17 +700,36 @@ void ShowTargetIndicators(CapacityData capacity)
     {
         for (int i = caster.ActiveCooldowns.Count - 1; i >= 0; i--)
         {
-            caster.ActiveCooldowns[i] = new CooldownData(
-                caster.ActiveCooldowns[i].capacity,
-                caster.ActiveCooldowns[i].remainingCooldown - 1
-            );
+            CooldownData data = caster.ActiveCooldowns[i];
+            data.remainingCooldown--;
 
-            if (caster.ActiveCooldowns[i].remainingCooldown <= 0)
+            if (data.remainingCooldown <= 0)
             {
                 caster.ActiveCooldowns.RemoveAt(i);
+                RefreshButtonState(caster, data.capacity); 
+            }
+            else
+            {
+                caster.ActiveCooldowns[i] = data;
             }
         }
     }
+    private void RefreshButtonState(DataEntity caster, CapacityData capacity)
+    {
+        for (int i = 0; i < capacityButtons.Count(); i++)
+        {
+            if (capacityAnimButtons[i].onClick.GetPersistentEventCount() > 0)
+            {
+                if (capacityAnimButtons[i].onClick.GetPersistentMethodName(0) == "UseCapacity")
+                {
+                    capacityButtons[i].GetComponent<Image>().material = null;
+                    capacityAnimButtons[i].GetComponent<Button>().interactable = true;
+                    CoolDownTexts[i].SetText("");
+                }
+            }
+        }
+    }
+
     private void ExecuteDelayedActions(DataEntity entity)
     {
         for (int i = entity.delayedActions.Count - 1; i >= 0; i--)
