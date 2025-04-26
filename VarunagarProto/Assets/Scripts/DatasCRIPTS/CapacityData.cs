@@ -2,6 +2,12 @@ using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+public enum SpecialCapacityType
+{
+    None,
+    DelayedAttack,
+
+}
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObject/CapacityData", order = 4)]
 public class CapacityData : ScriptableObject
@@ -24,6 +30,12 @@ public class CapacityData : ScriptableObject
     public bool MultipleHeal;
     public bool MultipleAttack;
     public bool TargetingAlly;
+
+    [Header("Special Capacity Settings")]
+    [SerializeField] public SpecialCapacityType specialType = SpecialCapacityType.None;
+
+    [Tooltip("Used if the special capacity needs a delay or multi-hit settings")]
+    [SerializeField] public int specialDelay = 1;
 
     [field: Header("Text & icons"), SerializeField]
     public string Name;

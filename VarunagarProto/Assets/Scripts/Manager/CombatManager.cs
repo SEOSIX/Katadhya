@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -167,6 +168,17 @@ public class CombatManager : MonoBehaviour
     {
         DetectEnnemyTurn();
 
+        DataEntity current = currentTurnOrder[0];
+
+        if (current.skipNextTurn)
+        {
+            Debug.Log($"{current.namE} saute son tour pour appliquer son attaque différée !");
+            current.skipNextTurn = false; // Reset du skip
+            ExecuteDelayedActions(current);
+            EndUnitTurn(); // Fin directe du tour
+            return;
+        }
+
         if (!entityHandler.ennemies.Contains(currentTurnOrder[0]))
         {
             currentPlayer = currentTurnOrder[0];
@@ -292,14 +304,35 @@ public class CombatManager : MonoBehaviour
     {
         DataEntity caster = currentTurnOrder[0];
         float réussite = lancer(capacity.précision, 2f, 1f);
-        int DamageDone = 0;
+
         if (réussite == 2)
         {
-            Debug.Log("échec de la compétence");
+            Debug.Log("Échec de la compétence");
             DecrementBuffDurations(caster);
             return;
         }
+
         float modifier = lancer(capacity.critique, 1f, 1.5f);
+
+        if (capacity.specialType != SpecialCapacityType.None)
+        {
+            ApplySpecialCapacity(capacity, caster, target, modifier);
+        }
+        else
+        {
+            ApplyNormalCapacity(capacity, caster, target, modifier);
+        }
+
+        DecrementBuffDurations(caster);
+        DecrementCooldowns(caster);
+        caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown));
+        InitializeStaticUI();
+    }
+
+
+    public void ApplyNormalCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
+    {
+        int DamageDone = 0;
         if (capacity.atk > 0)
         {
             float calculatedDamage = (((caster.UnitAtk + 1) * capacity.atk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
@@ -359,11 +392,23 @@ public class CombatManager : MonoBehaviour
             int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * ((float)DamageDone));
             caster.UnitShield += Shielding;
         }
-        DecrementBuffDurations(caster);
-        caster.DecrementCooldowns();
-        caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown));
-        InitializeStaticUI();
     }
+    private void ApplySpecialCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
+    {
+        switch (capacity.specialType)
+        {
+            case SpecialCapacityType.DelayedAttack:
+                caster.skipNextTurn = true;
+                caster.delayedActions.Add(new DelayedAction(capacity, target));
+                Debug.Log($"{caster.namE} prépare une attaque différée !");
+                break;
+
+            default:
+                Debug.LogWarning("Special capacity type not handled.");
+                break;
+        }
+    }
+
 
     private void SetupCapacityButtons(DataEntity player)
     {
@@ -599,5 +644,15 @@ public class CombatManager : MonoBehaviour
             }
         }
     }
+    private void ExecuteDelayedActions(DataEntity entity)
+    {
+        for (int i = entity.delayedActions.Count - 1; i >= 0; i--)
+        {
+            var delayedAction = entity.delayedActions[i];
 
+            ApplyNormalCapacity(delayedAction.capacity, entity, delayedAction.target, 1f);
+
+            entity.delayedActions.RemoveAt(i);
+        }
+    }
 }
