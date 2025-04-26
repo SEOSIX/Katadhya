@@ -23,4 +23,10 @@ public class CapacityData : ScriptableObject
     public bool MultipleHeal;
     public bool MultipleAttack;
     public bool TargetingAlly;
+
+    [field: Header("Text & icons"), SerializeField]
+    public string Name;
+    public string Description;
+    public int PictoType;
+    public int TargetType;
 }
