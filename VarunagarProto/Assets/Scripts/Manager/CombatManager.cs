@@ -360,6 +360,7 @@ public class CombatManager : MonoBehaviour
             caster.UnitShield += Shielding;
         }
         DecrementBuffDurations(caster);
+        caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown));
         InitializeStaticUI();
     }
 
@@ -571,5 +572,10 @@ public class CombatManager : MonoBehaviour
     {
         currentPlayer.Affinity = NewAffinity;
         entiityManager.UpdateSpellData(currentPlayer);
+    }
+
+    public void isOnCD(CapacityData capacity)
+    {
+
     }
 }

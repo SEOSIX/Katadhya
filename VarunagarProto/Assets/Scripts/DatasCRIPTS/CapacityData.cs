@@ -15,6 +15,7 @@ public class CapacityData : ScriptableObject
     public int buffDuration;
     public int critique;
     public int précision;
+    public int cooldown;
 
     [field: Header("Cpt Effect"), SerializeField]
     public int Shield;

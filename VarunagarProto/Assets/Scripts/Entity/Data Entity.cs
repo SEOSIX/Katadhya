@@ -17,6 +17,7 @@ public class DataEntity : ScriptableObject
     public int UnitSpeed;
     public int UnitDef;
     public List<ActiveBuff> ActiveBuffs;
+    public List<CooldownData> ActiveCooldowns = new List<CooldownData>();
     public int Affinity;
     
 
@@ -77,7 +78,20 @@ public class DataEntity : ScriptableObject
             this.duration = duration;
         }
     }
-    
+
+    [System.Serializable]
+    public struct CooldownData
+    {
+        public CapacityData capacity;
+        public int remainingCooldown;
+
+        public CooldownData(CapacityData capacity, int cooldown)
+        {
+            this.capacity = capacity;
+            this.remainingCooldown = cooldown;
+        }
+    }
+
 
 }
 
