@@ -19,7 +19,6 @@ public class DataEntity : ScriptableObject
     public List<ActiveBuff> ActiveBuffs;
     public List<CooldownData> ActiveCooldowns = new List<CooldownData>();
     public int Affinity;
-    
 
     [field: Header("Unit Base Stat"), SerializeField]
     public int BaseLife;
@@ -30,6 +29,7 @@ public class DataEntity : ScriptableObject
     [field: Header("Special Effect"), SerializeField]
     public int UnitShield;
     public int ShockMark;
+    public int SkipPlay;
 
     [field: Header("Art"), SerializeField] 
     public Sprite portrait;
@@ -92,7 +92,20 @@ public class DataEntity : ScriptableObject
         }
     }
 
+    public struct DelayedAction
+    {
+        public CapacityData capacity;
+        public DataEntity target;
 
+        public DelayedAction(CapacityData capacity, DataEntity target)
+        {
+            this.capacity = capacity;
+            this.target = target;
+        }
+    }
+
+    public bool skipNextTurn;
+    public List<DelayedAction> delayedActions = new List<DelayedAction>();
 }
 
 
