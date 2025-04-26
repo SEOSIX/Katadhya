@@ -30,7 +30,11 @@ public class CombatManager : MonoBehaviour
 
     public Button[] capacityButtons;
     public Button[] capacityAnimButtons;
+    public GameObject[] capacityPage;
     public GameObject[] Banderoles;
+    public Sprite[] Pictos;
+    public Sprite[] TargetType;
+    public Sprite[] PictoBuffs;
     private DataEntity currentPlayer;
 
     [Header("Turn Management")]
@@ -60,6 +64,18 @@ public class CombatManager : MonoBehaviour
         public static CapacityData currentSelectedCapacity;
     }
     public bool isEnnemyTurn;
+
+   /* private class Encart
+    {
+        public string Name;
+        public string Description;
+        public int Type;
+        public int TypeValue;
+        public int CritValue;
+        public int PrecisionValue;
+        public int TargetType;
+        public int CoolDown;
+    }*/
 
     void Awake()
     {
@@ -407,6 +423,48 @@ public class CombatManager : MonoBehaviour
             capacityButtons[3].gameObject.SetActive(true);
             capacityButtons[3].GetComponent<Image>().sprite = player.Ultimate;
             capacityAnimButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start());
+        }
+        UpdatePage(player);
+    }
+
+    private void UpdatePage(DataEntity player)
+    {
+        List<CapacityData> PCapacities = new List<CapacityData>{player._CapacityData1,player._CapacityData2,player._CapacityData3,player._CapacityDataUltimate};
+        for (int i=0; i < PCapacities.Count(); i++)
+        {
+            CapacityData CData = PCapacities[i];
+            Transform Parent = capacityPage[i].GetComponent<Transform>();
+            Transform Text = Parent.GetChild(4);
+            Sprite Target = TargetType[CData.TargetType];
+            Sprite PictoType = Pictos[CData.PictoType];
+            TextMeshProUGUI Description = Parent.GetChild(1).GetComponent<TextMeshProUGUI>();
+            String Sbuff = "";
+            Text.GetChild(0).GameObject().SetActive(false);
+            Parent.GetChild(3).GetChild(0).GameObject().SetActive(false);
+            Parent.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(CData.Name);
+            Description.SetText(CData.Description);
+            Parent.GetChild(2).GetComponent<Image>().sprite = Target;
+            Parent.GetChild(3).GetChild(1).GetComponent<Image>().sprite = PictoType;
+            if(CData.buffType != 0)
+            {
+                Parent.GetChild(3).GetChild(0).GameObject().SetActive(true);
+                Text.GetChild(0).GameObject().SetActive(true);
+                Parent.GetChild(3).GetChild(0).GetComponent<Image>().sprite = PictoBuffs[CData.buffType-1];
+                if (CData.buffValue > 1)
+                {
+                    Sbuff = $"{Mathf.RoundToInt((CData.buffValue-1)*100)}";
+                }
+                else
+                {
+                    Sbuff = $"- {Mathf.RoundToInt((1 - CData.buffValue) * 100)}";
+                }
+                Text.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(Sbuff);
+
+            }
+            
+            Text.GetChild(2).GetComponent<TextMeshProUGUI>().SetText($"{CData.précision}%");
+            Text.GetChild(3).GetComponent<TextMeshProUGUI>().SetText($"{CData.critique}%");
+
         }
     }
 
