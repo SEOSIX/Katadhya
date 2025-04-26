@@ -16,11 +16,16 @@ MonoBehaviour:
   heal: 6
   buffType: 0
   buffValue: 0
-  buffTime: 0
+  buffDuration: 0
   critique: 5
   "pr\xE9cision": 90
   Shield: 0
   Shock: 0
+  ShieldRatioAtk: 0
   MultipleHeal: 0
   MultipleAttack: 0
   TargetingAlly: 1
+  Name: Soins
+  Description: Soigne 6 points de vie.
+  PictoType: 1
+  TargetType: 0

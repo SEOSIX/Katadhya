@@ -16,11 +16,17 @@ MonoBehaviour:
   heal: 2
   buffType: 0
   buffValue: 0
-  buffTime: 0
+  buffDuration: 0
   critique: 0
   "pr\xE9cision": 100
   Shield: 0
   Shock: 0
+  ShieldRatioAtk: 0
   MultipleHeal: 0
   MultipleAttack: 0
   TargetingAlly: 1
+  Name: "B\xE9n\xE9diction/Mal\xE9diction"
+  Description: "Inflige 4 d\xE9gats et un malus de -40% de r\xE9sistance / Soigne
+    2 points de vie et enl\xE8ve tous les effets n\xE9gatifs"
+  PictoType: 0
+  TargetType: 0

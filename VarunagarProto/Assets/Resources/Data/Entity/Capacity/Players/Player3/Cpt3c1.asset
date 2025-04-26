@@ -16,10 +16,16 @@ MonoBehaviour:
   heal: 0
   buffType: 2
   buffValue: 0.6
-  buffTime: 0
+  buffDuration: 0
   critique: 0
   "pr\xE9cision": 90
   Shield: 0
   Shock: 0
+  ShieldRatioAtk: 0
   MultipleHeal: 0
   MultipleAttack: 0
+  TargetingAlly: 0
+  Name: Eblouissement
+  Description: "Inflige 6 d\xE9gats et r\xE9duit la pr\xE9cision de la cible de 30%"
+  PictoType: 0
+  TargetType: 0

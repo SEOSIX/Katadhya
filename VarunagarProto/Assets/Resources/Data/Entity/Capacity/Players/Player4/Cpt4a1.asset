@@ -16,7 +16,7 @@ MonoBehaviour:
   heal: 0
   buffType: 0
   buffValue: 0
-  buffTime: 0
+  buffDuration: 0
   critique: 5
   "pr\xE9cision": 95
   Shield: 0
@@ -25,3 +25,7 @@ MonoBehaviour:
   MultipleHeal: 0
   MultipleAttack: 0
   TargetingAlly: 0
+  Name: "Coup d'\xE9p\xE9e"
+  Description: "Inflige 10 d\xE9gats."
+  PictoType: 0
+  TargetType: 0
