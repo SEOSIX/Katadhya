@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static DataEntity;
 using static UnityEditor.Experimental.GraphView.Port;
-using static UnityEngine.EventSystems.EventTrigger;
+using static UnityEngine.EventSystems.EventTrigger; 
 using static UnityEngine.GraphicsBuffer;
 
 public class CombatManager : MonoBehaviour
@@ -32,10 +32,14 @@ public class CombatManager : MonoBehaviour
 
     public Button[] capacityButtons;
     public Button[] capacityAnimButtons;
-    public TextMeshProUGUI[] CoolDownTexts;
+    public GameObject[] capacityPage;
     public GameObject[] Banderoles;
-    private DataEntity currentPlayer;
+    public TextMeshProUGUI[] CoolDownTexts;
+    public Sprite[] Pictos;
+    public Sprite[] TargetType;
+    public Sprite[] PictoBuffs;
     public Material GreyScale;
+    private DataEntity currentPlayer;
 
     [Header("Turn Management")]
     public Button endTurnButton;
@@ -78,10 +82,11 @@ public class CombatManager : MonoBehaviour
 
     void Start()
     {
+        SetupBaseStat();
         currentTurnOrder = GetUnitTurn();
         InitializeStaticUI();
         StartUnitTurn();
-        SetupBaseStat();
+        
     }
 
     void Update()
@@ -276,6 +281,9 @@ public class CombatManager : MonoBehaviour
 
         //Debug.Log("Sélectionnez une ou plusieurs cibles pour " + capacity.name);
         ShowTargetIndicators(capacity);
+        DecrementBuffDurations(currentTurnOrder[0]);
+        DecrementCooldowns(currentTurnOrder[0]);
+
     }
 
     public void SelectEnemy(int enemyIndex)
@@ -332,8 +340,7 @@ public class CombatManager : MonoBehaviour
             ApplyNormalCapacity(capacity, caster, target, modifier);
         }
 
-        DecrementBuffDurations(caster);
-        DecrementCooldowns(caster);
+
 
         // Vérifie s'il y a vraiment un cooldown à appliquer
         if (capacity.cooldown > 0)
@@ -423,6 +430,8 @@ public class CombatManager : MonoBehaviour
                 caster.skipNextTurn = true;
                 caster.delayedActions.Add(new DelayedAction(capacity, target));
                 Debug.Log($"{caster.namE} prépare une attaque différée !");
+                DecrementBuffDurations(currentTurnOrder[0]);
+                DecrementCooldowns(currentTurnOrder[0]);
                 break;
 
             default:
@@ -451,7 +460,7 @@ public class CombatManager : MonoBehaviour
 
         if (player._CapacityData1 != null)
         {
-            SetupButtonFunction(0, player._CapacityData1,player.capacity1);
+            SetupButtonFunction(0, player._CapacityData1, player.capacity1);
         }
 
         if (player.capacity2 != null)
@@ -470,6 +479,7 @@ public class CombatManager : MonoBehaviour
             capacityButtons[3].GetComponent<Image>().sprite = player.Ultimate;
             capacityAnimButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start());
         }
+        UpdatePage(player);
     }
 
     private void SetupButtonFunction(int i, CapacityData CData, Sprite CSprite)
@@ -522,6 +532,46 @@ public class CombatManager : MonoBehaviour
             CoolDownTexts[i].SetText("");
         }
     }
+    private void UpdatePage(DataEntity player)
+    {
+        List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
+        for (int i = 0; i < PCapacities.Count(); i++)
+        {
+            CapacityData CData = PCapacities[i];
+            Transform Parent = capacityPage[i].GetComponent<Transform>();
+            Transform Text = Parent.GetChild(4);
+            Sprite Target = TargetType[CData.TargetType];
+            Sprite PictoType = Pictos[CData.PictoType];
+            TextMeshProUGUI Description = Parent.GetChild(1).GetComponent<TextMeshProUGUI>();
+            String Sbuff = "";
+            Text.GetChild(0).GameObject().SetActive(false);
+            Parent.GetChild(3).GetChild(0).GameObject().SetActive(false);
+            Parent.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(CData.Name);
+            Description.SetText(CData.Description);
+            Parent.GetChild(2).GetComponent<Image>().sprite = Target;
+            Parent.GetChild(3).GetChild(1).GetComponent<Image>().sprite = PictoType;
+            if (CData.buffType != 0)
+            {
+                Parent.GetChild(3).GetChild(0).GameObject().SetActive(true);
+                Text.GetChild(0).GameObject().SetActive(true);
+                Parent.GetChild(3).GetChild(0).GetComponent<Image>().sprite = PictoBuffs[CData.buffType - 1];
+                if (CData.buffValue > 1)
+                {
+                    Sbuff = $"{Mathf.RoundToInt((CData.buffValue - 1) * 100)}";
+                }
+                else
+                {
+                    Sbuff = $"- {Mathf.RoundToInt((1 - CData.buffValue) * 100)}";
+                }
+                Text.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(Sbuff);
+
+            }
+
+            Text.GetChild(2).GetComponent<TextMeshProUGUI>().SetText($"{CData.précision}%");
+            Text.GetChild(3).GetComponent<TextMeshProUGUI>().SetText($"{CData.critique}%");
+
+        }
+    }
 
     void ShowTargetIndicators(CapacityData capacity)
     {
@@ -538,45 +588,45 @@ public class CombatManager : MonoBehaviour
                     continue;
                 circlesEnnemy[i].SetActive(true);
 
-            // Active le collider si le GameObject existe
-            if (enemy.instance != null)
-            {
-                Collider2D enemyColl = enemy.instance.GetComponent<Collider2D>();
-                if (enemyColl != null)
+                // Active le collider si le GameObject existe
+                if (enemy.instance != null)
                 {
-                    enemyColl.enabled = true;
-                }
-                else
-                {
-                    Debug.LogWarning($"Pas de PolygonCollider2D sur {enemy.namE}");
+                    Collider2D enemyColl = enemy.instance.GetComponent<Collider2D>();
+                    if (enemyColl != null)
+                    {
+                        enemyColl.enabled = true;
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Pas de Collider2D sur {enemy.namE}");
+                    }
                 }
             }
         }
-    }
-    else if (capacity.heal > 0 && !capacity.MultipleHeal)
-    {
-        for (int i = 0; i < entityHandler.players.Count && i < circlesPlayer.Count; i++)
+        else if (capacity.heal > 0 && !capacity.MultipleHeal)
         {
-            DataEntity player = entityHandler.players[i];
-            
-            if (player == null || player.UnitLife <= 0)
-                    continue;
-            circlesPlayer[i].SetActive(true);
-            if (player.instance != null)
+            for (int i = 0; i < entityHandler.players.Count && i < circlesPlayer.Count; i++)
             {
-                Collider2D playerColl = player.instance.GetComponent<Collider2D>();
-                if (playerColl != null)
+                DataEntity player = entityHandler.players[i];
+
+                if (player == null || player.UnitLife <= 0)
+                    continue;
+                circlesPlayer[i].SetActive(true);
+                if (player.instance != null)
                 {
-                    playerColl.enabled = true;
-                }
-                else
-                {
-                    Debug.LogWarning($"Pas de PolygonCollider2D sur {player.namE}");
+                    Collider2D playerColl = player.instance.GetComponent<Collider2D>();
+                    if (playerColl != null)
+                    {
+                        playerColl.enabled = true;
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Pas de Collider2D sur {player.namE}");
+                    }
                 }
             }
         }
     }
-}
 
 
 
@@ -687,7 +737,7 @@ public class CombatManager : MonoBehaviour
         entiityManager.UpdateSpellData(currentPlayer);
     }
 
-    public bool IsCapacityOnCooldown(DataEntity caster,CapacityData capacity)
+    public bool IsCapacityOnCooldown(DataEntity caster, CapacityData capacity)
     {
         foreach (var cd in caster.ActiveCooldowns)
         {
@@ -706,7 +756,7 @@ public class CombatManager : MonoBehaviour
             if (data.remainingCooldown <= 0)
             {
                 caster.ActiveCooldowns.RemoveAt(i);
-                RefreshButtonState(caster, data.capacity); 
+                RefreshButtonState(caster, data.capacity);
             }
             else
             {
@@ -729,7 +779,6 @@ public class CombatManager : MonoBehaviour
             }
         }
     }
-
     private void ExecuteDelayedActions(DataEntity entity)
     {
         for (int i = entity.delayedActions.Count - 1; i >= 0; i--)
