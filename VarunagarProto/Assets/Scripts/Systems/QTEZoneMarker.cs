@@ -8,6 +8,5 @@ public class QTEZoneMarker : MonoBehaviour
     public float angleSpan = 85f; // largeur en degrés
     public Color debugColor = Color.cyan;
     public bool successZone = true;
-    public bool Lightning;
-    public bool Shield;
+    public int Affinity = 0;
 }

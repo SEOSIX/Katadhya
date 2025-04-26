@@ -12,7 +12,7 @@ public class CapacityData : ScriptableObject
     public int heal;
     public int buffType;
     public float buffValue;
-    public int buffTime;
+    public int buffDuration;
     public int critique;
     public int précision;
 
@@ -23,4 +23,10 @@ public class CapacityData : ScriptableObject
     public bool MultipleHeal;
     public bool MultipleAttack;
     public bool TargetingAlly;
+
+    [field: Header("Text & icons"), SerializeField]
+    public string Name;
+    public string Description;
+    public int PictoType;
+    public int TargetType;
 }
