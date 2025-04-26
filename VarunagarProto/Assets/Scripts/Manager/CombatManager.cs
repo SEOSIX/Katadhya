@@ -30,8 +30,10 @@ public class CombatManager : MonoBehaviour
 
     public Button[] capacityButtons;
     public Button[] capacityAnimButtons;
+    public TextMeshProUGUI[] CoolDownTexts;
     public GameObject[] Banderoles;
     private DataEntity currentPlayer;
+    public Material GreyScale;
 
     [Header("Turn Management")]
     public Button endTurnButton;
@@ -360,7 +362,7 @@ public class CombatManager : MonoBehaviour
             caster.UnitShield += Shielding;
         }
         DecrementBuffDurations(caster);
-        caster.DecrementCooldowns();
+        DecrementCooldowns(caster);
         caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown));
         InitializeStaticUI();
     }
@@ -382,25 +384,19 @@ public class CombatManager : MonoBehaviour
             capacityAnimButtons[i].animator.SetTrigger("Normal");
         }
 
-        if (player.capacity1 != null)
+        if (player._CapacityData1 != null)
         {
-            capacityButtons[0].gameObject.SetActive(true);
-            capacityButtons[0].GetComponent<Image>().sprite = player.capacity1;
-            capacityAnimButtons[0].onClick.AddListener(() => UseCapacity(player._CapacityData1));
+            SetupButtonFunction(0, player._CapacityData1,player.capacity1);
         }
 
         if (player.capacity2 != null)
         {
-            capacityButtons[1].gameObject.SetActive(true);
-            capacityButtons[1].GetComponent<Image>().sprite = player.capacity2;
-            capacityAnimButtons[1].onClick.AddListener(() => UseCapacity(player._CapacityData2));
+            SetupButtonFunction(1, player._CapacityData2, player.capacity2);
         }
 
         if (player.capacity3 != null)
         {
-            capacityButtons[2].gameObject.SetActive(true);
-            capacityButtons[2].GetComponent<Image>().sprite = player.capacity3;
-            capacityAnimButtons[2].onClick.AddListener(() => UseCapacity(player._CapacityData3));
+            SetupButtonFunction(2, player._CapacityData3, player.capacity3);
         }
 
         if (player.Ultimate != null)
@@ -411,7 +407,29 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    void ShowTargetIndicators(CapacityData capacity)
+    private void SetupButtonFunction(int i,CapacityData CData, Sprite CSprite)
+    {
+        Debug.Log(CData, CSprite);
+        if (CData.cooldown == 0)
+        {
+            capacityButtons[i].gameObject.SetActive(true);
+            capacityButtons[i].GetComponent<Image>().sprite = CSprite;
+            capacityButtons[i].GetComponent<Image>().material = null;
+            capacityAnimButtons[i].GetComponent<Button>().interactable = true;
+            capacityAnimButtons[i].onClick.AddListener(() => UseCapacity(CData));
+            CoolDownTexts[i].SetText("");
+        }
+        else
+        {
+            capacityButtons[i].gameObject.SetActive(true);
+            capacityButtons[i].GetComponent<Image>().sprite = CSprite;
+            capacityButtons[i].GetComponent<Image>().material = GreyScale;
+            capacityAnimButtons[i].GetComponent<Button>().interactable = false;
+            CoolDownTexts[i].SetText($"{CData.cooldown}");
+        }
+    }
+               
+void ShowTargetIndicators(CapacityData capacity)
     {
         HideTargetIndicators();
 
@@ -429,7 +447,7 @@ public class CombatManager : MonoBehaviour
             // Active le collider si le GameObject existe
             if (enemy.instance != null)
             {
-                PolygonCollider2D enemyColl = enemy.instance.GetComponent<PolygonCollider2D>();
+                Collider2D enemyColl = enemy.instance.GetComponent<Collider2D>();
                 if (enemyColl != null)
                 {
                     enemyColl.enabled = true;
@@ -452,7 +470,7 @@ public class CombatManager : MonoBehaviour
             circlesPlayer[i].SetActive(true);
             if (player.instance != null)
             {
-                PolygonCollider2D playerColl = player.instance.GetComponent<PolygonCollider2D>();
+                Collider2D playerColl = player.instance.GetComponent<Collider2D>();
                 if (playerColl != null)
                 {
                     playerColl.enabled = true;

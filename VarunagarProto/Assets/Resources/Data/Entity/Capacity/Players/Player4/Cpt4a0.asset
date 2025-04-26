@@ -16,9 +16,10 @@ MonoBehaviour:
   heal: 0
   buffType: 0
   buffValue: 0
-  buffTime: 0
+  buffDuration: 0
   critique: 5
   "pr\xE9cision": 95
+  cooldown: 0
   Shield: 0
   Shock: 0
   ShieldRatioAtk: 50
