@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Cpt3a1
   m_EditorClassIdentifier: 
   atk: 0
-  heal: 6
+  heal: 4
   buffType: 0
   buffValue: 0
   buffDuration: 0
   critique: 5
-  "pr\xE9cision": 95
-  cooldown: 0
-  chargeUlti: 100
-  Shield: 0
+  "pr\xE9cision": 98
+  cooldown: 1
+  chargeUlti: 25
+  Shield: 8
   Shock: 0
   ShieldRatioAtk: 0
   MultipleHeal: 0
@@ -31,6 +31,5 @@ MonoBehaviour:
   specialDelay: 1
   Name: 
   Description: 
-  PictoType: 0
+  PictoType: 1
   TargetType: 0
-  ValueAI: 0

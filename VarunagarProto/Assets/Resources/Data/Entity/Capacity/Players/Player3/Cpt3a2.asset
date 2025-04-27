@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
-  m_Name: Cpt4b0
+  m_Name: Cpt3a2
   m_EditorClassIdentifier: 
-  atk: 7
-  heal: 0
-  buffType: 0
-  buffValue: 0
-  buffDuration: 0
+  atk: 0
+  heal: 6
+  buffType: 3
+  buffValue: 1.1
+  buffDuration: 1
   critique: 5
-  "pr\xE9cision": 90
+  "pr\xE9cision": 98
   cooldown: 1
-  chargeUlti: 38
+  chargeUlti: 25
   Shield: 0
   Shock: 0
   ShieldRatioAtk: 0
   MultipleHeal: 0
-  MultipleAttack: 1
-  TargetingAlly: 0
+  MultipleAttack: 0
+  TargetingAlly: 1
   specialType: 0
   specialDelay: 1
-  Name: Sigma
-  Description: a
-  PictoType: 0
+  Name: 
+  Description: 
+  PictoType: 1
   TargetType: 0

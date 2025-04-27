@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
-  m_Name: Cpt4b0
+  m_Name: Cpt4a2
   m_EditorClassIdentifier: 
-  atk: 7
+  atk: 10
   heal: 0
   buffType: 0
   buffValue: 0
   buffDuration: 0
   critique: 5
-  "pr\xE9cision": 90
-  cooldown: 1
-  chargeUlti: 38
+  "pr\xE9cision": 95
+  cooldown: 0
+  chargeUlti: 25
   Shield: 0
-  Shock: 0
+  Shock: 1
   ShieldRatioAtk: 0
   MultipleHeal: 0
-  MultipleAttack: 1
+  MultipleAttack: 0
   TargetingAlly: 0
   specialType: 0
   specialDelay: 1
-  Name: Sigma
+  Name: Skibidi
   Description: a
   PictoType: 0
   TargetType: 0
