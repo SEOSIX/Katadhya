@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Random = UnityEngine.Random;
 using static UnityEditor.Experimental.GraphView.Port;
 
+
 public class AI : MonoBehaviour
 {
     public static AI SINGLETON { get; private set; }
@@ -23,7 +24,7 @@ public class AI : MonoBehaviour
         SINGLETON = this;
         DontDestroyOnLoad(gameObject);
     }
-    
+
 
     public void Attack(DataEntity attacker, int damages)
     {
@@ -63,13 +64,13 @@ public class AI : MonoBehaviour
     {
         Animation animationTarget1 = playerTarget1.GetComponent<Animation>();
         Animation animationTarget2 = playerTarget2.GetComponent<Animation>();
-        
+
+        yield return new WaitForSeconds(1f);
+
         int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Count);
         
         //Debug.Log($"{attacker.namE} a infligé {damage} dégâts à {target.namE} (PV restants: {target.UnitLife})");
-        yield return new WaitForSeconds(2f);
-        
-        yield return new WaitForSeconds(1f);
+
         CombatManager.SINGLETON.EndUnitTurn();
         
         //retire le target du dernier player
@@ -80,16 +81,18 @@ public class AI : MonoBehaviour
         }
     }
 
-    public CapacityData SelectSpell(DataEntity ennemies)
+    public CapacityData SelectSpell(DataEntity enemy)
     {
-        int randomInt = Random.Range(0,1);
-        if (randomInt == 1)
+        int Value1 = enemy._CapacityData1.ValueAI;
+        int Value2 =enemy._CapacityData2.ValueAI;
+        int randomInt = Random.Range(0,Value1+Value2);
+        if (randomInt <=Value1)
         {
-            return ennemies._CapacityData1;
+            return enemy._CapacityData1;
         }
         else 
         {
-            return ennemies._CapacityData2;
+            return enemy._CapacityData2;
         }
     }
 }

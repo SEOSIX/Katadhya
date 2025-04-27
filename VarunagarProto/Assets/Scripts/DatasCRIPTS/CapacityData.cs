@@ -1,4 +1,5 @@
 using System.Security.Cryptography.X509Certificates;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ public enum SpecialCapacityType
     DelayedAttack,
 
 }
+
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObject/CapacityData", order = 4)]
 public class CapacityData : ScriptableObject
@@ -42,4 +44,7 @@ public class CapacityData : ScriptableObject
     public string Description;
     public int PictoType;
     public int TargetType;
+
+    [field: Header("Enemy Only"), SerializeField]
+    public int ValueAI;
 }
