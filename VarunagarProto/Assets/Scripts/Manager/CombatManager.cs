@@ -8,10 +8,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static DataEntity;
-using static UnityEditor.Experimental.GraphView.Port;
-using static UnityEngine.EventSystems.EventTrigger; 
-using static UnityEngine.GraphicsBuffer;
-
 public class CombatManager : MonoBehaviour
 {
     public static CombatManager SINGLETON { get; private set; }
