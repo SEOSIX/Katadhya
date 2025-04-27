@@ -693,9 +693,10 @@ public class CombatManager : MonoBehaviour
             Debug.Log($"{caster.name} a appliqué {capacity.Shock} marque(s) à {target.namE}");
             if (target.ShockMark >= 4)
             {
-                float calculatedDamage = caster.UnitSpeed - 20 / 2;
-                float fcalculatedDamage = (float)calculatedDamage * 150 / 100;
-                int ishieldDamage = Mathf.RoundToInt(fcalculatedDamage);
+                float calculatedDamage = (caster.UnitSpeed - 20) / 2;
+                int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
+                float fshieldDamage = calculatedDamage * 150 / 100;
+                int ishieldDamage = Mathf.RoundToInt(fshieldDamage);
                 if (target.UnitShield > 0)
                 {
                     if (target.UnitShield < ishieldDamage)
@@ -714,8 +715,8 @@ public class CombatManager : MonoBehaviour
                 }
                 if (ishieldDamage > 0)
                 {
-                    target.UnitLife -= ishieldDamage;
-                    Debug.Log($"{caster.namE} inflige {ishieldDamage} dégâts à {target.namE} grâce au choc");
+                    target.UnitLife -= icalculatedDamage;
+                    Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts à {target.namE} grâce au choc");
                 }
                 target.ShockMark = 0;
 
