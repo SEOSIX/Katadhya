@@ -601,7 +601,7 @@ public class CombatManager : MonoBehaviour
             Value = Math.Max(CData.atk, CData.heal);
             if (CData.heal > 0)
             {
-                Value = (CData.heal * player.UnitAtk / 2);
+                Value = ((CData.heal + player.UnitAtk) / 2);
             }
             Text.GetChild(1).GetComponent<TextMeshProUGUI>().SetText($"{Value}");
             Text.GetChild(2).GetComponent<TextMeshProUGUI>().SetText($"{CData.précision}%");
