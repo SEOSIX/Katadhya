@@ -473,7 +473,12 @@ public class CombatManager : MonoBehaviour
         {
             capacityButtons[3].gameObject.SetActive(true);
             capacityButtons[3].GetComponent<Image>().sprite = player.Ultimate;
-            capacityAnimButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start());
+            capacityAnimButtons[3].GetComponent<Button>().interactable = false;
+            if (player.UltimateSlider <= 0)
+            {
+                capacityAnimButtons[3].GetComponent<Button>().interactable = true;
+                capacityAnimButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start());
+            }
         }
         UpdatePage(player);
     }
@@ -525,7 +530,7 @@ public class CombatManager : MonoBehaviour
             capacityButtons[i].GetComponent<Image>().sprite = CSprite;
             capacityButtons[i].GetComponent<Image>().material = null;
             capacityAnimButtons[i].GetComponent<Button>().interactable = true;
-            capacityAnimButtons[i].onClick.AddListener(() => UseCapacity(CData));
+
 
             // Masquer le cooldown restant
             CoolDownTexts[i].SetText("");
@@ -534,6 +539,7 @@ public class CombatManager : MonoBehaviour
     private void UpdatePage(DataEntity player)
     {
         List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
+
         for (int i = 0; i < PCapacities.Count(); i++)
         {
             CapacityData CData = PCapacities[i];
@@ -549,25 +555,53 @@ public class CombatManager : MonoBehaviour
             Description.SetText(CData.Description);
             Parent.GetChild(2).GetComponent<Image>().sprite = Target;
             Parent.GetChild(3).GetChild(1).GetComponent<Image>().sprite = PictoType;
+            
             if (CData.buffType != 0)
             {
                 Parent.GetChild(3).GetChild(0).GameObject().SetActive(true);
                 Text.GetChild(0).GameObject().SetActive(true);
-                Parent.GetChild(3).GetChild(0).GetComponent<Image>().sprite = PictoBuffs[CData.buffType - 1];
+                string arrow = "";
                 if (CData.buffValue > 1)
                 {
+                    Parent.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color32(0, 39, 11, 255);
+                    arrow = "▲";
                     Sbuff = $"{Mathf.RoundToInt((CData.buffValue - 1) * 100)}";
                 }
                 else
                 {
+                    Parent.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color32(155, 0, 0, 255);
+
+                    arrow = "▼";
                     Sbuff = $"-{Mathf.RoundToInt((1 - CData.buffValue) * 100)}%";
                 }
+                if (CData.buffType == 1)
+                {
+                    Parent.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().SetText($"ATK{arrow}");
+                }
+                if (CData.buffType == 2)
+                {
+                    Parent.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().SetText($"DEF{arrow}");
+                }
+                if (CData.buffType == 3)
+                {
+                    Parent.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().SetText($"VIT{arrow}");
+                }
+                if (CData.buffType == 4)
+                {
+                    Parent.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().SetText($"PRE{arrow}");
+                }
                 Text.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(Sbuff);
-
             }
-
+            int Value = 0;
+            Value = Math.Max(CData.atk, CData.heal);
+            if (CData.heal > 0)
+            {
+                Value = (CData.heal * player.UnitAtk / 2);
+            }
+            Text.GetChild(1).GetComponent<TextMeshProUGUI>().SetText($"{Value}");
             Text.GetChild(2).GetComponent<TextMeshProUGUI>().SetText($"{CData.précision}%");
             Text.GetChild(3).GetComponent<TextMeshProUGUI>().SetText($"{CData.critique}%");
+            Parent.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"CD: {CData.cooldown}");
 
         }
     }

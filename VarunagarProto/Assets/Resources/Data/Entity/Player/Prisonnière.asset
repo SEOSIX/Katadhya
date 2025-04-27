@@ -24,7 +24,7 @@ MonoBehaviour:
   BaseAtk: 10
   BaseSpeed: 50
   BaseDef: 0
-  UnitShield: 3
+  UnitShield: 0
   ShockMark: 0
   SkipPlay: 0
   portrait: {fileID: 21300000, guid: d6dffbf58b723a84993b7caa718951db, type: 3}
@@ -32,15 +32,15 @@ MonoBehaviour:
   bandeauUI: {fileID: 21300000, guid: d44e05a51a6079049a283f37c58e4709, type: 3}
   manimator: {fileID: 0}
   capacity1: {fileID: 21300000, guid: 7de2447ac3ed5e244bfb6ef4835aa7f5, type: 3}
-  _CapacityData1: {fileID: 0}
+  _CapacityData1: {fileID: 11400000, guid: f172efd948f5abd458a08c2b9d475c71, type: 2}
   capacity2: {fileID: 21300000, guid: a5d849fd5fe36704eb0571d9d4f654a9, type: 3}
-  _CapacityData2: {fileID: 0}
+  _CapacityData2: {fileID: 11400000, guid: 5ad050a46ff16354eadbfecb63f5ff20, type: 2}
   capacity3: {fileID: 21300000, guid: 3e9946186a02f5647876b0ce959ffebc, type: 3}
-  _CapacityData3: {fileID: 0}
+  _CapacityData3: {fileID: 11400000, guid: 30d059fc0cab3ca40b69b83ee365684d, type: 2}
   Ultimate: {fileID: 21300000, guid: b9dfd3aed188eda4e925aa347812de99, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: 32f764f830a8d39449df9ac27bfb030e, type: 3}
-  _CapacityDataUltimate: {fileID: 0}
-  UltimateSlider: 9
+  _CapacityDataUltimate: {fileID: 11400000, guid: e91b81a4e494f3040aa47d2214ae07aa, type: 2}
+  UltimateSlider: 100
   UltIsReady: 0
   namE: "Prisonni\xE8re"
   size: 0.21

@@ -69,6 +69,8 @@ public class Ultimate : MonoBehaviour
             Destroy(gameObject);  // Si une autre instance existe déjà, on détruit l'objet.
         }
         LoadZonesFromChildren();
+        SliderManager();
+
     }
 
     private void Start()
