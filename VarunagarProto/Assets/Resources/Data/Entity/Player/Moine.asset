@@ -18,6 +18,7 @@ MonoBehaviour:
   UnitSpeed: 40
   UnitDef: 0
   ActiveBuffs: []
+  ActiveCooldowns: []
   Affinity: 1
   BaseLife: 80
   BaseAtk: 4
@@ -25,6 +26,7 @@ MonoBehaviour:
   BaseDef: 0
   UnitShield: 0
   ShockMark: 0
+  SkipPlay: 0
   portrait: {fileID: 21300000, guid: 720a7ef09d762164291f08f84ceca96b, type: 3}
   portraitUI: {fileID: 21300000, guid: 3210fb9058c179144bd6c59a776a4bcb, type: 3}
   bandeauUI: {fileID: 21300000, guid: 6c06cf1fd04d2c44b829c9f002d658bf, type: 3}
@@ -37,9 +39,10 @@ MonoBehaviour:
   _CapacityData3: {fileID: 11400000, guid: 0ce1682e094e2a04db274f2edc8a7778, type: 2}
   Ultimate: {fileID: 21300000, guid: 47156ee7c606bda4db4e0c7d377a295c, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: ce4265b8a8608f148b8c0bdfbd50f510, type: 3}
-  _CapacityDataUltimate: {fileID: 11400000, guid: 88655debae5d91c49b8a182719500b46, type: 2}
-  UltimateSlider: 100
-  UltIsReady: 1
+  _CapacityDataUltimate: {fileID: 11400000, guid: c6af6d2eab0b6614ba61c1eca41da1b1, type: 2}
+  UltimateSlider: 97
+  UltIsReady: 0
   namE: Moine
   size: 0.23
   index: 3
+  skipNextTurn: 0

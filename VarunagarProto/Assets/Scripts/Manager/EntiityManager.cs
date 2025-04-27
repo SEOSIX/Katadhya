@@ -27,18 +27,19 @@ public class EntiityManager : MonoBehaviour
             var enemy = entityHandler.ennemies[i];
             if (enemy == null || enemy.UnitLife > 0)
                 continue;
-
-            Debug.Log($"L'ennemi {enemy.namE} est mort et va être désactivé.");
-            CombatManager.SINGLETON.RemoveUnitFromList(enemy);
-
-            if (i < CombatManager.SINGLETON.circlesEnnemy.Count)
+            SINGLETON.RemoveUnitFromList(enemy);
+            if (i < SINGLETON.circlesEnnemy.Count)
             {
-                CombatManager.SINGLETON.circlesEnnemy[i].SetActive(false);
+                SINGLETON.circlesEnnemy[i].SetActive(false);
             }
 
             if (i < LifeEntity.SINGLETON.enemySliders.Length)
             {
                 LifeEntity.SINGLETON.enemySliders[i].gameObject.SetActive(false);
+            }
+            if (i < LifeEntity.SINGLETON.enemyShieldSliders.Length)
+            {
+                LifeEntity.SINGLETON.enemyShieldSliders[i].gameObject.SetActive(false);
             }
 
             if (enemy.instance != null)
@@ -59,7 +60,7 @@ public class EntiityManager : MonoBehaviour
             Debug.Log($"Le joueur {player.namE} est mort et va être détruit.");
 
             GameObject playerInstance = player.instance;
-            CombatManager.SINGLETON.RemoveUnitFromList(player);
+            SINGLETON.RemoveUnitFromList(player);
 
             if (playerInstance != null)
                 Destroy(playerInstance);
