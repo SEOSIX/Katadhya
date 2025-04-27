@@ -246,7 +246,7 @@ public class CombatManager : MonoBehaviour
     {
         HideTargetIndicators();
         GlobalVars.currentSelectedCapacity = capacity;
-
+        print(capacity);
         if (capacity.MultipleHeal)
         {
             foreach (var ally in entityHandler.players)
@@ -463,17 +463,17 @@ public class CombatManager : MonoBehaviour
             SetupButtonFunction(0, player._CapacityData1, player.capacity1);
         }
 
-        if (player.capacity2 != null)
+        if (player._CapacityData2 != null)
         {
             SetupButtonFunction(1, player._CapacityData2, player.capacity2);
         }
 
-        if (player.capacity3 != null)
+        if (player._CapacityData3 != null)
         {
             SetupButtonFunction(2, player._CapacityData3, player.capacity3);
         }
 
-        if (player.Ultimate != null)
+        if (player._CapacityDataUltimate != null)
         {
             capacityButtons[3].gameObject.SetActive(true);
             capacityButtons[3].GetComponent<Image>().sprite = player.Ultimate;
@@ -481,7 +481,10 @@ public class CombatManager : MonoBehaviour
         }
         UpdatePage(player);
     }
-
+    public void SetUltimate()
+    {
+        GlobalVars.currentSelectedCapacity = currentPlayer._CapacityDataUltimate;
+    }
     private void SetupButtonFunction(int i, CapacityData CData, Sprite CSprite)
     {
         DataEntity caster = currentTurnOrder[0];
@@ -561,7 +564,7 @@ public class CombatManager : MonoBehaviour
                 }
                 else
                 {
-                    Sbuff = $"- {Mathf.RoundToInt((1 - CData.buffValue) * 100)}";
+                    Sbuff = $"-{Mathf.RoundToInt((1 - CData.buffValue) * 100)}%";
                 }
                 Text.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(Sbuff);
 

@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static CombatManager;
 
 public class QTEZone
 {
@@ -12,6 +15,23 @@ public class QTEZone
     public Color debugColor = Color.white;
     public bool successZone = true;
     public int Affinity = 0;
+}
+
+public class OnceCustom
+{
+    private bool _hasRun = false;
+
+    public void Do(Action action)
+    {
+        if (_hasRun) return;
+        _hasRun = true;
+        action?.Invoke();
+    }
+
+    public void Reset()
+    {
+        _hasRun = false;
+    }
 }
 
 public class Ultimate : MonoBehaviour
@@ -29,6 +49,7 @@ public class Ultimate : MonoBehaviour
     public Transform zoneParent;
 
     private DataEntity previousEntity;
+    private OnceCustom CheckInputOnce = new OnceCustom();
     private List<QTEZone> qteZones = new List<QTEZone>();
 
     private DataEntity CurrentEntity => CombatManager.SINGLETON?.currentTurnOrder.Count > 0
@@ -75,7 +96,6 @@ public class Ultimate : MonoBehaviour
                     successZone = marker.successZone,
                     Affinity = marker.Affinity
                 };
-
                 qteZones.Add(zone);
             }
         }
@@ -145,6 +165,7 @@ public class Ultimate : MonoBehaviour
 
     public void QTE_Start()
     {
+        CheckInputOnce.Reset();
         if (qteAnimator == null || qteUI == null)
         {
             Debug.LogWarning("QTE Animator ou UI non assigné.");
@@ -152,6 +173,7 @@ public class Ultimate : MonoBehaviour
         }
 
         qteUI.SetActive(true);
+        qteAnimator.speed = 1f;
         StartCoroutine(CheckQTEInput());
     }
 
@@ -161,9 +183,12 @@ public class Ultimate : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                qteAnimator.speed = 0f;
-                Debug.Log("QTE: Animation mise en pause par l'utilisateur.");
-                CheckPointerInZone();
+                CheckInputOnce.Do(() =>
+                {
+                    qteAnimator.speed = 0f;
+                    Debug.Log("QTE: Animation mise en pause par l'utilisateur.");
+                    CheckPointerInZone();
+                });
             }
 
             yield return null;
@@ -200,13 +225,23 @@ public class Ultimate : MonoBehaviour
         {
             Debug.Log("QTE réussie !");
             // Logique de réussite
+
         }
         else
         {
             Debug.Log(" QTE ratée !");
             // Logique d'échec
         }
-        
+        CombatManager.SINGLETON.SetUltimate();
+        CombatManager.SINGLETON.UseCapacity(GlobalVars.currentSelectedCapacity);
+        QTEStop();
+
+    }
+
+    private void QTEStop()
+    {
+        qteUI.SetActive(false);
+
     }
 
     private bool IsAngleInRange(float angle, float start, float end)
