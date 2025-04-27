@@ -115,7 +115,7 @@ public class EntiityManager : MonoBehaviour
 
     void Update()
     {
-        if (entityHandler.ennemies.Any(e => e != null && e.UnitLife <= 0))
+        if (entityHandler.ennemies.Any(e => e != null &&  e.UnitLife <= 0))
             DestroyDeadEnemies();
 
         if (entityHandler.players.Any(p => p != null && p.UnitLife <= 0))
@@ -123,16 +123,16 @@ public class EntiityManager : MonoBehaviour
 
         LifeEntity.SINGLETON.LifeManage();
 
-        bool anyPlayerAlive = entityHandler.players.Any(p => p != null);
-        bool anyEnemyAlive = entityHandler.ennemies.Any(e => e != null);
+        bool anyPlayerAlive = entityHandler.players.Any(p => p.UnitLife <= 0);
+        bool anyEnemyAlive = entityHandler.ennemies.Any(e => e.UnitLife <= 0);
 
-        if (!anyPlayerAlive)
+        if (anyPlayerAlive)
         {
             Debug.Log("Les ennemis ont gagné !");
         }
-        else if (!anyEnemyAlive)
+        if (anyEnemyAlive)
         {
-            Debug.Log("Les joueurs ont gagné !");
+            LoadingScene.SINGLETON.LoadNextSceneAsync();
         }
     }
 
