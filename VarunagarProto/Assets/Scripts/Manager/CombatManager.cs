@@ -105,6 +105,7 @@ public class CombatManager : MonoBehaviour
             entityHandler.ennemies[i].ActiveCooldowns.Clear();
             entityHandler.ennemies[i].skipNextTurn = false;
             entityHandler.ennemies[i].delayedActions.Clear();
+            entityHandler.ennemies[i].ShockMark = 0;
         }
         for (int i = 0; i < entityHandler.players.Count; i++)
         {
@@ -115,6 +116,8 @@ public class CombatManager : MonoBehaviour
             entityHandler.players[i].ActiveCooldowns.Clear();
             entityHandler.players[i].skipNextTurn = false;
             entityHandler.players[i].delayedActions.Clear();
+            entityHandler.players[i].ShockMark = 0;
+            entityHandler.players[i].UltimateSlider = 100;
         }
     }
     public void InitializeStaticUI()
@@ -283,7 +286,6 @@ public class CombatManager : MonoBehaviour
         ShowTargetIndicators(capacity);
         DecrementBuffDurations(currentTurnOrder[0]);
         DecrementCooldowns(currentTurnOrder[0]);
-
     }
 
     public void SelectEnemy(int enemyIndex)
@@ -325,7 +327,6 @@ public class CombatManager : MonoBehaviour
         if (réussite == 2)
         {
             Debug.Log("Échec de la compétence");
-            DecrementBuffDurations(caster);
             return;
         }
 
@@ -340,12 +341,8 @@ public class CombatManager : MonoBehaviour
             ApplyNormalCapacity(capacity, caster, target, modifier);
         }
 
-
-
-        // Vérifie s'il y a vraiment un cooldown à appliquer
         if (capacity.cooldown > 0)
         {
-            // Vérifie si un cooldown pour cette capacité existe déjà
             bool alreadyInCooldown = caster.ActiveCooldowns.Exists(cd => cd.capacity == capacity);
 
             if (!alreadyInCooldown)
@@ -353,7 +350,10 @@ public class CombatManager : MonoBehaviour
                 caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown));
             }
         }
-
+        if (Ultimate.SINGLETON != null)
+        {
+            Ultimate.SINGLETON.GainUltimateCharge(capacity.chargeUlti);
+        }
         InitializeStaticUI();
 
     }
@@ -661,9 +661,8 @@ public class CombatManager : MonoBehaviour
         {
             target.ShockMark += capacity.Shock;
             Debug.Log($"{caster.name} a appliqué {capacity.Shock} marque(s) à {target.namE}");
-            if (target.ShockMark >= 3)
+            if (target.ShockMark >= 4)
             {
-
                 float calculatedDamage = caster.UnitSpeed - 20 / 2;
                 float fcalculatedDamage = (float)calculatedDamage * 150 / 100;
                 int ishieldDamage = Mathf.RoundToInt(fcalculatedDamage);
@@ -688,6 +687,7 @@ public class CombatManager : MonoBehaviour
                     target.UnitLife -= ishieldDamage;
                     Debug.Log($"{caster.namE} inflige {ishieldDamage} dégâts à {target.namE} grâce au choc");
                 }
+                target.ShockMark = 0;
 
             }
         }

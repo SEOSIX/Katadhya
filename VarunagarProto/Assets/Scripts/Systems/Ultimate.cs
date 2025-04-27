@@ -36,6 +36,8 @@ public class OnceCustom
 
 public class Ultimate : MonoBehaviour
 {
+    public static Ultimate SINGLETON;
+
     [Header("UI")]
     public Slider sliderUltimate;
     public Button UltButton;
@@ -58,6 +60,14 @@ public class Ultimate : MonoBehaviour
 
     private void Awake()
     {
+        if (SINGLETON == null)
+        {
+            SINGLETON = this;
+        }
+        else if (SINGLETON != this)
+        {
+            Destroy(gameObject);  // Si une autre instance existe déjà, on détruit l'objet.
+        }
         LoadZonesFromChildren();
     }
 
@@ -66,7 +76,6 @@ public class Ultimate : MonoBehaviour
         UltButton.interactable = false;
         StartCoroutine(CheckEntityChange());
         StartCoroutine(SyncSliderWithEntity());
-        StartCoroutine(DrainUltimateOverTime());
     }
 
     private void LoadZonesFromChildren()
@@ -139,7 +148,7 @@ public class Ultimate : MonoBehaviour
         }
     }
 
-    private IEnumerator DrainUltimateOverTime()
+    /*private IEnumerator DrainUltimateOverTime()
     {
         while (true)
         {
@@ -151,6 +160,16 @@ public class Ultimate : MonoBehaviour
             yield return new WaitForSeconds(1f);
             SliderManager();
         }
+    }*/
+    public void GainUltimateCharge(int chargeAmount)
+    {
+        if (CurrentEntity == null) return;
+        CurrentEntity.UltimateSlider -= chargeAmount;
+        if (CurrentEntity.UltimateSlider > 100)
+        {
+            CurrentEntity.UltimateSlider = 100;
+        }
+        sliderUltimate.value = CurrentEntity.UltimateSlider;
     }
 
     public void SliderManager()
