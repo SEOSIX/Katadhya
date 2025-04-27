@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
-  m_Name: cpt5a0
+  m_Name: cpt6a0
   m_EditorClassIdentifier: 
   atk: 8
   heal: 0
@@ -18,9 +18,8 @@ MonoBehaviour:
   buffValue: 0
   buffDuration: 0
   critique: 5
-  "pr\xE9cision": 95
+  "pr\xE9cision": 90
   cooldown: 0
-  chargeUlti: 0
   Shield: 0
   Shock: 0
   ShieldRatioAtk: 0
@@ -33,4 +32,4 @@ MonoBehaviour:
   Description: 
   PictoType: 0
   TargetType: 0
-  ValueAI: 70
+  ValueAI: 50

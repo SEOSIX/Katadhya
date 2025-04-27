@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c8f182d232039848a3b32d7886df91f, type: 3}
+  m_Name: Narashima2
+  m_EditorClassIdentifier: 
+  instance: {fileID: 0}
+  <UnitLife>k__BackingField: 30
+  UnitAtk: 5
+  UnitSpeed: 43
+  UnitDef: 10
+  UnitAim: 100
+  ActiveBuffs: []
+  ActiveCooldowns: []
+  Affinity: 0
+  BaseLife: 30
+  BaseAtk: 5
+  BaseSpeed: 43
+  BaseDef: 10
+  BaseAim: 100
+  UnitShield: 0
+  ShockMark: 0
+  SkipPlay: 0
+  portrait: {fileID: 21300000, guid: 38143f535456992438e985b58e4bbfe4, type: 3}
+  portraitUI: {fileID: 21300000, guid: 6a62ce1c4ef05214f839b052bf4a98bd, type: 3}
+  bandeauUI: {fileID: 0}
+  manimator: {fileID: 0}
+  capacity1: {fileID: 0}
+  _CapacityData1: {fileID: 11400000, guid: e6cf318b60a72c64f8b057826718e55d, type: 2}
+  capacity2: {fileID: 0}
+  _CapacityData2: {fileID: 11400000, guid: 0172668044cd02c4caeb9e076a0871ff, type: 2}
+  capacity3: {fileID: 0}
+  _CapacityData3: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
+  Ultimate: {fileID: 0}
+  UltimateEmpty: {fileID: 0}
+  _CapacityDataUltimate: {fileID: 11400000, guid: 0dce4f00902c7664087b92eb65ac541c, type: 2}
+  UltimateSlider: 0
+  UltIsReady: 1
+  namE: Ennemy2
+  size: 0
+  index: 6
+  skipNextTurn: 0
