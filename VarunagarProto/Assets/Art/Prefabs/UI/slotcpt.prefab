@@ -429,7 +429,7 @@ GameObject:
   - component: {fileID: 1941352670342893722}
   - component: {fileID: 6747046606172763294}
   - component: {fileID: 108756807804841623}
-  - component: {fileID: 4728820640460628230}
+  - component: {fileID: 6042080200475183979}
   m_Layer: 5
   m_Name: imageCpt1
   m_TagString: Untagged
@@ -484,7 +484,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3e9946186a02f5647876b0ce959ffebc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7de2447ac3ed5e244bfb6ef4835aa7f5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -494,7 +494,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4728820640460628230
+--- !u!114 &6042080200475183979
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1727,8 +1727,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 15, y: -10}
-  m_SizeDelta: {x: 149.3, y: 50}
+  m_AnchoredPosition: {x: 15, y: -5.274994}
+  m_SizeDelta: {x: 213.33, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5113682491842914253
 CanvasRenderer:
