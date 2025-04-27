@@ -19,14 +19,18 @@ MonoBehaviour:
   buffDuration: 0
   critique: 5
   "pr\xE9cision": 90
-  cooldown: 0
+  cooldown: 1
+  chargeUlti: 0
   Shield: 0
   Shock: 0
   ShieldRatioAtk: 0
   MultipleHeal: 0
   MultipleAttack: 1
   TargetingAlly: 0
+  specialType: 0
+  specialDelay: 1
   Name: Sigma
   Description: a
   PictoType: 0
   TargetType: 0
+  ValueAI: 0

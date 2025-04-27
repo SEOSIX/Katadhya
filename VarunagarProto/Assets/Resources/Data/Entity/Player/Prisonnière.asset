@@ -17,13 +17,17 @@ MonoBehaviour:
   UnitAtk: 10
   UnitSpeed: 50
   UnitDef: 0
+  UnitAim: 100
   ActiveBuffs: []
-  ActiveCooldowns: []
+  ActiveCooldowns:
+  - capacity: {fileID: 11400000, guid: 5ad050a46ff16354eadbfecb63f5ff20, type: 2}
+    remainingCooldown: 1
   Affinity: 1
   BaseLife: 100
   BaseAtk: 10
   BaseSpeed: 50
   BaseDef: 0
+  BaseAim: 100
   UnitShield: 0
   ShockMark: 0
   SkipPlay: 0

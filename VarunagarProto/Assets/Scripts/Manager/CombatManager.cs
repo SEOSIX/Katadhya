@@ -97,6 +97,7 @@ public class CombatManager : MonoBehaviour
             entityHandler.ennemies[i].UnitAtk = entityHandler.ennemies[i].BaseAtk;
             entityHandler.ennemies[i].UnitDef = entityHandler.ennemies[i].BaseDef;
             entityHandler.ennemies[i].UnitSpeed = entityHandler.ennemies[i].BaseSpeed;
+            entityHandler.ennemies[i].UnitAim = entityHandler.ennemies[i].BaseAim;
             entityHandler.ennemies[i].ActiveBuffs.Clear();
             entityHandler.ennemies[i].ActiveCooldowns.Clear();
             entityHandler.ennemies[i].skipNextTurn = false;
@@ -108,6 +109,7 @@ public class CombatManager : MonoBehaviour
             entityHandler.players[i].UnitAtk = entityHandler.players[i].BaseAtk;
             entityHandler.players[i].UnitDef = entityHandler.players[i].BaseDef;
             entityHandler.players[i].UnitSpeed = entityHandler.players[i].BaseSpeed;
+            entityHandler.players[i].UnitAim = entityHandler.players[i].BaseAim;
             entityHandler.players[i].ActiveBuffs.Clear();
             entityHandler.players[i].ActiveCooldowns.Clear();
             entityHandler.players[i].skipNextTurn = false;
@@ -255,7 +257,8 @@ public class CombatManager : MonoBehaviour
                     ApplyCapacityToTarget(capacity, ally);
                 }
             }
-
+            DecrementBuffDurations(currentTurnOrder[0]);
+            DecrementCooldowns(currentTurnOrder[0]);
             GlobalVars.currentSelectedCapacity = null;
             Debug.Log("Capacité de soin appliquée à tous les alliés !");
             EndUnitTurn();
@@ -271,7 +274,8 @@ public class CombatManager : MonoBehaviour
                     ApplyCapacityToTarget(capacity, enemy);
                 }
             }
-
+            DecrementBuffDurations(currentTurnOrder[0]);
+            DecrementCooldowns(currentTurnOrder[0]);
             GlobalVars.currentSelectedCapacity = null;
             Debug.Log("Capacité de zone appliquée à tous les ennemis !");
             EndUnitTurn();
@@ -318,7 +322,8 @@ public class CombatManager : MonoBehaviour
     public void ApplyCapacityToTarget(CapacityData capacity, DataEntity target)
     {
         DataEntity caster = currentTurnOrder[0];
-        float réussite = lancer(capacity.précision, 2f, 1f);
+        int globalAim = Mathf.RoundToInt(capacity.précision * caster.UnitAim);
+        float réussite = lancer(globalAim, 2f, 1f);
 
         if (réussite == 2)
         {
@@ -601,7 +606,16 @@ public class CombatManager : MonoBehaviour
             Text.GetChild(1).GetComponent<TextMeshProUGUI>().SetText($"{Value}");
             Text.GetChild(2).GetComponent<TextMeshProUGUI>().SetText($"{CData.précision}%");
             Text.GetChild(3).GetComponent<TextMeshProUGUI>().SetText($"{CData.critique}%");
-            Parent.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"CD: {CData.cooldown}");
+            if (CData.MultipleAttack)
+            {
+                Parent.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"CD: {CData.cooldown-1}");
+
+            }
+            else
+            {
+                Parent.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"CD: {CData.cooldown}");
+
+            }
 
         }
     }
@@ -665,8 +679,7 @@ public class CombatManager : MonoBehaviour
 
     public void GiveBuff(CapacityData capacity, DataEntity target)
     {
-        // buffType; 1 = Atk, 2 = Def, 3 = Speed
-        //float calculatedBuff;
+        // buffType; 1 = Atk, 2 = Def, 3 = Speed, 4 = Précision
         if (capacity.buffType > 0)
         {
             ActiveBuff existingBuff = target.ActiveBuffs.Find(b => b.type == capacity.buffType);

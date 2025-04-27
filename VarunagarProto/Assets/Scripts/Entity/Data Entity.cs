@@ -16,6 +16,7 @@ public class DataEntity : ScriptableObject
     public int UnitAtk;
     public int UnitSpeed;
     public int UnitDef;
+    public int UnitAim;
     public List<ActiveBuff> ActiveBuffs;
     public List<CooldownData> ActiveCooldowns = new List<CooldownData>();
     public int Affinity;
@@ -25,6 +26,7 @@ public class DataEntity : ScriptableObject
     public int BaseAtk;
     public int BaseSpeed;
     public int BaseDef;
+    public int BaseAim;
 
     [field: Header("Special Effect"), SerializeField]
     public int UnitShield;
