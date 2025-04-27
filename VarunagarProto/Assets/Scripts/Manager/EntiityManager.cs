@@ -39,6 +39,7 @@ public class EntiityManager : MonoBehaviour
             if (i < LifeEntity.SINGLETON.enemySliders.Length)
             {
                 LifeEntity.SINGLETON.enemySliders[i].gameObject.SetActive(false);
+                LifeEntity.SINGLETON.enemyShieldSliders[i].gameObject.SetActive(false);
             }
 
             if (enemy.instance != null)
@@ -46,6 +47,7 @@ public class EntiityManager : MonoBehaviour
                 enemy.instance.SetActive(false);
                 enemy.UnitLife = -1;
             }
+            entityHandler.ennemies.RemoveAt(i);
         }
     }
     public void DestroyDeadPlayers()
@@ -67,6 +69,7 @@ public class EntiityManager : MonoBehaviour
             if (i < LifeEntity.SINGLETON.PlayerSliders.Length)
             {
                 LifeEntity.SINGLETON.PlayerSliders[i].gameObject.SetActive(false);
+                LifeEntity.SINGLETON.PlayerShieldSliders[i].gameObject.SetActive(false);
             }
 
             entityHandler.players.RemoveAt(i);
