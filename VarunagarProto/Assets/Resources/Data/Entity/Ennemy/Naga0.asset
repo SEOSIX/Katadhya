@@ -13,21 +13,24 @@ MonoBehaviour:
   m_Name: Naga0
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 30
+  <UnitLife>k__BackingField: -1
   UnitAtk: 8
-  UnitSpeed: 44
-  UnitDef: 5
+  UnitSpeed: 48
+  UnitDef: 3
   UnitAim: 100
-  ActiveBuffs: []
+  ActiveBuffs:
+  - type: 2
+    value: 0.6
+    duration: 1
   ActiveCooldowns: []
   Affinity: 0
-  BaseLife: 30
+  BaseLife: 20
   BaseAtk: 8
-  BaseSpeed: 44
+  BaseSpeed: 48
   BaseDef: 5
   BaseAim: 100
   UnitShield: 0
-  ShockMark: 0
+  ShockMark: 2
   SkipPlay: 0
   portrait: {fileID: 21300000, guid: 139f0cd143a86cd4991af2749015bb4b, type: 3}
   portraitUI: {fileID: 21300000, guid: dd806ddbc491fa64480bc99b724e60ff, type: 3}

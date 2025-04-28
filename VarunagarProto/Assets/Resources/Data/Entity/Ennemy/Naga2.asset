@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Naga2
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 30
+  <UnitLife>k__BackingField: 18
   UnitAtk: 8
-  UnitSpeed: 44
+  UnitSpeed: 51
   UnitDef: 5
   UnitAim: 100
   ActiveBuffs: []
@@ -23,20 +23,20 @@ MonoBehaviour:
   Affinity: 0
   BaseLife: 30
   BaseAtk: 8
-  BaseSpeed: 44
+  BaseSpeed: 51
   BaseDef: 5
   BaseAim: 100
   UnitShield: 0
-  ShockMark: 0
+  ShockMark: 2
   SkipPlay: 0
   portrait: {fileID: 21300000, guid: 139f0cd143a86cd4991af2749015bb4b, type: 3}
   portraitUI: {fileID: 21300000, guid: dd806ddbc491fa64480bc99b724e60ff, type: 3}
   bandeauUI: {fileID: 0}
   manimator: {fileID: 0}
   capacity1: {fileID: 0}
-  _CapacityData1: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
+  _CapacityData1: {fileID: 11400000, guid: 2a1446be63ec5144b932cc89f1cbb523, type: 2}
   capacity2: {fileID: 0}
-  _CapacityData2: {fileID: 11400000, guid: 0dce4f00902c7664087b92eb65ac541c, type: 2}
+  _CapacityData2: {fileID: 11400000, guid: 3addafe79e907af43bf21295b3a7e42d, type: 2}
   capacity3: {fileID: 0}
   _CapacityData3: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
   Ultimate: {fileID: 0}

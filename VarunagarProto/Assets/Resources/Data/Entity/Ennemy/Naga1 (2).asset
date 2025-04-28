@@ -10,39 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c8f182d232039848a3b32d7886df91f, type: 3}
-  m_Name: Narashima1
+  m_Name: Naga1 (2)
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
   <UnitLife>k__BackingField: -1
-  UnitAtk: 5
-  UnitSpeed: 43
-  UnitDef: 4
+  UnitAtk: 8
+  UnitSpeed: 48
+  UnitDef: 2
   UnitAim: 100
   ActiveBuffs:
-  - type: 4
-    value: 0.7
-    duration: 1
   - type: 2
     value: 0.36
     duration: 1
   ActiveCooldowns: []
   Affinity: 0
-  BaseLife: 40
-  BaseAtk: 5
-  BaseSpeed: 43
-  BaseDef: 10
+  BaseLife: 30
+  BaseAtk: 8
+  BaseSpeed: 48
+  BaseDef: 5
   BaseAim: 100
-  UnitShield: 2
-  ShockMark: 3
+  UnitShield: 0
+  ShockMark: 2
   SkipPlay: 0
-  portrait: {fileID: 21300000, guid: 38143f535456992438e985b58e4bbfe4, type: 3}
-  portraitUI: {fileID: 21300000, guid: 6a62ce1c4ef05214f839b052bf4a98bd, type: 3}
+  portrait: {fileID: 21300000, guid: 139f0cd143a86cd4991af2749015bb4b, type: 3}
+  portraitUI: {fileID: 21300000, guid: dd806ddbc491fa64480bc99b724e60ff, type: 3}
   bandeauUI: {fileID: 0}
   manimator: {fileID: 0}
   capacity1: {fileID: 0}
-  _CapacityData1: {fileID: 11400000, guid: defdcb58d8e855641a5375addf334e19, type: 2}
+  _CapacityData1: {fileID: 11400000, guid: ea8c75e33e82d394bb969c7223e2c2bb, type: 2}
   capacity2: {fileID: 0}
-  _CapacityData2: {fileID: 11400000, guid: 98dfc8a827a3c644bbe7d4ea583d33ac, type: 2}
+  _CapacityData2: {fileID: 11400000, guid: 32d6a79e146ac394fbe5136d43051bf7, type: 2}
   capacity3: {fileID: 0}
   _CapacityData3: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
   Ultimate: {fileID: 0}
@@ -50,7 +47,7 @@ MonoBehaviour:
   _CapacityDataUltimate: {fileID: 11400000, guid: 0dce4f00902c7664087b92eb65ac541c, type: 2}
   UltimateSlider: 0
   UltIsReady: 1
-  namE: Ennemy2
+  namE: Ennemy1
   size: 0
-  index: 6
+  index: 5
   skipNextTurn: 0

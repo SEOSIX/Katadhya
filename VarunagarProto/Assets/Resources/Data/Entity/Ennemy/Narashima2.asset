@@ -13,30 +13,30 @@ MonoBehaviour:
   m_Name: Narashima2
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 30
+  <UnitLife>k__BackingField: 38
   UnitAtk: 5
-  UnitSpeed: 43
+  UnitSpeed: 46
   UnitDef: 10
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns: []
   Affinity: 0
-  BaseLife: 30
+  BaseLife: 40
   BaseAtk: 5
-  BaseSpeed: 43
+  BaseSpeed: 46
   BaseDef: 10
   BaseAim: 100
   UnitShield: 0
-  ShockMark: 0
+  ShockMark: 1
   SkipPlay: 0
   portrait: {fileID: 21300000, guid: 38143f535456992438e985b58e4bbfe4, type: 3}
   portraitUI: {fileID: 21300000, guid: 6a62ce1c4ef05214f839b052bf4a98bd, type: 3}
   bandeauUI: {fileID: 0}
   manimator: {fileID: 0}
   capacity1: {fileID: 0}
-  _CapacityData1: {fileID: 11400000, guid: e6cf318b60a72c64f8b057826718e55d, type: 2}
+  _CapacityData1: {fileID: 11400000, guid: ecc62a701dc1bdb418fc20c446c2d6dd, type: 2}
   capacity2: {fileID: 0}
-  _CapacityData2: {fileID: 11400000, guid: 0172668044cd02c4caeb9e076a0871ff, type: 2}
+  _CapacityData2: {fileID: 11400000, guid: b3a4d5cdbf626a347ac2344296448dae, type: 2}
   capacity3: {fileID: 0}
   _CapacityData3: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
   Ultimate: {fileID: 0}
