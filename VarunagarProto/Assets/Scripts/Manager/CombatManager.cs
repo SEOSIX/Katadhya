@@ -139,7 +139,7 @@ public class CombatManager : MonoBehaviour
             {
                 ImagePortrait[i].enabled = true;
                 ImagePortrait[i].sprite = initialTurnOrder[i].portraitUI;
-                if (i == currentTurnOrder.Count)
+                if (initialTurnOrder[i] == currentEntity)
                 {
                     ImagePortrait[i].rectTransform.sizeDelta = new Vector2(90, 105);
                 }
