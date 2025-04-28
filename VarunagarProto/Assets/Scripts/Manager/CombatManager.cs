@@ -82,7 +82,7 @@ public class CombatManager : MonoBehaviour
         currentTurnOrder = GetUnitTurn();
         InitializeStaticUI();
         StartUnitTurn();
-        ResetAffinity();
+        
     }
 
     void Update()
@@ -335,14 +335,6 @@ public class CombatManager : MonoBehaviour
         GlobalVars.currentSelectedCapacity = null;
         EndUnitTurn();
         HideTargetIndicators();
-    }
-
-    public void ResetAffinity()
-    {
-        foreach (var affinityIndex in CombatManager.SINGLETON.entityHandler.players)
-        {
-            affinityIndex.Affinity = 0;
-        }
     }
 
     public void ApplyCapacityToTarget(CapacityData capacity, DataEntity target)

@@ -78,15 +78,6 @@ public class Ultimate : MonoBehaviour
         UltButton.interactable = false;
         StartCoroutine(CheckEntityChange());
         StartCoroutine(SyncSliderWithEntity());
-        resetSlider();
-    }
-    
-    public void resetSlider()
-    {
-        foreach (var sliderValue in CombatManager.SINGLETON.entityHandler.players)
-        {
-            sliderValue.UltimateSlider = 100;
-        }
     }
 
     private void LoadZonesFromChildren()
