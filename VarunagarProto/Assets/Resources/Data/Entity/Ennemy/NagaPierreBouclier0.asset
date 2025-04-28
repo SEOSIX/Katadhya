@@ -13,30 +13,36 @@ MonoBehaviour:
   m_Name: NagaPierreBouclier0
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 30
-  UnitAtk: 5
-  UnitSpeed: 43
-  UnitDef: 10
-  UnitAim: 100
-  ActiveBuffs: []
+  <UnitLife>k__BackingField: -1
+  UnitAtk: 8
+  UnitSpeed: 48
+  UnitDef: 3
+  UnitAim: 70
+  ActiveBuffs:
+  - type: 2
+    value: 0.6
+    duration: 1
+  - type: 4
+    value: 0.7
+    duration: 1
   ActiveCooldowns: []
   Affinity: 0
-  BaseLife: 30
-  BaseAtk: 5
-  BaseSpeed: 43
-  BaseDef: 10
+  BaseLife: 35
+  BaseAtk: 8
+  BaseSpeed: 44
+  BaseDef: 5
   BaseAim: 100
   UnitShield: 0
   ShockMark: 0
   SkipPlay: 0
-  portrait: {fileID: 21300000, guid: 742d2cb27e6284b4f8a032e92b07c748, type: 3}
-  portraitUI: {fileID: 21300000, guid: 6a62ce1c4ef05214f839b052bf4a98bd, type: 3}
+  portrait: {fileID: 21300000, guid: ccb22b3447482de42bd771ea19b08f75, type: 3}
+  portraitUI: {fileID: 21300000, guid: d5aa40206c7b54244873d5517309efdc, type: 3}
   bandeauUI: {fileID: 0}
   manimator: {fileID: 0}
   capacity1: {fileID: 0}
-  _CapacityData1: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
+  _CapacityData1: {fileID: 11400000, guid: 476d770601940d64b812bdc3bb1fa027, type: 2}
   capacity2: {fileID: 0}
-  _CapacityData2: {fileID: 11400000, guid: 0dce4f00902c7664087b92eb65ac541c, type: 2}
+  _CapacityData2: {fileID: 11400000, guid: dcfb43b82680fe74b8064aa43281b235, type: 2}
   capacity3: {fileID: 0}
   _CapacityData3: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
   Ultimate: {fileID: 0}

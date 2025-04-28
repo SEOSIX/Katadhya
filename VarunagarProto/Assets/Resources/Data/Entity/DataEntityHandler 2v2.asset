@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6722c5d7ac97b964da67764d5bd76aa2, type: 3}
   m_Name: DataEntityHandler 2v2
   m_EditorClassIdentifier: 
-  ennemies: []
+  ennemies:
+  - {fileID: 11400000, guid: fbfced5cb57f3cc4491c8ef5e4324928, type: 2}
   players:
   - {fileID: 11400000, guid: b3a9dc3142da51d4bad44a5388ab35cf, type: 2}
   - {fileID: 11400000, guid: d273d40c7b18bed41a8ff1f83e20eb7a, type: 2}

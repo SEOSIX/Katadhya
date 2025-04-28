@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
-  m_Name: cpt5b0
+  m_Name: cpt5b1
   m_EditorClassIdentifier: 
   atk: 5
   heal: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
   chargeUlti: 0
   Shield: 0
   Shock: 0
-  ShieldRatioAtk: 0
+  ShieldRatioAtk: 50
   MultipleHeal: 0
   MultipleAttack: 0
   TargetingAlly: 0

@@ -13,24 +13,30 @@ MonoBehaviour:
   m_Name: NagaPierre1
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 14
+  <UnitLife>k__BackingField: -1
   UnitAtk: 8
   UnitSpeed: 48
-  UnitDef: 5
-  UnitAim: 100
-  ActiveBuffs: []
+  UnitDef: 3
+  UnitAim: 70
+  ActiveBuffs:
+  - type: 2
+    value: 0.6
+    duration: 1
+  - type: 4
+    value: 0.7
+    duration: 1
   ActiveCooldowns: []
   Affinity: 0
-  BaseLife: 30
+  BaseLife: 20
   BaseAtk: 8
-  BaseSpeed: 44
+  BaseSpeed: 48
   BaseDef: 5
   BaseAim: 100
   UnitShield: 0
-  ShockMark: 1
+  ShockMark: 0
   SkipPlay: 0
-  portrait: {fileID: 21300000, guid: 139f0cd143a86cd4991af2749015bb4b, type: 3}
-  portraitUI: {fileID: 21300000, guid: dd806ddbc491fa64480bc99b724e60ff, type: 3}
+  portrait: {fileID: 21300000, guid: 38143f535456992438e985b58e4bbfe4, type: 3}
+  portraitUI: {fileID: 21300000, guid: 549dfa4a703f9ba4eb85218af8b55e0a, type: 3}
   bandeauUI: {fileID: 0}
   manimator: {fileID: 0}
   capacity1: {fileID: 0}
