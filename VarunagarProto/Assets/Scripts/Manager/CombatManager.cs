@@ -82,7 +82,6 @@ public class CombatManager : MonoBehaviour
         currentTurnOrder = GetUnitTurn();
         InitializeStaticUI();
         StartUnitTurn();
-        
     }
 
     void Update()

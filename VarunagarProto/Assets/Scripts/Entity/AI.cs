@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
-using static UnityEditor.Experimental.GraphView.Port;
 
 
 public class AI : MonoBehaviour

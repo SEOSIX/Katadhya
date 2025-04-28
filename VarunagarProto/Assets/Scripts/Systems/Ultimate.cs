@@ -207,11 +207,12 @@ public class Ultimate : MonoBehaviour
                 CheckInputOnce.Do(() =>
                 {
                     qteAnimator.speed = 0f;
+                    CurrentEntity.UltimateSlider = 100;
+                    CurrentEntity.UltIsReady = false;
                     Debug.Log("QTE: Animation mise en pause par l'utilisateur.");
                     CheckPointerInZone();
                 });
             }
-
             yield return null;
         }
     }
