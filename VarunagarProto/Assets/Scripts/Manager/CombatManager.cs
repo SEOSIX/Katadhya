@@ -140,12 +140,18 @@ public class CombatManager : MonoBehaviour
             {
                 ImagePortrait[i].enabled = true;
                 ImagePortrait[i].sprite = initialTurnOrder[i].portraitUI;
-                ImagePortrait[i].transform.parent.gameObject.SetActive(true);
+                if (i == currentTurnOrder.Count)
+                {
+                    ImagePortrait[i].rectTransform.sizeDelta = new Vector2(90, 105);
+                }
+                else
+                {
+                    ImagePortrait[i].rectTransform.sizeDelta = new Vector2(75, 93);
+                }
             }
             else
             {
                 ImagePortrait[i].enabled = false;
-                ImagePortrait[i].transform.parent.gameObject.SetActive(false);
             }
         }
     }
