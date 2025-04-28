@@ -64,6 +64,8 @@ public class CombatManager : MonoBehaviour
         public static CapacityData currentSelectedCapacity;
     }
     public bool isEnnemyTurn;
+    private Vector2[] targetSizes;
+    
 
     void Awake()
     {
@@ -115,6 +117,7 @@ public class CombatManager : MonoBehaviour
             entityHandler.players[i].delayedActions.Clear();
             entityHandler.players[i].ShockMark = 0;
             entityHandler.players[i].UltimateSlider = 100;
+            entityHandler.players[i].Affinity = 0;
         }
     }
     public void InitializeStaticUI()
@@ -139,13 +142,22 @@ public class CombatManager : MonoBehaviour
             {
                 ImagePortrait[i].enabled = true;
                 ImagePortrait[i].sprite = initialTurnOrder[i].portraitUI;
+                targetSizes = new Vector2[ImagePortrait.Length];
                 if (initialTurnOrder[i] == currentEntity)
                 {
-                    ImagePortrait[i].rectTransform.sizeDelta = new Vector2(90, 105);
+                    targetSizes[i] = new Vector2(90, 105);
                 }
                 else
                 {
-                    ImagePortrait[i].rectTransform.sizeDelta = new Vector2(75, 93);
+                    targetSizes[i] = new Vector2(75, 93);
+                }
+                if (ImagePortrait[i] != null && ImagePortrait[i].enabled)
+                {
+                    ImagePortrait[i].rectTransform.sizeDelta = Vector2.Lerp(
+                        ImagePortrait[i].rectTransform.sizeDelta,
+                        targetSizes[i],
+                        Time.deltaTime * 10f
+                    );
                 }
             }
             else
