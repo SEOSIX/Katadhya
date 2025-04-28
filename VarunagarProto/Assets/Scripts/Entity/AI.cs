@@ -57,6 +57,7 @@ public class AI : MonoBehaviour
         }
         CapacityData Cpt = SelectSpell(attacker);
         CombatManager.SINGLETON.ApplyCapacityToTarget(Cpt,targetedPlayer);
+        CombatManager.SINGLETON.DecrementBuffDurations(attacker);
         StartCoroutine(Attacking(attacker, targetedPlayer, damages));
     }
     

@@ -11,6 +11,10 @@ using System.IO.IsolatedStorage;
 
 public class EntiityManager : MonoBehaviour
 {
+    public void Awake()
+    {
+        UpdateIndexes();
+    }
     public int playerIndex;
     
     [Header("entityHandler")]
@@ -20,6 +24,32 @@ public class EntiityManager : MonoBehaviour
     private int currentLifeValue;
     public bool Clickable = true;
 
+    private void UpdateIndexes()
+    {
+        DataEntity PrefabData = null;
+        string name = gameObject.name;
+        print(name);
+        if (GameManager.SINGLETON.prefabDictionary.ContainsKey(name))
+        {
+            //GameObject prefab = GameManager.SINGLETON.prefabDictionary[name];
+            DataEntity[] allCapacityData = Resources.LoadAll<DataEntity>("Data/Entity");
+            PrefabData = allCapacityData.FirstOrDefault(d => d.name == $"{name}{GameManager.SINGLETON.EnemyPackIndex}");
+        }
+        if (PrefabData != null)
+        {
+            if (entityHandler.ennemies.Contains(PrefabData))
+            {
+                PrefabData.index = (entityHandler.players.Count() + entityHandler.ennemies.IndexOf(PrefabData));
+                playerIndex = (entityHandler.players.Count() + entityHandler.ennemies.IndexOf(PrefabData));
+            }
+            if (entityHandler.players.Contains(PrefabData))
+            {
+                PrefabData.index = entityHandler.players.IndexOf(PrefabData);
+                playerIndex = entityHandler.players.IndexOf(PrefabData);
+            }
+        }
+
+    }
     public void DestroyDeadEnemies()
     {
         for (int i = entityHandler.ennemies.Count - 1; i >= 0; i--)
@@ -40,6 +70,7 @@ public class EntiityManager : MonoBehaviour
             {
                 LifeEntity.SINGLETON.enemySliders[i].gameObject.SetActive(false);
                 LifeEntity.SINGLETON.enemyShieldSliders[i].gameObject.SetActive(false);
+                UpdateIndexes();
             }
 
             if (enemy.instance != null)
@@ -48,6 +79,7 @@ public class EntiityManager : MonoBehaviour
                 enemy.UnitLife = -1;
             }
             entityHandler.ennemies.RemoveAt(i);
+            UpdateIndexes();
         }
     }
     public void DestroyDeadPlayers()
@@ -74,7 +106,8 @@ public class EntiityManager : MonoBehaviour
 
             entityHandler.players.RemoveAt(i);
         }
-        AssignPlayerIndices();
+        //AssignPlayerIndices();
+        //UpdateIndexes();
     }
 
     private void RestoreEnemiesLife()
@@ -135,6 +168,8 @@ public class EntiityManager : MonoBehaviour
         else if (!anyEnemyAlive)
         {
             Debug.Log("Les joueurs ont gagné !");
+            GameManager.SINGLETON.EnemyPackIndex += 1;
+            GameManager.SINGLETON.SpawnEnemies();
         }
     }
 
@@ -152,8 +187,14 @@ public class EntiityManager : MonoBehaviour
         }
         else
         {
-            if (playerIndex < entityHandler.ennemies.Count && entityHandler.ennemies[playerIndex] != null)
+            if (playerIndex <= entityHandler.ennemies.Count+entityHandler.players.Count)
+            {
                 SINGLETON.SelectEnemy(playerIndex);
+            }
+            else
+            {
+                Debug.Log("ntm");
+            }
         }
     }
 
@@ -194,7 +235,7 @@ public class EntiityManager : MonoBehaviour
                 EntiityManager manager = enemy.instance.GetComponent<EntiityManager>();
                 if (manager != null)
                 {
-                    manager.playerIndex = i;
+                    manager.playerIndex = (entityHandler.players.Count() + i); ;
                 }
                 else
                 {

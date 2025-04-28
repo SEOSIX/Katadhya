@@ -290,15 +290,27 @@ public class CombatManager : MonoBehaviour
 
     public void SelectEnemy(int enemyIndex)
     {
+        if (enemyIndex == 3 && entityHandler.ennemies.Count==1)
+        {
+            enemyIndex = 0;
+        }
+        else
+        {
+            enemyIndex -= entityHandler.players.Count;
+        }
         if (enemyIndex < 0 || enemyIndex >= entityHandler.ennemies.Count)
+        {
             return;
-        DataEntity target = entityHandler.ennemies[enemyIndex];
+        }
 
+            DataEntity target = entityHandler.ennemies[enemyIndex];
+        
         if (target == null || target.UnitLife <= 0)
         {
             Debug.LogError("Cible invalide ou morte.");
             return;
         }
+        print(target);
         ApplyCapacityToTarget(GlobalVars.currentSelectedCapacity, target);
         GlobalVars.currentSelectedCapacity = null;
         HideTargetIndicators();
@@ -629,7 +641,10 @@ public class CombatManager : MonoBehaviour
             for (int i = 0; i < entityHandler.ennemies.Count && i < circlesEnnemy.Count; i++)
             {
                 DataEntity enemy = entityHandler.ennemies[i];
-
+                if (entityHandler.ennemies.Count == 1)
+                {
+                    i = 1;
+                }
                 // Vérifie si l'ennemi est valide et vivant
                 if (enemy == null || enemy.UnitLife <= 0)
                     continue;
@@ -751,6 +766,7 @@ public class CombatManager : MonoBehaviour
         float atkMultiplier = 1f;
         float defMultiplier = 1f;
         float speedMultiplier = 1f;
+        float aimMultiplier = 1f;
 
         foreach (var buff in target.ActiveBuffs)
         {
@@ -759,12 +775,14 @@ public class CombatManager : MonoBehaviour
                 case 1: atkMultiplier *= buff.value; break;
                 case 2: defMultiplier *= buff.value; break;
                 case 3: speedMultiplier *= buff.value; break;
+                case 4: aimMultiplier *= buff.value; break;
             }
         }
 
         target.UnitAtk = Mathf.RoundToInt(target.BaseAtk * atkMultiplier);
         target.UnitDef = Mathf.RoundToInt(target.BaseDef * defMultiplier);
         target.UnitSpeed = Mathf.RoundToInt(target.BaseSpeed * speedMultiplier);
+        target.UnitAim = Mathf.RoundToInt(target.BaseAim * aimMultiplier);
     }
     public void DecrementBuffDurations(DataEntity target)
     {

@@ -1889,7 +1889,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &278383199
 Transform:
   m_ObjectHideFlags: 0
@@ -4065,7 +4065,7 @@ Transform:
   m_GameObject: {fileID: 502583739}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.33, y: -0.92999995, z: 0.5540094}
+  m_LocalPosition: {x: 11.33, y: -3.02, z: 0.5540094}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7267,7 +7267,7 @@ Transform:
   m_GameObject: {fileID: 1049419270}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.01, y: -0.42, z: 0.5540094}
+  m_LocalPosition: {x: 8.13, y: -2.51, z: 0.5540094}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8807,7 +8807,21 @@ MonoBehaviour:
     prefab: {fileID: 7388222822284005903, guid: 5cae304e7e077244eb9a518e978f0ef5, type: 3}
   - playerName: Ennemy2
     prefab: {fileID: 5652802112914049709, guid: 20b4470ab8e46f844a7ae40e539f87d3, type: 3}
+  - playerName: NagaPierre
+    prefab: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
+  - playerName: NagaPierreBouclier
+    prefab: {fileID: 6938047018459641208, guid: 9d27db757ed603d429915904e8f47b09, type: 3}
+  - playerName: NagaPierreFoudre
+    prefab: {fileID: 5133236681666948725, guid: 3b8cd6ea653952c4a942996d4e3134eb, type: 3}
   sizeChara: 0.21
+  EnemyPackIndex: 0
+  enemyPacks:
+  - enemyPrefab1: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
+    enemyPrefab2: {fileID: 6938047018459641208, guid: 9d27db757ed603d429915904e8f47b09, type: 3}
+  - enemyPrefab1: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
+    enemyPrefab2: {fileID: 6938047018459641208, guid: 9d27db757ed603d429915904e8f47b09, type: 3}
+  - enemyPrefab1: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
+    enemyPrefab2: {fileID: 6938047018459641208, guid: 9d27db757ed603d429915904e8f47b09, type: 3}
 --- !u!114 &1329118468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8926,8 +8940,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1049419271}
   - {fileID: 502583740}
+  - {fileID: 1049419271}
   m_Father: {fileID: 221121161}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1371021562

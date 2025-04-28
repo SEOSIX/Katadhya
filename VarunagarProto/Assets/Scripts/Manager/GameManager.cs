@@ -1,7 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
+[System.Serializable]
+public class EnemyPack
+{
+    public GameObject enemyPrefab1;
+    public GameObject enemyPrefab2;
+}
 public class GameManager : MonoBehaviour
 {
     public static GameManager SINGLETON { get; set; }
@@ -17,8 +26,13 @@ public class GameManager : MonoBehaviour
 
     [Header("Custom")] 
     [SerializeField] private float sizeChara;
+    public int EnemyPackIndex = 0;
+    public List<EnemyPack> enemyPacks = new List<EnemyPack>();
 
-    private Dictionary<string, GameObject> prefabDictionary;
+
+
+
+    public Dictionary<string, GameObject> prefabDictionary;
 
     private void Start()
     {
@@ -27,7 +41,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("EntityHandler n'est pas assigné !");
             return;
         }
-
+        entityHandler.ennemies.Clear();
         prefabDictionary = new Dictionary<string, GameObject>();
         foreach (var prefabData in playerPrefabs)
         {
@@ -51,7 +65,7 @@ public class GameManager : MonoBehaviour
         SINGLETON = this;
     }
 
-    void SpawnPlayers()
+    public void SpawnPlayers()
     {
         if (entityHandler.players == null || entityHandler.players.Count == 0)
         {
@@ -91,8 +105,31 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void SpawnEnemies()
+    public void SpawnEnemies()
     {
+        if(enemyPacks[EnemyPackIndex]==null)
+        {
+            return;
+        }
+
+        GameObject E1 = enemyPacks[EnemyPackIndex].enemyPrefab1;
+        GameObject E2 = enemyPacks[EnemyPackIndex].enemyPrefab2;
+        DataEntity[] allCapacityData = Resources.LoadAll<DataEntity>("Data/Entity/Ennemy");
+
+        DataEntity EData1 = allCapacityData.FirstOrDefault(d => d.name == $"{E1.name}{EnemyPackIndex}");
+        DataEntity EData2 = allCapacityData.FirstOrDefault(d => d.name == $"{E2.name}{EnemyPackIndex}");
+        Debug.Log($"je v te toucher{E2}{EData2}");
+        entityHandler.ennemies.Add(EData1);
+        entityHandler.ennemies.Add(EData2);
+        Slider[] ESlider = LifeEntity.SINGLETON.enemySliders;
+        Slider[] EShieldSlider = LifeEntity.SINGLETON.enemyShieldSliders;
+
+        for (int k= 0; k<ESlider.Count(); k++)
+        {
+            ESlider[k].gameObject.SetActive(true);
+            EShieldSlider[k].gameObject.SetActive(true);
+        }
+
         if (entityHandler.ennemies == null || entityHandler.ennemies.Count == 0)
         {
             Debug.LogError("Aucun ennemi dans EntityHandler !");
@@ -101,6 +138,10 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < entityHandler.ennemies.Count; i++)
         {
+            for (int j =0;j< entityHandler.ennemies.Count; j++)
+            {
+                Debug.Log(entityHandler.ennemies[j]);
+            }
             if (i >= enemySpawnPoints.Count)
             {
                 Debug.LogWarning("Pas assez de points de spawn définis pour tous les ennemis !");
@@ -115,7 +156,6 @@ public class GameManager : MonoBehaviour
                 Debug.LogWarning($"Aucun prefab trouvé pour {dataEnnemy.namE}, ennemi ignoré.");
                 continue;
             }
-
             GameObject newEnemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
             newEnemy.name = dataEnnemy.namE;
 
@@ -129,6 +169,7 @@ public class GameManager : MonoBehaviour
                 newEnemy.transform.localScale = new Vector3(sizeChara, sizeChara, sizeChara);
             }
         }
+        
     }
 }
 
