@@ -80,10 +80,7 @@ public class CombatManager : MonoBehaviour
 
     void Start()
     {
-        SetupBaseStat();
-        currentTurnOrder = GetUnitTurn();
-        InitializeStaticUI();
-        StartUnitTurn();
+        CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
     }
 
     void Update()

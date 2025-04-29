@@ -11,7 +11,7 @@ public class DataEntity : ScriptableObject
 {
     
     public GameObject instance;
-    [field: Header("Unit Current Stat"), SerializeField] 
+    [field: Header("Unit Current Stat"), SerializeField]
     public int UnitLife { get; set; }
     public int UnitAtk;
     public int UnitSpeed;

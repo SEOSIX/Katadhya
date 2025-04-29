@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: NarashimaPierre0
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: -1
+  <UnitLife>k__BackingField: 30
   UnitAtk: 5
   UnitSpeed: 43
-  UnitDef: 10
+  UnitDef: 6
   UnitAim: 100
-  ActiveBuffs: []
+  ActiveBuffs:
+  - type: 2
+    value: 0.6
+    duration: 1
   ActiveCooldowns: []
   Affinity: 0
   BaseLife: 30

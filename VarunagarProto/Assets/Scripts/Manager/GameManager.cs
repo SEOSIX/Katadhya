@@ -53,6 +53,10 @@ public class GameManager : MonoBehaviour
 
         SpawnPlayers();
         SpawnEnemies();
+        CombatManager.SINGLETON.SetupBaseStat();
+        CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
+        CombatManager.SINGLETON.InitializeStaticUI();
+        CombatManager.SINGLETON.StartUnitTurn();
     }
     void Awake()
     {
