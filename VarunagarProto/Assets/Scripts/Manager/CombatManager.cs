@@ -92,6 +92,7 @@ public class CombatManager : MonoBehaviour
     {
         for (int i = 0; i < entityHandler.ennemies.Count; i++)
         {
+            entityHandler.ennemies[i].UnitLife = entityHandler.ennemies[i].BaseLife;
             entityHandler.ennemies[i].UnitAtk = entityHandler.ennemies[i].BaseAtk;
             entityHandler.ennemies[i].UnitDef = entityHandler.ennemies[i].BaseDef;
             entityHandler.ennemies[i].UnitSpeed = entityHandler.ennemies[i].BaseSpeed;
@@ -104,6 +105,7 @@ public class CombatManager : MonoBehaviour
         }
         for (int i = 0; i < entityHandler.players.Count; i++)
         {
+            entityHandler.players[i].UnitLife = entityHandler.players[i].BaseLife;
             entityHandler.players[i].UnitAtk = entityHandler.players[i].BaseAtk;
             entityHandler.players[i].UnitDef = entityHandler.players[i].BaseDef;
             entityHandler.players[i].UnitSpeed = entityHandler.players[i].BaseSpeed;
@@ -454,11 +456,19 @@ public class CombatManager : MonoBehaviour
         switch (capacity.specialType)
         {
             case SpecialCapacityType.DelayedAttack:
-                caster.skipNextTurn = true;
-                caster.delayedActions.Add(new DelayedAction(capacity, target));
-                Debug.Log($"{caster.namE} prépare une attaque différée !");
-                DecrementBuffDurations(currentTurnOrder[0]);
-                DecrementCooldowns(currentTurnOrder[0]);
+                if (target.UnitLife != 0)
+                {
+                    caster.skipNextTurn = true;
+                    caster.delayedActions.Add(new DelayedAction(capacity, target));
+                    Debug.Log($"{caster.namE} prépare une attaque différée !");
+                    DecrementBuffDurations(currentTurnOrder[0]);
+                    DecrementCooldowns(currentTurnOrder[0]);
+                }
+                else
+                {
+                    Debug.Log("Cpt annulé car target est mort");
+                    return;
+                }
                 break;
 
             default:
@@ -466,8 +476,6 @@ public class CombatManager : MonoBehaviour
                 break;
         }
     }
-
-
     private void SetupCapacityButtons(DataEntity player)
     {
         for (int i = 0; i < Banderoles.Count(); i++)
@@ -703,9 +711,7 @@ public class CombatManager : MonoBehaviour
             }
         }
     }
-
-
-
+    
     public void GiveBuff(CapacityData capacity, DataEntity target)
     {
         // buffType; 1 = Atk, 2 = Def, 3 = Speed, 4 = Précision

@@ -37,7 +37,7 @@ public class DataEntity : ScriptableObject
     public Sprite portrait;
     public Sprite portraitUI;
     public Sprite bandeauUI;
-    public Animator manimator;
+    public GameObject Animator;
 
     [field: Header("Capacities"), SerializeField]
     public Sprite capacity1;

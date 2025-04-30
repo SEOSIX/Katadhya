@@ -82,10 +82,15 @@ public class AI : MonoBehaviour
 
         CapacityData Cpt = SelectSpell(attacker);
         CombatManager.SINGLETON.ApplyCapacityToTarget(Cpt, targetedPlayer);
-
+        Animator anim = targetedPlayer.Animator.GetComponent<Animator>();
+        if (anim != null)
+        {
+            anim.SetTrigger("TakeDamage");
+        }
         CombatManager.SINGLETON.DecrementBuffDurations(attacker);
 
         yield return new WaitForSeconds(1.5f);
+        anim.SetTrigger("idle");
 
         CombatManager.SINGLETON.EndUnitTurn();
 

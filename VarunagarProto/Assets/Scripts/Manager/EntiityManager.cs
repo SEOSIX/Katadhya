@@ -84,30 +84,34 @@ public class EntiityManager : MonoBehaviour
     }
     public void DestroyDeadPlayers()
     {
-        for (int i = entityHandler.players.Count - 1; i >= 0; i--)
+        for (int i = entityHandler.ennemies.Count - 1; i >= 0; i--)
         {
             var player = entityHandler.players[i];
             if (player == null || player.UnitLife > 0)
                 continue;
 
-            Debug.Log($"Le joueur {player.namE} est mort et va être détruit.");
-
-            GameObject playerInstance = player.instance;
+            Debug.Log($"L'ennemi {player.namE} est mort et va être désactivé.");
             CombatManager.SINGLETON.RemoveUnitFromList(player);
 
-            if (playerInstance != null)
-                Destroy(playerInstance);
+            if (i < CombatManager.SINGLETON.circlesPlayer.Count)
+            {
+                CombatManager.SINGLETON.circlesPlayer[i].SetActive(false);
+            }
 
             if (i < LifeEntity.SINGLETON.PlayerSliders.Length)
             {
                 LifeEntity.SINGLETON.PlayerSliders[i].gameObject.SetActive(false);
                 LifeEntity.SINGLETON.PlayerShieldSliders[i].gameObject.SetActive(false);
+                UpdateIndexes();
             }
-
+            if (player.instance != null)
+            {
+                player.instance.SetActive(false);
+                player.UnitLife = -1;
+            }
             entityHandler.players.RemoveAt(i);
+            UpdateIndexes();
         }
-        //AssignPlayerIndices();
-        //UpdateIndexes();
     }
 
     private void RestoreEnemiesLife()

@@ -173,6 +173,9 @@ public class GameManager : MonoBehaviour
                 newEnemy.transform.localScale = new Vector3(sizeChara, sizeChara, sizeChara);
             }
         }
+        CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
+        CombatManager.SINGLETON.InitializeStaticUI();
+        CombatManager.SINGLETON.StartUnitTurn();
         
     }
 }
