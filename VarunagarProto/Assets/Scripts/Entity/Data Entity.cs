@@ -31,7 +31,12 @@ public class DataEntity : ScriptableObject
     [field: Header("Special Effect"), SerializeField]
     public int UnitShield;
     public int ShockMark;
-    public int SkipPlay;
+    public int RageTick;
+    public int LastRageTick;
+    public int Necrosis;
+
+    [field: Header("Other Information"), SerializeField]
+    public bool beenHurtThisTurn;
 
     [field: Header("Art"), SerializeField] 
     public Sprite portrait;

@@ -102,6 +102,7 @@ public class CombatManager : MonoBehaviour
             entityHandler.ennemies[i].skipNextTurn = false;
             entityHandler.ennemies[i].delayedActions.Clear();
             entityHandler.ennemies[i].ShockMark = 0;
+            entityHandler.ennemies[i].beenHurtThisTurn = false;
         }
         for (int i = 0; i < entityHandler.players.Count; i++)
         {
@@ -117,6 +118,7 @@ public class CombatManager : MonoBehaviour
             entityHandler.players[i].ShockMark = 0;
             entityHandler.players[i].UltimateSlider = 100;
             entityHandler.players[i].Affinity = 0;
+            entityHandler.players[i].beenHurtThisTurn = false;
         }
     }
     public void InitializeStaticUI()
@@ -261,6 +263,7 @@ public class CombatManager : MonoBehaviour
 
     public void StartTargetSelectionMode(CapacityData capacity)
     {
+        DataEntity caster = currentTurnOrder[0]; 
         HideTargetIndicators();
         GlobalVars.currentSelectedCapacity = capacity;
         print(capacity);
@@ -273,8 +276,8 @@ public class CombatManager : MonoBehaviour
                     ApplyCapacityToTarget(capacity, ally);
                 }
             }
-            DecrementBuffDurations(currentTurnOrder[0]);
-            DecrementCooldowns(currentTurnOrder[0]);
+            DecrementBuffDurations(caster);
+            DecrementCooldowns(caster);
             GlobalVars.currentSelectedCapacity = null;
             Debug.Log("Capacité de soin appliquée à tous les alliés !");
             EndUnitTurn();
@@ -297,11 +300,15 @@ public class CombatManager : MonoBehaviour
             EndUnitTurn();
             return;
         }
-
-        //Debug.Log("Sélectionnez une ou plusieurs cibles pour " + capacity.name);
         ShowTargetIndicators(capacity);
-        DecrementBuffDurations(currentTurnOrder[0]);
-        DecrementCooldowns(currentTurnOrder[0]);
+        DecrementBuffDurations(caster);
+        DecrementCooldowns(caster);
+        if (caster.beenHurtThisTurn == false)
+        {
+            caster.RageTick -= 1;
+        }
+        caster.beenHurtThisTurn = false;
+        RageBoost(caster);
     }
 
     public void SelectEnemy(int enemyIndex)
@@ -361,6 +368,15 @@ public class CombatManager : MonoBehaviour
 
         float modifier = lancer(capacity.critique, 1f, 1.5f);
 
+        if (caster.Affinity == 3)
+        {
+            if (caster.RageTick == 12)
+            {
+                RageProc(caster);
+            }
+                
+        }
+
         if (capacity.specialType != SpecialCapacityType.None)
         {
             ApplySpecialCapacity(capacity, caster, target, modifier);
@@ -416,6 +432,7 @@ public class CombatManager : MonoBehaviour
                 target.UnitLife -= icalculatedDamage;
                 Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts à {target.namE}");
             }
+            target.beenHurtThisTurn = true;
         }
         if (capacity.heal > 0)
         {
@@ -450,6 +467,10 @@ public class CombatManager : MonoBehaviour
             int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * ((float)DamageDone));
             caster.UnitShield += Shielding;
         }
+        if (target.Affinity == 3)
+        {
+            RageApplication(target);
+        }
     }
     private void ApplySpecialCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
     {
@@ -461,8 +482,8 @@ public class CombatManager : MonoBehaviour
                     caster.skipNextTurn = true;
                     caster.delayedActions.Add(new DelayedAction(capacity, target));
                     Debug.Log($"{caster.namE} prépare une attaque différée !");
-                    DecrementBuffDurations(currentTurnOrder[0]);
-                    DecrementCooldowns(currentTurnOrder[0]);
+                    DecrementBuffDurations(caster);
+                    DecrementCooldowns(caster);
                 }
                 else
                 {
@@ -771,6 +792,36 @@ public class CombatManager : MonoBehaviour
             }
         }
     }
+
+    public void RageApplication(DataEntity target)
+    {
+        if (target.Affinity == 3)
+        {
+            bool isPlayer = entityHandler.players.Contains(target);
+            List<DataEntity> team = isPlayer ? entityHandler.players : entityHandler.ennemies;
+            int affinityCount = team.Count(entity => entity.Affinity == 3);
+            target.RageTick += Mathf.Min(affinityCount + 1);
+            RageBoost(target);
+        }
+    }
+    
+    public void RageProc(DataEntity caster)
+    {
+        if (caster.Affinity == 3 && caster.RageTick == 12)
+        {
+            caster.UnitAtk = Mathf.RoundToInt(caster.UnitAtk * 1.5f);
+            caster.RageTick = 0;
+        }
+
+    }
+
+    public void RageBoost(DataEntity target, int qteBoost = 1)
+    {
+        int rageboost = target.RageTick - target.LastRageTick;
+        target.UnitAtk += (rageboost /= 3) * qteBoost;
+        target.LastRageTick = target.RageTick;
+    }
+
     public float lancer(int valeur, float above, float under)
     {
         int lancer = UnityEngine.Random.Range(0, 101);
