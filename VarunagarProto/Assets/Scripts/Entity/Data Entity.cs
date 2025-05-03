@@ -33,7 +33,7 @@ public class DataEntity : ScriptableObject
     public int ShockMark;
     public int RageTick;
     public int LastRageTick;
-    public int Necrosis;
+    public Necrosis necrosis;
 
     [field: Header("Other Information"), SerializeField]
     public bool beenHurtThisTurn;
@@ -96,6 +96,17 @@ public class DataEntity : ScriptableObject
         {
             this.capacity = capacity;
             this.remainingCooldown = cooldown;
+        }
+    }
+    public class Necrosis
+    {
+        public int level;      
+        public int remainingTurns; 
+
+        public Necrosis(int level)
+        {
+            this.level = level;
+            remainingTurns = 4;
         }
     }
 
