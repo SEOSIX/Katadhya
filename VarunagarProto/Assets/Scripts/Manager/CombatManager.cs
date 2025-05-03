@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static DataEntity;
+using static UnityEngine.EventSystems.EventTrigger;
 public class CombatManager : MonoBehaviour
 {
     public static CombatManager SINGLETON { get; private set; }
@@ -307,6 +308,12 @@ public class CombatManager : MonoBehaviour
         {
             caster.RageTick -= 1;
         }
+        if (caster.necrosis != null)
+        {
+            caster.necrosis.ApplyTurnEffect(caster);
+            if (caster.necrosis.IsExpired)
+                caster.necrosis = null;
+        }
         caster.beenHurtThisTurn = false;
         RageBoost(caster);
     }
@@ -470,6 +477,10 @@ public class CombatManager : MonoBehaviour
         if (target.Affinity == 3)
         {
             RageApplication(target);
+        }
+        if (caster.Affinity == 4)
+        {
+            ApplyNecrosis(target);
         }
     }
     private void ApplySpecialCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
@@ -821,6 +832,39 @@ public class CombatManager : MonoBehaviour
         target.UnitAtk += (rageboost /= 3) * qteBoost;
         target.LastRageTick = target.RageTick;
     }
+
+    public void ApplyNecrosis(DataEntity target, int levelToAdd = 1)
+    {
+        if (target.necrosis == null)
+        {
+            target.necrosis = new NecrosisEffect(levelToAdd);
+        }
+        else
+        {
+            target.necrosis.level = Mathf.Min(target.necrosis.level + levelToAdd, 5);
+        }
+    }
+
+    public void TickNecrosisEffect(DataEntity target)
+    {
+        if (target.necrosis != null)
+        {
+            int speedDamage = 0;
+            int damage = 1 * target.necrosis.level + speedDamage;
+            target.UnitLife -= damage;
+            Debug.Log($"{target.name} subit {damage} dégâts de nécrose (niveau {target.necrosis.level})");
+
+            target.necrosis.remainingTurns--;
+
+            if (target.necrosis.remainingTurns <= 0)
+            {
+                target.necrosis = null;
+                Debug.Log($"{target.name} n'est plus affecté par la nécrose");
+            }
+        }
+    }
+
+
 
     public float lancer(int valeur, float above, float under)
     {

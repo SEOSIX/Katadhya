@@ -98,16 +98,29 @@ public class DataEntity : ScriptableObject
             this.remainingCooldown = cooldown;
         }
     }
-    public class Necrosis
+    public class NecrosisEffect
     {
-        public int level;      
-        public int remainingTurns; 
+        public int level; // 1 à 5
+        public int remainingTurns;
 
-        public Necrosis(int level)
+        public NecrosisEffect(int level)
         {
-            this.level = level;
-            remainingTurns = 4;
+            this.level = Mathf.Clamp(level, 1, 5);
+            this.remainingTurns = 4;
         }
+
+        public void ApplyTurnEffect(DataEntity target)
+        {
+            int[] baseDamage = { 0, 1, 2, 3, 4, 5 }; 
+            float[] speedPercents = { 0f, 0.04f, 0.08f, 0.11f, 0.13f, 0.15f };
+
+            int damage = baseDamage[level] + Mathf.RoundToInt(target.UnitSpeed * speedPercents[level]);
+            target.UnitLife -= damage;
+
+            remainingTurns--;
+        }
+
+        public bool IsExpired => remainingTurns <= 0;
     }
 
     public struct DelayedAction
