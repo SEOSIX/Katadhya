@@ -98,12 +98,12 @@ public class DataEntity : ScriptableObject
             this.remainingCooldown = cooldown;
         }
     }
-    public class NecrosisEffect
+    public class Necrosis
     {
         public int level; // 1 à 5
         public int remainingTurns;
 
-        public NecrosisEffect(int level)
+        public Necrosis(int level)
         {
             this.level = Mathf.Clamp(level, 1, 5);
             this.remainingTurns = 4;

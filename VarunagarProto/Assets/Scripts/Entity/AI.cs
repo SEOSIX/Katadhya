@@ -85,13 +85,18 @@ public class AI : MonoBehaviour
         Animator anim = targetedPlayer.Animator.GetComponent<Animator>();
         if (anim != null)
         {
+            Debug.Log(anim.isInitialized);
+            Debug.Log(anim.isActiveAndEnabled);
+            Debug.Log(anim.runtimeAnimatorController);
             anim.SetTrigger("TakeDamage");
         }
         CombatManager.SINGLETON.DecrementBuffDurations(attacker);
 
         yield return new WaitForSeconds(1.5f);
-        anim.SetTrigger("idle");
-
+        if (anim != null)
+        {
+            anim.SetTrigger("idle");
+        }
         CombatManager.SINGLETON.EndUnitTurn();
 
         playerTarget1.SetActive(false);

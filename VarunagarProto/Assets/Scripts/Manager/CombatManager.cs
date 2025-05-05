@@ -837,7 +837,7 @@ public class CombatManager : MonoBehaviour
     {
         if (target.necrosis == null)
         {
-            target.necrosis = new NecrosisEffect(levelToAdd);
+            target.necrosis = new Necrosis(levelToAdd);
         }
         else
         {
