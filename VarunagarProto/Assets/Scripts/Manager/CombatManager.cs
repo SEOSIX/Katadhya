@@ -580,6 +580,7 @@ public class CombatManager : MonoBehaviour
                 capacityButtons[i].GetComponent<Image>().sprite = CSprite;
                 capacityButtons[i].GetComponent<Image>().material = GreyScale;
                 capacityAnimButtons[i].GetComponent<Button>().interactable = false;
+                capacityAnimButtons[i].GetComponent<Animator>().SetTrigger("Normal");
             }
             else
             {
@@ -588,6 +589,7 @@ public class CombatManager : MonoBehaviour
                 capacityButtons[i].GetComponent<Image>().sprite = CSprite;
                 capacityButtons[i].GetComponent<Image>().material = null;
                 capacityAnimButtons[i].GetComponent<Button>().interactable = true;
+                capacityAnimButtons[i].GetComponent<Animator>().SetTrigger("Normal");
                 capacityAnimButtons[i].onClick.AddListener(() => UseCapacity(CData));
 
                 // Masquer le cooldown restant
@@ -601,6 +603,7 @@ public class CombatManager : MonoBehaviour
             capacityButtons[i].GetComponent<Image>().sprite = CSprite;
             capacityButtons[i].GetComponent<Image>().material = null;
             capacityAnimButtons[i].GetComponent<Button>().interactable = true;
+            capacityAnimButtons[i].GetComponent<Animator>().SetTrigger("Normal");
 
 
             // Masquer le cooldown restant
