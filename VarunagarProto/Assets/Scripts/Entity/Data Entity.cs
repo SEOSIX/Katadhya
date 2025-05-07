@@ -33,7 +33,7 @@ public class DataEntity : ScriptableObject
     public int ShockMark;
     public int RageTick;
     public int LastRageTick;
-    public Necrosis necrosis;
+    public List<Necrosis> necrosis = new List<Necrosis>();
 
     [field: Header("Other Information"), SerializeField]
     public bool beenHurtThisTurn;
@@ -98,6 +98,14 @@ public class DataEntity : ScriptableObject
             this.remainingCooldown = cooldown;
         }
     }
+    public int RageAtkBonus = 0;
+
+    public int GetEffectiveAtk()
+    {
+        return UnitAtk + RageAtkBonus;
+    }
+
+    [System.Serializable]
     public class Necrosis
     {
         public int level; // 1 à 5
@@ -107,19 +115,8 @@ public class DataEntity : ScriptableObject
         {
             this.level = Mathf.Clamp(level, 1, 5);
             this.remainingTurns = 4;
+            Debug.Log($"[NÉCROSE] Nouveau statut appliqué : niveau {this.level}, {this.remainingTurns} tours");
         }
-
-        public void ApplyTurnEffect(DataEntity target)
-        {
-            int[] baseDamage = { 0, 1, 2, 3, 4, 5 }; 
-            float[] speedPercents = { 0f, 0.04f, 0.08f, 0.11f, 0.13f, 0.15f };
-
-            int damage = baseDamage[level] + Mathf.RoundToInt(target.UnitSpeed * speedPercents[level]);
-            target.UnitLife -= damage;
-
-            remainingTurns--;
-        }
-
         public bool IsExpired => remainingTurns <= 0;
     }
 

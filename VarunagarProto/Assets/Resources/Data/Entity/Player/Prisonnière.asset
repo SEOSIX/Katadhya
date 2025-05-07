@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: "Prisonni\xE8re"
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 100
+  <UnitLife>k__BackingField: 56
   UnitAtk: 10
   UnitSpeed: 50
   UnitDef: 0
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns:
-  - capacity: {fileID: 11400000, guid: 1a41267a51c50ba4eba7870f31a0ca5a, type: 2}
+  - capacity: {fileID: 11400000, guid: 5f364eb68e3793a4083208ce78d819f9, type: 2}
     remainingCooldown: 1
   Affinity: 0
   BaseLife: 100
@@ -30,9 +30,10 @@ MonoBehaviour:
   BaseAim: 100
   UnitShield: 0
   ShockMark: 0
-  RageTick: -5
-  LastRageTick: -5
-  beenHurtThisTurn: 0
+  RageTick: 0
+  LastRageTick: 0
+  necrosis: []
+  beenHurtThisTurn: 1
   portrait: {fileID: 21300000, guid: d6dffbf58b723a84993b7caa718951db, type: 3}
   portraitUI: {fileID: 21300000, guid: 57a6313c21a563a45a78962343cc960a, type: 3}
   bandeauUI: {fileID: 21300000, guid: d44e05a51a6079049a283f37c58e4709, type: 3}
@@ -46,9 +47,10 @@ MonoBehaviour:
   Ultimate: {fileID: 21300000, guid: b9dfd3aed188eda4e925aa347812de99, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: 32f764f830a8d39449df9ac27bfb030e, type: 3}
   _CapacityDataUltimate: {fileID: 11400000, guid: 670ee59696a50a644bc08dbbf6dfc34c, type: 2}
-  UltimateSlider: 24
+  UltimateSlider: -163
   UltIsReady: 0
   namE: "Prisonni\xE8re"
   size: 0.21
   index: 4
-  skipNextTurn: 0
+  RageAtkBonus: 0
+  skipNextTurn: 1

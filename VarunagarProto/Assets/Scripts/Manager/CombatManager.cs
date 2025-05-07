@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 using static DataEntity;
@@ -103,6 +104,9 @@ public class CombatManager : MonoBehaviour
             entityHandler.ennemies[i].skipNextTurn = false;
             entityHandler.ennemies[i].delayedActions.Clear();
             entityHandler.ennemies[i].ShockMark = 0;
+            entityHandler.ennemies[i].RageTick = 0;
+            entityHandler.ennemies[i].LastRageTick = 0;
+            entityHandler.ennemies[i].necrosis = null;
             entityHandler.ennemies[i].beenHurtThisTurn = false;
         }
         for (int i = 0; i < entityHandler.players.Count; i++)
@@ -117,6 +121,9 @@ public class CombatManager : MonoBehaviour
             entityHandler.players[i].skipNextTurn = false;
             entityHandler.players[i].delayedActions.Clear();
             entityHandler.players[i].ShockMark = 0;
+            entityHandler.players[i].RageTick = 0;
+            entityHandler.players[i].LastRageTick = 0;
+            entityHandler.players[i].necrosis = null;
             entityHandler.players[i].UltimateSlider = 100;
             entityHandler.players[i].Affinity = 0;
             entityHandler.players[i].beenHurtThisTurn = false;
@@ -304,18 +311,16 @@ public class CombatManager : MonoBehaviour
         ShowTargetIndicators(capacity);
         DecrementBuffDurations(caster);
         DecrementCooldowns(caster);
-        if (caster.beenHurtThisTurn == false)
+        if (caster.beenHurtThisTurn == false && caster.RageTick > 0)
         {
             caster.RageTick -= 1;
         }
-        if (caster.necrosis != null)
+        if (caster.necrosis != null && caster.necrosis.Count > 0)
         {
-            caster.necrosis.ApplyTurnEffect(caster);
-            if (caster.necrosis.IsExpired)
-                caster.necrosis = null;
+            TickNecrosisEffect(caster);
         }
         caster.beenHurtThisTurn = false;
-        RageBoost(caster);
+        RecalculateStats(caster);
     }
 
     public void SelectEnemy(int enemyIndex)
@@ -377,7 +382,7 @@ public class CombatManager : MonoBehaviour
 
         if (caster.Affinity == 3)
         {
-            if (caster.RageTick == 12)
+            if (caster.RageTick >= 12)
             {
                 RageProc(caster);
             }
@@ -811,60 +816,80 @@ public class CombatManager : MonoBehaviour
             bool isPlayer = entityHandler.players.Contains(target);
             List<DataEntity> team = isPlayer ? entityHandler.players : entityHandler.ennemies;
             int affinityCount = team.Count(entity => entity.Affinity == 3);
-            target.RageTick += Mathf.Min(affinityCount + 1);
-            RageBoost(target);
+            target.RageTick += Mathf.Clamp(affinityCount + 1,0,12);
+            RecalculateStats(target);
         }
     }
     
     public void RageProc(DataEntity caster)
     {
-        if (caster.Affinity == 3 && caster.RageTick == 12)
+        if (caster.Affinity == 3 && caster.RageTick >= 12)
         {
             caster.UnitAtk = Mathf.RoundToInt(caster.UnitAtk * 1.5f);
             caster.RageTick = 0;
+            RecalculateStats(caster);
         }
 
     }
 
-    public void RageBoost(DataEntity target, int qteBoost = 1)
+    /*public void RageBoost(DataEntity target, int qteBoost = 1)
     {
-        int rageboost = target.RageTick - target.LastRageTick;
-        target.UnitAtk += (rageboost /= 3) * qteBoost;
+        int oldTier = target.LastRageTick / 3;
+        int newTier = target.RageTick / 3;
+
+        if (oldTier != newTier)
+        {
+            int diff = (newTier - oldTier) * qteBoost;
+            target.RageAtkBonus += diff;
+            Debug.Log($"[RAGE] {target.namE} passe de palier {oldTier} à {newTier} → Bonus RageAtk = {target.RageAtkBonus}");
+        }
+
         target.LastRageTick = target.RageTick;
-    }
+    }*/
 
     public void ApplyNecrosis(DataEntity target, int levelToAdd = 1)
     {
-        if (target.necrosis == null)
+        if (target.necrosis == null || target.necrosis.Count == 0)
         {
-            target.necrosis = new Necrosis(levelToAdd);
+            target.necrosis = new List<Necrosis> { new Necrosis(levelToAdd) };
         }
         else
         {
-            target.necrosis.level = Mathf.Min(target.necrosis.level + levelToAdd, 5);
+            var effect = target.necrosis[0];
+            int oldLevel = effect.level;
+            effect.level = Mathf.Clamp(effect.level + levelToAdd, 1, 5);
+            Debug.Log($"[NÉCROSE] Niveau augmenté de {oldLevel} à {effect.level} (tours restants : {effect.remainingTurns})");
         }
+
+        var necrosis = target.necrosis[0];
+        Debug.Log($"{target.namE} est maintenant affecté par la nécrose niveau {necrosis.level}, {necrosis.remainingTurns} tours restants");
     }
+
 
     public void TickNecrosisEffect(DataEntity target)
     {
-        if (target.necrosis != null)
+        if (target.necrosis?.Count > 0)
         {
-            int speedDamage = 0;
-            int damage = 1 * target.necrosis.level + speedDamage;
+            int[] baseDamage = { 0, 1, 2, 3, 4, 5 };
+            float[] speedPercents = { 0f, 0.04f, 0.08f, 0.11f, 0.13f, 0.15f };
+            var necrosisEffect = target.necrosis[0];
+            int level = necrosisEffect.level;
+            int speedDamage = Mathf.RoundToInt(target.UnitSpeed * speedPercents[level]);
+            int damage = baseDamage[level] + speedDamage;
+
             target.UnitLife -= damage;
-            Debug.Log($"{target.name} subit {damage} dégâts de nécrose (niveau {target.necrosis.level})");
 
-            target.necrosis.remainingTurns--;
+            Debug.Log($"{target.namE} subit {damage} dégâts de nécrose (niveau {necrosisEffect.level})");
 
-            if (target.necrosis.remainingTurns <= 0)
+            necrosisEffect.remainingTurns--;
+
+            if (target.necrosis != null && target.necrosis.Count > 0 && target.necrosis[0].IsExpired)
             {
-                target.necrosis = null;
-                Debug.Log($"{target.name} n'est plus affecté par la nécrose");
+                target.necrosis.Clear();
+                Debug.Log($"{target.namE} n'est plus affecté par la nécrose");
             }
         }
     }
-
-
 
     public float lancer(int valeur, float above, float under)
     {
@@ -894,7 +919,7 @@ public class CombatManager : MonoBehaviour
             }
         }
 
-        target.UnitAtk = Mathf.RoundToInt(target.BaseAtk * atkMultiplier);
+        target.UnitAtk = Mathf.RoundToInt(target.BaseAtk * atkMultiplier) + target.RageTick / 3;
         target.UnitDef = Mathf.RoundToInt(target.BaseDef * defMultiplier);
         target.UnitSpeed = Mathf.RoundToInt(target.BaseSpeed * speedMultiplier);
         target.UnitAim = Mathf.RoundToInt(target.BaseAim * aimMultiplier);

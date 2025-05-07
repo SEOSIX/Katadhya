@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
+using static UnityEngine.GraphicsBuffer;
 
 
 public class AI : MonoBehaviour
@@ -91,6 +92,17 @@ public class AI : MonoBehaviour
             anim.SetTrigger("TakeDamage");
         }
         CombatManager.SINGLETON.DecrementBuffDurations(attacker);
+        if (attacker.beenHurtThisTurn == false && attacker.RageTick > 0)
+        {
+            attacker.RageTick -= 1;
+        }
+        attacker.beenHurtThisTurn = false;
+        Debug.Log(attacker.necrosis?.Count);
+        if (attacker.necrosis?.Count > 0)
+        {
+            CombatManager.SINGLETON.TickNecrosisEffect(attacker);
+        }
+        CombatManager.SINGLETON.RecalculateStats(attacker);
 
         yield return new WaitForSeconds(1.5f);
         if (anim != null)
@@ -145,6 +157,17 @@ public class AI : MonoBehaviour
         }
 
         CombatManager.SINGLETON.DecrementBuffDurations(attacker);
+        if (attacker.beenHurtThisTurn == false && attacker.RageTick > 0)
+        {
+            attacker.RageTick -= 1;
+        }
+        attacker.beenHurtThisTurn = false;
+        Debug.Log(attacker.necrosis?.Count);
+        if (attacker.necrosis?.Count > 0)
+        {
+            CombatManager.SINGLETON.TickNecrosisEffect(attacker);
+        }
+        CombatManager.SINGLETON.RecalculateStats(attacker);
 
         yield return new WaitForSeconds(1.2f);
 
