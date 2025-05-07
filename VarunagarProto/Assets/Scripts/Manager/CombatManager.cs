@@ -998,21 +998,6 @@ public class CombatManager : MonoBehaviour
 
     }
 
-    /*public void RageBoost(DataEntity target, int qteBoost = 1)
-    {
-        int oldTier = target.LastRageTick / 3;
-        int newTier = target.RageTick / 3;
-
-        if (oldTier != newTier)
-        {
-            int diff = (newTier - oldTier) * qteBoost;
-            target.RageAtkBonus += diff;
-            Debug.Log($"[RAGE] {target.namE} passe de palier {oldTier} à {newTier} → Bonus RageAtk = {target.RageAtkBonus}");
-        }
-
-        target.LastRageTick = target.RageTick;
-    }*/
-
     public void ApplyNecrosis(DataEntity target, int levelToAdd = 1)
     {
         if (target.necrosis == null || target.necrosis.Count == 0)

@@ -13,7 +13,7 @@ public enum SpecialCapacityType
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObject/CapacityData", order = 4)]
 public class CapacityData : ScriptableObject
-    //on appelle les comp�tences Cpt1a1 (1 : premier perso, a : premi�re cpt, 0 : affinity)
+    //on appelle les comp�tences Cpt1a11 (1 : premier perso, a : premi�re cpt, 1 : affinity, 1 : Level)
 {
     [field: Header("Cpt Stat"), SerializeField]
     public int atk;
