@@ -46,14 +46,18 @@ public class DataEntity : ScriptableObject
     public GameObject Animator;
 
     [field: Header("Capacities"), SerializeField]
+    public int Cpt1lvl;
     public Sprite capacity1;
     public CapacityData _CapacityData1;
+    public int Cpt2lvl;
     public Sprite capacity2;
     public CapacityData _CapacityData2;
+    public int Cpt3lvl;
     public Sprite capacity3;
     public CapacityData _CapacityData3;
-    
+
     [field: Header("ultimate"), SerializeField]
+    public int CptUltlvl;
     public Sprite Ultimate;
     public Sprite UltimateEmpty;
     public CapacityData _CapacityDataUltimate;

@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static CombatManager;
+using Random = UnityEngine.Random;
 
 public class QTEZone
 {
@@ -15,6 +16,7 @@ public class QTEZone
     public Color debugColor = Color.white;
     public bool successZone = true;
     public int Affinity = 0;
+    public int Level;
 }
 
 public class OnceCustom
@@ -54,6 +56,15 @@ public class Ultimate : MonoBehaviour
     private OnceCustom CheckInputOnce = new OnceCustom();
     private List<QTEZone> qteZones = new List<QTEZone>();
 
+    [Header("QTE Zones"), SerializeField]
+    public List<GameObject> ZonesLvl1 = new List<GameObject>();
+    public List<GameObject> ZonesLvl2 = new List<GameObject>();
+    public List<GameObject> ZonesLvl3 = new List<GameObject>();
+
+    [Header("QTE Sprites"), SerializeField]
+    public List<GameObject> SpritesLvl1 = new List<GameObject>();
+    public List<GameObject> SpritesLvl2 = new List<GameObject>();
+    public List<GameObject> SpritesLvl3 = new List<GameObject>();
     private DataEntity CurrentEntity => CombatManager.SINGLETON?.currentTurnOrder.Count > 0
         ? CombatManager.SINGLETON.currentTurnOrder[0]
         : null;
@@ -111,6 +122,26 @@ public class Ultimate : MonoBehaviour
             }
         }
     }
+    public void PickAndAssignZones(DataEntity player)
+    {
+        List<List<Sprite>> ListAllSpriteLists = new List<List<Sprite>>() {};
+        List<List<GameObject>> ListAllZoneLists = new List<List<GameObject>>() {};
+        player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
+        List<int> UltLvls = new List<int>() { player.UltLvl_1, player.UltLvl_2, player.UltLvl_3, player.UltLvl_4 };
+        for (int i = 1; i < 5; i++)
+        {
+            for (int j = 1; j < 4; j++)
+            {
+                if (UltLvls[i] >= j)
+                {
+                    GameObject Zone = ListAllZoneLists[j][Random.Range(0, ListAllZoneLists[j].Count)];
+                    Zone.SetActive(true);
+                    Zone.GetComponent<QTEZoneMarker>().Affinity = i;
+                    Zone.GetComponent<SpriteRenderer>().sprite = ListAllSpriteLists[j][i];
+                }
+            }
+        }
+    }
 
     private IEnumerator CheckEntityChange()
     {
@@ -149,20 +180,6 @@ public class Ultimate : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
     }
-
-    /*private IEnumerator DrainUltimateOverTime()
-    {
-        while (true)
-        {
-            if (CurrentEntity != null && CurrentEntity.UltimateSlider > 0)
-            {
-                CurrentEntity.UltimateSlider -= 1;
-            }
-
-            yield return new WaitForSeconds(1f);
-            SliderManager();
-        }
-    }*/
     public void GainUltimateCharge(int chargeAmount)
     {
         if (CurrentEntity == null) return;
