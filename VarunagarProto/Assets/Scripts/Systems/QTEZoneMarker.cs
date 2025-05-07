@@ -9,4 +9,5 @@ public class QTEZoneMarker : MonoBehaviour
     public Color debugColor = Color.cyan;
     public bool successZone = true;
     public int Affinity = 0;
+    public int Level = 1;
 }

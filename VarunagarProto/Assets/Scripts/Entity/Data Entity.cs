@@ -59,8 +59,15 @@ public class DataEntity : ScriptableObject
     [Range(0, 100)]
     public int UltimateSlider;
     public bool UltIsReady;
-    
-    [field: Header("Custo"), SerializeField]
+    public int UltLvl_1;
+    public int UltLvl_2;
+    public int UltLvl_3;
+    public int UltLvl_4;
+
+
+
+
+    [field: Header("Custom"), SerializeField]
     public string namE;
     public float size;
     public int index;
