@@ -73,21 +73,10 @@ public class EffectsManager : MonoBehaviour
     {
         if (damageTextPrefab != null && IsValid(index) && canvas != null)
         {
-            Vector3 worldPos = DamagePosition[index].position + new Vector3(0, 0f, 0);
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
-            
-            GameObject textInstance = Instantiate(damageTextPrefab, canvas.transform);
-            
-            RectTransform rect = textInstance.GetComponent<RectTransform>();
-            rect.position = screenPos;
-            TMP_Text textMesh = textInstance.GetComponentInChildren<TMP_Text>();
-            if (textMesh != null)
-            {
-                textMesh.text = degats.ToString();
-                textMesh.color = couleur;
-            }
-
-            Destroy(textInstance, effetDuration);
+            GameObject dmgText = Instantiate(damageTextPrefab, DamagePosition[index].position, Quaternion.identity,canvas.transform);
+            dmgText.GetComponent<TextMeshProUGUI>().text = "-" + degats;
+            dmgText.GetComponent<TextMeshProUGUI>().color = couleur;
+            Destroy(dmgText, effetDuration);
         }
     }
 

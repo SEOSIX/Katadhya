@@ -40,11 +40,4 @@ public class DammagesInstances : MonoBehaviour
             InstanciateDammagesPlayer1(randomIndex);
         }
     }
-
-    public void InstanciateDammagesPlayer2(int damageValue)
-    {
-        GameObject dmgText = Instantiate(damageTextPrefab, Player2Damages);
-        dmgText.GetComponent<TextMeshProUGUI>().text = "-" + damageValue;
-        Destroy(dmgText, 1.5f);
-    }
 }
