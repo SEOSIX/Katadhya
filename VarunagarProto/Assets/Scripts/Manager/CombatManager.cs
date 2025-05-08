@@ -239,7 +239,7 @@ public class CombatManager : MonoBehaviour
         if (entityHandler.ennemies.Contains(currentEntity))
         {
             isEnnemyTurn = true;
-            //Debug.Log($"🔴 C'est au tour de l'ennemi {currentEntity.namE} !");
+           
             canvasGroup.alpha = 0f;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
@@ -416,78 +416,84 @@ public class CombatManager : MonoBehaviour
     }
 
 
-    public void ApplyNormalCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
-    {
-        int DamageDone = 0;
-        if (capacity.atk > 0)
-        {
-            float calculatedDamage = (((caster.UnitAtk + 1) * capacity.atk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
-            int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
-            DamageDone += icalculatedDamage;
-            if (target.UnitShield > 0)
-            {
-                if (target.UnitShield < icalculatedDamage)
-                {
-                    icalculatedDamage -= target.UnitShield;
-                    target.UnitShield = 0;
-                    Debug.Log($"{caster.namE} a brisé le shield de {target.namE}");
-                }
-                else
-                {
-                    target.UnitShield -= icalculatedDamage;
-                    Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts au bouclier de {target.namE}");
-                    icalculatedDamage = 0;
-                }
-            }
-            if (icalculatedDamage > 0)
-            {
-                target.UnitLife -= icalculatedDamage;
-                Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts à {target.namE}");
-            }
-            target.beenHurtThisTurn = true;
-        }
-        if (capacity.heal > 0)
-        {
-            int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.heal) / 2) * modifier);
-            target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
-            Debug.Log($"{caster.namE} soigne {target.namE} pour {healAmount} PV");
+ public void ApplyNormalCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
+{
+    int DamageDone = 0;
+    int visualIndex = GetEntityVisualIndex(target);
 
-        }
-        if (capacity.Shield > 0)
+    // ATTAQUE
+    if (capacity.atk > 0)
+    {
+        float calculatedDamage = (((caster.UnitAtk + 1) * capacity.atk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
+        int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
+        DamageDone += icalculatedDamage;
+
+        if (target.UnitShield > 0)
         {
-            target.UnitShield += Mathf.RoundToInt(capacity.Shield * modifier);
-            Debug.Log($"{target.namE} se donne {capacity.Shield} de bouclier");
-        }
-        if (capacity.buffType > 0)
-        {
-            GiveBuff(capacity, target);
-            if (capacity.buffValue > 1)
+            if (target.UnitShield < icalculatedDamage)
             {
-                Debug.Log($"{target.namE} gagne un buff ({capacity.buffType})");
+                icalculatedDamage -= target.UnitShield;
+                target.UnitShield = 0;
             }
             else
             {
-                Debug.Log($"{target.namE} prend un nerf ({capacity.buffType})");
+                target.UnitShield -= icalculatedDamage;
+                icalculatedDamage = 0;
             }
         }
-        if (capacity.Shock > 0)
+
+        if (icalculatedDamage > 0)
         {
-            ShockProc(capacity, target);
+            target.UnitLife -= icalculatedDamage;
         }
-        if (capacity.ShieldRatioAtk > 0)
+
+        target.beenHurtThisTurn = true;
+        if (caster.Affinity == 2)
+            EffectsManager.SINGLETON.AfficherAttaqueFoudre(visualIndex);
+        else if (caster.Affinity == 1)
         {
-            int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * ((float)DamageDone));
-            caster.UnitShield += Shielding;
+            EffectsManager.SINGLETON.AfficherAttaqueBouclier(visualIndex, icalculatedDamage);
         }
-        if (target.Affinity == 3)
-        {
-            RageApplication(target);
-        }
-        if (caster.Affinity == 4)
-        {
-            ApplyNecrosis(target);
-        }
+        else
+            EffectsManager.SINGLETON.AfficherAttaqueSimple(visualIndex, icalculatedDamage);
     }
+    if (capacity.heal > 0)
+    {
+        int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.heal) / 2) * modifier);
+        target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
+
+        // (Ajoute un effet de soin ici si souhaité)
+    }
+    if (capacity.Shield > 0)
+    {
+        target.UnitShield += Mathf.RoundToInt(capacity.Shield * modifier);
+    }
+    if (capacity.buffType > 0)
+    {
+        GiveBuff(capacity, target);
+        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex);
+    }
+    if (capacity.Shock > 0)
+    {
+        ShockProc(capacity, target);
+    }
+    if (capacity.ShieldRatioAtk > 0)
+    {
+        int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * DamageDone);
+        caster.UnitShield += Shielding;
+    }
+    if (target.Affinity == 3)
+    {
+        RageApplication(target);
+    }
+
+    if (caster.Affinity == 4)
+    {
+        ApplyNecrosis(target);
+    }
+}
+
+
     private void ApplySpecialCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
     {
         switch (capacity.specialType)
@@ -995,4 +1001,15 @@ public class CombatManager : MonoBehaviour
             entity.delayedActions.RemoveAt(i);
         }
     }
+    
+    private int GetEntityVisualIndex(DataEntity entity)
+    {
+        if (entityHandler.players.Contains(entity))
+            return entityHandler.players.IndexOf(entity); 
+        else if (entityHandler.ennemies.Contains(entity))
+            return entityHandler.players.Count + entityHandler.ennemies.IndexOf(entity);
+        else
+            return -1;
+    }
+
 }
