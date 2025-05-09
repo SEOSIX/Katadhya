@@ -6,7 +6,8 @@ using TMPro;
 
 public class EffectsManager : MonoBehaviour
 {
-    public GameObject effetFoudre;
+    public GameObject[] effetsFoudre = new GameObject[4];
+    private Dictionary<int, GameObject> lastFoudreEffects = new Dictionary<int, GameObject>();
     public GameObject effetBouclier;
     public GameObject pictoBuff;
 
@@ -36,11 +37,28 @@ public class EffectsManager : MonoBehaviour
         SINGLETON = this;
     }
 
-    public void AfficherAttaqueFoudre(int index)
+    public void AfficherAttaqueFoudre(int typeFoudre, int index)
     {
-        if (effetFoudre != null && IsValid(index))
+        if (typeFoudre < 1 || typeFoudre > 4) return;
+        if (lastFoudreEffects.ContainsKey(index))
         {
-            Instantiate(effetFoudre, Effects1Position[index].position, Quaternion.identity);
+            Destroy(lastFoudreEffects[index]);
+            lastFoudreEffects.Remove(index);
+        }
+
+        GameObject effet = effetsFoudre[typeFoudre - 1];
+
+        if (effet != null && IsValid(index))
+        {
+            // Instancie le nouvel effet et le stocke
+            GameObject nouvelEffet = Instantiate(
+                effet, 
+                Effects1Position[index].position, 
+                Quaternion.identity, 
+                Effects1Position[index] // Parent à la position
+            );
+        
+            lastFoudreEffects.Add(index, nouvelEffet);
         }
     }
 
@@ -77,6 +95,32 @@ public class EffectsManager : MonoBehaviour
             dmgText.GetComponent<TextMeshProUGUI>().text = "-" + degats;
             dmgText.GetComponent<TextMeshProUGUI>().color = couleur;
             Destroy(dmgText, effetDuration);
+        }
+    }
+    
+    public void ClearEffectsForEntity(int index)
+    {
+        if (!IsValid(index)) return;
+        if (Effects1Position[index].childCount > 0)
+        {
+            foreach (Transform child in Effects1Position[index])
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        if (Effects2Position[index].childCount > 0)
+        {
+            foreach (Transform child in Effects2Position[index])
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        if (DamagePosition[index].childCount > 0)
+        {
+            foreach (Transform child in DamagePosition[index])
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 

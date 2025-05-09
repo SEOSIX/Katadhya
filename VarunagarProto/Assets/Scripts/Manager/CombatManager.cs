@@ -216,7 +216,7 @@ public class CombatManager : MonoBehaviour
             Debug.Log($"{current.namE} saute son tour pour appliquer son attaque différée !");
             current.skipNextTurn = false; // Reset du skip
             ExecuteDelayedActions(current);
-            EndUnitTurn(); // Fin directe du tour
+            EndUnitTurn(); 
             return;
         }
 
@@ -448,9 +448,7 @@ public class CombatManager : MonoBehaviour
         }
 
         target.beenHurtThisTurn = true;
-        if (caster.Affinity == 2)
-            EffectsManager.SINGLETON.AfficherAttaqueFoudre(visualIndex);
-        else if (caster.Affinity == 1)
+        if (caster.Affinity == 1)
         {
             EffectsManager.SINGLETON.AfficherAttaqueBouclier(visualIndex, icalculatedDamage);
         }
@@ -782,6 +780,11 @@ public class CombatManager : MonoBehaviour
         {
             target.ShockMark += capacity.Shock;
             Debug.Log($"{caster.name} a appliqué {capacity.Shock} marque(s) à {target.namE}");
+            if (target.ShockMark >= 1 && target.ShockMark <= 4)
+            {
+                int visualIndex = GetEntityVisualIndex(target);
+                EffectsManager.SINGLETON.AfficherAttaqueFoudre(target.ShockMark, visualIndex);
+            }
             if (target.ShockMark >= 4)
             {
                 float calculatedDamage = (caster.UnitSpeed - 20) / 2;

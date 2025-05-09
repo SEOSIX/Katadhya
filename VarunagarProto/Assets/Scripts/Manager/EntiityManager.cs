@@ -77,6 +77,10 @@ public class EntiityManager : MonoBehaviour
             {
                 enemy.instance.SetActive(false);
                 enemy.UnitLife = -1;
+                if (EffectsManager.SINGLETON != null && enemy.index >= 0)
+                {
+                    EffectsManager.SINGLETON.ClearEffectsForEntity(enemy.index);
+                }
             }
             entityHandler.ennemies.RemoveAt(i);
             UpdateIndexes();
@@ -108,6 +112,10 @@ public class EntiityManager : MonoBehaviour
             {
                 player.instance.SetActive(false);
                 player.UnitLife = -1;
+                if (EffectsManager.SINGLETON != null && player.index >= 0)
+                {
+                    EffectsManager.SINGLETON.ClearEffectsForEntity(player.index);
+                }
             }
             entityHandler.players.RemoveAt(i);
             UpdateIndexes();
