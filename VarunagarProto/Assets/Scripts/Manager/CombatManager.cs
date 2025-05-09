@@ -393,6 +393,10 @@ public class CombatManager : MonoBehaviour
         {
             ApplySpecialCapacity(capacity, caster, target, modifier);
         }
+        if (capacity.DoubleEffect == true && entityHandler.ennemies.Contains(target))
+        {
+            ApplySecondaryCapacity(capacity, caster, target, modifier);
+        }
         else
         {
             ApplyNormalCapacity(capacity, caster, target, modifier);
@@ -468,6 +472,10 @@ public class CombatManager : MonoBehaviour
     {
         target.UnitShield += Mathf.RoundToInt(capacity.Shield * modifier);
     }
+    if (capacity.Provocation == true)
+    {
+        target.provoking = true;
+    }
     if (capacity.buffType > 0)
     {
         GiveBuff(capacity, target);
@@ -513,10 +521,89 @@ public class CombatManager : MonoBehaviour
                     return;
                 }
                 break;
-
             default:
                 Debug.LogWarning("Special capacity type not handled.");
                 break;
+        }
+    }
+    public void ApplySecondaryCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
+    {
+        int DamageDone = 0;
+        int visualIndex = GetEntityVisualIndex(target);
+
+        // ATTAQUE
+        if (capacity.atk > 0)
+        {
+            float calculatedDamage = (((caster.UnitAtk + 1) * capacity.secondaryAtk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
+            int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
+            DamageDone += icalculatedDamage;
+
+            if (target.UnitShield > 0)
+            {
+                if (target.UnitShield < icalculatedDamage)
+                {
+                    icalculatedDamage -= target.UnitShield;
+                    target.UnitShield = 0;
+                }
+                else
+                {
+                    target.UnitShield -= icalculatedDamage;
+                    icalculatedDamage = 0;
+                }
+            }
+
+            if (icalculatedDamage > 0)
+            {
+                target.UnitLife -= icalculatedDamage;
+            }
+
+            target.beenHurtThisTurn = true;
+            if (caster.Affinity == 2)
+                EffectsManager.SINGLETON.AfficherAttaqueFoudre(visualIndex);
+            else if (caster.Affinity == 1)
+            {
+                EffectsManager.SINGLETON.AfficherAttaqueBouclier(visualIndex, icalculatedDamage);
+            }
+            else
+                EffectsManager.SINGLETON.AfficherAttaqueSimple(visualIndex, icalculatedDamage);
+        }
+        if (capacity.secondaryHeal > 0)
+        {
+            int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.secondaryHeal) / 2) * modifier);
+            target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
+
+            // (Ajoute un effet de soin ici si souhaité)
+        }
+        if (capacity.Shield > 0)
+        {
+            target.UnitShield += Mathf.RoundToInt(capacity.Shield * modifier);
+        }
+        if (capacity.Provocation == true)
+        {
+            target.provoking = true;
+        }
+        if (capacity.secondaryBuffType > 0)
+        {
+            GiveBuff(capacity, target);
+            EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex);
+        }
+        if (capacity.Shock > 0)
+        {
+            ShockProc(capacity, target);
+        }
+        if (capacity.ShieldRatioAtk > 0)
+        {
+            int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * DamageDone);
+            caster.UnitShield += Shielding;
+        }
+        if (target.Affinity == 3)
+        {
+            RageApplication(target);
+        }
+
+        if (caster.Affinity == 4)
+        {
+            ApplyNecrosis(target);
         }
     }
     private void SetupCapacityButtons(DataEntity player)
@@ -758,7 +845,7 @@ public class CombatManager : MonoBehaviour
     public void GiveBuff(CapacityData capacity, DataEntity target)
     {
         // buffType; 1 = Atk, 2 = Def, 3 = Speed, 4 = Précision
-        if (capacity.buffType > 0)
+        if (capacity.buffType > 0 && capacity.DoubleEffect == false)
         {
             ActiveBuff existingBuff = target.ActiveBuffs.Find(b => b.type == capacity.buffType);
             if (existingBuff != null)
@@ -769,6 +856,21 @@ public class CombatManager : MonoBehaviour
             else
             {
                 target.ActiveBuffs.Add(new ActiveBuff(capacity.buffType, capacity.buffValue, capacity.buffDuration));
+            }
+
+            RecalculateStats(target);
+        }
+        if (capacity.buffType > 0 && capacity.DoubleEffect == true)
+        {
+            ActiveBuff existingBuff = target.ActiveBuffs.Find(b => b.type == capacity.secondaryBuffType);
+            if (existingBuff != null)
+            {
+                existingBuff.value *= capacity.buffValue;
+                existingBuff.duration = Mathf.Max(existingBuff.duration, capacity.secondaryBuffDuration);
+            }
+            else
+            {
+                target.ActiveBuffs.Add(new ActiveBuff(capacity.secondaryBuffType, capacity.secondaryBuffValue, capacity.secondaryBuffDuration));
             }
 
             RecalculateStats(target);

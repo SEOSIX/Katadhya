@@ -32,11 +32,12 @@ public class DataEntity : ScriptableObject
     public int UnitShield;
     public int ShockMark;
     public int RageTick;
-    public int LastRageTick;
+    [HideInInspector] public int LastRageTick;
     public List<Necrosis> necrosis = new List<Necrosis>();
 
     [field: Header("Other Information"), SerializeField]
     public bool beenHurtThisTurn;
+    public bool provoking;
 
     [field: Header("Art"), SerializeField] 
     public Sprite portrait;

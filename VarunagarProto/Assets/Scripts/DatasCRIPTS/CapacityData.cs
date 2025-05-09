@@ -33,6 +33,14 @@ public class CapacityData : ScriptableObject
     public bool MultipleHeal;
     public bool MultipleAttack;
     public bool TargetingAlly;
+    public bool Provocation;
+
+    [Header("Secondary Stats")]
+    [HideInInspector] public int secondaryAtk;
+    [HideInInspector] public int secondaryHeal;
+    [HideInInspector] public int secondaryBuffType;
+    [HideInInspector] public float secondaryBuffValue;
+    [HideInInspector] public int secondaryBuffDuration;
 
     [Header("Special Capacity Settings")]
     [SerializeField] public SpecialCapacityType specialType = SpecialCapacityType.None;
@@ -48,4 +56,7 @@ public class CapacityData : ScriptableObject
 
     [field: Header("Enemy Only"), SerializeField]
     public int ValueAI;
+
+    [field: Header("Second Effect"), SerializeField]
+    public bool DoubleEffect;
 }

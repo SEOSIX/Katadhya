@@ -5520,9 +5520,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 564321f87f2135b42b2aac4f646a7ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effetFoudre: {fileID: 3792344867646258709, guid: 657e1d73f40f6914d96781bb8275aa52, type: 3}
-  effetBouclier: {fileID: 6813729588775999591, guid: 384f44242e25bb54aab3147ff3a7dfc1, type: 3}
-  pictoBuff: {fileID: 3820465654781457952, guid: 715924ba071a2e046885020cf7583f2c, type: 3}
+  effetFoudre: {fileID: 0}
+  effetBouclier: {fileID: 0}
+  pictoBuff: {fileID: 0}
   damageTextPrefab: {fileID: 2084743422030266279, guid: d0ae8f142e2a5e743a582b63d9664cc7, type: 3}
   DamagePosition:
   - {fileID: 289581611}
