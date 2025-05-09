@@ -202,6 +202,7 @@ public class CombatManager : MonoBehaviour
     {
         currentTurnOrder.AddRange(unitPlayedThisTurn);
         unitPlayedThisTurn.Clear();
+        currentTurnOrder = currentTurnOrder.OrderByDescending(x => x.UnitSpeed).ToList();
     }
 
     public void StartUnitTurn()
