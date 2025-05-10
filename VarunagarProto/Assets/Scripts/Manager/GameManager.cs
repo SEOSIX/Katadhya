@@ -62,8 +62,7 @@ public class GameManager : MonoBehaviour
     {
         if (SINGLETON != null)
         {
-            Debug.LogError("Trying to instantiate another CombatManager SINGLETON");
-            Destroy(gameObject);
+            Destroy(SINGLETON.gameObject); 
             return;
         }
         SINGLETON = this;
