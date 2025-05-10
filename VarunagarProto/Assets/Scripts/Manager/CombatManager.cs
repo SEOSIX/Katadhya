@@ -209,6 +209,7 @@ public class CombatManager : MonoBehaviour
     {
         DetectEnnemyTurn();
 
+        if (currentTurnOrder.Count == 0) return;
         DataEntity current = currentTurnOrder[0];
 
         if (current.skipNextTurn)
@@ -556,14 +557,7 @@ public class CombatManager : MonoBehaviour
             }
 
             target.beenHurtThisTurn = true;
-            if (caster.Affinity == 2)
-                EffectsManager.SINGLETON.AfficherAttaqueFoudre(visualIndex);
-            else if (caster.Affinity == 1)
-            {
-                EffectsManager.SINGLETON.AfficherAttaqueBouclier(visualIndex, icalculatedDamage);
-            }
-            else
-                EffectsManager.SINGLETON.AfficherAttaqueSimple(visualIndex, icalculatedDamage);
+            EffectsManager.SINGLETON.AfficherAttaqueSimple(visualIndex, icalculatedDamage);
         }
         if (capacity.secondaryHeal > 0)
         {
@@ -1107,7 +1101,7 @@ public class CombatManager : MonoBehaviour
         }
     }
     
-    private int GetEntityVisualIndex(DataEntity entity)
+    public int GetEntityVisualIndex(DataEntity entity)
     {
         if (entityHandler.players.Contains(entity))
             return entityHandler.players.IndexOf(entity); 

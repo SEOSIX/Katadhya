@@ -57,6 +57,9 @@ public class EntiityManager : MonoBehaviour
             var enemy = entityHandler.ennemies[i];
             if (enemy == null || enemy.UnitLife > 0)
                 continue;
+            
+            int visualIndex = CombatManager.SINGLETON.GetEntityVisualIndex(enemy);
+            EffectsManager.SINGLETON.ClearEffectsForEntity(visualIndex);
 
             Debug.Log($"L'ennemi {enemy.namE} est mort et va être désactivé.");
             CombatManager.SINGLETON.RemoveUnitFromList(enemy);
@@ -89,6 +92,9 @@ public class EntiityManager : MonoBehaviour
             var player = entityHandler.players[i];
             if (player == null || player.UnitLife > 0)
                 continue;
+            
+            int visualIndex = CombatManager.SINGLETON.GetEntityVisualIndex(player);
+            EffectsManager.SINGLETON.ClearEffectsForEntity(visualIndex);
 
             Debug.Log($"L'ennemi {player.namE} est mort et va être désactivé.");
             CombatManager.SINGLETON.RemoveUnitFromList(player);
