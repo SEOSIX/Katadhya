@@ -50,12 +50,11 @@ public class EffectsManager : MonoBehaviour
 
         if (effet != null && IsValid(index))
         {
-            // Instancie le nouvel effet et le stocke
             GameObject nouvelEffet = Instantiate(
                 effet, 
                 Effects1Position[index].position, 
                 Quaternion.identity, 
-                Effects1Position[index] // Parent à la position
+                Effects1Position[index]
             );
         
             lastFoudreEffects.Add(index, nouvelEffet);
