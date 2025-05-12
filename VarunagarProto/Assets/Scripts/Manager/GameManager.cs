@@ -164,6 +164,7 @@ public class GameManager : MonoBehaviour
 
             
             dataEnnemy.instance = newEnemy;
+            VictoryDefeatUI.SINGLETON.RegisterEnemy(dataEnnemy);
             SpriteRenderer spriteRenderer = newEnemy.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
             {
@@ -175,7 +176,6 @@ public class GameManager : MonoBehaviour
         CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
         CombatManager.SINGLETON.InitializeStaticUI();
         CombatManager.SINGLETON.StartUnitTurn();
-        
     }
 }
 

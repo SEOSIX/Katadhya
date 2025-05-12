@@ -48,6 +48,8 @@ public class CombatManager : MonoBehaviour
     public GameObject ennemyTurn;
     public GameObject TurnUI;
     public CanvasGroup canvasGroup;
+    [Header("Turn Indicators")]
+    public GameObject[] playerTurnIndicators;
 
     [Header("Target Indicators")]
     public List<GameObject> circlesEnnemy;
@@ -196,6 +198,12 @@ public class CombatManager : MonoBehaviour
         {
             EndGlobalTurn();
         }
+        StartCoroutine(StartUnitTurnDelayed());
+    }
+    
+    private IEnumerator StartUnitTurnDelayed()
+    {
+        yield return new WaitForEndOfFrame(); 
         StartUnitTurn();
     }
 
@@ -208,31 +216,50 @@ public class CombatManager : MonoBehaviour
 
     public void StartUnitTurn()
     {
+        StartCoroutine(StartUnitTurnRoutine());
+    }
+    
+    private IEnumerator StartUnitTurnRoutine()
+    {
         while (currentTurnOrder.Count > 0 && currentTurnOrder[0].UnitLife <= 0)
         {
             currentTurnOrder.RemoveAt(0);
+            yield return null;
         }
-        if (currentTurnOrder.Count == 0) return;
+
+        if (currentTurnOrder.Count == 0) yield break;
 
         DataEntity current = currentTurnOrder[0];
-        
+    
         if (current.skipNextTurn)
         {
-            Debug.Log($"{current.namE} saute son tour pour appliquer son attaque différée !");
             current.skipNextTurn = false;
             ExecuteDelayedActions(current);
             EndUnitTurn();
-            return;
+            yield break;
         }
+
         DetectEnnemyTurn();
+    
         if (entityHandler.ennemies.Contains(current))
         {
-            StartCoroutine(DelayedEnemyTurn(current));
-            return;
+            yield return StartCoroutine(DelayedEnemyTurn(current));
+            yield break;
         }
+
         currentPlayer = current;
         InitializeStaticUI();
         SetupCapacityButtons(currentPlayer);
+
+        foreach (var indicator in playerTurnIndicators)
+            indicator.SetActive(false);
+
+        if (entityHandler.players.Contains(currentPlayer))
+        {
+            int index = entityHandler.players.IndexOf(currentPlayer);
+            if (index < playerTurnIndicators.Length)
+                playerTurnIndicators[index].SetActive(true);
+        }
     }
 
 
@@ -249,6 +276,10 @@ public class CombatManager : MonoBehaviour
 
         if (isEnnemyTurn)
         {
+            foreach (var indicator in playerTurnIndicators)
+            {
+                indicator.SetActive(false);
+            }
             canvasGroup.alpha = 0f;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;

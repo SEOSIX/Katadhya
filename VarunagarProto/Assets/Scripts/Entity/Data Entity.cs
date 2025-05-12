@@ -109,14 +109,14 @@ public class DataEntity : ScriptableObject
     [System.Serializable]
     public class Necrosis
     {
-        public int level; // 1 à 5
+        public int level; // 1 Ã  5
         public int remainingTurns;
 
         public Necrosis(int level)
         {
             this.level = Mathf.Clamp(level, 1, 5);
             this.remainingTurns = 4;
-            Debug.Log($"[NÉCROSE] Nouveau statut appliqué : niveau {this.level}, {this.remainingTurns} tours");
+            Debug.Log($"[NÃ‰CROSE] Nouveau statut appliquÃ© : niveau {this.level}, {this.remainingTurns} tours");
         }
         public bool IsExpired => remainingTurns <= 0;
     }

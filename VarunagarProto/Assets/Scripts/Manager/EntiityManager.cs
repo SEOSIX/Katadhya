@@ -193,6 +193,11 @@ public class EntiityManager : MonoBehaviour
             GameManager.SINGLETON.EnemyPackIndex += 1;
             GameManager.SINGLETON.SpawnEnemies();
         }
+        if (!anyPlayerAlive || !anyEnemyAlive && GameManager.SINGLETON.EnemyPackIndex == 4)
+        {
+            bool playerWon = anyPlayerAlive && !anyEnemyAlive;
+            VictoryDefeatUI.SINGLETON.DisplayEndCombat(playerWon, entityHandler.ennemies);
+        }
     }
 
     void OnMouseDown()
