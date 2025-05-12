@@ -1103,12 +1103,28 @@ public class CombatManager : MonoBehaviour
     
     public int GetEntityVisualIndex(DataEntity entity)
     {
-        if (entityHandler.players.Contains(entity))
-            return entityHandler.players.IndexOf(entity); 
-        else if (entityHandler.ennemies.Contains(entity))
-            return entityHandler.players.Count + entityHandler.ennemies.IndexOf(entity);
-        else
+        if (entity == null)
+        {
+            Debug.LogWarning("Tentative de récupérer l'index d'une entité null !");
             return -1;
+        }
+        for (int i = 0; i < entityHandler.players.Count; i++)
+        {
+            if (entityHandler.players[i] == entity)
+            {
+                return i;
+            }
+        }
+        for (int i = 0; i < entityHandler.ennemies.Count; i++)
+        {
+            if (entityHandler.ennemies[i] == entity)
+            {
+                return entityHandler.players.Count + i;
+            }
+        }
+
+        Debug.LogWarning($"Entité {entity.namE} non trouvée dans les listes !");
+        return -1;
     }
 
 }
