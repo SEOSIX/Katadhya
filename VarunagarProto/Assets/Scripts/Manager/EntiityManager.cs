@@ -80,10 +80,6 @@ public class EntiityManager : MonoBehaviour
             {
                 enemy.instance.SetActive(false);
                 enemy.UnitLife = -1;
-                if (enemy.index == 0)
-                {
-                    CombatManager.SINGLETON.circlesEnnemy[1] = CombatManager.SINGLETON.circlesEnnemy[0];
-                }
             }
             entityHandler.ennemies.RemoveAt(i);
             UpdateIndexes();
@@ -118,10 +114,6 @@ public class EntiityManager : MonoBehaviour
             {
                 player.instance.SetActive(false);
                 player.UnitLife = -1;
-                if (player.index == 0)
-                {
-                    CombatManager.SINGLETON.circlesPlayer[1] = CombatManager.SINGLETON.circlesPlayer[0];
-                }
             }
             entityHandler.players.RemoveAt(i);
             UpdateIndexes();
