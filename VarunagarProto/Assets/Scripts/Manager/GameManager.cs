@@ -114,6 +114,8 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
+        int index = EffectsManager.SINGLETON.RegisterEnemy(damageTransform, effect1Transform, effect2Transform);
+        enemy.myEffectIndex = index;
 
         GameObject E1 = enemyPacks[EnemyPackIndex].enemyPrefab1;
         GameObject E2 = enemyPacks[EnemyPackIndex].enemyPrefab2;

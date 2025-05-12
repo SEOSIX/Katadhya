@@ -1,11 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using TMPro;
 
 public class EffectsManager : MonoBehaviour
 {
+    public static EffectsManager SINGLETON;
+
     public GameObject[] effetsFoudre = new GameObject[4];
     private Dictionary<int, GameObject> lastFoudreEffects = new Dictionary<int, GameObject>();
     public GameObject effetBouclier;
@@ -14,16 +14,12 @@ public class EffectsManager : MonoBehaviour
     [Header("Prefab de texte pour afficher les dégâts")]
     public GameObject damageTextPrefab;
 
-    [FormerlySerializedAs("positionsEffets")] [Header("Positions d'effet par entité")]
-    public Transform[] DamagePosition;
-    public Transform[] Effects1Position;
-    public Transform[] Effects2Position;
+    [Header("Positions d'effet par entité")]
+    public List<Transform> DamagePosition = new List<Transform>();
+    public List<Transform> Effects1Position = new List<Transform>();
+    public List<Transform> Effects2Position = new List<Transform>();
 
-    
     public Canvas canvas;
-    public static EffectsManager SINGLETON;
-
-    [Tooltip("Durée de vie des effets visuels")]
     public float effetDuration = 2f;
 
     void Awake()
@@ -37,38 +33,43 @@ public class EffectsManager : MonoBehaviour
         SINGLETON = this;
     }
 
+    public int RegisterEnemy(Transform damagePos, Transform effect1Pos, Transform effect2Pos)
+    {
+        DamagePosition.Add(damagePos);
+        Effects1Position.Add(effect1Pos);
+        Effects2Position.Add(effect2Pos);
+        return DamagePosition.Count - 1;
+    }
+
     public void AfficherAttaqueFoudre(int typeFoudre, int index)
     {
-        if (typeFoudre < 1 || typeFoudre > 4) return;
-        if (lastFoudreEffects.ContainsKey(index))
+        if (typeFoudre < 1 || typeFoudre > 4 || !IsValid(index)) return;
+
+        if (lastFoudreEffects.TryGetValue(index, out var lastEffect))
         {
-            Destroy(lastFoudreEffects[index]);
+            Destroy(lastEffect);
             lastFoudreEffects.Remove(index);
         }
 
         GameObject effet = effetsFoudre[typeFoudre - 1];
-
-        if (effet != null && IsValid(index))
+        if (effet != null)
         {
-            GameObject nouvelEffet = Instantiate(
-                effet, 
-                Effects1Position[index].position, 
-                Quaternion.identity, 
-                Effects1Position[index]
-            );
-        
+            GameObject nouvelEffet = Instantiate(effet, Effects1Position[index].position, Quaternion.identity, Effects1Position[index]);
             lastFoudreEffects.Add(index, nouvelEffet);
         }
     }
 
     public void AfficherAttaqueBouclier(int index, int degats)
     {
-        if (effetBouclier != null && IsValid(index))
+        if (!IsValid(index)) return;
+
+        if (effetBouclier != null)
         {
             Instantiate(effetBouclier, Effects2Position[index].position, Quaternion.identity);
             AfficherTexteDegats(index, degats, Color.cyan);
         }
     }
+
     public void AfficherAttaqueSimple(int index, int degats)
     {
         if (IsValid(index))
@@ -79,7 +80,9 @@ public class EffectsManager : MonoBehaviour
 
     public void AfficherPictoBuff(int index)
     {
-        if (pictoBuff != null && IsValid(index))
+        if (!IsValid(index)) return;
+
+        if (pictoBuff != null)
         {
             GameObject instance = Instantiate(pictoBuff, DamagePosition[index].position, Quaternion.identity);
             Destroy(instance, effetDuration);
@@ -88,15 +91,15 @@ public class EffectsManager : MonoBehaviour
 
     private void AfficherTexteDegats(int index, int degats, Color couleur)
     {
-        if (damageTextPrefab != null && IsValid(index) && canvas != null)
-        {
-            GameObject dmgText = Instantiate(damageTextPrefab, DamagePosition[index].position, Quaternion.identity,canvas.transform);
-            dmgText.GetComponent<TextMeshProUGUI>().text = "-" + degats;
-            dmgText.GetComponent<TextMeshProUGUI>().color = couleur;
-            Destroy(dmgText, effetDuration);
-        }
+        if (!IsValid(index) || damageTextPrefab == null || canvas == null) return;
+
+        GameObject dmgText = Instantiate(damageTextPrefab, DamagePosition[index].position, Quaternion.identity, canvas.transform);
+        var tmp = dmgText.GetComponent<TextMeshProUGUI>();
+        tmp.text = "-" + degats;
+        tmp.color = couleur;
+        Destroy(dmgText, effetDuration);
     }
-    
+
     public void ClearEffectsForEntity(int index)
     {
         if (!IsValid(index)) return;
@@ -111,15 +114,23 @@ public class EffectsManager : MonoBehaviour
         foreach (Transform child in parent)
         {
             if (child.name.Contains("(Clone)"))
-            {
                 Destroy(child.gameObject);
-            }
         }
     }
 
-
     private bool IsValid(int index)
     {
-        return DamagePosition != null && index >= 0 && index < DamagePosition.Length && DamagePosition[index] != null;
+        return index >= 0 &&
+            index < DamagePosition.Count && DamagePosition[index] != null &&
+            index < Effects1Position.Count && Effects1Position[index] != null &&
+            index < Effects2Position.Count && Effects2Position[index] != null;
+    }
+
+    public void ResetAll()
+    {
+        DamagePosition.Clear();
+        Effects1Position.Clear();
+        Effects2Position.Clear();
+        lastFoudreEffects.Clear();
     }
 }

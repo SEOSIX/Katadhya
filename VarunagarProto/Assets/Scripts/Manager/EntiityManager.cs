@@ -193,10 +193,13 @@ public class EntiityManager : MonoBehaviour
             GameManager.SINGLETON.EnemyPackIndex += 1;
             GameManager.SINGLETON.SpawnEnemies();
         }
-        if (!anyPlayerAlive || !anyEnemyAlive && GameManager.SINGLETON.EnemyPackIndex == 4)
+        bool isLastWave = GameManager.SINGLETON.EnemyPackIndex >= GameManager.SINGLETON.EnemyPackIndex.Count - 1;
+        bool isDefeat = !anyPlayerAlive;
+        bool isVictory = anyPlayerAlive && !anyEnemyAlive && isLastWave;
+
+        if (isDefeat || isVictory)
         {
-            bool playerWon = anyPlayerAlive && !anyEnemyAlive;
-            VictoryDefeatUI.SINGLETON.DisplayEndCombat(playerWon, entityHandler.ennemies);
+          VictoryDefeatUI.SINGLETON.DisplayEndCombat(isVictory, allEnemiesEncountered);
         }
     }
 
