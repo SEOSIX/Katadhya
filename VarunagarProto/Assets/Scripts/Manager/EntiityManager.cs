@@ -84,6 +84,10 @@ public class EntiityManager : MonoBehaviour
                 {
                     CombatManager.SINGLETON.circlesEnnemy[1] = CombatManager.SINGLETON.circlesEnnemy[0];
                 }
+                if (enemy.index == 1)
+                {
+                    CombatManager.SINGLETON.circlesEnnemy[0] = CombatManager.SINGLETON.circlesEnnemy[1];
+                }
             }
             entityHandler.ennemies.RemoveAt(i);
             UpdateIndexes();

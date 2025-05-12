@@ -100,23 +100,17 @@ public class EffectsManager : MonoBehaviour
     public void ClearEffectsForEntity(int index)
     {
         if (!IsValid(index)) return;
-        if (Effects1Position[index].childCount > 0)
+
+        ClearInstantiatedChildren(Effects1Position[index]);
+        ClearInstantiatedChildren(Effects2Position[index]);
+        ClearInstantiatedChildren(DamagePosition[index]);
+    }
+
+    private void ClearInstantiatedChildren(Transform parent)
+    {
+        foreach (Transform child in parent)
         {
-            foreach (Transform child in Effects1Position[index])
-            {
-                Destroy(child.gameObject);
-            }
-        }
-        if (Effects2Position[index].childCount > 0)
-        {
-            foreach (Transform child in Effects2Position[index])
-            {
-                Destroy(child.gameObject);
-            }
-        }
-        if (DamagePosition[index].childCount > 0)
-        {
-            foreach (Transform child in DamagePosition[index])
+            if (child.name.Contains("(Clone)"))
             {
                 Destroy(child.gameObject);
             }

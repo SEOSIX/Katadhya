@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -207,26 +208,33 @@ public class CombatManager : MonoBehaviour
 
     public void StartUnitTurn()
     {
-        DetectEnnemyTurn();
-
+        while (currentTurnOrder.Count > 0 && currentTurnOrder[0].UnitLife <= 0)
+        {
+            currentTurnOrder.RemoveAt(0);
+        }
         if (currentTurnOrder.Count == 0) return;
-        DataEntity current = currentTurnOrder[0];
 
+        DataEntity current = currentTurnOrder[0];
+        
         if (current.skipNextTurn)
         {
             Debug.Log($"{current.namE} saute son tour pour appliquer son attaque différée !");
-            current.skipNextTurn = false; // Reset du skip
+            current.skipNextTurn = false;
             ExecuteDelayedActions(current);
-            EndUnitTurn(); 
+            EndUnitTurn();
             return;
         }
-
-        if (!entityHandler.ennemies.Contains(currentTurnOrder[0]))
+        DetectEnnemyTurn();
+        if (entityHandler.ennemies.Contains(current))
         {
-            currentPlayer = currentTurnOrder[0];
-            SetupCapacityButtons(currentPlayer);
+            StartCoroutine(DelayedEnemyTurn(current));
+            return;
         }
+        currentPlayer = current;
+        InitializeStaticUI();
+        SetupCapacityButtons(currentPlayer);
     }
+
 
     public void RemoveUnitFromList(DataEntity _currentUnit)
     {
@@ -237,25 +245,30 @@ public class CombatManager : MonoBehaviour
     public void DetectEnnemyTurn()
     {
         DataEntity currentEntity = currentTurnOrder[0];
-        if (entityHandler.ennemies.Contains(currentEntity))
+        isEnnemyTurn = entityHandler.ennemies.Contains(currentEntity);
+
+        if (isEnnemyTurn)
         {
-            isEnnemyTurn = true;
-           
             canvasGroup.alpha = 0f;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
             ennemyTurn.SetActive(true);
-            AI.SINGLETON.Attack(currentEntity, 50);
         }
         else
         {
-            isEnnemyTurn = false;
             canvasGroup.alpha = 1f;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
             ennemyTurn.SetActive(false);
         }
     }
+
+    private IEnumerator DelayedEnemyTurn(DataEntity currentEntity)
+    {
+        yield return new WaitForSeconds(1f);
+        AI.SINGLETON.Attack(currentEntity, 50);
+    }
+    
     void HideTargetIndicators()
     {
         foreach (var circle in circlesEnnemy)
