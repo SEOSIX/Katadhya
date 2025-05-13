@@ -57,6 +57,9 @@ public class EntiityManager : MonoBehaviour
             var enemy = entityHandler.ennemies[i];
             if (enemy == null || enemy.UnitLife > 0)
                 continue;
+            
+            int visualIndex = CombatManager.SINGLETON.GetEntityVisualIndex(enemy);
+            EffectsManager.SINGLETON.ClearEffectsForEntity(visualIndex);
 
             Debug.Log($"L'ennemi {enemy.namE} est mort et va être désactivé.");
             CombatManager.SINGLETON.RemoveUnitFromList(enemy);
@@ -77,6 +80,14 @@ public class EntiityManager : MonoBehaviour
             {
                 enemy.instance.SetActive(false);
                 enemy.UnitLife = -1;
+                if (enemy.index == 0)
+                {
+                    CombatManager.SINGLETON.circlesEnnemy[1] = CombatManager.SINGLETON.circlesEnnemy[0];
+                }
+                if (enemy.index == 1)
+                {
+                    CombatManager.SINGLETON.circlesEnnemy[0] = CombatManager.SINGLETON.circlesEnnemy[1];
+                }
             }
             entityHandler.ennemies.RemoveAt(i);
             UpdateIndexes();
@@ -89,6 +100,9 @@ public class EntiityManager : MonoBehaviour
             var player = entityHandler.players[i];
             if (player == null || player.UnitLife > 0)
                 continue;
+            
+            int visualIndex = CombatManager.SINGLETON.GetEntityVisualIndex(player);
+            EffectsManager.SINGLETON.ClearEffectsForEntity(visualIndex);
 
             Debug.Log($"L'ennemi {player.namE} est mort et va être désactivé.");
             CombatManager.SINGLETON.RemoveUnitFromList(player);
@@ -108,6 +122,10 @@ public class EntiityManager : MonoBehaviour
             {
                 player.instance.SetActive(false);
                 player.UnitLife = -1;
+                if (player.index == 0)
+                {
+                    CombatManager.SINGLETON.circlesPlayer[1] = CombatManager.SINGLETON.circlesPlayer[0];
+                }
             }
             entityHandler.players.RemoveAt(i);
             UpdateIndexes();
@@ -174,6 +192,14 @@ public class EntiityManager : MonoBehaviour
             Debug.Log("Les joueurs ont gagné !");
             GameManager.SINGLETON.EnemyPackIndex += 1;
             GameManager.SINGLETON.SpawnEnemies();
+        }
+        bool isLastWave = GameManager.SINGLETON.EnemyPackIndex >= GameManager.SINGLETON.enemyPacks.Count - 1;
+        bool isDefeat = !anyPlayerAlive;
+        bool isVictory = anyPlayerAlive && !anyEnemyAlive && isLastWave;
+
+        if (isVictory)
+        {
+            VictoryDefeatUI.SINGLETON.DisplayEndCombat(isVictory, GameManager.SINGLETON.allEnemiesEncountered);
         }
     }
 

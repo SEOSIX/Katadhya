@@ -27,6 +27,12 @@ MonoBehaviour:
   MultipleHeal: 0
   MultipleAttack: 0
   TargetingAlly: 0
+  Provocation: 0
+  secondaryAtk: 0
+  secondaryHeal: 0
+  secondaryBuffType: 0
+  secondaryBuffValue: 0
+  secondaryBuffDuration: 0
   specialType: 0
   specialDelay: 1
   Name: "Coup d'Ep\xE9e"
@@ -34,3 +40,4 @@ MonoBehaviour:
   PictoType: 0
   TargetType: 0
   ValueAI: 0
+  DoubleEffect: 1

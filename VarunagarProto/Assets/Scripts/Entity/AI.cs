@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 using static UnityEngine.GraphicsBuffer;
+using System.Linq;
 
 
 public class AI : MonoBehaviour
@@ -19,8 +20,7 @@ public class AI : MonoBehaviour
     {
         if (SINGLETON != null)
         {
-            Debug.LogError("Trying to instantiate another CombatManager SINGLETON");
-            Destroy(gameObject);
+            Destroy(SINGLETON.gameObject);
             return;
         }
         SINGLETON = this;
@@ -61,16 +61,36 @@ public class AI : MonoBehaviour
 
     private IEnumerator SingleAttackCoroutine(DataEntity attacker, int damages)
     {
-        int randomIndex = Random.Range(0, CombatManager.SINGLETON.entityHandler.players.Count);
-        DataEntity targetedPlayer = CombatManager.SINGLETON.entityHandler.players[randomIndex];
+        List<DataEntity> potentialTargets = CombatManager.SINGLETON.entityHandler.players
+            .Where(player => player.UnitLife > 0)
+            .ToList();
+
+        if (potentialTargets.Count == 0) yield break;
+
+        DataEntity provoker = potentialTargets.FirstOrDefault(p => p.provoking);
+
+        DataEntity targetedPlayer;
+        int targetIndex;
+
+        if (provoker != null)
+        {
+            targetedPlayer = provoker;
+            targetIndex = CombatManager.SINGLETON.entityHandler.players.IndexOf(provoker);
+        }
+        else
+        {
+            targetIndex = Random.Range(0, potentialTargets.Count);
+            targetedPlayer = potentialTargets[targetIndex];
+        }
 
         yield return new WaitForSeconds(1.5f);
-        if (randomIndex == 1)
+
+        if (targetIndex == 0)
         {
             playerTarget1.SetActive(true);
             playerTarget2.SetActive(false);
         }
-        else if (randomIndex == 0)
+        else if (targetIndex == 1)
         {
             playerTarget1.SetActive(false);
             playerTarget2.SetActive(true);
@@ -124,16 +144,26 @@ public class AI : MonoBehaviour
     private IEnumerator MultiAttackCoroutine(DataEntity attacker, int damages)
     {
         int numberOfTargets = Random.Range(1, CombatManager.SINGLETON.entityHandler.players.Count + 1);
-        List<DataEntity> potentialTargets = new List<DataEntity>(CombatManager.SINGLETON.entityHandler.players);
+
+        List<DataEntity> potentialTargets = CombatManager.SINGLETON.entityHandler.players.Where(player => player.UnitLife > 0).ToList();
 
         for (int i = 0; i < numberOfTargets; i++)
         {
             if (potentialTargets.Count == 0) break;
 
-            int randomIndex = Random.Range(0, potentialTargets.Count);
-            DataEntity targetedPlayer = potentialTargets[randomIndex];
-            potentialTargets.RemoveAt(randomIndex);
+            DataEntity provoker = potentialTargets.FirstOrDefault(p => p.provoking);
 
+            DataEntity targetedPlayer;
+
+            if (provoker != null)
+            {
+                targetedPlayer = provoker;
+            }
+            else
+            {
+                int randomIndex = Random.Range(0, potentialTargets.Count);
+                targetedPlayer = potentialTargets[randomIndex];
+            }
             if (i == 0)
             {
                 playerTarget1.SetActive(true);

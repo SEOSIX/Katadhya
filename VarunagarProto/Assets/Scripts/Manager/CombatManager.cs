@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -47,6 +48,8 @@ public class CombatManager : MonoBehaviour
     public GameObject ennemyTurn;
     public GameObject TurnUI;
     public CanvasGroup canvasGroup;
+    [Header("Turn Indicators")]
+    public GameObject[] playerTurnIndicators;
 
     [Header("Target Indicators")]
     public List<GameObject> circlesEnnemy;
@@ -73,8 +76,7 @@ public class CombatManager : MonoBehaviour
     {
         if (SINGLETON != null)
         {
-            Debug.LogError("Trying to instantiate another CombatManager SINGLETON");
-            Destroy(gameObject);
+            Destroy(SINGLETON.gameObject);
             return;
         }
         SINGLETON = this;
@@ -196,6 +198,12 @@ public class CombatManager : MonoBehaviour
         {
             EndGlobalTurn();
         }
+        StartCoroutine(StartUnitTurnDelayed());
+    }
+    
+    private IEnumerator StartUnitTurnDelayed()
+    {
+        yield return new WaitForEndOfFrame(); 
         StartUnitTurn();
     }
 
@@ -203,29 +211,57 @@ public class CombatManager : MonoBehaviour
     {
         currentTurnOrder.AddRange(unitPlayedThisTurn);
         unitPlayedThisTurn.Clear();
+        currentTurnOrder = currentTurnOrder.OrderByDescending(x => x.UnitSpeed).ToList();
     }
 
     public void StartUnitTurn()
     {
-        DetectEnnemyTurn();
+        StartCoroutine(StartUnitTurnRoutine());
+    }
+    
+    private IEnumerator StartUnitTurnRoutine()
+    {
+        while (currentTurnOrder.Count > 0 && currentTurnOrder[0].UnitLife <= 0)
+        {
+            currentTurnOrder.RemoveAt(0);
+            yield return null;
+        }
+
+        if (currentTurnOrder.Count == 0) yield break;
 
         DataEntity current = currentTurnOrder[0];
-
+    
         if (current.skipNextTurn)
         {
-            Debug.Log($"{current.namE} saute son tour pour appliquer son attaque différée !");
-            current.skipNextTurn = false; // Reset du skip
+            current.skipNextTurn = false;
             ExecuteDelayedActions(current);
-            EndUnitTurn(); // Fin directe du tour
-            return;
+            EndUnitTurn();
+            yield break;
         }
 
-        if (!entityHandler.ennemies.Contains(currentTurnOrder[0]))
+        DetectEnnemyTurn();
+    
+        if (entityHandler.ennemies.Contains(current))
         {
-            currentPlayer = currentTurnOrder[0];
-            SetupCapacityButtons(currentPlayer);
+            yield return StartCoroutine(DelayedEnemyTurn(current));
+            yield break;
+        }
+
+        currentPlayer = current;
+        InitializeStaticUI();
+        SetupCapacityButtons(currentPlayer);
+
+        foreach (var indicator in playerTurnIndicators)
+            indicator.SetActive(false);
+
+        if (entityHandler.players.Contains(currentPlayer))
+        {
+            int index = entityHandler.players.IndexOf(currentPlayer);
+            if (index < playerTurnIndicators.Length)
+                playerTurnIndicators[index].SetActive(true);
         }
     }
+
 
     public void RemoveUnitFromList(DataEntity _currentUnit)
     {
@@ -236,25 +272,34 @@ public class CombatManager : MonoBehaviour
     public void DetectEnnemyTurn()
     {
         DataEntity currentEntity = currentTurnOrder[0];
-        if (entityHandler.ennemies.Contains(currentEntity))
+        isEnnemyTurn = entityHandler.ennemies.Contains(currentEntity);
+
+        if (isEnnemyTurn)
         {
-            isEnnemyTurn = true;
-            //Debug.Log($"🔴 C'est au tour de l'ennemi {currentEntity.namE} !");
+            foreach (var indicator in playerTurnIndicators)
+            {
+                indicator.SetActive(false);
+            }
             canvasGroup.alpha = 0f;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
             ennemyTurn.SetActive(true);
-            AI.SINGLETON.Attack(currentEntity, 50);
         }
         else
         {
-            isEnnemyTurn = false;
             canvasGroup.alpha = 1f;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
             ennemyTurn.SetActive(false);
         }
     }
+
+    private IEnumerator DelayedEnemyTurn(DataEntity currentEntity)
+    {
+        yield return new WaitForSeconds(1f);
+        AI.SINGLETON.Attack(currentEntity, 50);
+    }
+    
     void HideTargetIndicators()
     {
         foreach (var circle in circlesEnnemy)
@@ -393,6 +438,10 @@ public class CombatManager : MonoBehaviour
         {
             ApplySpecialCapacity(capacity, caster, target, modifier);
         }
+        if (capacity.DoubleEffect && entityHandler.ennemies.Contains(target))
+        {
+            ApplySecondaryCapacity(capacity, caster, target, modifier);
+        }
         else
         {
             ApplyNormalCapacity(capacity, caster, target, modifier);
@@ -416,78 +465,86 @@ public class CombatManager : MonoBehaviour
     }
 
 
-    public void ApplyNormalCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
-    {
-        int DamageDone = 0;
-        if (capacity.atk > 0)
-        {
-            float calculatedDamage = (((caster.UnitAtk + 1) * capacity.atk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
-            int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
-            DamageDone += icalculatedDamage;
-            if (target.UnitShield > 0)
-            {
-                if (target.UnitShield < icalculatedDamage)
-                {
-                    icalculatedDamage -= target.UnitShield;
-                    target.UnitShield = 0;
-                    Debug.Log($"{caster.namE} a brisé le shield de {target.namE}");
-                }
-                else
-                {
-                    target.UnitShield -= icalculatedDamage;
-                    Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts au bouclier de {target.namE}");
-                    icalculatedDamage = 0;
-                }
-            }
-            if (icalculatedDamage > 0)
-            {
-                target.UnitLife -= icalculatedDamage;
-                Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts à {target.namE}");
-            }
-            target.beenHurtThisTurn = true;
-        }
-        if (capacity.heal > 0)
-        {
-            int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.heal) / 2) * modifier);
-            target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
-            Debug.Log($"{caster.namE} soigne {target.namE} pour {healAmount} PV");
+ public void ApplyNormalCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
+{
+    int DamageDone = 0;
+    int visualIndex = GetEntityVisualIndex(target);
 
-        }
-        if (capacity.Shield > 0)
+    // ATTAQUE
+    if (capacity.atk > 0)
+    {
+        float calculatedDamage = (((caster.UnitAtk + 1) * capacity.atk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
+        int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
+        DamageDone += icalculatedDamage;
+
+        if (target.UnitShield > 0)
         {
-            target.UnitShield += Mathf.RoundToInt(capacity.Shield * modifier);
-            Debug.Log($"{target.namE} se donne {capacity.Shield} de bouclier");
-        }
-        if (capacity.buffType > 0)
-        {
-            GiveBuff(capacity, target);
-            if (capacity.buffValue > 1)
+            if (target.UnitShield < icalculatedDamage)
             {
-                Debug.Log($"{target.namE} gagne un buff ({capacity.buffType})");
+                icalculatedDamage -= target.UnitShield;
+                target.UnitShield = 0;
             }
             else
             {
-                Debug.Log($"{target.namE} prend un nerf ({capacity.buffType})");
+                target.UnitShield -= icalculatedDamage;
+                icalculatedDamage = 0;
             }
         }
-        if (capacity.Shock > 0)
+
+        if (icalculatedDamage > 0)
         {
-            ShockProc(capacity, target);
+            target.UnitLife -= icalculatedDamage;
         }
-        if (capacity.ShieldRatioAtk > 0)
+
+        target.beenHurtThisTurn = true;
+        if (caster.Affinity == 1)
         {
-            int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * ((float)DamageDone));
-            caster.UnitShield += Shielding;
+            EffectsManager.SINGLETON.AfficherAttaqueBouclier(visualIndex, DamageDone);
         }
-        if (target.Affinity == 3)
-        {
-            RageApplication(target);
-        }
-        if (caster.Affinity == 4)
-        {
-            ApplyNecrosis(target);
-        }
+        else
+            EffectsManager.SINGLETON.AfficherAttaqueSimple(visualIndex, DamageDone);
     }
+    if (capacity.heal > 0)
+    {
+        int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.heal) / 2) * modifier);
+        target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
+
+        EffectsManager.SINGLETON.AfficherHeal(visualIndex, healAmount);
+    }
+    if (capacity.Shield > 0)
+    {
+        target.UnitShield += Mathf.RoundToInt(capacity.Shield * modifier);
+    }
+    if (capacity.Provocation == true)
+    {
+        target.provoking = true;
+    }
+    if (capacity.buffType > 0)
+    {
+        GiveBuff(capacity, target);
+        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex);
+    }
+    if (capacity.Shock > 0)
+    {
+        ShockProc(capacity, target);
+    }
+    if (capacity.ShieldRatioAtk > 0)
+    {
+        int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * DamageDone);
+        caster.UnitShield += Shielding;
+    }
+    if (target.Affinity == 3)
+    {
+        RageApplication(target);
+    }
+
+    if (caster.Affinity == 4)
+    {
+        ApplyNecrosis(target);
+    }
+}
+
+
     private void ApplySpecialCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
     {
         switch (capacity.specialType)
@@ -507,10 +564,82 @@ public class CombatManager : MonoBehaviour
                     return;
                 }
                 break;
-
             default:
                 Debug.LogWarning("Special capacity type not handled.");
                 break;
+        }
+    }
+    public void ApplySecondaryCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
+    {
+        int DamageDone = 0;
+        int visualIndex = GetEntityVisualIndex(target);
+
+        // ATTAQUE
+        if (capacity.atk > 0)
+        {
+            float calculatedDamage = (((caster.UnitAtk + 1) * capacity.secondaryAtk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
+            int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
+            DamageDone += icalculatedDamage;
+
+            if (target.UnitShield > 0)
+            {
+                if (target.UnitShield < icalculatedDamage)
+                {
+                    icalculatedDamage -= target.UnitShield;
+                    target.UnitShield = 0;
+                }
+                else
+                {
+                    target.UnitShield -= icalculatedDamage;
+                    icalculatedDamage = 0;
+                }
+            }
+
+            if (icalculatedDamage > 0)
+            {
+                target.UnitLife -= icalculatedDamage;
+            }
+
+            target.beenHurtThisTurn = true;
+            EffectsManager.SINGLETON.AfficherAttaqueSimple(visualIndex, icalculatedDamage);
+        }
+        if (capacity.secondaryHeal > 0)
+        {
+            int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.secondaryHeal) / 2) * modifier);
+            target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
+
+            // (Ajoute un effet de soin ici si souhaité)
+        }
+        if (capacity.Shield > 0)
+        {
+            target.UnitShield += Mathf.RoundToInt(capacity.Shield * modifier);
+        }
+        if (capacity.Provocation == true)
+        {
+            target.provoking = true;
+        }
+        if (capacity.secondaryBuffType > 0)
+        {
+            GiveBuff(capacity, target);
+            EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex);
+        }
+        if (capacity.Shock > 0)
+        {
+            ShockProc(capacity, target);
+        }
+        if (capacity.ShieldRatioAtk > 0)
+        {
+            int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * DamageDone);
+            caster.UnitShield += Shielding;
+        }
+        if (target.Affinity == 3)
+        {
+            RageApplication(target);
+        }
+
+        if (caster.Affinity == 4)
+        {
+            ApplyNecrosis(target);
         }
     }
     private void SetupCapacityButtons(DataEntity player)
@@ -755,7 +884,7 @@ public class CombatManager : MonoBehaviour
     public void GiveBuff(CapacityData capacity, DataEntity target)
     {
         // buffType; 1 = Atk, 2 = Def, 3 = Speed, 4 = Précision
-        if (capacity.buffType > 0)
+        if (capacity.buffType > 0 && capacity.DoubleEffect == false)
         {
             ActiveBuff existingBuff = target.ActiveBuffs.Find(b => b.type == capacity.buffType);
             if (existingBuff != null)
@@ -770,6 +899,21 @@ public class CombatManager : MonoBehaviour
 
             RecalculateStats(target);
         }
+        if (capacity.buffType > 0 && capacity.DoubleEffect == true)
+        {
+            ActiveBuff existingBuff = target.ActiveBuffs.Find(b => b.type == capacity.secondaryBuffType);
+            if (existingBuff != null)
+            {
+                existingBuff.value *= capacity.buffValue;
+                existingBuff.duration = Mathf.Max(existingBuff.duration, capacity.secondaryBuffDuration);
+            }
+            else
+            {
+                target.ActiveBuffs.Add(new ActiveBuff(capacity.secondaryBuffType, capacity.secondaryBuffValue, capacity.secondaryBuffDuration));
+            }
+
+            RecalculateStats(target);
+        }
     }
 
     public void ShockProc(CapacityData capacity, DataEntity target)
@@ -779,6 +923,11 @@ public class CombatManager : MonoBehaviour
         {
             target.ShockMark += capacity.Shock;
             Debug.Log($"{caster.name} a appliqué {capacity.Shock} marque(s) à {target.namE}");
+            if (target.ShockMark >= 1 && target.ShockMark <= 4)
+            {
+                int visualIndex = GetEntityVisualIndex(target);
+                EffectsManager.SINGLETON.AfficherAttaqueFoudre(target.ShockMark, visualIndex);
+            }
             if (target.ShockMark >= 4)
             {
                 float calculatedDamage = (caster.UnitSpeed - 20) / 2;
@@ -998,4 +1147,31 @@ public class CombatManager : MonoBehaviour
             entity.delayedActions.RemoveAt(i);
         }
     }
+    
+    public int GetEntityVisualIndex(DataEntity entity)
+    {
+        if (entity == null)
+        {
+            Debug.LogWarning("Tentative de récupérer l'index d'une entité null !");
+            return -1;
+        }
+        for (int i = 0; i < entityHandler.players.Count; i++)
+        {
+            if (entityHandler.players[i] == entity)
+            {
+                return i;
+            }
+        }
+        for (int i = 0; i < entityHandler.ennemies.Count; i++)
+        {
+            if (entityHandler.ennemies[i] == entity)
+            {
+                return entityHandler.players.Count + i;
+            }
+        }
+
+        Debug.LogWarning($"Entité {entity.namE} non trouvée dans les listes !");
+        return -1;
+    }
+
 }
