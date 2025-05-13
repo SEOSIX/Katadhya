@@ -62,19 +62,19 @@ public class EffectsManager : MonoBehaviour
         }
     }
 
-    public void AfficherAttaqueSimple(int index, int degats)
+    public void AfficherAttaqueSimple(DataEntity entity, int degats)
     {
-        if (IsValid(index))
-        {
-            AfficherTexteDegats(index, degats, Color.red);
-        }
+        int index = entity.index;
+        if (index == -1) return;
+
+        AfficherTexteDegats(index, degats, Color.red);
     }
-    public void AfficherHeal(int index, int healAmmount)
+    public void AfficherHeal(DataEntity entity, int healAmmount)
     {
-        if (IsValid(index))
-        {
-            AfficherTexteDegats(index, healAmmount, Color.green);
-        }
+        int index = entity.index;
+        if (index == -1) return;
+        
+        AfficherTexteDegats(index, healAmmount, Color.red);
     }
 
     public void AfficherPictoBuff(int index)

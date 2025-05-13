@@ -24,7 +24,7 @@ public class EntiityManager : MonoBehaviour
     private int currentLifeValue;
     public bool Clickable = true;
 
-    private void UpdateIndexes()
+    public void UpdateIndexes()
     {
         DataEntity PrefabData = null;
         string name = gameObject.name;
@@ -48,8 +48,8 @@ public class EntiityManager : MonoBehaviour
                 playerIndex = entityHandler.players.IndexOf(PrefabData);
             }
         }
-
     }
+    
     public void DestroyDeadEnemies()
     {
         for (int i = entityHandler.ennemies.Count - 1; i >= 0; i--)
@@ -57,8 +57,8 @@ public class EntiityManager : MonoBehaviour
             var enemy = entityHandler.ennemies[i];
             if (enemy == null || enemy.UnitLife > 0)
                 continue;
-            
-            int visualIndex = CombatManager.SINGLETON.GetEntityVisualIndex(enemy);
+
+            int visualIndex = enemy.index;
             EffectsManager.SINGLETON.ClearEffectsForEntity(visualIndex);
 
             Debug.Log($"L'ennemi {enemy.namE} est mort et va être désactivé.");
@@ -100,8 +100,8 @@ public class EntiityManager : MonoBehaviour
             var player = entityHandler.players[i];
             if (player == null || player.UnitLife > 0)
                 continue;
-            
-            int visualIndex = CombatManager.SINGLETON.GetEntityVisualIndex(player);
+
+            int visualIndex = player.index;
             EffectsManager.SINGLETON.ClearEffectsForEntity(visualIndex);
 
             Debug.Log($"L'ennemi {player.namE} est mort et va être désactivé.");

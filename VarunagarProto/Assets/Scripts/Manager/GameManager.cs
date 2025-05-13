@@ -13,27 +13,37 @@ public class EnemyPack
 }
 public class GameManager : MonoBehaviour
 {
-    public static GameManager SINGLETON { get; set; }
-    
+    public static GameManager SINGLETON { get; private set; }
+
     [Header("Spawn Positions")]
     public List<Transform> playerSpawnPoints;
-    public List<Transform> enemySpawnPoints; 
+    public List<Transform> enemySpawnPoints;
+
     [Header("Entity Handler")]
     [SerializeField] private EntityHandler entityHandler;
 
     [Header("Player Prefabs")]
     public List<PlayerPrefabData> playerPrefabs;
 
-    [Header("Custom")] 
-    [SerializeField] private float sizeChara;
+    [Header("Enemy Packs")]
     public int EnemyPackIndex = 0;
     public List<EnemyPack> enemyPacks = new List<EnemyPack>();
     public List<DataEntity> allEnemiesEncountered = new List<DataEntity>();
 
-
-
+    [Header("Parameters")]
+    [SerializeField] private float sizeChara = 1f;
 
     public Dictionary<string, GameObject> prefabDictionary;
+
+    private void Awake()
+    {
+        if (SINGLETON != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        SINGLETON = this;
+    }
 
     private void Start()
     {
@@ -42,31 +52,19 @@ public class GameManager : MonoBehaviour
             Debug.LogError("EntityHandler n'est pas assigné !");
             return;
         }
+
+        prefabDictionary = playerPrefabs.ToDictionary(p => p.playerName, p => p.prefab);
         entityHandler.ennemies.Clear();
-        prefabDictionary = new Dictionary<string, GameObject>();
-        foreach (var prefabData in playerPrefabs)
-        {
-            if (!prefabDictionary.ContainsKey(prefabData.playerName))
-            {
-                prefabDictionary.Add(prefabData.playerName, prefabData.prefab);
-            }
-        }
 
         SpawnPlayers();
         SpawnEnemies();
+
+        UpdateAllEntityIndexes();
+
         CombatManager.SINGLETON.SetupBaseStat();
         CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
         CombatManager.SINGLETON.InitializeStaticUI();
         CombatManager.SINGLETON.StartUnitTurn();
-    }
-    void Awake()
-    {
-        if (SINGLETON != null)
-        {
-            Destroy(SINGLETON.gameObject); 
-            return;
-        }
-        SINGLETON = this;
     }
 
     public void SpawnPlayers()
@@ -77,15 +75,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < entityHandler.players.Count; i++)
+        for (int i = 0; i < entityHandler.players.Count && i < playerSpawnPoints.Count; i++)
         {
-            if (i >= playerSpawnPoints.Count)
-            {
-                Debug.LogWarning("Pas assez de points de spawn définis pour tous les joueurs !");
-                break;
-            }
-
-            Transform spawnPoint = playerSpawnPoints[i];
             DataEntity data = entityHandler.players[i];
 
             if (!prefabDictionary.TryGetValue(data.namE, out GameObject prefab))
@@ -94,100 +85,92 @@ public class GameManager : MonoBehaviour
                 continue;
             }
 
-            GameObject newPlayer = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
-            newPlayer.name = data.namE;
-            data.instance = newPlayer;
+            GameObject playerObj = Instantiate(prefab, playerSpawnPoints[i].position, Quaternion.identity);
+            playerObj.name = data.namE;
+            data.instance = playerObj;
 
-            SpriteRenderer spriteRenderer = newPlayer.GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null)
+            SpriteRenderer renderer = playerObj.GetComponent<SpriteRenderer>();
+            if (renderer != null)
             {
-                spriteRenderer.sprite = data.portrait;
-                spriteRenderer.sortingOrder = 3;
-                newPlayer.transform.localScale = new Vector3(data.size, data.size, data.size);
+                renderer.sprite = data.portrait;
+                renderer.sortingOrder = 3;
+                playerObj.transform.localScale = Vector3.one * data.size;
             }
         }
     }
 
-
-   public void SpawnEnemies()
-{
-    if (enemyPacks[EnemyPackIndex] == null)
+    public void SpawnEnemies()
     {
-        return;
-    }
-
-    // On vide les anciens ennemis de la vague précédente
-    entityHandler.ennemies.Clear();
-
-    GameObject E1 = enemyPacks[EnemyPackIndex].enemyPrefab1;
-    GameObject E2 = enemyPacks[EnemyPackIndex].enemyPrefab2;
-    DataEntity[] allCapacityData = Resources.LoadAll<DataEntity>("Data/Entity/Ennemy");
-
-    DataEntity EData1 = allCapacityData.FirstOrDefault(d => d.name == $"{E1.name}{EnemyPackIndex}");
-    DataEntity EData2 = allCapacityData.FirstOrDefault(d => d.name == $"{E2.name}{EnemyPackIndex}");
-    Debug.Log($"je v te toucher {E2} {EData2}");
-
-    entityHandler.ennemies.Add(EData1);
-    entityHandler.ennemies.Add(EData2);
-
-    // On garde un historique de tous les ennemis rencontrés (sans doublons)
-    AddEnemyToEncountered(EData1);
-    AddEnemyToEncountered(EData2);
-
-    Slider[] ESlider = LifeEntity.SINGLETON.enemySliders;
-    Slider[] EShieldSlider = LifeEntity.SINGLETON.enemyShieldSliders;
-
-    for (int k = 0; k < ESlider.Length; k++)
-    {
-        ESlider[k].gameObject.SetActive(true);
-        EShieldSlider[k].gameObject.SetActive(true);
-    }
-
-    if (entityHandler.ennemies == null || entityHandler.ennemies.Count == 0)
-    {
-        Debug.LogError("Aucun ennemi dans EntityHandler !");
-        return;
-    }
-
-    for (int i = 0; i < entityHandler.ennemies.Count; i++)
-    {
-        if (i >= enemySpawnPoints.Count)
+        if (enemyPacks == null || enemyPacks.Count <= EnemyPackIndex || enemyPacks[EnemyPackIndex] == null)
         {
-            Debug.LogWarning("Pas assez de points de spawn définis pour tous les ennemis !");
-            break;
+            Debug.LogError("Aucun EnemyPack valide à l'index " + EnemyPackIndex);
+            return;
         }
 
-        Transform spawnPoint = enemySpawnPoints[i];
-        DataEntity dataEnnemy = entityHandler.ennemies[i];
+        entityHandler.ennemies.Clear();
 
-        // Récupération manuelle du prefab depuis le pack courant
-        GameObject prefab = (E1.name == dataEnnemy.namE) ? E1 : E2;
+        var pack = enemyPacks[EnemyPackIndex];
+        GameObject E1 = pack.enemyPrefab1;
+        GameObject E2 = pack.enemyPrefab2;
 
-        GameObject newEnemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
-        newEnemy.name = dataEnnemy.namE;
+        DataEntity[] enemyDataArray = Resources.LoadAll<DataEntity>("Data/Entity/Ennemy");
 
-        dataEnnemy.instance = newEnemy;
-        VictoryDefeatUI.SINGLETON.RegisterEnemy(dataEnnemy);
+        DataEntity data1 = enemyDataArray.FirstOrDefault(d => d.name == $"{E1.name}{EnemyPackIndex}");
+        DataEntity data2 = enemyDataArray.FirstOrDefault(d => d.name == $"{E2.name}{EnemyPackIndex}");
 
-        SpriteRenderer spriteRenderer = newEnemy.GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
+        if (data1 != null) entityHandler.ennemies.Add(data1);
+        if (data2 != null) entityHandler.ennemies.Add(data2);
+
+        AddEnemyToEncountered(data1);
+        AddEnemyToEncountered(data2);
+
+        Slider[] healthSliders = LifeEntity.SINGLETON.enemySliders;
+        Slider[] shieldSliders = LifeEntity.SINGLETON.enemyShieldSliders;
+
+        for (int i = 0; i < entityHandler.ennemies.Count && i < enemySpawnPoints.Count; i++)
         {
-            spriteRenderer.sprite = dataEnnemy.portrait;
-            spriteRenderer.sortingOrder = 3;
-            newEnemy.transform.localScale = new Vector3(sizeChara, sizeChara, sizeChara);
+            DataEntity data = entityHandler.ennemies[i];
+            GameObject prefab = (data.namE == E1.name) ? E1 : E2;
+
+            GameObject enemyObj = Instantiate(prefab, enemySpawnPoints[i].position, Quaternion.identity);
+            enemyObj.name = data.namE;
+            data.instance = enemyObj;
+
+            VictoryDefeatUI.SINGLETON.RegisterEnemy(data);
+
+            SpriteRenderer renderer = enemyObj.GetComponent<SpriteRenderer>();
+            if (renderer != null)
+            {
+                renderer.sprite = data.portrait;
+                renderer.sortingOrder = 3;
+                enemyObj.transform.localScale = Vector3.one * sizeChara;
+            }
+
+            if (i < healthSliders.Length) healthSliders[i].gameObject.SetActive(true);
+            if (i < shieldSliders.Length) shieldSliders[i].gameObject.SetActive(true);
         }
     }
-
-    CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
-    CombatManager.SINGLETON.InitializeStaticUI();
-    CombatManager.SINGLETON.StartUnitTurn();
-}
 
     private void AddEnemyToEncountered(DataEntity data)
     {
         if (data != null && !allEnemiesEncountered.Contains(data))
         {
             allEnemiesEncountered.Add(data);
+        }
+    }
+
+    private void UpdateAllEntityIndexes()
+    {
+        for (int i = 0; i < entityHandler.players.Count; i++)
+        {
+            var manager = entityHandler.players[i]?.instance?.GetComponent<EntiityManager>();
+            if (manager != null) manager.UpdateIndexes();
+        }
+
+        for (int i = 0; i < entityHandler.ennemies.Count; i++)
+        {
+            var manager = entityHandler.ennemies[i]?.instance?.GetComponent<EntiityManager>();
+            if (manager != null) manager.UpdateIndexes();
         }
     }
 }
