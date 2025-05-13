@@ -709,7 +709,7 @@ public class CombatManager : MonoBehaviour
             if (player.UltimateSlider <= 0)
             {
                 capacityAnimButtons[3].GetComponent<Button>().interactable = true;
-                capacityAnimButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start());
+                capacityAnimButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start(player));
             }
         }
         UpdatePage(player);
@@ -1096,9 +1096,10 @@ public class CombatManager : MonoBehaviour
 
         RecalculateStats(target);
     }
-    public void SetupNewAffinity(int NewAffinity)
+    public void SetupNewAffinity(int NewAffinity, int NewLevel)
     {
         currentPlayer.Affinity = NewAffinity;
+        currentPlayer.UltLvlHit = NewLevel;
         entiityManager.UpdateSpellData(currentPlayer);
     }
 
