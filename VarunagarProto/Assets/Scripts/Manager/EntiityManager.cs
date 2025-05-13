@@ -235,7 +235,7 @@ public class EntiityManager : MonoBehaviour
         player._CapacityData1 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}a{player.Affinity}");
         player._CapacityData2 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}b{player.Affinity}");
         player._CapacityData3 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}c{player.Affinity}");
-        player._CapacityDataUltimate = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}d{player.Affinity}");
+        player._CapacityDataUltimate = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}d{player.Affinity}{player.UltLvlHit}");
     }
 
     private void AssignPlayerIndices()

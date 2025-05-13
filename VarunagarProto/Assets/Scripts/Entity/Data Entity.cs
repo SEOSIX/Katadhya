@@ -56,11 +56,12 @@ public class DataEntity : ScriptableObject
     public Sprite capacity3;
     public CapacityData _CapacityData3;
 
-    [field: Header("ultimate"), SerializeField]
+    [field: Header("Ultimate"), SerializeField]
     public int CptUltlvl;
     public Sprite Ultimate;
     public Sprite UltimateEmpty;
     public CapacityData _CapacityDataUltimate;
+
     [Range(0, 100)]
     public int UltimateSlider;
     public bool UltIsReady;
@@ -69,8 +70,8 @@ public class DataEntity : ScriptableObject
     public int UltLvl_3;
     public int UltLvl_4;
 
-
-
+    [field: Header("Ultimate Pas Touche"), HideInInspector]
+    public int UltLvlHit;
 
     [field: Header("Custom"), SerializeField]
     public string namE;
