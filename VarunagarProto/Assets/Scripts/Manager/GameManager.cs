@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float sizeChara;
     public int EnemyPackIndex = 0;
     public List<EnemyPack> enemyPacks = new List<EnemyPack>();
+    public List<DataEntity> allEnemiesEncountered = new List<DataEntity>();
 
 
 
@@ -108,76 +109,86 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void SpawnEnemies()
+   public void SpawnEnemies()
+{
+    if (enemyPacks[EnemyPackIndex] == null)
     {
-        if(enemyPacks[EnemyPackIndex]==null)
+        return;
+    }
+
+    // On vide les anciens ennemis de la vague précédente
+    entityHandler.ennemies.Clear();
+
+    GameObject E1 = enemyPacks[EnemyPackIndex].enemyPrefab1;
+    GameObject E2 = enemyPacks[EnemyPackIndex].enemyPrefab2;
+    DataEntity[] allCapacityData = Resources.LoadAll<DataEntity>("Data/Entity/Ennemy");
+
+    DataEntity EData1 = allCapacityData.FirstOrDefault(d => d.name == $"{E1.name}{EnemyPackIndex}");
+    DataEntity EData2 = allCapacityData.FirstOrDefault(d => d.name == $"{E2.name}{EnemyPackIndex}");
+    Debug.Log($"je v te toucher {E2} {EData2}");
+
+    entityHandler.ennemies.Add(EData1);
+    entityHandler.ennemies.Add(EData2);
+
+    // On garde un historique de tous les ennemis rencontrés (sans doublons)
+    AddEnemyToEncountered(EData1);
+    AddEnemyToEncountered(EData2);
+
+    Slider[] ESlider = LifeEntity.SINGLETON.enemySliders;
+    Slider[] EShieldSlider = LifeEntity.SINGLETON.enemyShieldSliders;
+
+    for (int k = 0; k < ESlider.Length; k++)
+    {
+        ESlider[k].gameObject.SetActive(true);
+        EShieldSlider[k].gameObject.SetActive(true);
+    }
+
+    if (entityHandler.ennemies == null || entityHandler.ennemies.Count == 0)
+    {
+        Debug.LogError("Aucun ennemi dans EntityHandler !");
+        return;
+    }
+
+    for (int i = 0; i < entityHandler.ennemies.Count; i++)
+    {
+        if (i >= enemySpawnPoints.Count)
         {
-            return;
+            Debug.LogWarning("Pas assez de points de spawn définis pour tous les ennemis !");
+            break;
         }
-        int index = EffectsManager.SINGLETON.RegisterEnemy(damageTransform, effect1Transform, effect2Transform);
-        enemy.myEffectIndex = index;
 
-        GameObject E1 = enemyPacks[EnemyPackIndex].enemyPrefab1;
-        GameObject E2 = enemyPacks[EnemyPackIndex].enemyPrefab2;
-        DataEntity[] allCapacityData = Resources.LoadAll<DataEntity>("Data/Entity/Ennemy");
+        Transform spawnPoint = enemySpawnPoints[i];
+        DataEntity dataEnnemy = entityHandler.ennemies[i];
 
-        DataEntity EData1 = allCapacityData.FirstOrDefault(d => d.name == $"{E1.name}{EnemyPackIndex}");
-        DataEntity EData2 = allCapacityData.FirstOrDefault(d => d.name == $"{E2.name}{EnemyPackIndex}");
-        Debug.Log($"je v te toucher{E2}{EData2}");
-        entityHandler.ennemies.Add(EData1);
-        entityHandler.ennemies.Add(EData2);
-        Slider[] ESlider = LifeEntity.SINGLETON.enemySliders;
-        Slider[] EShieldSlider = LifeEntity.SINGLETON.enemyShieldSliders;
+        // Récupération manuelle du prefab depuis le pack courant
+        GameObject prefab = (E1.name == dataEnnemy.namE) ? E1 : E2;
 
-        for (int k= 0; k<ESlider.Count(); k++)
+        GameObject newEnemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
+        newEnemy.name = dataEnnemy.namE;
+
+        dataEnnemy.instance = newEnemy;
+        VictoryDefeatUI.SINGLETON.RegisterEnemy(dataEnnemy);
+
+        SpriteRenderer spriteRenderer = newEnemy.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
         {
-            ESlider[k].gameObject.SetActive(true);
-            EShieldSlider[k].gameObject.SetActive(true);
+            spriteRenderer.sprite = dataEnnemy.portrait;
+            spriteRenderer.sortingOrder = 3;
+            newEnemy.transform.localScale = new Vector3(sizeChara, sizeChara, sizeChara);
         }
+    }
 
-        if (entityHandler.ennemies == null || entityHandler.ennemies.Count == 0)
+    CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
+    CombatManager.SINGLETON.InitializeStaticUI();
+    CombatManager.SINGLETON.StartUnitTurn();
+}
+
+    private void AddEnemyToEncountered(DataEntity data)
+    {
+        if (data != null && !allEnemiesEncountered.Contains(data))
         {
-            Debug.LogError("Aucun ennemi dans EntityHandler !");
-            return;
+            allEnemiesEncountered.Add(data);
         }
-
-        for (int i = 0; i < entityHandler.ennemies.Count; i++)
-        {
-            for (int j =0;j< entityHandler.ennemies.Count; j++)
-            {
-                Debug.Log(entityHandler.ennemies[j]);
-            }
-            if (i >= enemySpawnPoints.Count)
-            {
-                Debug.LogWarning("Pas assez de points de spawn définis pour tous les ennemis !");
-                break;
-            }
-
-            Transform spawnPoint = enemySpawnPoints[i];
-            DataEntity dataEnnemy = entityHandler.ennemies[i];
-
-            if (!prefabDictionary.TryGetValue(dataEnnemy.namE, out GameObject prefab))
-            {
-                Debug.LogWarning($"Aucun prefab trouvé pour {dataEnnemy.namE}, ennemi ignoré.");
-                continue;
-            }
-            GameObject newEnemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
-            newEnemy.name = dataEnnemy.namE;
-
-            
-            dataEnnemy.instance = newEnemy;
-            VictoryDefeatUI.SINGLETON.RegisterEnemy(dataEnnemy);
-            SpriteRenderer spriteRenderer = newEnemy.GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null)
-            {
-                spriteRenderer.sprite = dataEnnemy.portrait;
-                spriteRenderer.sortingOrder = 3;
-                newEnemy.transform.localScale = new Vector3(sizeChara, sizeChara, sizeChara);
-            }
-        }
-        CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
-        CombatManager.SINGLETON.InitializeStaticUI();
-        CombatManager.SINGLETON.StartUnitTurn();
     }
 }
 

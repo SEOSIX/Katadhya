@@ -438,7 +438,7 @@ public class CombatManager : MonoBehaviour
         {
             ApplySpecialCapacity(capacity, caster, target, modifier);
         }
-        if (capacity.DoubleEffect == true && entityHandler.ennemies.Contains(target))
+        if (capacity.DoubleEffect && entityHandler.ennemies.Contains(target))
         {
             ApplySecondaryCapacity(capacity, caster, target, modifier);
         }
@@ -499,17 +499,17 @@ public class CombatManager : MonoBehaviour
         target.beenHurtThisTurn = true;
         if (caster.Affinity == 1)
         {
-            EffectsManager.SINGLETON.AfficherAttaqueBouclier(visualIndex, icalculatedDamage);
+            EffectsManager.SINGLETON.AfficherAttaqueBouclier(visualIndex, DamageDone);
         }
         else
-            EffectsManager.SINGLETON.AfficherAttaqueSimple(visualIndex, icalculatedDamage);
+            EffectsManager.SINGLETON.AfficherAttaqueSimple(visualIndex, DamageDone);
     }
     if (capacity.heal > 0)
     {
         int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.heal) / 2) * modifier);
         target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
 
-        // (Ajoute un effet de soin ici si souhaité)
+        EffectsManager.SINGLETON.AfficherHeal(visualIndex, healAmount);
     }
     if (capacity.Shield > 0)
     {

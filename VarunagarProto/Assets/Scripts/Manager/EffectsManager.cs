@@ -33,14 +33,6 @@ public class EffectsManager : MonoBehaviour
         SINGLETON = this;
     }
 
-    public int RegisterEnemy(Transform damagePos, Transform effect1Pos, Transform effect2Pos)
-    {
-        DamagePosition.Add(damagePos);
-        Effects1Position.Add(effect1Pos);
-        Effects2Position.Add(effect2Pos);
-        return DamagePosition.Count - 1;
-    }
-
     public void AfficherAttaqueFoudre(int typeFoudre, int index)
     {
         if (typeFoudre < 1 || typeFoudre > 4 || !IsValid(index)) return;
@@ -77,6 +69,13 @@ public class EffectsManager : MonoBehaviour
             AfficherTexteDegats(index, degats, Color.red);
         }
     }
+    public void AfficherHeal(int index, int healAmmount)
+    {
+        if (IsValid(index))
+        {
+            AfficherTexteDegats(index, healAmmount, Color.green);
+        }
+    }
 
     public void AfficherPictoBuff(int index)
     {
@@ -96,6 +95,16 @@ public class EffectsManager : MonoBehaviour
         GameObject dmgText = Instantiate(damageTextPrefab, DamagePosition[index].position, Quaternion.identity, canvas.transform);
         var tmp = dmgText.GetComponent<TextMeshProUGUI>();
         tmp.text = "-" + degats;
+        tmp.color = couleur;
+        Destroy(dmgText, effetDuration);
+    }
+    private void AfficherTexteHeal(int index, int healAmmount, Color couleur)
+    {
+        if (!IsValid(index) || damageTextPrefab == null || canvas == null) return;
+
+        GameObject dmgText = Instantiate(damageTextPrefab, DamagePosition[index].position, Quaternion.identity, canvas.transform);
+        var tmp = dmgText.GetComponent<TextMeshProUGUI>();
+        tmp.text = "+" + healAmmount;
         tmp.color = couleur;
         Destroy(dmgText, effetDuration);
     }
