@@ -80,13 +80,9 @@ public class EntiityManager : MonoBehaviour
             {
                 enemy.instance.SetActive(false);
                 enemy.UnitLife = -1;
-                if (enemy.index == 0)
+                for (int j = 0; j < entityHandler.ennemies.Count; j++)
                 {
-                    CombatManager.SINGLETON.circlesEnnemy[1] = CombatManager.SINGLETON.circlesEnnemy[0];
-                }
-                if (enemy.index == 1)
-                {
-                    CombatManager.SINGLETON.circlesEnnemy[0] = CombatManager.SINGLETON.circlesEnnemy[1];
+                    entityHandler.ennemies[j].index = entityHandler.players.Count + j;
                 }
             }
             entityHandler.ennemies.RemoveAt(i);
@@ -237,7 +233,6 @@ public class EntiityManager : MonoBehaviour
         player._CapacityData3 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}c{player.Affinity}");
         player._CapacityDataUltimate = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}d{player.Affinity}");
     }
-
     private void AssignPlayerIndices()
     {
         for (int i = 0; i < entityHandler.players.Count; i++)

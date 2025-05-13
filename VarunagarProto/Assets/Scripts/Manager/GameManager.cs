@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
             GameObject newPlayer = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
             newPlayer.name = data.namE;
             data.instance = newPlayer;
-
+            
             SpriteRenderer spriteRenderer = newPlayer.GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
             {
@@ -115,8 +115,6 @@ public class GameManager : MonoBehaviour
     {
         return;
     }
-
-    // On vide les anciens ennemis de la vague précédente
     entityHandler.ennemies.Clear();
 
     GameObject E1 = enemyPacks[EnemyPackIndex].enemyPrefab1;
@@ -129,8 +127,6 @@ public class GameManager : MonoBehaviour
 
     entityHandler.ennemies.Add(EData1);
     entityHandler.ennemies.Add(EData2);
-
-    // On garde un historique de tous les ennemis rencontrés (sans doublons)
     AddEnemyToEncountered(EData1);
     AddEnemyToEncountered(EData2);
 
@@ -159,8 +155,6 @@ public class GameManager : MonoBehaviour
 
         Transform spawnPoint = enemySpawnPoints[i];
         DataEntity dataEnnemy = entityHandler.ennemies[i];
-
-        // Récupération manuelle du prefab depuis le pack courant
         GameObject prefab = (E1.name == dataEnnemy.namE) ? E1 : E2;
 
         GameObject newEnemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
@@ -168,6 +162,7 @@ public class GameManager : MonoBehaviour
 
         dataEnnemy.instance = newEnemy;
         VictoryDefeatUI.SINGLETON.RegisterEnemy(dataEnnemy);
+        
 
         SpriteRenderer spriteRenderer = newEnemy.GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
@@ -190,6 +185,18 @@ public class GameManager : MonoBehaviour
             allEnemiesEncountered.Add(data);
         }
     }
+    public void RefreshAllIndices()
+    {
+        for (int i = 0; i < entityHandler.players.Count; i++)
+        {
+            entityHandler.players[i].index = i;
+        }
+        for (int i = 0; i < entityHandler.ennemies.Count; i++)
+        {
+            entityHandler.ennemies[i].index = entityHandler.players.Count + i;
+        }
+    }
+
 }
 
 [System.Serializable]

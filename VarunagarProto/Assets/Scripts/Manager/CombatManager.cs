@@ -829,16 +829,14 @@ public class CombatManager : MonoBehaviour
             for (int i = 0; i < entityHandler.ennemies.Count && i < circlesEnnemy.Count; i++)
             {
                 DataEntity enemy = entityHandler.ennemies[i];
-                if (entityHandler.ennemies.Count == 1)
+                if (entityHandler.ennemies.Count == 1 && i == 0)
                 {
-                    i = 1;
+                    circlesEnnemy[0].SetActive(true);
+                    break;
                 }
-                // Vérifie si l'ennemi est valide et vivant
                 if (enemy == null || enemy.UnitLife <= 0)
                     continue;
                 circlesEnnemy[i].SetActive(true);
-
-                // Active le collider si le GameObject existe
                 if (enemy.instance != null)
                 {
                     Collider2D enemyColl = enemy.instance.GetComponent<Collider2D>();
@@ -1147,27 +1145,14 @@ public class CombatManager : MonoBehaviour
     
     public int GetEntityVisualIndex(DataEntity entity)
     {
-        if (entity == null)
-        {
-            Debug.LogWarning("Tentative de récupérer l'index d'une entité null !");
-            return -1;
-        }
-        for (int i = 0; i < entityHandler.players.Count; i++)
-        {
-            if (entityHandler.players[i] == entity)
-            {
-                return i;
-            }
-        }
-        for (int i = 0; i < entityHandler.ennemies.Count; i++)
-        {
-            if (entityHandler.ennemies[i] == entity)
-            {
-                return entityHandler.players.Count + i;
-            }
-        }
-
-        Debug.LogWarning($"Entité {entity.namE} non trouvée dans les listes !");
+        if (entity == null) return -1;
+    
+        int index = entityHandler.players.IndexOf(entity);
+        if (index != -1) return index;
+    
+        index = entityHandler.ennemies.IndexOf(entity);
+        if (index != -1) return entityHandler.players.Count + index;
+    
         return -1;
     }
 
