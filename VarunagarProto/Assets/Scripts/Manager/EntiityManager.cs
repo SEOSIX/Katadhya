@@ -158,10 +158,9 @@ public class EntiityManager : MonoBehaviour
 
     void Start()
     {
-        if (entityHandler.players.Count > 1)
+        foreach(var player in entityHandler.players.Where(p => p != null))
         {
-            UpdateSpellData(entityHandler.players[1]);
-            UpdateSpellData(entityHandler.players[0]);
+            UpdateSpellData(player);
         }
 
         LifeEntity.SINGLETON.LifeManage();
@@ -230,8 +229,9 @@ public class EntiityManager : MonoBehaviour
 
     public void UpdateSpellData(DataEntity player)
     {
-
-        CapacityData[] allData = Resources.LoadAll<CapacityData>("Data");
+        if(player._CapacityData1 != null && player._CapacityData2 != null && player._CapacityData3 != null) 
+            return;
+       CapacityData[] allData = Resources.LoadAll<CapacityData>("Data/Capacity");
         player._CapacityData1 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}a{player.Affinity}");
         player._CapacityData2 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}b{player.Affinity}");
         player._CapacityData3 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}c{player.Affinity}");

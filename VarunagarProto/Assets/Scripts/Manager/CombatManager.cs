@@ -709,10 +709,7 @@ public class CombatManager : MonoBehaviour
     private void SetupButtonFunction(int i, CapacityData CData, Sprite CSprite)
     {
         DataEntity caster = currentTurnOrder[0];
-        // Chercher si la capacité est déjà dans ActiveCooldowns du caster
         DataEntity.CooldownData? cooldownData = caster.ActiveCooldowns.Find(cd => cd.capacity == CData);
-
-        // Si la capacité a un cooldown actif
         if (cooldownData.HasValue)
         {
             // On récupère le cooldown restant
