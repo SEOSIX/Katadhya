@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
-  m_Name: Cpt4d0
+  m_Name: Cpt3d20
   m_EditorClassIdentifier: 
-  atk: 15
-  heal: 0
-  buffType: 0
-  buffValue: 0
-  buffDuration: 0
+  atk: 0
+  heal: 15
+  buffType: 3
+  buffValue: 1.1
+  buffDuration: 3
   critique: 0
   "pr\xE9cision": 100
   cooldown: 0
@@ -24,13 +24,13 @@ MonoBehaviour:
   Shield: 0
   Shock: 0
   ShieldRatioAtk: 0
-  MultipleHeal: 0
-  MultipleAttack: 1
+  MultipleHeal: 1
+  MultipleAttack: 0
   TargetingAlly: 0
   specialType: 0
   specialDelay: 1
-  Name: "D\xE9cha\xEEnement"
-  Description: "Inflige des d\xE9gats aux ennemis."
-  PictoType: 0
+  Name: Revitalisation
+  Description: "Soigne tous les alli\xE9s."
+  PictoType: 1
   TargetType: 0
   ValueAI: 0

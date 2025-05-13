@@ -13,14 +13,17 @@ MonoBehaviour:
   m_Name: "Prisonni\xE8re"
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 100
+  <UnitLife>k__BackingField: 72
   UnitAtk: 10
   UnitSpeed: 50
   UnitDef: 0
-  UnitAim: 100
-  ActiveBuffs: []
+  UnitAim: 80
+  ActiveBuffs:
+  - type: 4
+    value: 0.8
+    duration: 1
   ActiveCooldowns:
-  - capacity: {fileID: 11400000, guid: 1a41267a51c50ba4eba7870f31a0ca5a, type: 2}
+  - capacity: {fileID: 11400000, guid: 5f364eb68e3793a4083208ce78d819f9, type: 2}
     remainingCooldown: 1
   Affinity: 0
   BaseLife: 100
@@ -33,27 +36,32 @@ MonoBehaviour:
   RageTick: 0
   LastRageTick: 0
   necrosis: []
-  beenHurtThisTurn: 0
+  beenHurtThisTurn: 1
   provoking: 0
   portrait: {fileID: 21300000, guid: d6dffbf58b723a84993b7caa718951db, type: 3}
   portraitUI: {fileID: 21300000, guid: 57a6313c21a563a45a78962343cc960a, type: 3}
   bandeauUI: {fileID: 21300000, guid: d44e05a51a6079049a283f37c58e4709, type: 3}
   Animator: {fileID: 8405213795540640227, guid: 4889c64283bad3b4ebba15c49de2c5ba, type: 3}
+  Cpt1lvl: 0
   capacity1: {fileID: 21300000, guid: 7de2447ac3ed5e244bfb6ef4835aa7f5, type: 3}
   _CapacityData1: {fileID: 11400000, guid: ea9aa5da7ac13ab41af817f5a6a47216, type: 2}
+  Cpt2lvl: 0
   capacity2: {fileID: 21300000, guid: a5d849fd5fe36704eb0571d9d4f654a9, type: 3}
   _CapacityData2: {fileID: 11400000, guid: 1a41267a51c50ba4eba7870f31a0ca5a, type: 2}
+  Cpt3lvl: 0
   capacity3: {fileID: 21300000, guid: 3e9946186a02f5647876b0ce959ffebc, type: 3}
   _CapacityData3: {fileID: 11400000, guid: 5f364eb68e3793a4083208ce78d819f9, type: 2}
+  CptUltlvl: 0
   Ultimate: {fileID: 21300000, guid: b9dfd3aed188eda4e925aa347812de99, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: 32f764f830a8d39449df9ac27bfb030e, type: 3}
   _CapacityDataUltimate: {fileID: 11400000, guid: 670ee59696a50a644bc08dbbf6dfc34c, type: 2}
-  UltimateSlider: 24
+  UltimateSlider: 0
   UltIsReady: 0
-  UltLvl_1: 0
-  UltLvl_2: 0
-  UltLvl_3: 0
-  UltLvl_4: 0
+  UltLvl_1: 1
+  UltLvl_2: 2
+  UltLvl_3: 1
+  UltLvl_4: 3
+  UltLvlHit: 0
   namE: "Prisonni\xE8re"
   size: 0.21
   index: 1

@@ -115,7 +115,9 @@ public class Ultimate : MonoBehaviour
         List<List<GameObject>> ListAllZoneLists = new List<List<GameObject>>() {ZonesLvl1,ZonesLvl2,ZonesLvl3};
         player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
         List<int> UltLvls = new List<int>() { player.UltLvl_1, player.UltLvl_2, player.UltLvl_3, player.UltLvl_4 };
-        for (int i = 1; i < 5; i++)
+        Debug.Log("jv te mettre des bails dans la bouche");
+        ResetAllZones();
+        for (int i = 0; i < 4; i++)
         {
             for (int j = 1; j < 4; j++)
             {
@@ -125,6 +127,7 @@ public class Ultimate : MonoBehaviour
                     Zone.SetActive(true);
                     Zone.GetComponent<QTEZoneMarker>().Affinity = i;
                     Zone.GetComponent<SpriteRenderer>().sprite = ListAllSpriteLists[j][i];
+                    Debug.Log("jv te mettre des bails dans le uc");
                 }
             }
         }
@@ -265,7 +268,10 @@ public class Ultimate : MonoBehaviour
         CurrentEntity.UltIsReady = false;
         qteUI.SetActive(false);
     }
-
+    private void ResetAllZones()
+    {
+        for (int i = 0; i < qteZones.Count; i++) { qteZones[i].gameObject.SetActive(false); };
+    }
     private void UpdateZonesAfterHit()
     {
         List<int> UltLvls = new List<int>() { player.UltLvl_1, player.UltLvl_2, player.UltLvl_3, player.UltLvl_4 };
