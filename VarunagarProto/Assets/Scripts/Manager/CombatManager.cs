@@ -197,6 +197,10 @@ public class CombatManager : MonoBehaviour
         if (currentTurnOrder.Count == 0)
         {
             EndGlobalTurn();
+            for (int i = 0; i < currentTurnOrder.Count; i++)
+            {
+                Debug.Log($"currentTurnOrder[{i}] = {currentTurnOrder[i].namE}");
+            }
         }
         StartCoroutine(StartUnitTurnDelayed());
     }
@@ -209,7 +213,14 @@ public class CombatManager : MonoBehaviour
 
     public void EndGlobalTurn()
     {
-        currentTurnOrder.AddRange(unitPlayedThisTurn);
+        foreach (var unit in unitPlayedThisTurn)
+        {
+            if (!currentTurnOrder.Contains(unit))
+            {
+                currentTurnOrder.Add(unit);
+            }
+        }
+
         unitPlayedThisTurn.Clear();
         currentTurnOrder = currentTurnOrder.OrderByDescending(x => x.UnitSpeed).ToList();
     }
@@ -383,7 +394,7 @@ public class CombatManager : MonoBehaviour
             return;
         }
 
-            DataEntity target = entityHandler.ennemies[enemyIndex];
+        DataEntity target = entityHandler.ennemies[enemyIndex];
         
         if (target == null || target.UnitLife <= 0)
         {
@@ -438,13 +449,16 @@ public class CombatManager : MonoBehaviour
         {
             ApplySpecialCapacity(capacity, caster, target, modifier);
         }
-        if (capacity.DoubleEffect && entityHandler.ennemies.Contains(target))
-        {
-            ApplySecondaryCapacity(capacity, caster, target, modifier);
-        }
         else
         {
-            ApplyNormalCapacity(capacity, caster, target, modifier);
+            if (capacity.DoubleEffect && entityHandler.ennemies.Contains(target))
+            {
+                ApplySecondaryCapacity(capacity, caster, target, modifier);
+            }
+            else
+            {
+                ApplyNormalCapacity(capacity, caster, target, modifier);
+            }
         }
 
         if (capacity.cooldown > 0)
@@ -1071,7 +1085,7 @@ public class CombatManager : MonoBehaviour
             }
         }
 
-        target.UnitAtk = Mathf.RoundToInt(target.BaseAtk * atkMultiplier) + target.RageTick / 3;
+        target.UnitAtk = Mathf.RoundToInt(target.BaseAtk * atkMultiplier) + (target.RageTick / 3 * (target.BaseAtk / 10));
         target.UnitDef = Mathf.RoundToInt(target.BaseDef * defMultiplier);
         target.UnitSpeed = Mathf.RoundToInt(target.BaseSpeed * speedMultiplier);
         target.UnitAim = Mathf.RoundToInt(target.BaseAim * aimMultiplier);

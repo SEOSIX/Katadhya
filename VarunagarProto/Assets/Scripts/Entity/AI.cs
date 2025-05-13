@@ -117,7 +117,6 @@ public class AI : MonoBehaviour
             attacker.RageTick -= 1;
         }
         attacker.beenHurtThisTurn = false;
-        Debug.Log(attacker.necrosis?.Count);
         if (attacker.necrosis?.Count > 0)
         {
             CombatManager.SINGLETON.TickNecrosisEffect(attacker);
