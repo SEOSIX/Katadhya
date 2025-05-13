@@ -6233,6 +6233,7 @@ MonoBehaviour:
   debugColor: {r: 1, g: 0, b: 0.07291365, a: 1}
   successZone: 1
   Affinity: 2
+  Level: 1
 --- !u!114 &694274309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6371,8 +6372,8 @@ MonoBehaviour:
   pictoBuff: {fileID: 3820465654781457952, guid: 715924ba071a2e046885020cf7583f2c, type: 3}
   damageTextPrefab: {fileID: 2084743422030266279, guid: d0ae8f142e2a5e743a582b63d9664cc7, type: 3}
   DamagePosition:
-  - {fileID: 1918882185}
   - {fileID: 289581611}
+  - {fileID: 1918882185}
   - {fileID: 71675285}
   - {fileID: 1027082575}
   Effects1Position:
@@ -13663,6 +13664,7 @@ MonoBehaviour:
   debugColor: {r: 0, g: 1, b: 1, a: 1}
   successZone: 1
   Affinity: 1
+  Level: 1
 --- !u!1 &1828092752
 GameObject:
   m_ObjectHideFlags: 0
