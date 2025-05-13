@@ -471,6 +471,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 788389825}
+  - {fileID: 2115571493}
   - {fileID: 1937871736}
   - {fileID: 1060914085}
   m_Father: {fileID: 181820923}
@@ -6632,12 +6633,36 @@ MonoBehaviour:
   pointer: {fileID: 1745443985}
   center: {fileID: 1060914085}
   zoneParent: {fileID: 1060914085}
-  ZonesLvl1: []
-  ZonesLvl2: []
-  ZonesLvl3: []
-  SpritesLvl1: []
-  SpritesLvl2: []
-  SpritesLvl3: []
+  ZonesLvl1:
+  - {fileID: 1828042329}
+  - {fileID: 1610673374}
+  - {fileID: 342100950}
+  - {fileID: 320398148}
+  ZonesLvl2:
+  - {fileID: 694274306}
+  - {fileID: 1869860456}
+  - {fileID: 1978902113}
+  - {fileID: 298287160}
+  ZonesLvl3:
+  - {fileID: 1984835955}
+  - {fileID: 1605936203}
+  - {fileID: 1655757845}
+  - {fileID: 1637927379}
+  SpritesLvl1:
+  - {fileID: 21300000, guid: fc7f514a00da876409394138230e1fd1, type: 3}
+  - {fileID: 21300000, guid: 825cf403eda488e4aa1bf6c00b583ebf, type: 3}
+  - {fileID: 21300000, guid: ac9fddaecdda0824abfbde88b5b2097c, type: 3}
+  - {fileID: 21300000, guid: c0fb3075013a4ff449bf32b12fc6c67c, type: 3}
+  SpritesLvl2:
+  - {fileID: 21300000, guid: ec566185720e3b94dabf0dcdd9b7f32b, type: 3}
+  - {fileID: 21300000, guid: fea51ee9fcad0fe43944f9e78019d7c7, type: 3}
+  - {fileID: 21300000, guid: eb96c3b76ca9fcd48a6f56608eb8c167, type: 3}
+  - {fileID: 21300000, guid: 27f343b08da29e1499f1c5b2e97ce737, type: 3}
+  SpritesLvl3:
+  - {fileID: 21300000, guid: b7dbab3b5ab72a1498390f1d8186860a, type: 3}
+  - {fileID: 21300000, guid: 6eac10d2f72ad7844befb774fa768919, type: 3}
+  - {fileID: 21300000, guid: 7c42d2c9357cb9148a42ac1050631dd7, type: 3}
+  - {fileID: 21300000, guid: 088a52e3dcd2f3c4b9a93476617c9c7a, type: 3}
 --- !u!114 &711964559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16070,6 +16095,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108428590}
+  m_CullTransparentMesh: 1
+--- !u!1 &2115571492
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2115571493}
+  - component: {fileID: 2115571495}
+  - component: {fileID: 2115571494}
+  m_Layer: 5
+  m_Name: ClickBlocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2115571493
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115571492}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 83124359}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 126.4}
+  m_SizeDelta: {x: 2178.01, y: 1300}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2115571494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115571492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2115571495
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115571492}
   m_CullTransparentMesh: 1
 --- !u!1 &2124261803
 GameObject:

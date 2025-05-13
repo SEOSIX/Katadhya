@@ -111,11 +111,11 @@ public class Ultimate : MonoBehaviour
     }
     public void PickAndAssignZones(DataEntity player)
     {
+        Debug.Log("Coucou, je vais toucher tes boules");
         List<List<Sprite>> ListAllSpriteLists = new List<List<Sprite>>() {SpritesLvl1,SpritesLvl2,SpritesLvl3};
         List<List<GameObject>> ListAllZoneLists = new List<List<GameObject>>() {ZonesLvl1,ZonesLvl2,ZonesLvl3};
         player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
         List<int> UltLvls = new List<int>() { player.UltLvl_1, player.UltLvl_2, player.UltLvl_3, player.UltLvl_4 };
-        Debug.Log("jv te mettre des bails dans la bouche");
         ResetAllZones();
         for (int i = 0; i < 4; i++)
         {
@@ -123,11 +123,15 @@ public class Ultimate : MonoBehaviour
             {
                 if (UltLvls[i] >= j)
                 {
-                    GameObject Zone = ListAllZoneLists[j][Random.Range(0, ListAllZoneLists[j].Count)];
+                    int Rdm = Random.Range(0, ListAllZoneLists[j - 1].Count);
+                    while (ListAllZoneLists[j - 1][Rdm].activeSelf)
+                    {
+                        Rdm = Random.Range(0, ListAllZoneLists[j - 1].Count);
+                    }
+                    GameObject Zone = ListAllZoneLists[j-1][Rdm];
                     Zone.SetActive(true);
                     Zone.GetComponent<QTEZoneMarker>().Affinity = i;
-                    Zone.GetComponent<SpriteRenderer>().sprite = ListAllSpriteLists[j][i];
-                    Debug.Log("jv te mettre des bails dans le uc");
+                    Zone.GetComponent<Image>().sprite = ListAllSpriteLists[j-1][i];
                 }
             }
         }
@@ -191,9 +195,10 @@ public class Ultimate : MonoBehaviour
         CurrentEntity.UltIsReady = isReady;
     }
 
-    public void QTE_Start(DataEntity Player)
+    public void QTE_Start(DataEntity Player, Button UltButton)
     {
         player = Player;
+        UltButton.interactable = false; 
         if (qteAnimator == null || qteUI == null)
         {
             Debug.LogWarning("QTE Animator ou UI non assigné.");
@@ -210,8 +215,9 @@ public class Ultimate : MonoBehaviour
     {
         while (true)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetMouseButtonDown(0))
             {
+                Debug.Log("Space Detected");
                 CheckPointerInZone();
             }
             yield return null;
@@ -234,19 +240,22 @@ public class Ultimate : MonoBehaviour
             Debug.DrawLine(center.position, center.position + Quaternion.Euler(0, 0, zone.startAngle) * Vector3.up * 2f, zone.debugColor, 1f);
             Debug.DrawLine(center.position, center.position + Quaternion.Euler(0, 0, zone.endAngle) * Vector3.up * 2f, zone.debugColor, 1f);
 
-            if (inZone)
+            if (inZone && zone.gameObject.activeSelf)
             {
                 Debug.Log($"🎯 Le pointeur est dans la zone '{zone.zoneName}' ({(zone.successZone ? "réussite" : "échec")})");
 
                 if (zone.successZone)
                     hitSuccess = true;
-                CombatManager.SINGLETON.SetupNewAffinity(zone.Affinity, zone.Level);
+                CurrentAffinity = zone.Affinity;
+                CombatManager.SINGLETON.SetupNewAffinity(zone.Affinity, zone.Level );
+
             }
         }
 
-        if (hitSuccess)
+        if (hitSuccess && player.UltLvlHit<=3)
         {
             UpdateZonesAfterHit();
+            player.UltLvlHit += 1;
             // Logique de réussite
 
         }
@@ -256,13 +265,13 @@ public class Ultimate : MonoBehaviour
             // Logique d'échec
         }
         CombatManager.SINGLETON.SetUltimate();
-        CombatManager.SINGLETON.UseCapacity(GlobalVars.currentSelectedCapacity);
-        QTEStop();
-
     }
 
     private void QTEStop()
     {
+        CombatManager.SINGLETON.UseCapacity(GlobalVars.currentSelectedCapacity);
+        StopCoroutine(CheckQTEInput());
+        Debug.Log("Coroutine stoppée et tout");
         qteAnimator.speed = 0f;
         CurrentEntity.UltimateSlider = 100;
         CurrentEntity.UltIsReady = false;
