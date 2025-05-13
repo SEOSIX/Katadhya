@@ -6372,18 +6372,18 @@ MonoBehaviour:
   pictoBuff: {fileID: 3820465654781457952, guid: 715924ba071a2e046885020cf7583f2c, type: 3}
   damageTextPrefab: {fileID: 2084743422030266279, guid: d0ae8f142e2a5e743a582b63d9664cc7, type: 3}
   DamagePosition:
-  - {fileID: 289581611}
   - {fileID: 1918882185}
+  - {fileID: 289581611}
   - {fileID: 71675285}
   - {fileID: 1027082575}
   Effects1Position:
-  - {fileID: 2124261804}
   - {fileID: 1030676871}
+  - {fileID: 2124261804}
   - {fileID: 554599626}
   - {fileID: 1633288027}
   Effects2Position:
-  - {fileID: 999233520}
   - {fileID: 80938484}
+  - {fileID: 999233520}
   - {fileID: 1293000921}
   - {fileID: 1884638008}
   canvas: {fileID: 642715975}
@@ -10491,7 +10491,6 @@ MonoBehaviour:
     prefab: {fileID: 3739328305999535302, guid: 40f02ebafd4499d4d87b421d0d10a380, type: 3}
   - playerName: NarashimaPierreFoudre
     prefab: {fileID: 3739328305999535302, guid: 7813a3b2c930bd244874a9377c6304ea, type: 3}
-  sizeChara: 0.21
   EnemyPackIndex: 0
   enemyPacks:
   - enemyPrefab1: {fileID: 3739328305999535302, guid: 240e2ea84cbd39c4ea7aa9dac3ace2e1, type: 3}
@@ -10503,6 +10502,7 @@ MonoBehaviour:
   - enemyPrefab1: {fileID: 3739328305999535302, guid: 7813a3b2c930bd244874a9377c6304ea, type: 3}
     enemyPrefab2: {fileID: 5133236681666948725, guid: 3b8cd6ea653952c4a942996d4e3134eb, type: 3}
   allEnemiesEncountered: []
+  sizeChara: 0.21
 --- !u!114 &1329118468
 MonoBehaviour:
   m_ObjectHideFlags: 0

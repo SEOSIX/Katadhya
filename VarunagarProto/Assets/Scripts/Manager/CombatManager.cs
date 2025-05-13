@@ -860,7 +860,6 @@ public class CombatManager : MonoBehaviour
                 {
                     i = 1;
                 }
-                // Vérifie si l'ennemi est valide et vivant
                 if (enemy == null || enemy.UnitLife <= 0)
                     continue;
                 circlesEnnemy[i].SetActive(true);

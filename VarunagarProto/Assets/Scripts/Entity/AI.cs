@@ -87,13 +87,13 @@ public class AI : MonoBehaviour
 
         if (targetIndex == 0)
         {
-            playerTarget1.SetActive(true);
-            playerTarget2.SetActive(false);
+            playerTarget2.SetActive(true);
+            playerTarget1.SetActive(false);
         }
         else if (targetIndex == 1)
         {
-            playerTarget1.SetActive(false);
-            playerTarget2.SetActive(true);
+            playerTarget2.SetActive(false);
+            playerTarget1.SetActive(true);
         }
         else
         {
