@@ -10,27 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
-  m_Name: Cpt4d4
+  m_Name: Cpt4a0
   m_EditorClassIdentifier: 
-  atk: 15
+  atk: 10
   heal: 0
   buffType: 0
   buffValue: 0
   buffDuration: 0
-  critique: 0
-  "pr\xE9cision": 100
+  critique: 5
+  "pr\xE9cision": 95
   cooldown: 0
-  chargeUlti: 0
+  chargeUlti: 400
   Shield: 0
   Shock: 0
   ShieldRatioAtk: 0
   MultipleHeal: 0
-  MultipleAttack: 1
+  MultipleAttack: 0
   TargetingAlly: 0
+  Provocation: 0
+  secondaryAtk: 0
+  secondaryHeal: 0
+  secondaryBuffType: 0
+  secondaryBuffValue: 0
+  secondaryBuffDuration: 0
   specialType: 0
   specialDelay: 1
-  Name: "D\xE9cha\xEEnement"
-  Description: "Inflige des d\xE9gats aux ennemis."
+  Name: "Coup d'Ep\xE9e"
+  Description: "Inflige des d\xE9gats \xE0 un ennemi."
   PictoType: 0
   TargetType: 0
   ValueAI: 0
+  DoubleEffect: 0
