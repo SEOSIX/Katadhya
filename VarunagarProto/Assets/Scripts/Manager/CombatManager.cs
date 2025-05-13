@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using static DataEntity;
 using static UnityEngine.EventSystems.EventTrigger;
 public class CombatManager : MonoBehaviour
@@ -743,7 +744,7 @@ public class CombatManager : MonoBehaviour
             if (player.UltimateSlider <= 0)
             {
                 capacityAnimButtons[3].GetComponent<Button>().interactable = true;
-                capacityAnimButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start(player));
+                capacityAnimButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start(player, capacityAnimButtons[3]));
             }
         }
         UpdatePage(player);
