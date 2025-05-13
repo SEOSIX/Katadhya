@@ -84,6 +84,7 @@ public class CombatManager : MonoBehaviour
 
     void Start()
     {
+        SetupBaseStat();
         CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
     }
 
