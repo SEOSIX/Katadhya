@@ -73,8 +73,10 @@ public class EffectsManager : MonoBehaviour
     {
         int index = entity.index;
         if (index == -1) return;
+        Color darkGreen;
+        ColorUtility.TryParseHtmlString("#0b4d0b", out darkGreen);
         
-        AfficherTexteDegats(index, healAmmount, Color.red);
+        AfficherTexteDegats(index, healAmmount, darkGreen);
     }
 
     public void AfficherPictoBuff(int index)

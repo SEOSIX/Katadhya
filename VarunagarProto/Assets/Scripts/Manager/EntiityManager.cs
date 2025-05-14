@@ -16,6 +16,8 @@ public class EntiityManager : MonoBehaviour
         UpdateIndexes();
     }
     public int playerIndex;
+    private int initialIndex;
+    private bool hasStoredInitialIndex = false;
     
     [Header("entityHandler")]
     public EntityHandler entityHandler;
@@ -31,21 +33,31 @@ public class EntiityManager : MonoBehaviour
         //print(name);
         if (GameManager.SINGLETON.prefabDictionary.ContainsKey(name))
         {
-            //GameObject prefab = GameManager.SINGLETON.prefabDictionary[name];
             DataEntity[] allCapacityData = Resources.LoadAll<DataEntity>("Data/Entity");
             PrefabData = allCapacityData.FirstOrDefault(d => d.name == $"{name}{GameManager.SINGLETON.EnemyPackIndex}");
         }
         if (PrefabData != null)
         {
+            int computedIndex = -1;
+
             if (entityHandler.ennemies.Contains(PrefabData))
             {
-                PrefabData.index = (entityHandler.players.Count() + entityHandler.ennemies.IndexOf(PrefabData));
-                playerIndex = (entityHandler.players.Count() + entityHandler.ennemies.IndexOf(PrefabData));
+                computedIndex = entityHandler.players.Count + entityHandler.ennemies.IndexOf(PrefabData);
             }
-            if (entityHandler.players.Contains(PrefabData))
+            else if (entityHandler.players.Contains(PrefabData))
             {
-                PrefabData.index = entityHandler.players.IndexOf(PrefabData);
-                playerIndex = entityHandler.players.IndexOf(PrefabData);
+                computedIndex = entityHandler.players.IndexOf(PrefabData);
+            }
+
+            if (computedIndex != -1)
+            {
+                PrefabData.index = computedIndex;
+                playerIndex = computedIndex;
+                if (!hasStoredInitialIndex)
+                {
+                    initialIndex = playerIndex;
+                    hasStoredInitialIndex = true;
+                }
             }
         }
     }
@@ -191,6 +203,7 @@ public class EntiityManager : MonoBehaviour
             Debug.Log("Les joueurs ont gagné !");
             GameManager.SINGLETON.EnemyPackIndex += 1;
             GameManager.SINGLETON.SpawnEnemies();
+            playerIndex = initialIndex;
         }
         bool isLastWave = GameManager.SINGLETON.EnemyPackIndex >= GameManager.SINGLETON.enemyPacks.Count - 1;
         bool isDefeat = !anyPlayerAlive;
