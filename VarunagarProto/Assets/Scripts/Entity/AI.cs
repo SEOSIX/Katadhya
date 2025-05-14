@@ -106,9 +106,9 @@ public class AI : MonoBehaviour
         Animator anim = targetedPlayer.Animator.GetComponent<Animator>();
         if (anim != null)
         {
-            Debug.Log(anim.isInitialized);
-            Debug.Log(anim.isActiveAndEnabled);
-            Debug.Log(anim.runtimeAnimatorController);
+            //Debug.Log(anim.isInitialized);
+            //Debug.Log(anim.isActiveAndEnabled);
+            //Debug.Log(anim.runtimeAnimatorController);
             anim.SetTrigger("TakeDamage");
         }
         CombatManager.SINGLETON.DecrementBuffDurations(attacker);
@@ -191,7 +191,7 @@ public class AI : MonoBehaviour
             attacker.RageTick -= 1;
         }
         attacker.beenHurtThisTurn = false;
-        Debug.Log(attacker.necrosis?.Count);
+        //Debug.Log(attacker.necrosis?.Count);
         if (attacker.necrosis?.Count > 0)
         {
             CombatManager.SINGLETON.TickNecrosisEffect(attacker);

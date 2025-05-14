@@ -134,6 +134,7 @@ public class CombatManager : MonoBehaviour
             entityHandler.players[i].UltimateSlider = 100;
             entityHandler.players[i].Affinity = 0;
             entityHandler.players[i].beenHurtThisTurn = false;
+            entityHandler.players[i].UltLvlHit = 0;
         }
     }
     public void InitializeStaticUI()
@@ -335,7 +336,6 @@ public class CombatManager : MonoBehaviour
         DataEntity caster = currentTurnOrder[0]; 
         HideTargetIndicators();
         GlobalVars.currentSelectedCapacity = capacity;
-        print(capacity);
         if (capacity.MultipleHeal)
         {
             foreach (var ally in entityHandler.players)
@@ -406,7 +406,6 @@ public class CombatManager : MonoBehaviour
             Debug.LogError("Cible invalide ou morte.");
             return;
         }
-        print(target);
         ApplyCapacityToTarget(GlobalVars.currentSelectedCapacity, target);
         GlobalVars.currentSelectedCapacity = null;
         HideTargetIndicators();
@@ -713,10 +712,13 @@ public class CombatManager : MonoBehaviour
                 capacityAnimButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start(player, capacityAnimButtons[3]));
             }
         }
+        entiityManager.UpdateSpellData(player);
+        Debug.Log($"DEBUG ULTIME : {player._CapacityData1}{player._CapacityData2}{player._CapacityData3}{player._CapacityDataUltimate}");
         UpdatePage(player);
     }
     public void SetUltimate()
     {
+        entiityManager.UpdateSpellData(currentPlayer);
         GlobalVars.currentSelectedCapacity = currentPlayer._CapacityDataUltimate;
     }
     private void SetupButtonFunction(int i, CapacityData CData, Sprite CSprite)
@@ -1097,10 +1099,9 @@ public class CombatManager : MonoBehaviour
 
         RecalculateStats(target);
     }
-    public void SetupNewAffinity(int NewAffinity, int NewLevel)
+    public void SetupNewAffinity(int NewAffinity)
     {
         currentPlayer.Affinity = NewAffinity;
-        currentPlayer.UltLvlHit = NewLevel;
         entiityManager.UpdateSpellData(currentPlayer);
     }
 

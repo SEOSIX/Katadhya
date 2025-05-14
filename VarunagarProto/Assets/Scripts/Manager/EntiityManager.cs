@@ -28,7 +28,7 @@ public class EntiityManager : MonoBehaviour
     {
         DataEntity PrefabData = null;
         string name = gameObject.name;
-        print(name);
+        //print(name);
         if (GameManager.SINGLETON.prefabDictionary.ContainsKey(name))
         {
             //GameObject prefab = GameManager.SINGLETON.prefabDictionary[name];
@@ -229,13 +229,15 @@ public class EntiityManager : MonoBehaviour
 
     public void UpdateSpellData(DataEntity player)
     {
-        if(player._CapacityData1 != null && player._CapacityData2 != null && player._CapacityData3 != null) 
-            return;
-       CapacityData[] allData = Resources.LoadAll<CapacityData>("Data/Capacity");
-        player._CapacityData1 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}a{player.Affinity}");
-        player._CapacityData2 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}b{player.Affinity}");
-        player._CapacityData3 = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}c{player.Affinity}");
-        player._CapacityDataUltimate = allData.FirstOrDefault(d => d.name == $"Cpt{player.index}d{player.Affinity}{player.UltLvlHit}");
+        //if(player._CapacityData1 != null && player._CapacityData2 != null && player._CapacityData3 != null && player._CapacityDataUltimate) 
+            //return;
+        CapacityData[] allData = Resources.LoadAll<CapacityData>("Data/Entity/Capacity");
+        Debug.Log(player.ID);
+        Debug.Log(player.Affinity);
+        player._CapacityData1 = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}a{player.Affinity}");
+        player._CapacityData2 = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}b{player.Affinity}");
+        player._CapacityData3 = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}c{player.Affinity}");
+        player._CapacityDataUltimate = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}d{player.Affinity}{player.UltLvlHit}");
     }
 
     private void AssignPlayerIndices()

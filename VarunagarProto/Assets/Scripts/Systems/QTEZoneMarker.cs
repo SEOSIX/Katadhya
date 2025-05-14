@@ -10,4 +10,7 @@ public class QTEZoneMarker : MonoBehaviour
     public bool successZone = true;
     public int Affinity = 0;
     public int Level = 1;
+    public bool Hit = false;
+
+    public QTEZone DataZone;
 }

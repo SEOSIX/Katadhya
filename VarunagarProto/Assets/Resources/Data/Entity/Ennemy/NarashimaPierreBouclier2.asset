@@ -28,23 +28,38 @@ MonoBehaviour:
   BaseAim: 100
   UnitShield: 0
   ShockMark: 0
-  SkipPlay: 0
+  RageTick: 0
+  LastRageTick: 0
+  necrosis: []
+  beenHurtThisTurn: 0
+  provoking: 0
   portrait: {fileID: 21300000, guid: d61d6230909ac0041bb0ad1c29abd41d, type: 3}
   portraitUI: {fileID: 21300000, guid: 3bb5ebb973ab82e48ae36171738c2ad6, type: 3}
   bandeauUI: {fileID: 0}
-  manimator: {fileID: 0}
+  Animator: {fileID: 0}
+  Cpt1lvl: 0
   capacity1: {fileID: 0}
   _CapacityData1: {fileID: 11400000, guid: 94524177128cf6748ad4d86e39c5396c, type: 2}
+  Cpt2lvl: 0
   capacity2: {fileID: 0}
   _CapacityData2: {fileID: 11400000, guid: 6a560361518f05d46a735d639d655eba, type: 2}
+  Cpt3lvl: 0
   capacity3: {fileID: 0}
   _CapacityData3: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
+  CptUltlvl: 0
   Ultimate: {fileID: 0}
   UltimateEmpty: {fileID: 0}
   _CapacityDataUltimate: {fileID: 11400000, guid: 0dce4f00902c7664087b92eb65ac541c, type: 2}
   UltimateSlider: 0
   UltIsReady: 1
+  UltLvl_1: 0
+  UltLvl_2: 0
+  UltLvl_3: 0
+  UltLvl_4: 0
+  UltLvlHit: 0
   namE: NarashimaPierreBouclier
   size: 0
   index: 0
+  ID: 6
+  RageAtkBonus: 0
   skipNextTurn: 0
