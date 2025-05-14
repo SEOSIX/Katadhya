@@ -482,11 +482,45 @@ public class CombatManager : MonoBehaviour
 
     }
 
+    private IEnumerator MoveTowardsTarget(DataEntity caster, DataEntity target, float distance = 1.0f, float speed = 5f)
+    {
+        if (caster.instance == null || target.instance == null)
+             yield break;
+
+         Transform casterTransform = caster.instance.transform;
+            Vector3 start = casterTransform.position;
+            Vector3 direction = (target.instance.transform.position - start).normalized;
+            Vector3 end = start + direction * distance;
+
+            float t = 0;
+            while (t < 1f)
+            {
+                   t += Time.deltaTime * speed;
+                   casterTransform.position = Vector3.Lerp(start, end, t);
+                  yield return null;
+            }
+
+            yield return new WaitForSeconds(0.1f);
+            t = 0;
+            while (t < 1f)
+            {
+         t += Time.deltaTime * speed;
+        casterTransform.position = Vector3.Lerp(end, start, t);
+        yield return null;
+    }
+}
+
+
 
  public void ApplyNormalCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
 {
     int DamageDone = 0;
     int visualIndex = target.index;
+
+     if (capacity.atk > 0 && caster.instance != null && target.instance != null)
+    {
+        StartCoroutine(MoveTowardsTarget(caster, target, 0.5f, 5f)); 
+    }
 
     // ATTAQUE
     if (capacity.atk > 0)

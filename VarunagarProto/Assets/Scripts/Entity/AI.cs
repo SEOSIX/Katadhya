@@ -103,13 +103,15 @@ public class AI : MonoBehaviour
 
         CapacityData Cpt = SelectSpell(attacker);
         CombatManager.SINGLETON.ApplyCapacityToTarget(Cpt, targetedPlayer);
-        Animator anim = targetedPlayer.Animator.gameObject.GetComponent<Animator>();
-        if (anim != null)
+ 
+        Animator anim = targetedPlayer.instance?.GetComponent<Animator>();
+        if (anim != null && anim.runtimeAnimatorController != null)
         {
-            Debug.Log(anim.isInitialized);
-            Debug.Log(anim.isActiveAndEnabled);
-            Debug.Log(anim.runtimeAnimatorController);
             anim.SetTrigger("TakeDamage");
+        }
+        else
+        {
+            Debug.LogWarning($"Animator manquant ou sans controller sur {targetedPlayer.namE}");
         }
         CombatManager.SINGLETON.DecrementBuffDurations(attacker);
         if (attacker.beenHurtThisTurn == false && attacker.RageTick > 0)
@@ -124,10 +126,6 @@ public class AI : MonoBehaviour
         CombatManager.SINGLETON.RecalculateStats(attacker);
 
         yield return new WaitForSeconds(1.5f);
-        if (anim != null)
-        {
-            anim.SetTrigger("idle");
-        }
         CombatManager.SINGLETON.EndUnitTurn();
 
         playerTarget1.SetActive(false);

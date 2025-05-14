@@ -32,7 +32,7 @@ public class EffectsManager : MonoBehaviour
         }
         SINGLETON = this;
     }
-
+    
     public void AfficherAttaqueFoudre(int typeFoudre, int index)
     {
         if (typeFoudre < 1 || typeFoudre > 4 || !IsValid(index)) return;
