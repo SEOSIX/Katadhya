@@ -37,7 +37,6 @@ public class EntiityManager : MonoBehaviour
             DataEntity[] allCapacityData = Resources.LoadAll<DataEntity>("Data/Entity");
             PrefabData = allCapacityData.FirstOrDefault(d => d.name == $"{name}{GameManager.SINGLETON.EnemyPackIndex}");
         }
-
         if (PrefabData != null)
         {
             int computedIndex = -1;

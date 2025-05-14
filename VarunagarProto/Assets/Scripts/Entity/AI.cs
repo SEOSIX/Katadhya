@@ -103,7 +103,7 @@ public class AI : MonoBehaviour
 
         CapacityData Cpt = SelectSpell(attacker);
         CombatManager.SINGLETON.ApplyCapacityToTarget(Cpt, targetedPlayer);
-        Animator anim = targetedPlayer.Animator.GetComponent<Animator>();
+        Animator anim = targetedPlayer.Animator.gameObject.GetComponent<Animator>();
         if (anim != null)
         {
             Debug.Log(anim.isInitialized);
