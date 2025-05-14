@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static CombatManager;
@@ -31,6 +30,7 @@ public class Ultimate : MonoBehaviour
     public Slider sliderUltimate;
     public Button UltButton;
     public Image fill;
+    public Material GreyScale;
 
     [Header("QTE")]
     public Animator qteAnimator;
@@ -54,6 +54,9 @@ public class Ultimate : MonoBehaviour
     private DataEntity CurrentEntity => CombatManager.SINGLETON?.currentTurnOrder.Count > 0
         ? CombatManager.SINGLETON.currentTurnOrder[0]
         : null;
+
+    private Coroutine qteCoroutine;
+    
 
     private void Awake()
     {
@@ -105,6 +108,7 @@ public class Ultimate : MonoBehaviour
                     successZone = marker.successZone,
                     Affinity = marker.Affinity
                 };
+                marker.DataZone = zone;
                 qteZones.Add(zone);
             }
         }
@@ -117,11 +121,11 @@ public class Ultimate : MonoBehaviour
         player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
         List<int> UltLvls = new List<int>() { player.UltLvl_1, player.UltLvl_2, player.UltLvl_3, player.UltLvl_4 };
         ResetAllZones();
-        for (int i = 0; i < 4; i++)
+        for (int i = 1; i < 5; i++)
         {
             for (int j = 1; j < 4; j++)
             {
-                if (UltLvls[i] >= j)
+                if (UltLvls[i-1] >= j)
                 {
                     int Rdm = Random.Range(0, ListAllZoneLists[j - 1].Count);
                     while (ListAllZoneLists[j - 1][Rdm].activeSelf)
@@ -131,7 +135,8 @@ public class Ultimate : MonoBehaviour
                     GameObject Zone = ListAllZoneLists[j-1][Rdm];
                     Zone.SetActive(true);
                     Zone.GetComponent<QTEZoneMarker>().Affinity = i;
-                    Zone.GetComponent<Image>().sprite = ListAllSpriteLists[j-1][i];
+                    Zone.GetComponent<QTEZoneMarker>().DataZone.Affinity = i;
+                    Zone.GetComponent<Image>().sprite = ListAllSpriteLists[j-1][i-1];
                 }
             }
         }
@@ -170,7 +175,6 @@ public class Ultimate : MonoBehaviour
             {
                 sliderUltimate.value = CurrentEntity.UltimateSlider;
             }
-
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -197,7 +201,10 @@ public class Ultimate : MonoBehaviour
 
     public void QTE_Start(DataEntity Player, Button UltButton)
     {
+        ResetAllZones();
+
         player = Player;
+        player.UltLvlHit = 1;
         UltButton.interactable = false; 
         if (qteAnimator == null || qteUI == null)
         {
@@ -208,7 +215,7 @@ public class Ultimate : MonoBehaviour
         qteUI.SetActive(true);
         qteAnimator.speed = 1f;
         PickAndAssignZones(player);
-        StartCoroutine(CheckQTEInput());
+        qteCoroutine = StartCoroutine(CheckQTEInput());
     }
 
     IEnumerator CheckQTEInput()
@@ -217,7 +224,6 @@ public class Ultimate : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Space Detected");
                 CheckPointerInZone();
             }
             yield return null;
@@ -240,22 +246,25 @@ public class Ultimate : MonoBehaviour
             Debug.DrawLine(center.position, center.position + Quaternion.Euler(0, 0, zone.startAngle) * Vector3.up * 2f, zone.debugColor, 1f);
             Debug.DrawLine(center.position, center.position + Quaternion.Euler(0, 0, zone.endAngle) * Vector3.up * 2f, zone.debugColor, 1f);
 
-            if (inZone && zone.gameObject.activeSelf)
+            if (inZone && zone.gameObject.activeSelf && !zone.gameObject.GetComponent<QTEZoneMarker>().Hit)
             {
                 Debug.Log($"🎯 Le pointeur est dans la zone '{zone.zoneName}' ({(zone.successZone ? "réussite" : "échec")})");
-
+                
                 if (zone.successZone)
                     hitSuccess = true;
                 CurrentAffinity = zone.Affinity;
-                CombatManager.SINGLETON.SetupNewAffinity(zone.Affinity, zone.Level );
+                zone.gameObject.GetComponent<QTEZoneMarker>().Hit = true;
+                CombatManager.SINGLETON.SetupNewAffinity(zone.Affinity);
 
             }
         }
-
-        if (hitSuccess && player.UltLvlHit<=3)
+        List<int> UltLvls = new List<int>() { player.UltLvl_1, player.UltLvl_2, player.UltLvl_3, player.UltLvl_4 };
+        if (hitSuccess && player.UltLvlHit < UltLvls[player.Affinity-1])
         {
             UpdateZonesAfterHit();
+            Debug.Log(player.namE);
             player.UltLvlHit += 1;
+            Debug.Log(player.UltLvlHit);
             // Logique de réussite
 
         }
@@ -264,36 +273,57 @@ public class Ultimate : MonoBehaviour
             QTEStop();
             // Logique d'échec
         }
-        CombatManager.SINGLETON.SetUltimate();
+        
     }
 
     private void QTEStop()
     {
-        CombatManager.SINGLETON.UseCapacity(GlobalVars.currentSelectedCapacity);
-        StopCoroutine(CheckQTEInput());
-        Debug.Log("Coroutine stoppée et tout");
+        if (qteCoroutine != null)
+        {
+            Debug.Log("Coroutine stoppée et tout");
+            StopCoroutine(qteCoroutine);
+            qteCoroutine = null;
+        }
+
         qteAnimator.speed = 0f;
         CurrentEntity.UltimateSlider = 100;
         CurrentEntity.UltIsReady = false;
         qteUI.SetActive(false);
+        CombatManager.SINGLETON.SetUltimate();
+        CombatManager.SINGLETON.UseCapacity(GlobalVars.currentSelectedCapacity);
     }
     private void ResetAllZones()
     {
-        for (int i = 0; i < qteZones.Count; i++) { qteZones[i].gameObject.SetActive(false); };
+        for (int i = 0; i < qteZones.Count; i++) 
+        { 
+            qteZones[i].gameObject.SetActive(false); 
+            qteZones[i].Affinity = 0; 
+            qteZones[i].gameObject.GetComponent<Image>().material = null;
+            qteZones[i].gameObject.GetComponent<QTEZoneMarker>().Hit = false;
+        };
     }
     private void UpdateZonesAfterHit()
     {
         List<int> UltLvls = new List<int>() { player.UltLvl_1, player.UltLvl_2, player.UltLvl_3, player.UltLvl_4 };
-
+        Debug.Log(CurrentAffinity);
         for (int i =0; i<qteZones.Count;i++)
         {
-            if (qteZones[i].Affinity != CurrentAffinity && qteZones[i].gameObject.activeSelf)
+            if (qteZones[i].Affinity != CurrentAffinity)
             {
                 qteZones[i].gameObject.SetActive(false);
             }
             else
             {
                 qteZones[i].gameObject.SetActive(true);
+                if (qteZones[i].gameObject.GetComponent<QTEZoneMarker>().Hit == false)
+                {
+                    qteZones[i].gameObject.GetComponent<Image>().material = null;
+                }
+                else
+                {
+                    qteZones[i].gameObject.GetComponent<Image>().material = GreyScale;
+
+                }
 
             }
         }

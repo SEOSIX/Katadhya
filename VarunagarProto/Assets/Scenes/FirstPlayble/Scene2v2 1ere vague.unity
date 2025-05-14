@@ -2684,12 +2684,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f1416ca92070842a38ae82a5252997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneName: Foudre1
+  zoneName: 2_3
   angleSpan: 21.6
-  debugColor: {r: 1, g: 0, b: 0.07291365, a: 1}
+  debugColor: {r: 0.5248623, g: 0, b: 1, a: 1}
   successZone: 1
-  Affinity: 4
+  Affinity: 0
   Level: 2
+  Hit: 0
 --- !u!114 &298287163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2987,12 +2988,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f1416ca92070842a38ae82a5252997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneName: Shield0
+  zoneName: 1_3
   angleSpan: 32.4
-  debugColor: {r: 0, g: 1, b: 1, a: 1}
+  debugColor: {r: 0.5248623, g: 0, b: 1, a: 1}
   successZone: 1
-  Affinity: 4
+  Affinity: 0
   Level: 1
+  Hit: 0
 --- !u!114 &320398151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3231,12 +3233,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f1416ca92070842a38ae82a5252997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneName: Shield0
+  zoneName: 1_2
   angleSpan: 32.4
-  debugColor: {r: 0, g: 1, b: 1, a: 1}
+  debugColor: {r: 0.6431373, g: 0.19215688, b: 0.12941177, a: 1}
   successZone: 1
-  Affinity: 3
+  Affinity: 0
   Level: 1
+  Hit: 0
 --- !u!114 &342100953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6509,12 +6512,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f1416ca92070842a38ae82a5252997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneName: Foudre1
+  zoneName: 2_0
   angleSpan: 21.6
-  debugColor: {r: 1, g: 0, b: 0.07291365, a: 1}
+  debugColor: {r: 0.1764706, g: 0.7372549, b: 0.93725497, a: 1}
   successZone: 1
-  Affinity: 1
+  Affinity: 0
   Level: 2
+  Hit: 0
 --- !u!114 &694274309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6628,6 +6632,7 @@ MonoBehaviour:
   sliderUltimate: {fileID: 1478498993}
   UltButton: {fileID: 491080710}
   fill: {fileID: 905097224}
+  GreyScale: {fileID: 2100000, guid: 05796b9dab687d9428b4033e717c72bb, type: 2}
   qteAnimator: {fileID: 1812854273}
   qteUI: {fileID: 83124358}
   pointer: {fileID: 1745443985}
@@ -12570,12 +12575,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f1416ca92070842a38ae82a5252997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneName: Foudre1
+  zoneName: 3_1
   angleSpan: 10.8
-  debugColor: {r: 1, g: 0, b: 0.07291365, a: 1}
+  debugColor: {r: 0.96470594, g: 0.80392164, b: 0.2784314, a: 1}
   successZone: 1
-  Affinity: 2
+  Affinity: 0
   Level: 3
+  Hit: 0
 --- !u!114 &1605936206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12664,12 +12670,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f1416ca92070842a38ae82a5252997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneName: Shield0
+  zoneName: 1_1
   angleSpan: 32.4
-  debugColor: {r: 0, g: 1, b: 1, a: 1}
+  debugColor: {r: 0.96470594, g: 0.80392164, b: 0.2784314, a: 1}
   successZone: 1
-  Affinity: 2
+  Affinity: 0
   Level: 1
+  Hit: 0
 --- !u!114 &1610673377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12864,12 +12871,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f1416ca92070842a38ae82a5252997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneName: Foudre1
+  zoneName: 3_3
   angleSpan: 10.8
-  debugColor: {r: 1, g: 0, b: 0.07291365, a: 1}
+  debugColor: {r: 0.5248623, g: 0, b: 1, a: 1}
   successZone: 1
-  Affinity: 4
+  Affinity: 0
   Level: 3
+  Hit: 0
 --- !u!114 &1637927382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13243,12 +13251,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f1416ca92070842a38ae82a5252997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneName: Foudre1
+  zoneName: 3_2
   angleSpan: 10.8
-  debugColor: {r: 1, g: 0, b: 0.07291365, a: 1}
+  debugColor: {r: 0.6431373, g: 0.19215688, b: 0.12941177, a: 1}
   successZone: 1
-  Affinity: 3
+  Affinity: 0
   Level: 3
+  Hit: 0
 --- !u!114 &1655757848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14282,12 +14291,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f1416ca92070842a38ae82a5252997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneName: Shield0
+  zoneName: 1_0
   angleSpan: 32.4
-  debugColor: {r: 0, g: 1, b: 1, a: 1}
+  debugColor: {r: 0.1764706, g: 0.7372549, b: 0.93725497, a: 1}
   successZone: 1
-  Affinity: 1
+  Affinity: 0
   Level: 1
+  Hit: 0
 --- !u!1 &1828092752
 GameObject:
   m_ObjectHideFlags: 0
@@ -14658,12 +14668,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f1416ca92070842a38ae82a5252997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneName: Foudre1
+  zoneName: 2_1
   angleSpan: 21.6
-  debugColor: {r: 1, g: 0, b: 0.07291365, a: 1}
+  debugColor: {r: 0.96470594, g: 0.80392164, b: 0.2784314, a: 1}
   successZone: 1
-  Affinity: 2
+  Affinity: 0
   Level: 2
+  Hit: 0
 --- !u!114 &1869860459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15281,12 +15292,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f1416ca92070842a38ae82a5252997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneName: Foudre1
+  zoneName: 2_2
   angleSpan: 21.6
-  debugColor: {r: 1, g: 0, b: 0.07291365, a: 1}
+  debugColor: {r: 0.6431373, g: 0.19215688, b: 0.12941177, a: 1}
   successZone: 1
-  Affinity: 3
+  Affinity: 0
   Level: 2
+  Hit: 0
 --- !u!114 &1978902116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15508,12 +15520,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f1416ca92070842a38ae82a5252997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneName: Foudre1
+  zoneName: 3_0
   angleSpan: 10.8
-  debugColor: {r: 1, g: 0, b: 0.07291365, a: 1}
+  debugColor: {r: 0.1764706, g: 0.7372549, b: 0.93725497, a: 1}
   successZone: 1
-  Affinity: 1
+  Affinity: 0
   Level: 3
+  Hit: 0
 --- !u!114 &1984835958
 MonoBehaviour:
   m_ObjectHideFlags: 0

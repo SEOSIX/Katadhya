@@ -77,6 +77,7 @@ public class DataEntity : ScriptableObject
     public string namE;
     public float size;
     public int index;
+    public int ID;
     
     
     public GameObject GameObject()
