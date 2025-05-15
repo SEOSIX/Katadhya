@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,9 +9,20 @@ public class EnemyPack
     public GameObject enemyPrefab1;
     public GameObject enemyPrefab2;
 }
+
+[System.Serializable]
+public class PlayerPrefabData
+{
+    public string playerName;
+    public GameObject prefab;
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager SINGLETON { get; private set; }
+
+    [Header("Combat Settings")]
+    public bool isCombatEnabled = true;
 
     [Header("Spawn Positions")]
     public List<Transform> playerSpawnPoints;
@@ -57,14 +66,22 @@ public class GameManager : MonoBehaviour
         entityHandler.ennemies.Clear();
 
         SpawnPlayers();
-        SpawnEnemies();
 
-        UpdateAllEntityIndexes();
+        if (isCombatEnabled)
+        {
+            SpawnEnemies();
 
-        CombatManager.SINGLETON.SetupBaseStat();
-        CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
-        CombatManager.SINGLETON.InitializeStaticUI();
-        CombatManager.SINGLETON.StartUnitTurn();
+            UpdateAllEntityIndexes();
+
+            CombatManager.SINGLETON.SetupBaseStat();
+            CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
+            CombatManager.SINGLETON.InitializeStaticUI();
+            CombatManager.SINGLETON.StartUnitTurn();
+        }
+        else
+        {
+            UpdateAllEntityIndexes();
+        }
     }
 
     public void SpawnPlayers()
@@ -173,11 +190,4 @@ public class GameManager : MonoBehaviour
             if (manager != null) manager.UpdateIndexes();
         }
     }
-}
-
-[System.Serializable]
-public class PlayerPrefabData
-{
-    public string playerName;
-    public GameObject prefab;
 }

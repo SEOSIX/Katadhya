@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6722c5d7ac97b964da67764d5bd76aa2, type: 3}
+  m_Name: PlayersHandler
+  m_EditorClassIdentifier: 
+  ennemies: []
+  players:
+  - {fileID: 11400000, guid: b3a9dc3142da51d4bad44a5388ab35cf, type: 2}
+  - {fileID: 11400000, guid: d273d40c7b18bed41a8ff1f83e20eb7a, type: 2}
