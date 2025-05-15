@@ -588,7 +588,7 @@ public class CombatManager : MonoBehaviour
         GiveBuff(capacity, target);
         EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex);
     }
-    if (capacity.Shock > 0)
+    if (caster.Affinity == 2)
     {
         ShockProc(capacity, target);
     }
@@ -704,7 +704,7 @@ public class CombatManager : MonoBehaviour
         EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex);
     }
 
-    if (capacity.Shock > 0)
+    if (caster.Affinity == 2)
     {
         ShockProc(capacity, target);
     }
@@ -1036,7 +1036,7 @@ public class CombatManager : MonoBehaviour
                 }
                 if (ishieldDamage > 0)
                 {
-                    target.UnitLife -= icalculatedDamage;
+                    target.UnitLife -= icalculatedDamage - ishieldDamage;
                     Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts à {target.namE} grâce au choc");
                 }
                 target.ShockMark = 0;
