@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d184ab715a4c82c4ab1b109301af9a41, type: 3}
-  m_Name: Potion2
+  m_Name: Vivres
   m_EditorClassIdentifier: 
-  <HealAdding>k__BackingField: 1
-  <DefAdding>k__BackingField: 6
+  <HealAdding>k__BackingField: 0
+  <DefAdding>k__BackingField: 0
   <SpeedAdding>k__BackingField: 0
-  spriteRender: {fileID: 21300000, guid: 3d44337714eb21d45872db1c6f8fdc70, type: 3}
-  Name: DefensePotion
+  spriteRender: {fileID: 21300000, guid: b00532df62d7c7944b8667b8dff43a23, type: 3}
+  Name: Vivres
+  IndexRef: 2
   ItemParameter: {fileID: 0}
   m_stuntValue: 0

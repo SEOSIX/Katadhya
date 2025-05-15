@@ -18,6 +18,8 @@ public class Consumable : ScriptableObject
     [field: Header("Custom"), Space,SerializeField]
     public string Name;
 
+    public int IndexRef;
+    
     [field: Header("Scripts"), Space,SerializeField]
     public GrabdableItem ItemParameter;
     
