@@ -203,10 +203,10 @@ public class CombatManager : MonoBehaviour
         if (currentTurnOrder.Count == 0)
         {
             EndGlobalTurn();
-            /*for (int i = 0; i < currentTurnOrder.Count; i++)
+            for (int i = 0; i < currentTurnOrder.Count; i++)
             {
                 Debug.Log($"currentTurnOrder[{i}] = {currentTurnOrder[i].namE}");
-            }*/
+            }
         }
         StartCoroutine(StartUnitTurnDelayed());
     }
@@ -766,7 +766,6 @@ public class CombatManager : MonoBehaviour
             }
         }
         entiityManager.UpdateSpellData(player);
-        //Debug.Log($"DEBUG ULTIME : {player._CapacityData1}{player._CapacityData2}{player._CapacityData3}{player._CapacityDataUltimate}");
         UpdatePage(player);
     }
     public void SetUltimate()
