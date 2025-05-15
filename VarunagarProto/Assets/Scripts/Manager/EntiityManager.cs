@@ -219,7 +219,7 @@ public class EntiityManager : MonoBehaviour
     {
         if (!Clickable || GlobalVars.currentSelectedCapacity == null)
             return;
-        Debug.Log($"Tentative de sélection. Index: {playerIndex}");
+        //Debug.Log($"Tentative de sélection. Index: {playerIndex}");
 
 
         if (GlobalVars.currentSelectedCapacity.TargetingAlly)
@@ -245,8 +245,6 @@ public class EntiityManager : MonoBehaviour
         //if(player._CapacityData1 != null && player._CapacityData2 != null && player._CapacityData3 != null && player._CapacityDataUltimate) 
             //return;
         CapacityData[] allData = Resources.LoadAll<CapacityData>("Data/Entity/Capacity");
-        Debug.Log(player.ID);
-        Debug.Log(player.Affinity);
         player._CapacityData1 = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}a{player.Affinity}");
         player._CapacityData2 = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}b{player.Affinity}");
         player._CapacityData3 = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}c{player.Affinity}");

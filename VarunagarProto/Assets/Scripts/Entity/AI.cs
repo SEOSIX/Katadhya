@@ -43,12 +43,12 @@ public class AI : MonoBehaviour
 
         if (enemyTurnCounter % 2 == 0)
         {
-            Debug.Log(" Attaque multiple !");
+            Debug.Log("L'ennemi lance une attaque multiple");
             AttackMultipleTargets(attacker, damages);
         }
         else
         {
-            Debug.Log(" Attaque simple !");
+            Debug.Log("L'ennemi lance une attaque simple");
             AttackSingleTarget(attacker, damages);
         }
     }
@@ -104,7 +104,7 @@ public class AI : MonoBehaviour
         CapacityData Cpt = SelectSpell(attacker);
         CombatManager.SINGLETON.ApplyCapacityToTarget(Cpt, targetedPlayer);
  
-        Animator anim = targetedPlayer.instance?.GetComponent<Animator>();
+        /*Animator anim = targetedPlayer.instance?.GetComponent<Animator>();
         if (anim != null && anim.runtimeAnimatorController != null)
         {
             //Debug.Log(anim.isInitialized);
@@ -115,7 +115,7 @@ public class AI : MonoBehaviour
         else
         {
             Debug.LogWarning($"Animator manquant ou sans controller sur {targetedPlayer.namE}");
-        }
+        }*/
         CombatManager.SINGLETON.DecrementBuffDurations(attacker);
         if (attacker.beenHurtThisTurn == false && attacker.RageTick > 0)
         {

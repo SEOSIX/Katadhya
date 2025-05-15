@@ -203,10 +203,10 @@ public class CombatManager : MonoBehaviour
         if (currentTurnOrder.Count == 0)
         {
             EndGlobalTurn();
-            for (int i = 0; i < currentTurnOrder.Count; i++)
+            /*for (int i = 0; i < currentTurnOrder.Count; i++)
             {
                 Debug.Log($"currentTurnOrder[{i}] = {currentTurnOrder[i].namE}");
-            }
+            }*/
         }
         StartCoroutine(StartUnitTurnDelayed());
     }
@@ -525,6 +525,16 @@ public class CombatManager : MonoBehaviour
     // ATTAQUE
     if (capacity.atk > 0)
     {
+        Animator anim = target.instance?.GetComponent<Animator>();
+        if (anim != null && anim.runtimeAnimatorController != null)
+        {
+
+            anim.SetTrigger("TakeDamage");
+        }
+        else
+        {
+            Debug.Log("Pas d'animator actif");
+        }
         float calculatedDamage = (((caster.UnitAtk + 1) * capacity.atk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
         int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
         DamageDone += icalculatedDamage;
@@ -628,6 +638,15 @@ public class CombatManager : MonoBehaviour
     // ATTAQUE
     if (capacity.atk > 0)
     {
+        Animator anim = target.instance?.GetComponent<Animator>();
+        if (anim != null && anim.runtimeAnimatorController != null)
+        {
+            anim.SetTrigger("TakeDamage");
+        }
+        else
+        {
+            Debug.Log("Ca a pas marché ptdrr");
+        }
         float calculatedDamage = (((caster.UnitAtk + 1) * capacity.secondaryAtk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
         int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
         DamageDone += icalculatedDamage;
@@ -747,7 +766,7 @@ public class CombatManager : MonoBehaviour
             }
         }
         entiityManager.UpdateSpellData(player);
-        Debug.Log($"DEBUG ULTIME : {player._CapacityData1}{player._CapacityData2}{player._CapacityData3}{player._CapacityDataUltimate}");
+        //Debug.Log($"DEBUG ULTIME : {player._CapacityData1}{player._CapacityData2}{player._CapacityData3}{player._CapacityDataUltimate}");
         UpdatePage(player);
     }
     public void SetUltimate()
@@ -1125,7 +1144,6 @@ public class CombatManager : MonoBehaviour
     {
         for (int i = target.ActiveBuffs.Count - 1; i >= 0; i--)
         {
-            Debug.Log($"{target.ActiveBuffs[i]}");
             target.ActiveBuffs[i].duration--;
             if (target.ActiveBuffs[i].duration <= 0)
                 target.ActiveBuffs.RemoveAt(i);
