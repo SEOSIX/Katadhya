@@ -148,11 +148,11 @@ public class EntiityManager : MonoBehaviour
 
         if (!anyPlayerAlive)
         {
-            Debug.Log("Les ennemis ont gagné !");
+            Debug.Log("Game Over");
         }
         else if (!anyEnemyAlive)
         {
-            Debug.Log("Les joueurs ont gagné !");
+            Debug.Log("Fin de la vague");
             GameManager.SINGLETON.EnemyPackIndex += 1;
             GameManager.SINGLETON.SpawnEnemies();
         }
