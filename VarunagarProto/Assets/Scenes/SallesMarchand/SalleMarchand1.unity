@@ -672,8 +672,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 602, y: 284}
-  m_SizeDelta: {x: 291.28, y: 95.64}
+  m_AnchoredPosition: {x: 632, y: 182}
+  m_SizeDelta: {x: 197.64, y: 51.69}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &575787407
 MonoBehaviour:
@@ -722,7 +722,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65.4
+  m_fontSize: 44.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -782,6 +782,7 @@ GameObject:
   m_Component:
   - component: {fileID: 584447628}
   - component: {fileID: 584447629}
+  - component: {fileID: 584447630}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -823,6 +824,24 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 15467d6892a5a9d47afd9e96be0169cc, type: 2}
   - {fileID: 11400000, guid: 4fc35aabfdf59df4f99f4626f72d907b, type: 2}
   - {fileID: 11400000, guid: 02d23aa71e90218469e2c7aae1b67c20, type: 2}
+--- !u!114 &584447630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584447627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f5cb2ba20b11ec46b58a9901a92266f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handler: {fileID: 11400000, guid: 17a8756ed4a793e48b99e4a908529cc3, type: 2}
+  inventory: {fileID: 584447629}
+  buttons:
+  - {fileID: 1512971501}
+  - {fileID: 574524940}
+  - {fileID: 1852322157}
 --- !u!1 &684560354
 GameObject:
   m_ObjectHideFlags: 0

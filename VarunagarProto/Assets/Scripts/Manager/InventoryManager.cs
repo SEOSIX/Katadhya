@@ -79,6 +79,7 @@ public class InventoryManager : MonoBehaviour
             Destroy(child.gameObject);
 
         int index = playerData.grid[x, y];
+        int quantity = playerData.quantityGrid[x, y];
         Consumable c = GetConsumableByIndex(index);
 
         if (c != null && c.spriteRender != null)
@@ -95,12 +96,22 @@ public class InventoryManager : MonoBehaviour
             rt.anchorMax = Vector2.one;
             rt.offsetMin = Vector2.zero;
             rt.offsetMax = Vector2.zero;
-        }
+            GameObject quantityTextGO = new GameObject("QtyText");
+            quantityTextGO.transform.SetParent(slot.transform, false);
+            TextMeshProUGUI qtyText = quantityTextGO.AddComponent<TextMeshProUGUI>();
+            qtyText.text = quantity.ToString();
+            qtyText.fontSize = 24;
+            qtyText.alignment = TextAlignmentOptions.BottomRight;
+            qtyText.color = quantity >= 3 ? Color.red : Color.white;
 
-        TMP_Text text = slot.GetComponentInChildren<TMP_Text>();
-        if (text != null)
-            text.text = index.ToString();
+            RectTransform textRT = qtyText.GetComponent<RectTransform>();
+            textRT.anchorMin = Vector2.zero;
+            textRT.anchorMax = Vector2.one;
+            textRT.offsetMin = Vector2.zero;
+            textRT.offsetMax = Vector2.zero;
+        }
     }
+
 
     Consumable GetConsumableByIndex(int index)
     {

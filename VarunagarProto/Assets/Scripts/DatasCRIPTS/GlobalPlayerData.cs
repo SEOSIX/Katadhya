@@ -15,9 +15,13 @@ public class GlobalPlayerData : ScriptableObject
 
     [System.NonSerialized]
     public int[,] grid;
+    [System.NonSerialized]
+    public int[,] quantityGrid;
 
     [SerializeField]
     private int[] flatGrid;
+    [SerializeField]
+    private int[] flatQuantities;
 
     private void OnEnable()
     {
@@ -26,33 +30,34 @@ public class GlobalPlayerData : ScriptableObject
 
     public void LoadGrid()
     {
-        if (width <= 0 || height <= 0) return;
-
         grid = new int[width, height];
+        quantityGrid = new int[width, height];
+
         if (flatGrid == null || flatGrid.Length != width * height)
-        {
             flatGrid = new int[width * height];
-        }
+
+        if (flatQuantities == null || flatQuantities.Length != width * height)
+            flatQuantities = new int[width * height];
+
         for (int y = 0; y < height; y++)
+        for (int x = 0; x < width; x++)
         {
-            for (int x = 0; x < width; x++)
-            {
-                int index = y * width + x;
-                grid[x, y] = flatGrid[index];
-            }
+            int index = y * width + x;
+            grid[x, y] = flatGrid[index];
+            quantityGrid[x, y] = flatQuantities[index];
         }
     }
     public void SaveGrid()
     {
         flatGrid = new int[width * height];
+        flatQuantities = new int[width * height];
 
         for (int y = 0; y < height; y++)
+        for (int x = 0; x < width; x++)
         {
-            for (int x = 0; x < width; x++)
-            {
-                int index = y * width + x;
-                flatGrid[index] = grid[x, y];
-            }
+            int index = y * width + x;
+            flatGrid[index] = grid[x, y];
+            flatQuantities[index] = quantityGrid[x, y];
         }
     }
 }
