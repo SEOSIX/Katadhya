@@ -17,8 +17,15 @@ public class Consumable : ScriptableObject
     
     [field: Header("Custom"), Space,SerializeField]
     public string Name;
-
     public int IndexRef;
+
+    [field: Header("Marchand"), Space, SerializeField]
+    public int prix { get; set; }
+
+    [field: SerializeField]
+    public int quantiteDisponible { get; set; }
+    [field: SerializeField]
+    public int baseQuantity {get; set;}
     
     [field: Header("Scripts"), Space,SerializeField]
     public GrabdableItem ItemParameter;

@@ -838,10 +838,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handler: {fileID: 11400000, guid: 17a8756ed4a793e48b99e4a908529cc3, type: 2}
   inventory: {fileID: 584447629}
+  caurisManager: {fileID: 11400000, guid: 4fb73a1ffcd886e4fb39374b68c0afad, type: 2}
+  GreyScale: {fileID: 2100000, guid: 05796b9dab687d9428b4033e717c72bb, type: 2}
   buttons:
   - {fileID: 1512971501}
   - {fileID: 574524940}
   - {fileID: 1852322157}
+  caurisText: {fileID: 498557007}
 --- !u!1 &684560354
 GameObject:
   m_ObjectHideFlags: 0

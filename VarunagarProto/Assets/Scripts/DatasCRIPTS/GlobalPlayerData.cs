@@ -8,6 +8,8 @@ public class GlobalPlayerData : ScriptableObject
 {
     [Header("Cauris")]
     public int caurisCount;
+    [Header("Cauris de base")]
+    public int basCauris;
     
     [Header("InventoryLenght")]
     public int width = 5;
@@ -60,4 +62,29 @@ public class GlobalPlayerData : ScriptableObject
             flatQuantities[index] = quantityGrid[x, y];
         }
     }
+
+    public bool CanAfford(int amount)
+    {
+        return caurisCount >= amount;
+    }
+
+    public bool SpendCauris(int amount)
+    {
+        if (CanAfford(amount))
+        {
+            caurisCount -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    public void AddCauris(int amount)
+    {
+        caurisCount += amount;
+    }
+
+    public void ResetCaurisToBase()
+{
+    caurisCount = basCauris;
+}
 }
