@@ -525,17 +525,17 @@ public class CombatManager : MonoBehaviour
     // ATTAQUE
     if (capacity.atk > 0)
     {
-        Animator anim = target.instance?.GetComponent<Animator>();
-        if (anim != null && anim.runtimeAnimatorController != null)
-        {
+        //animation de prise de dégâts
+        Animator animTarget = target.instance?.GetComponent<Animator>();
+        if (animTarget != null && animTarget.runtimeAnimatorController != null) { animTarget.SetTrigger("TakeDamage");}
+        else {Debug.Log("Pas d'animator actif : target");}
 
-            anim.SetTrigger("TakeDamage");
-        }
-        else
-        {
-            Debug.Log("Pas d'animator actif");
-        }
-        float calculatedDamage = (((caster.UnitAtk + 1) * capacity.atk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
+        //animation de prise de dégâts
+        Animator animCaster = caster.instance?.GetComponent<Animator>();
+        if (animCaster != null && animCaster.runtimeAnimatorController != null) { animCaster.SetTrigger("Attack"); }
+        else { Debug.Log("Pas d'animator actif : caster"); }
+
+            float calculatedDamage = (((caster.UnitAtk + 1) * capacity.atk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
         int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
         DamageDone += icalculatedDamage;
 
