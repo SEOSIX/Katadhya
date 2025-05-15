@@ -879,9 +879,9 @@ MonoBehaviour:
   entityHandler: {fileID: 11400000, guid: 779db6a0d8027e04a8c21117fb5fdb15, type: 2}
   playerPrefabs:
   - playerName: Moine
-    prefab: {fileID: 1624137427931347417, guid: f776c726f2e39cf4db7483b1f17ccf67, type: 3}
+    prefab: {fileID: 1624137427931347417, guid: ee713a023e71dcc4bbcd518a1d2cd088, type: 3}
   - playerName: "Prisonni\xE8re"
-    prefab: {fileID: 8405213795540640227, guid: 4889c64283bad3b4ebba15c49de2c5ba, type: 3}
+    prefab: {fileID: 8405213795540640227, guid: c7713fff9b5dbf848b35da83b66f4561, type: 3}
   EnemyPackIndex: 0
   enemyPacks: []
   allEnemiesEncountered: []
@@ -1077,7 +1077,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -45
   m_Sprite: {fileID: 21300000, guid: 84182f267612e0348bde1db5933184d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1161,7 +1161,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -175
   m_Sprite: {fileID: 21300000, guid: 9c47bc4a0ef6c35418531f26bbba1233, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1213,7 +1213,7 @@ Transform:
   m_GameObject: {fileID: 894131291}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.29, y: -1.13, z: 0.050307423}
+  m_LocalPosition: {x: 0.61, y: -2.66, z: 0.050307423}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1299,7 +1299,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 66
+  m_SortingOrder: 36
   m_TargetDisplay: 0
 --- !u!224 &945723544
 RectTransform:
@@ -1495,7 +1495,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: -26
   m_Sprite: {fileID: 21300000, guid: 92b52bd382ab9f24ea9c75d7e24fe05d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1961,7 +1961,7 @@ Transform:
   m_GameObject: {fileID: 1619834430}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.96, y: -0.74, z: 0.050307423}
+  m_LocalPosition: {x: -1.55, y: -1.87, z: 0.050307423}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
