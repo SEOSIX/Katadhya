@@ -559,7 +559,7 @@ public class CombatManager : MonoBehaviour
         }
 
         target.beenHurtThisTurn = true;
-        if (caster.Affinity == 1)
+        if (caster.Affinity == 4)
         {
             EffectsManager.SINGLETON.AfficherAttaqueBouclier(visualIndex, DamageDone);
         }
@@ -1035,7 +1035,6 @@ public class CombatManager : MonoBehaviour
                     Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts à {target.namE} grâce au choc");
                 }
                 target.ShockMark = 0;
-
             }
         }
     }
@@ -1049,6 +1048,9 @@ public class CombatManager : MonoBehaviour
             int affinityCount = team.Count(entity => entity.Affinity == 3);
             target.RageTick += Mathf.Clamp(affinityCount + 1,0,12);
             RecalculateStats(target);
+            
+            int visualIndex = target.index;
+            EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
         }
     }
     
@@ -1059,8 +1061,10 @@ public class CombatManager : MonoBehaviour
             caster.UnitAtk = Mathf.RoundToInt(caster.UnitAtk * 1.5f);
             caster.RageTick = 0;
             RecalculateStats(caster);
-        }
 
+            int visualIndex = caster.index;
+            EffectsManager.SINGLETON.AfficherRageSlider(caster.RageTick, visualIndex);
+        }
     }
 
     public void ApplyNecrosis(DataEntity target, int levelToAdd = 1)

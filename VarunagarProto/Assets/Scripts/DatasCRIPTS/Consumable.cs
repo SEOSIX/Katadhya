@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObject/ConsumableData", order = 3)]
 public class Consumable : ScriptableObject
@@ -18,6 +19,8 @@ public class Consumable : ScriptableObject
     [field: Header("Custom"), Space,SerializeField]
     public string Name;
     public int IndexRef;
+    [TextArea]
+    public string myText;
 
     [field: Header("Marchand"), Space, SerializeField]
     public int prix { get; set; }

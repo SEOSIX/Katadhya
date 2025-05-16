@@ -900,7 +900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImagePrefab: {fileID: 1962146410827420882, guid: fef769cb8581e0240873ecb78a2e37fd, type: 3}
-  fadeDuration: 2.28
+  fadeDuration: 0.59
 --- !u!1 &684560354
 GameObject:
   m_ObjectHideFlags: 0
@@ -2065,9 +2065,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 584447633}
-        m_TargetAssemblyTypeName: FadeManager, Assembly-CSharp
-        m_MethodName: FadeOut
+      - m_Target: {fileID: 584447631}
+        m_TargetAssemblyTypeName: LoadingScene, Assembly-CSharp
+        m_MethodName: LoadNextSceneAsync
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

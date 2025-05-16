@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class EffectsManager : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class EffectsManager : MonoBehaviour
     private Dictionary<int, GameObject> lastFoudreEffects = new Dictionary<int, GameObject>();
     public GameObject effetBouclier;
     public GameObject pictoBuff;
+    
+    [Header("Sliders de Rage par entité")]
+    public List<UnityEngine.UI.Slider> rageSliders = new List<UnityEngine.UI.Slider>();
 
     [Header("Prefab de texte pour afficher les dégâts")]
     public GameObject damageTextPrefab;
@@ -49,6 +53,20 @@ public class EffectsManager : MonoBehaviour
             GameObject nouvelEffet = Instantiate(effet, Effects1Position[index].position, Quaternion.identity, Effects1Position[index]);
             lastFoudreEffects.Add(index, nouvelEffet);
         }
+    }
+    
+    public void AfficherRageSlider(int rageValue, int index)
+    {
+        Debug.Log($"Mise à jour Rage: valeur={rageValue}, index={index}");
+        if (!IsValid(index) || rageValue < 0 || rageSliders == null || rageSliders.Count <= index)
+            return;
+
+        Slider slider = rageSliders[index];
+        if (slider == null) return;
+
+        slider.maxValue = 12;
+        slider.value = rageValue;
+        slider.gameObject.SetActive(rageValue > 0);
     }
 
     public void AfficherAttaqueBouclier(int index, int degats)
