@@ -5836,6 +5836,7 @@ GameObject:
   - component: {fileID: 711964559}
   - component: {fileID: 711964560}
   - component: {fileID: 711964561}
+  - component: {fileID: 711964562}
   m_Layer: 0
   m_Name: UImanager
   m_TagString: Untagged
@@ -6023,6 +6024,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 15467d6892a5a9d47afd9e96be0169cc, type: 2}
   - {fileID: 11400000, guid: 4fc35aabfdf59df4f99f4626f72d907b, type: 2}
   - {fileID: 11400000, guid: 02d23aa71e90218469e2c7aae1b67c20, type: 2}
+--- !u!114 &711964562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711964555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4f06dff325534241bea986e7356e50c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeImagePrefab: {fileID: 1962146410827420882, guid: fef769cb8581e0240873ecb78a2e37fd, type: 3}
+  fadeDuration: 2.58
 --- !u!1 &712382127
 GameObject:
   m_ObjectHideFlags: 0
@@ -9781,6 +9796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3b0452618b0bb4f96835daf8bcdbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCombatEnabled: 1
   playerSpawnPoints:
   - {fileID: 896958595}
   - {fileID: 238350839}

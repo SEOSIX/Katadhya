@@ -785,6 +785,7 @@ GameObject:
   - component: {fileID: 584447630}
   - component: {fileID: 584447631}
   - component: {fileID: 584447632}
+  - component: {fileID: 584447633}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -886,6 +887,20 @@ MonoBehaviour:
   enemyPacks: []
   allEnemiesEncountered: []
   sizeChara: 0.21
+--- !u!114 &584447633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584447627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4f06dff325534241bea986e7356e50c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeImagePrefab: {fileID: 1962146410827420882, guid: fef769cb8581e0240873ecb78a2e37fd, type: 3}
+  fadeDuration: 2.28
 --- !u!1 &684560354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,8 +1113,8 @@ Transform:
   m_GameObject: {fileID: 849374284}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.51, y: 1.87, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.0884, y: 1.87, z: 0}
+  m_LocalScale: {x: 0.9377, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1182,8 +1197,8 @@ Transform:
   m_GameObject: {fileID: 885508329}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5328, y: -0.2863, z: 0}
-  m_LocalScale: {x: 1.0666366, y: 1.0563871, z: 1}
+  m_LocalPosition: {x: -0.356, y: -0.4223, z: 0}
+  m_LocalScale: {x: 1.0467972, y: 1.0835361, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1213,7 +1228,7 @@ Transform:
   m_GameObject: {fileID: 894131291}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.61, y: -2.66, z: 0.050307423}
+  m_LocalPosition: {x: -0.73, y: -2.77, z: 0.050307423}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1516,8 +1531,8 @@ Transform:
   m_GameObject: {fileID: 1227304862}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2657, y: 0.2792, z: 0}
-  m_LocalScale: {x: 0.5330204, y: 0.5783996, z: 0.57742447}
+  m_LocalPosition: {x: -1.2793, y: 0.3608, z: 0}
+  m_LocalScale: {x: 0.5339798, y: 0.5873648, z: 0.57742447}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1961,7 +1976,7 @@ Transform:
   m_GameObject: {fileID: 1619834430}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.55, y: -1.87, z: 0.050307423}
+  m_LocalPosition: {x: 0.85, y: -1.33, z: 0.050307423}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2050,9 +2065,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 584447631}
-        m_TargetAssemblyTypeName: LoadingScene, Assembly-CSharp
-        m_MethodName: LoadNextSceneAsync
+      - m_Target: {fileID: 584447633}
+        m_TargetAssemblyTypeName: FadeManager, Assembly-CSharp
+        m_MethodName: FadeOut
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

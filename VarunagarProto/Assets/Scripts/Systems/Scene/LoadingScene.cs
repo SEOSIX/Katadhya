@@ -21,7 +21,10 @@ public class LoadingScene : MonoBehaviour
 
     public void LoadNextSceneAsync()
     {
-        StartCoroutine(LoadNextScene());
+        FadeManager.Instance.FadeOut(() =>
+        {
+            StartCoroutine(LoadNextScene());
+        });
     }
 
     private IEnumerator LoadNextScene()
