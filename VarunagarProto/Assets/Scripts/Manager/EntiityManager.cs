@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -188,9 +187,9 @@ public class EntiityManager : MonoBehaviour
         //if(player._CapacityData1 != null && player._CapacityData2 != null && player._CapacityData3 != null && player._CapacityDataUltimate) 
             //return;
         CapacityData[] allData = Resources.LoadAll<CapacityData>("Data/Entity/Capacity");
-        player._CapacityData1 = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}a{player.Affinity}");
-        player._CapacityData2 = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}b{player.Affinity}");
-        player._CapacityData3 = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}c{player.Affinity}");
+        player._CapacityData1 = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}a{player.Affinity}{player.Cpt1lvl}");
+        player._CapacityData2 = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}b{player.Affinity}{player.Cpt2lvl}");
+        player._CapacityData3 = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}c{player.Affinity}{player.Cpt3lvl}");
         player._CapacityDataUltimate = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}d{player.Affinity}{player.UltLvlHit}");
     }
 }
