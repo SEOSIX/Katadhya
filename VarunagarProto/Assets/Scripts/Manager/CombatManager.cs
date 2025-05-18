@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -33,9 +33,11 @@ public class CombatManager : MonoBehaviour
     public Button[] capacityButtons;
     public Button[] capacityAnimButtons;
     public GameObject[] capacityPage;
+    public GameObject[] capacityPageAffinity;
     public GameObject[] Banderoles;
     public TextMeshProUGUI[] CoolDownTexts;
     public Sprite[] Pictos;
+    public Sprite[] PictosAffinity;
     public Sprite[] TargetType;
     public Sprite[] PictoBuffs;
     public Material GreyScale;
@@ -71,6 +73,7 @@ public class CombatManager : MonoBehaviour
     public static class GlobalVars
     {
         public static CapacityData currentSelectedCapacity;
+        public static DataEntity currentPlayer;
     }
     public bool isEnnemyTurn;
     private Vector2[] targetSizes;
@@ -247,7 +250,9 @@ public class CombatManager : MonoBehaviour
         if (currentTurnOrder.Count == 0) yield break;
 
         DataEntity current = currentTurnOrder[0];
-    
+        GlobalVars.currentPlayer = current;
+
+
         if (current.skipNextTurn)
         {
             current.skipNextTurn = false;
@@ -600,11 +605,11 @@ public class CombatManager : MonoBehaviour
         RageApplication(target);
     }
 
-    if (caster.Affinity == 4)
+    if (capacity.Necrosis > 0)
     {
-        ApplyNecrosis(target);
+        ApplyNecrosis(target, capacity.Necrosis);
     }
-}
+    }
 
 
     private void ApplySpecialCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
@@ -716,11 +721,11 @@ public class CombatManager : MonoBehaviour
         RageApplication(target);
     }
 
-    if (caster.Affinity == 4)
+    if (capacity.Necrosis > 0)
     {
-        ApplyNecrosis(target);
+        ApplyNecrosis(target, capacity.Necrosis);
     }
-}
+    }
 
     private void SetupCapacityButtons(DataEntity player)
     {
@@ -829,55 +834,116 @@ public class CombatManager : MonoBehaviour
 
         for (int i = 0; i < PCapacities.Count(); i++)
         {
+            //Reset de tout
             CapacityData CData = PCapacities[i];
-            Transform Parent = capacityPage[i].GetComponent<Transform>();
-            Transform Text = Parent.GetChild(4);
+            Transform EncartCpt = capacityPage[i].GetComponent<Transform>();
+            Transform EncartAffinity = capacityPageAffinity[i].GetComponent<Transform>();
+            EncartAffinity.gameObject.SetActive(false);
+            Transform Text = EncartCpt.GetChild(4);
             Sprite Target = TargetType[CData.TargetType];
             Sprite PictoType = Pictos[CData.PictoType];
-            TextMeshProUGUI Description = Parent.GetChild(1).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI Description = EncartCpt.GetChild(1).GetComponent<TextMeshProUGUI>();
             String Sbuff = "";
             Text.GetChild(0).GameObject().SetActive(false);
-            Parent.GetChild(3).GetChild(0).GameObject().SetActive(false);
-            Parent.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(CData.Name);
+            EncartCpt.GetChild(3).GetChild(0).GameObject().SetActive(false);
+            EncartAffinity.GetChild(1).GameObject().SetActive(false);
+
+            //MAJ de la data de base
+            EncartCpt.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(CData.Name);
             Description.SetText(CData.Description);
-            Parent.GetChild(2).GetComponent<Image>().sprite = Target;
-            Parent.GetChild(3).GetChild(1).GetComponent<Image>().sprite = PictoType;
-            
+            EncartCpt.GetChild(2).GetComponent<Image>().sprite = Target;
+            EncartCpt.GetChild(3).GetChild(1).GetComponent<Image>().sprite = PictoType;
+
+            //MAJ de la data si affinity
+            if (player.Affinity != 0)
+            {
+                Debug.Log("ICI");
+                Sprite Picto = null;
+                String EffectValue = "";
+                if (CData.Shield > 0)
+                {
+                    Picto = PictosAffinity[0];
+                    EffectValue = $"{CData.Shield}";
+                }
+                if (CData.ShieldRatioAtk > 0)
+                {
+                    Picto = PictosAffinity[0];
+                    EffectValue = $"{CData.ShieldRatioAtk}%";
+                }
+                if (CData.Shock > 0)
+                {
+                    Picto = PictosAffinity[1];
+                    EffectValue = $"{CData.Shock}";
+                }
+
+                if (CData.Necrosis > 0)
+                {
+                    Picto = PictosAffinity[2];
+                    EffectValue = $"{CData.Necrosis}";
+                }
+                if (Picto != null)
+                {
+                    EncartAffinity.GetChild(2).gameObject.SetActive(true);
+                    EncartAffinity.GetChild(2).GetComponent<Image>().sprite = Picto;
+                }
+                else
+                {
+                    EncartAffinity.GetChild(2).gameObject.SetActive(false);
+                }
+                EncartAffinity.GetChild(3).GetComponent<TextMeshProUGUI>().text = EffectValue;
+                EncartAffinity.GetChild(0).GetComponent<TextMeshProUGUI>().text = CData.AffinityDescription;
+
+
+            }
+
             if (CData.buffType != 0)
             {
-                Parent.GetChild(3).GetChild(0).GameObject().SetActive(true);
-                Text.GetChild(0).GameObject().SetActive(true);
+                GameObject BuffIcon = null;
+                GameObject BuffValue = null;
+                if (CData.BuffFromAffinity == false)
+                {
+                    BuffIcon = EncartCpt.GetChild(3).GetChild(0).GameObject();
+                    Text.GetChild(0).GameObject().SetActive(true);
+                    BuffValue = Text.GetChild(0).GameObject();
+                }
+                else
+                {
+                    BuffIcon = EncartAffinity.GetChild(1).GameObject();
+                    EncartAffinity.GetChild(3).GameObject().SetActive(true);
+                    BuffValue = EncartAffinity.GetChild(3).GameObject();
+                }
+                BuffIcon.SetActive(true);
                 string arrow = "";
                 if (CData.buffValue > 1)
                 {
-                    Parent.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color32(0, 39, 11, 255);
+                    BuffIcon.GetComponent<TextMeshProUGUI>().color = new Color32(0, 39, 11, 255);
                     arrow = "▲";
                     Sbuff = $"{Mathf.RoundToInt((CData.buffValue - 1) * 100)}";
                 }
                 else
                 {
-                    Parent.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().color = new Color32(155, 0, 0, 255);
+                    BuffIcon.GetComponent<TextMeshProUGUI>().color = new Color32(155, 0, 0, 255);
 
                     arrow = "▼";
                     Sbuff = $"-{Mathf.RoundToInt((1 - CData.buffValue) * 100)}%";
                 }
                 if (CData.buffType == 1)
                 {
-                    Parent.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().SetText($"ATK{arrow}");
+                    BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"ATK{arrow}");
                 }
                 if (CData.buffType == 2)
                 {
-                    Parent.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().SetText($"DEF{arrow}");
+                    BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"DEF{arrow}");
                 }
                 if (CData.buffType == 3)
                 {
-                    Parent.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().SetText($"VIT{arrow}");
+                    BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"VIT{arrow}");
                 }
                 if (CData.buffType == 4)
                 {
-                    Parent.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().SetText($"PRE{arrow}");
+                    BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"PRE{arrow}");
                 }
-                Text.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(Sbuff);
+                BuffValue.GetComponent<TextMeshProUGUI>().SetText(Sbuff);
             }
             int Value = 0;
             Value = Math.Max(CData.atk, CData.heal);
@@ -890,12 +956,12 @@ public class CombatManager : MonoBehaviour
             Text.GetChild(3).GetComponent<TextMeshProUGUI>().SetText($"{CData.critique}%");
             if (CData.MultipleAttack)
             {
-                Parent.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"CD: {CData.cooldown-1}");
+                EncartCpt.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"CD: {CData.cooldown-1}");
 
             }
             else
             {
-                Parent.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"CD: {CData.cooldown}");
+                EncartCpt.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"CD: {CData.cooldown}");
 
             }
 
@@ -1066,7 +1132,7 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public void ApplyNecrosis(DataEntity target, int levelToAdd = 1)
+    public void ApplyNecrosis(DataEntity target, int levelToAdd)
     {
         if (target.necrosis == null || target.necrosis.Count == 0)
         {
@@ -1211,6 +1277,20 @@ public class CombatManager : MonoBehaviour
             ApplyNormalCapacity(delayedAction.capacity, entity, delayedAction.target, 1f);
 
             entity.delayedActions.RemoveAt(i);
+        }
+    }
+    public void ActivateAffinityPage(GameObject AffinityPage)
+    {
+        if(GlobalVars.currentPlayer.Affinity != 0)
+        {
+            AffinityPage.SetActive(true);
+        }
+    }
+    public void ActivateAffinityPage2(GameObject AffinityPage)
+    {
+        if (GlobalVars.currentPlayer.Affinity != 0)
+        {
+            AffinityPage.SetActive(false);
         }
     }
 }
