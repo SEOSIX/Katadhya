@@ -44,10 +44,6 @@ public class AutelQTEUpgrade : MonoBehaviour
         }
         
         UpdateAffinityTexts(currentEntity);
-
-        currentQTE = null;
-        currentEntity = null;
-        imageDisplay.enabled = false;
     }
     
     private void UpdateAffinityTexts(DataEntity entity)
