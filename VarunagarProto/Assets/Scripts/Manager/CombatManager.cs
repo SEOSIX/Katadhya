@@ -515,7 +515,9 @@ public class CombatManager : MonoBehaviour
  public void ApplyNormalCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
 {
     int DamageDone = 0;
-    int visualIndex = target.index;
+    int visualIndex = entityHandler.players.Contains(target)
+        ? entityHandler.players.IndexOf(target)
+        : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
 
      if (capacity.atk > 0 && caster.instance != null && target.instance != null)
     {
@@ -695,7 +697,9 @@ public class CombatManager : MonoBehaviour
 
     if (capacity.secondaryBuffType > 0)
     {
-        int visualIndex = target.index;
+        int visualIndex = entityHandler.players.Contains(target)
+            ? entityHandler.players.IndexOf(target)
+            : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
         GiveBuff(capacity, target);
         EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex);
     }
@@ -1004,7 +1008,9 @@ public class CombatManager : MonoBehaviour
             Debug.Log($"{caster.name} a appliqué {capacity.Shock} marque(s) à {target.namE}");
             if (target.ShockMark >= 1 && target.ShockMark <= 4)
             {
-                int visualIndex = target.index;
+                int visualIndex = entityHandler.players.Contains(target)
+                    ? entityHandler.players.IndexOf(target)
+                    : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
                 EffectsManager.SINGLETON.AfficherAttaqueFoudre(target.ShockMark, visualIndex);
             }
             if (target.ShockMark >= 4)
@@ -1049,7 +1055,9 @@ public class CombatManager : MonoBehaviour
             target.RageTick += Mathf.Clamp(affinityCount + 1,0,12);
             RecalculateStats(target);
             
-            int visualIndex = target.index;
+            int visualIndex = entityHandler.players.Contains(target)
+                ? entityHandler.players.IndexOf(target)
+                : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
             EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
         }
     }
@@ -1062,7 +1070,9 @@ public class CombatManager : MonoBehaviour
             caster.RageTick = 0;
             RecalculateStats(caster);
 
-            int visualIndex = caster.index;
+            int visualIndex = entityHandler.players.Contains(caster)
+                ? entityHandler.players.IndexOf(caster)
+                : entityHandler.players.Count + entityHandler.ennemies.IndexOf(caster);
             EffectsManager.SINGLETON.AfficherRageSlider(caster.RageTick, visualIndex);
         }
     }

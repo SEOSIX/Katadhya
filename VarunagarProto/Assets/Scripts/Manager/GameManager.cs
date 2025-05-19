@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -71,16 +72,10 @@ public class GameManager : MonoBehaviour
         {
             SpawnEnemies();
 
-            UpdateAllEntityIndexes();
-
             CombatManager.SINGLETON.SetupBaseStat();
             CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
             CombatManager.SINGLETON.InitializeStaticUI();
             CombatManager.SINGLETON.StartUnitTurn();
-        }
-        else
-        {
-            UpdateAllEntityIndexes();
         }
     }
 
@@ -173,21 +168,6 @@ public class GameManager : MonoBehaviour
         if (data != null && !allEnemiesEncountered.Contains(data))
         {
             allEnemiesEncountered.Add(data);
-        }
-    }
-
-    private void UpdateAllEntityIndexes()
-    {
-        for (int i = 0; i < entityHandler.players.Count; i++)
-        {
-            var manager = entityHandler.players[i]?.instance?.GetComponent<EntiityManager>();
-            if (manager != null) manager.UpdateIndexes();
-        }
-
-        for (int i = 0; i < entityHandler.ennemies.Count; i++)
-        {
-            var manager = entityHandler.ennemies[i]?.instance?.GetComponent<EntiityManager>();
-            if (manager != null) manager.UpdateIndexes();
         }
     }
 }

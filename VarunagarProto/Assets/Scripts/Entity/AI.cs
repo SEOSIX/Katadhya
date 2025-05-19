@@ -1,11 +1,7 @@
-using System;
 using System.Collections;
-using UnityEngine;
 using System.Collections.Generic;
-using Random = UnityEngine.Random;
-using static UnityEngine.GraphicsBuffer;
 using System.Linq;
-
+using UnityEngine;
 
 public class AI : MonoBehaviour
 {
@@ -13,10 +9,10 @@ public class AI : MonoBehaviour
 
     public GameObject playerTarget1;
     public GameObject playerTarget2;
-    
+
     private int enemyTurnCounter = 0;
 
-    void Awake()
+    private void Awake()
     {
         if (SINGLETON != null)
         {
@@ -27,201 +23,122 @@ public class AI : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-
     public void Attack(DataEntity attacker, int damages)
     {
-        if (CombatManager.SINGLETON == null || 
-            CombatManager.SINGLETON.entityHandler == null || 
-            CombatManager.SINGLETON.entityHandler.players == null || 
-            CombatManager.SINGLETON.entityHandler.players.Count == 0)
-        {
-            Debug.LogWarning("Aucun joueur disponible pour l'attaque.");
-            return;
-        }
+        if (!IsCombatReady()) return;
 
         enemyTurnCounter++;
 
         if (enemyTurnCounter % 2 == 0)
         {
             Debug.Log("L'ennemi lance une attaque multiple");
-            AttackMultipleTargets(attacker, damages);
+            StartCoroutine(MultiAttackCoroutine(attacker));
         }
         else
         {
             Debug.Log("L'ennemi lance une attaque simple");
-            AttackSingleTarget(attacker, damages);
+            StartCoroutine(SingleAttackCoroutine(attacker));
         }
     }
 
-    
-    private void AttackSingleTarget(DataEntity attacker, int damages)
+    private bool IsCombatReady()
     {
-        StartCoroutine(SingleAttackCoroutine(attacker, damages));
+        return CombatManager.SINGLETON != null &&
+               CombatManager.SINGLETON.entityHandler != null &&
+               CombatManager.SINGLETON.entityHandler.players != null &&
+               CombatManager.SINGLETON.entityHandler.players.Count > 0;
     }
 
-    private IEnumerator SingleAttackCoroutine(DataEntity attacker, int damages)
+    private IEnumerator SingleAttackCoroutine(DataEntity attacker)
     {
-        List<DataEntity> potentialTargets = CombatManager.SINGLETON.entityHandler.players
-            .Where(player => player.UnitLife > 0)
-            .ToList();
+        var targets = CombatManager.SINGLETON.entityHandler.players.Where(p => p.UnitLife > 0).ToList();
+        if (targets.Count == 0) yield break;
 
-        if (potentialTargets.Count == 0) yield break;
-
-        DataEntity provoker = potentialTargets.FirstOrDefault(p => p.provoking);
-
-        DataEntity targetedPlayer;
-        int targetIndex;
-
-        if (provoker != null)
-        {
-            targetedPlayer = provoker;
-            targetIndex = CombatManager.SINGLETON.entityHandler.players.IndexOf(provoker);
-        }
-        else
-        {
-            targetIndex = Random.Range(0, potentialTargets.Count);
-            targetedPlayer = potentialTargets[targetIndex];
-        }
+        DataEntity target = targets.FirstOrDefault(p => p.provoking) ?? targets[Random.Range(0, targets.Count)];
 
         yield return new WaitForSeconds(1.5f);
 
-        if (targetIndex == 0)
-        {
-            playerTarget2.SetActive(true);
-            playerTarget1.SetActive(false);
-        }
-        else if (targetIndex == 1)
-        {
-            playerTarget2.SetActive(false);
-            playerTarget1.SetActive(true);
-        }
-        else
-        {
-            playerTarget1.SetActive(false);
-            playerTarget2.SetActive(false);
-        }
+        ToggleTargetIndicator(target);
 
-        CapacityData Cpt = SelectSpell(attacker);
-        CombatManager.SINGLETON.ApplyCapacityToTarget(Cpt, targetedPlayer);
- 
-        /*Animator anim = targetedPlayer.instance?.GetComponent<Animator>();
-        if (anim != null && anim.runtimeAnimatorController != null)
-        {
-            //Debug.Log(anim.isInitialized);
-            //Debug.Log(anim.isActiveAndEnabled);
-            //Debug.Log(anim.runtimeAnimatorController);
-            anim.SetTrigger("TakeDamage");
-        }
-        else
-        {
-            Debug.LogWarning($"Animator manquant ou sans controller sur {targetedPlayer.namE}");
-        }*/
-        CombatManager.SINGLETON.DecrementBuffDurations(attacker);
-        if (attacker.beenHurtThisTurn == false && attacker.RageTick > 0)
-        {
-            attacker.RageTick -= 1;
-        }
-        attacker.beenHurtThisTurn = false;
-        if (attacker.necrosis?.Count > 0)
-        {
-            CombatManager.SINGLETON.TickNecrosisEffect(attacker);
-        }
-        CombatManager.SINGLETON.RecalculateStats(attacker);
+        CapacityData chosenSpell = SelectSpell(attacker);
+        CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, target);
+
+        PostAttackProcessing(attacker);
 
         yield return new WaitForSeconds(1.5f);
         CombatManager.SINGLETON.EndUnitTurn();
 
-        playerTarget1.SetActive(false);
-        playerTarget2.SetActive(false);
+        DisableTargetIndicators();
     }
 
-
-    private void AttackMultipleTargets(DataEntity attacker, int damages)
+    private IEnumerator MultiAttackCoroutine(DataEntity attacker)
     {
-        StartCoroutine(MultiAttackCoroutine(attacker, damages));
-    }
+        var targets = CombatManager.SINGLETON.entityHandler.players.Where(p => p.UnitLife > 0).ToList();
+        int count = Random.Range(1, targets.Count + 1);
 
-    private IEnumerator MultiAttackCoroutine(DataEntity attacker, int damages)
-    {
-        int numberOfTargets = Random.Range(1, CombatManager.SINGLETON.entityHandler.players.Count + 1);
-
-        List<DataEntity> potentialTargets = CombatManager.SINGLETON.entityHandler.players.Where(player => player.UnitLife > 0).ToList();
-
-        for (int i = 0; i < numberOfTargets; i++)
+        for (int i = 0; i < count; i++)
         {
-            if (potentialTargets.Count == 0) break;
+            if (targets.Count == 0) break;
 
-            DataEntity provoker = potentialTargets.FirstOrDefault(p => p.provoking);
+            DataEntity target = targets.FirstOrDefault(p => p.provoking) ?? targets[Random.Range(0, targets.Count)];
+            ToggleTargetIndicator(target);
 
-            DataEntity targetedPlayer;
-
-            if (provoker != null)
-            {
-                targetedPlayer = provoker;
-            }
-            else
-            {
-                int randomIndex = Random.Range(0, potentialTargets.Count);
-                targetedPlayer = potentialTargets[randomIndex];
-            }
-            if (i == 0)
-            {
-                playerTarget1.SetActive(true);
-                playerTarget2.SetActive(false);
-            }
-            else if (i == 1)
-            {
-                playerTarget1.SetActive(false);
-                playerTarget2.SetActive(true);
-            }
-            else
-            {
-                playerTarget1.SetActive(false);
-                playerTarget2.SetActive(false);
-            }
-
-            CapacityData Cpt = SelectSpell(attacker);
-            CombatManager.SINGLETON.ApplyCapacityToTarget(Cpt, targetedPlayer);
+            CapacityData chosenSpell = SelectSpell(attacker);
+            CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, target);
 
             yield return new WaitForSeconds(0.8f);
         }
 
+        PostAttackProcessing(attacker);
+
+        yield return new WaitForSeconds(1.2f);
+        CombatManager.SINGLETON.EndUnitTurn();
+
+        DisableTargetIndicators();
+    }
+
+    private void PostAttackProcessing(DataEntity attacker)
+    {
         CombatManager.SINGLETON.DecrementBuffDurations(attacker);
-        if (attacker.beenHurtThisTurn == false && attacker.RageTick > 0)
+
+        if (!attacker.beenHurtThisTurn && attacker.RageTick > 0)
         {
-            attacker.RageTick -= 1;
+            attacker.RageTick--;
         }
+
         attacker.beenHurtThisTurn = false;
-        //Debug.Log(attacker.necrosis?.Count);
+
         if (attacker.necrosis?.Count > 0)
         {
             CombatManager.SINGLETON.TickNecrosisEffect(attacker);
         }
+
         CombatManager.SINGLETON.RecalculateStats(attacker);
+    }
 
-        yield return new WaitForSeconds(1.2f);
+    private void ToggleTargetIndicator(DataEntity target)
+    {
+        int index = CombatManager.SINGLETON.entityHandler.players.IndexOf(target);
+        playerTarget1.SetActive(index == 1);
+        playerTarget2.SetActive(index == 0);
+    }
 
-        CombatManager.SINGLETON.EndUnitTurn();
-
+    private void DisableTargetIndicators()
+    {
         playerTarget1.SetActive(false);
         playerTarget2.SetActive(false);
     }
 
-
-
-
     public CapacityData SelectSpell(DataEntity enemy)
     {
-        int Value1 = enemy._CapacityData1.ValueAI;
-        int Value2 =enemy._CapacityData2.ValueAI;
-        int randomInt = Random.Range(0,Value1+Value2);
-        if (randomInt <=Value1)
-        {
-            return enemy._CapacityData1;
-        }
-        else 
-        {
-            return enemy._CapacityData2;
-        }
+        int value1 = enemy._CapacityData1?.ValueAI ?? 0;
+        int value2 = enemy._CapacityData2?.ValueAI ?? 0;
+        int total = value1 + value2;
+
+        if (total == 0 || enemy._CapacityData1 == null || enemy._CapacityData2 == null)
+            return enemy._CapacityData1 ?? enemy._CapacityData2;
+
+        int roll = Random.Range(0, total);
+        return roll < value1 ? enemy._CapacityData1 : enemy._CapacityData2;
     }
 }

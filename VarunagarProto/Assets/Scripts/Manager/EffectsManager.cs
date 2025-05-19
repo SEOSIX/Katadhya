@@ -94,7 +94,7 @@ public class EffectsManager : MonoBehaviour
         Color darkGreen;
         ColorUtility.TryParseHtmlString("#0b4d0b", out darkGreen);
         
-        AfficherTexteDegats(index, healAmmount, darkGreen);
+        AfficherTexteHeal(index, healAmmount, darkGreen);
     }
 
     public void AfficherPictoBuff(int index)

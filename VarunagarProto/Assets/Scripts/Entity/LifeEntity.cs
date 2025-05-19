@@ -45,29 +45,25 @@ public class LifeEntity : MonoBehaviour
     {
         for (int i = 0; i < entityHandler.ennemies.Count && i < enemySliders.Length && i < enemyShieldSliders.Length; i++)
         {
-            if (entityHandler.ennemies[i] != null && enemySliders[i] != null && enemyShieldSliders != null)
+            var enemy = entityHandler.ennemies[i];
+            if (enemy != null && enemy.instance != null)
             {
-                int old_i = i;
-                if (entityHandler.ennemies.Count == 1 && entityHandler.ennemies[0].instance.GetComponent<EntiityManager>().playerIndex==3)
-                {
-                    i = 1;
-                }
-
-                enemySliders[i].maxValue = entityHandler.ennemies[old_i].BaseLife;
-                enemySliders[i].value = entityHandler.ennemies[old_i].UnitLife;
-                enemySliders[i].value = Mathf.Max(0, entityHandler.ennemies[old_i].UnitLife);
-                enemyShieldSliders[i].value = Mathf.Max(0, entityHandler.ennemies[old_i].UnitShield);
-
+                enemySliders[i].maxValue = enemy.BaseLife;
+                enemySliders[i].value = Mathf.Max(0, enemy.UnitLife);
+                enemyShieldSliders[i].maxValue = enemy.BaseLife;
+                enemyShieldSliders[i].value = Mathf.Max(0, enemy.UnitShield);
             }
         }
+
         for (int i = 0; i < entityHandler.players.Count && i < PlayerSliders.Length && i < PlayerShieldSliders.Length; i++)
         {
-            if (entityHandler.players[i] != null && PlayerSliders[i] != null && PlayerShieldSliders != null)
+            var player = entityHandler.players[i];
+            if (player != null && player.instance != null)
             {
-                PlayerSliders[i].maxValue = entityHandler.players[i].BaseLife;
-                PlayerSliders[i].value = entityHandler.players[i].UnitLife;
-                PlayerShieldSliders[i].maxValue = entityHandler.players[i].BaseLife;
-                PlayerShieldSliders[i].value = entityHandler.players[i].UnitShield;
+                PlayerSliders[i].maxValue = player.BaseLife;
+                PlayerSliders[i].value = Mathf.Max(0, player.UnitLife);
+                PlayerShieldSliders[i].maxValue = player.BaseLife;
+                PlayerShieldSliders[i].value = Mathf.Max(0, player.UnitShield);
             }
         }
     }

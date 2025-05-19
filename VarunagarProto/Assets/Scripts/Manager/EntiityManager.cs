@@ -11,13 +11,6 @@ using System.IO.IsolatedStorage;
 
 public class EntiityManager : MonoBehaviour
 {
-    public void Awake()
-    {
-        UpdateIndexes();
-    }
-    public int playerIndex;
-    private int initialIndex;
-    private bool hasStoredInitialIndex = false;
     
     [Header("entityHandler")]
     public EntityHandler entityHandler;
@@ -25,42 +18,6 @@ public class EntiityManager : MonoBehaviour
 
     private int currentLifeValue;
     public bool Clickable = true;
-
-    public void UpdateIndexes()
-    {
-        DataEntity PrefabData = null;
-        string name = gameObject.name;
-        //print(name);
-        if (GameManager.SINGLETON.prefabDictionary.ContainsKey(name))
-        {
-            DataEntity[] allCapacityData = Resources.LoadAll<DataEntity>("Data/Entity");
-            PrefabData = allCapacityData.FirstOrDefault(d => d.name == $"{name}{GameManager.SINGLETON.EnemyPackIndex}");
-        }
-        if (PrefabData != null)
-        {
-            int computedIndex = -1;
-
-            if (entityHandler.ennemies.Contains(PrefabData))
-            {
-                computedIndex = entityHandler.players.Count + entityHandler.ennemies.IndexOf(PrefabData);
-            }
-            else if (entityHandler.players.Contains(PrefabData))
-            {
-                computedIndex = entityHandler.players.IndexOf(PrefabData);
-            }
-
-            if (computedIndex != -1)
-            {
-                PrefabData.index = computedIndex;
-                playerIndex = computedIndex;
-                if (!hasStoredInitialIndex)
-                {
-                    initialIndex = playerIndex;
-                    hasStoredInitialIndex = true;
-                }
-            }
-        }
-    }
     
     public void DestroyDeadEnemies()
     {
@@ -85,7 +42,6 @@ public class EntiityManager : MonoBehaviour
             {
                 LifeEntity.SINGLETON.enemySliders[i].gameObject.SetActive(false);
                 LifeEntity.SINGLETON.enemyShieldSliders[i].gameObject.SetActive(false);
-                UpdateIndexes();
             }
 
             if (enemy.instance != null)
@@ -102,7 +58,6 @@ public class EntiityManager : MonoBehaviour
                 }
             }
             entityHandler.ennemies.RemoveAt(i);
-            UpdateIndexes();
         }
     }
     public void DestroyDeadPlayers()
@@ -128,7 +83,6 @@ public class EntiityManager : MonoBehaviour
             {
                 LifeEntity.SINGLETON.PlayerSliders[i].gameObject.SetActive(false);
                 LifeEntity.SINGLETON.PlayerShieldSliders[i].gameObject.SetActive(false);
-                UpdateIndexes();
             }
             if (player.instance != null)
             {
@@ -140,7 +94,6 @@ public class EntiityManager : MonoBehaviour
                 }
             }
             entityHandler.players.RemoveAt(i);
-            UpdateIndexes();
         }
     }
 
@@ -178,7 +131,6 @@ public class EntiityManager : MonoBehaviour
         LifeEntity.SINGLETON.LifeManage();
         RestoreEnemiesLife();
         RestoreShield();
-        AssignPlayerIndices();
     }
 
     void Update()
@@ -203,7 +155,6 @@ public class EntiityManager : MonoBehaviour
             Debug.Log("Les joueurs ont gagné !");
             GameManager.SINGLETON.EnemyPackIndex += 1;
             GameManager.SINGLETON.SpawnEnemies();
-            playerIndex = initialIndex;
         }
         bool isLastWave = GameManager.SINGLETON.EnemyPackIndex >= GameManager.SINGLETON.enemyPacks.Count - 1;
         bool isDefeat = !anyPlayerAlive;
@@ -220,23 +171,15 @@ public class EntiityManager : MonoBehaviour
         if (!Clickable || GlobalVars.currentSelectedCapacity == null)
             return;
         //Debug.Log($"Tentative de sélection. Index: {playerIndex}");
-
-
         if (GlobalVars.currentSelectedCapacity.TargetingAlly)
         {
-            if (playerIndex < entityHandler.players.Count && entityHandler.players[playerIndex] != null)
-                SINGLETON.SelectAlly(playerIndex);
+            int index = entityHandler.players.IndexOf(entityHandler.players.FirstOrDefault(p => p.instance == this.gameObject));
+            if (index != -1) SINGLETON.SelectAlly(index);
         }
         else
         {
-            if (playerIndex <= entityHandler.ennemies.Count+entityHandler.players.Count)
-            {
-                SINGLETON.SelectEnemy(playerIndex);
-            }
-            else
-            {
-                Debug.Log("ntm");
-            }
+            int index = entityHandler.ennemies.IndexOf(entityHandler.ennemies.FirstOrDefault(e => e.instance == this.gameObject));
+            if (index != -1) SINGLETON.SelectEnemy(entityHandler.players.Count + index);
         }
     }
 
@@ -249,42 +192,5 @@ public class EntiityManager : MonoBehaviour
         player._CapacityData2 = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}b{player.Affinity}");
         player._CapacityData3 = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}c{player.Affinity}");
         player._CapacityDataUltimate = allData.FirstOrDefault(d => d.name == $"Cpt{player.ID}d{player.Affinity}{player.UltLvlHit}");
-    }
-
-    private void AssignPlayerIndices()
-    {
-        for (int i = 0; i < entityHandler.players.Count; i++)
-        {
-            var player = entityHandler.players[i];
-            if (player?.instance != null)
-            {
-                EntiityManager manager = player.instance.GetComponent<EntiityManager>();
-                if (manager != null)
-                {
-                    manager.playerIndex = i;
-                }
-                else
-                {
-                    Debug.LogWarning($"Aucun EntiityManager trouvé sur {player.namE}");
-                }
-            }
-        }
-
-        for (int i = 0; i < entityHandler.ennemies.Count; i++)
-        {
-            var enemy = entityHandler.ennemies[i];
-            if (enemy?.instance != null)
-            {
-                EntiityManager manager = enemy.instance.GetComponent<EntiityManager>();
-                if (manager != null)
-                {
-                    manager.playerIndex = (entityHandler.players.Count() + i); ;
-                }
-                else
-                {
-                    Debug.LogWarning($"Aucun EntiityManager trouvé sur {enemy.namE}");
-                }
-            }
-        }
     }
 }

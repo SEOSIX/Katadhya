@@ -1906,7 +1906,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ec9c554d987a3545b3a8aef68532713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerIndex: 0
   entityHandler: {fileID: 11400000, guid: 47a834e79b0175a418d05f2ad7ab7ddd, type: 2}
   Clickable: 1
 --- !u!1 &280377022
@@ -10382,8 +10381,8 @@ MonoBehaviour:
   - {fileID: 326075290}
   - {fileID: 280377022}
   circlesPlayer:
-  - {fileID: 503636397}
   - {fileID: 716412274}
+  - {fileID: 503636397}
   ultimateScript: {fileID: 711964558}
   currentTurnOrder: []
   unitPlayedThisTurn: []
