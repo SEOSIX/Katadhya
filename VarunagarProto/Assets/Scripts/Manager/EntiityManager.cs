@@ -155,6 +155,10 @@ public class EntiityManager : MonoBehaviour
             Debug.Log("Les joueurs ont gagné !");
             GameManager.SINGLETON.EnemyPackIndex += 1;
             GameManager.SINGLETON.SpawnEnemies();
+            CombatManager.SINGLETON.SetupBaseStat();
+            CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
+            CombatManager.SINGLETON.unitPlayedThisTurn.Clear();
+            CombatManager.SINGLETON.StartUnitTurn();
         }
         bool isLastWave = GameManager.SINGLETON.EnemyPackIndex >= GameManager.SINGLETON.enemyPacks.Count - 1;
         bool isDefeat = !anyPlayerAlive;

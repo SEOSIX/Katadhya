@@ -88,23 +88,23 @@ public class MarchandManager : MonoBehaviour
             RectTransform rtPrice = priceText.GetComponent<RectTransform>();
             rtPrice.anchorMin = Vector2.zero;
             rtPrice.anchorMax = Vector2.one;
-            rtPrice.offsetMin = new Vector2(5, 5);
-            rtPrice.offsetMax = new Vector2(-5, -5);
+            rtPrice.offsetMin = new Vector2(10, 10);
+            rtPrice.offsetMax = new Vector2(-10, -10);
             GameObject qtyTextGO = new GameObject("QtyText");
             qtyTextGO.name = "QtyText";
             qtyTextGO.transform.SetParent(button.transform, false);
 
             TextMeshProUGUI qtyText = qtyTextGO.AddComponent<TextMeshProUGUI>();
             qtyText.text = $"x{c.quantiteDisponible}";
-            qtyText.fontSize = 20;
+            qtyText.fontSize = 30;
             qtyText.alignment = TextAlignmentOptions.TopRight;
             qtyText.color = (c.quantiteDisponible <= 0) ? Color.red : Color.yellow;
 
             RectTransform rtQty = qtyText.GetComponent<RectTransform>();
             rtQty.anchorMin = Vector2.zero;
             rtQty.anchorMax = Vector2.one;
-            rtQty.offsetMin = new Vector2(5, 5);
-            rtQty.offsetMax = new Vector2(-5, -5);
+            rtQty.offsetMin = new Vector2(10, 10);
+            rtQty.offsetMax = new Vector2(-10, -10);
 
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => AcheterObjet(c));
@@ -155,7 +155,6 @@ public class MarchandManager : MonoBehaviour
                 }
             }
         }
-
         Debug.Log("Inventaire plein !");
     }
 }

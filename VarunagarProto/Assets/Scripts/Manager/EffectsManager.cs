@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -36,7 +37,15 @@ public class EffectsManager : MonoBehaviour
         }
         SINGLETON = this;
     }
-    
+    void Start()
+    {
+        foreach (var slider in rageSliders)
+        {
+            if (slider != null)
+                slider.gameObject.SetActive(false);
+        }
+    }
+
     public void AfficherAttaqueFoudre(int typeFoudre, int index)
     {
         if (typeFoudre < 1 || typeFoudre > 4 || !IsValid(index)) return;

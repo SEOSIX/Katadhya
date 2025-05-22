@@ -162,7 +162,7 @@ public class CombatManager : MonoBehaviour
                 targetSizes = new Vector2[ImagePortrait.Length];
                 if (initialTurnOrder[i] == currentEntity)
                 {
-                    targetSizes[i] = new Vector2(90, 105);
+                    targetSizes[i] = new Vector2(98.67f, 122.36f);
                 }
                 else
                 {
@@ -203,10 +203,6 @@ public class CombatManager : MonoBehaviour
         if (currentTurnOrder.Count == 0)
         {
             EndGlobalTurn();
-            /*for (int i = 0; i < currentTurnOrder.Count; i++)
-            {
-                Debug.Log($"currentTurnOrder[{i}] = {currentTurnOrder[i].namE}");
-            }*/
         }
         StartCoroutine(StartUnitTurnDelayed());
     }

@@ -10,7 +10,6 @@ public class GlobalPlayerDataEditor : Editor
         EditorGUILayout.LabelField("Cauris", EditorStyles.boldLabel);
         data.caurisCount = EditorGUILayout.IntField("Cauris Count", data.caurisCount);
         
-        
         EditorGUILayout.Space(20);
         EditorGUILayout.LabelField("Inventory Dimensions", EditorStyles.boldLabel);
         EditorGUI.BeginChangeCheck();
@@ -24,11 +23,9 @@ public class GlobalPlayerDataEditor : Editor
         {
             data.LoadGrid();
         }
-        
         EditorGUILayout.Space(20);
         EditorGUILayout.LabelField("Grid", EditorStyles.boldLabel);
         EditorGUI.BeginChangeCheck();
-
         for (int y = 0; y < data.height; y++)
         {
             EditorGUILayout.BeginHorizontal();
@@ -38,7 +35,6 @@ public class GlobalPlayerDataEditor : Editor
             }
             EditorGUILayout.EndHorizontal();
         }
-
         if (EditorGUI.EndChangeCheck())
         {
             data.SaveGrid();
