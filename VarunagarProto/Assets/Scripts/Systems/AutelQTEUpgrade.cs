@@ -141,7 +141,7 @@ public class AutelQTEUpgrade : MonoBehaviour
         for (int i = 0; i < levels.Length; i++)
             total += levels[i];
 
-        bool reachedMaxTotal = total >= 12;
+        bool reachedMaxTotal = total >= 10;
         Color targetColor = reachedMaxTotal ? new Color(1f, 0.84f, 0f) : Color.white;
 
         for (int i = 0; i < affinityTexts.Length; i++)
