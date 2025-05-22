@@ -1,33 +1,79 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObject/GlobalPlayer", order = 4)]
 public class GlobalPlayerData : ScriptableObject
 {
-    [Header("Cauris")]
+    [Header("Cauris global")]
     public int caurisCount;
+
+    [Header("Cauris par affinité (0 = Force, etc.)")]
+    public int[] caurisPerAffinity = new int[4];
+
     [Header("Cauris de base")]
-    public int basCauris;
-    
-    [Header("InventoryLenght")]
+    public int[] baseCaurisPerAffinity = new int[4];
+    public int baseCaurisCount;
+
+    [Header("Inventory Dimensions")]
     public int width = 5;
     public int height = 5;
 
-    [System.NonSerialized]
-    public int[,] grid;
-    [System.NonSerialized]
-    public int[,] quantityGrid;
+    [System.NonSerialized] public int[,] grid;
+    [System.NonSerialized] public int[,] quantityGrid;
 
-    [SerializeField]
-    private int[] flatGrid;
-    [SerializeField]
-    private int[] flatQuantities;
+    [SerializeField] private int[] flatGrid;
+    [SerializeField] private int[] flatQuantities;
 
     private void OnEnable()
     {
         LoadGrid();
+        ResetAllCaurisToBase();
+    }
+
+    public void ResetAllCaurisToBase()
+    {
+        for (int i = 0; i < 4; i++)
+            caurisPerAffinity[i] = baseCaurisPerAffinity[i];
+        caurisCount = baseCaurisCount;
+    }
+
+    public bool CanAfford(int amount, int affinityIndex)
+    {
+        return caurisPerAffinity[affinityIndex] >= amount;
+    }
+
+    public bool SpendCauris(int amount, int affinityIndex)
+    {
+        if (CanAfford(amount, affinityIndex))
+        {
+            caurisPerAffinity[affinityIndex] -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    public void AddCauris(int amount, int affinityIndex)
+    {
+        caurisPerAffinity[affinityIndex] += amount;
+    }
+
+    public int GetCauris(int affinityIndex)
+    {
+        return caurisPerAffinity[affinityIndex];
+    }
+
+    public void AddGlobalCauris(int amount)
+    {
+        caurisCount += amount;
+    }
+
+    public bool SpendGlobalCauris(int amount)
+    {
+        if (caurisCount >= amount)
+        {
+            caurisCount -= amount;
+            return true;
+        }
+        return false;
     }
 
     public void LoadGrid()
@@ -49,6 +95,7 @@ public class GlobalPlayerData : ScriptableObject
             quantityGrid[x, y] = flatQuantities[index];
         }
     }
+
     public void SaveGrid()
     {
         flatGrid = new int[width * height];
@@ -62,29 +109,4 @@ public class GlobalPlayerData : ScriptableObject
             flatQuantities[index] = quantityGrid[x, y];
         }
     }
-
-    public bool CanAfford(int amount)
-    {
-        return caurisCount >= amount;
-    }
-
-    public bool SpendCauris(int amount)
-    {
-        if (CanAfford(amount))
-        {
-            caurisCount -= amount;
-            return true;
-        }
-        return false;
-    }
-
-    public void AddCauris(int amount)
-    {
-        caurisCount += amount;
-    }
-
-    public void ResetCaurisToBase()
-{
-    caurisCount = basCauris;
-}
 }

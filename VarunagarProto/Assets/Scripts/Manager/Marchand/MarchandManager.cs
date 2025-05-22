@@ -20,13 +20,13 @@ public class MarchandManager : MonoBehaviour
     void Start()
     {
         ResetQuantites();
-        UpdateBoutonsMarchand();
         UpdateCaurisText();
+        UpdateBoutonsMarchand();
     }
 
     void Update()
     {
-        UpdateCaurisText(); 
+        UpdateCaurisText();
         UpdateBoutonsMarchand();
     }
 
@@ -39,23 +39,24 @@ public class MarchandManager : MonoBehaviour
     }
 
     void ResetQuantites()
-{
-    foreach (var consumable in handler.objects)
     {
-        if (consumable != null)
+        foreach (var consumable in handler.objects)
         {
-            consumable.quantiteDisponible = consumable.baseQuantity;
+            if (consumable != null)
+            {
+                consumable.quantiteDisponible = consumable.baseQuantity;
+            }
         }
-    }
-    caurisManager.ResetCaurisToBase();
 
-}
+        caurisManager.ResetAllCaurisToBase();
+    }
 
     void UpdateBoutonsMarchand()
     {
         for (int i = 0; i < buttons.Length; i++)
         {
             int index = i;
+
             if (handler.objects.Length <= index || handler.objects[index] == null)
                 continue;
 
@@ -69,42 +70,44 @@ public class MarchandManager : MonoBehaviour
                 image.preserveAspect = true;
                 image.material = (c.quantiteDisponible <= 0) ? GreyScale : null;
             }
-            foreach (Transform child in button.transform)
+
+            // Trouve ou crée PriceText
+            TextMeshProUGUI priceText = button.transform.Find("PriceText")?.GetComponent<TextMeshProUGUI>();
+            if (priceText == null)
             {
-                if (child.name == "PriceText" || child.name == "QtyText")
-                    Destroy(child.gameObject);
+                GameObject priceTextGO = new GameObject("PriceText", typeof(RectTransform));
+                priceTextGO.transform.SetParent(button.transform, false);
+                priceText = priceTextGO.AddComponent<TextMeshProUGUI>();
+                priceText.fontSize = 20;
+                priceText.alignment = TextAlignmentOptions.BottomRight;
+                RectTransform rt = priceText.GetComponent<RectTransform>();
+                rt.anchorMin = Vector2.zero;
+                rt.anchorMax = Vector2.one;
+                rt.offsetMin = new Vector2(10, 10);
+                rt.offsetMax = new Vector2(-10, -10);
             }
 
-            GameObject priceTextGO = new GameObject("PriceText");
-            priceTextGO.name = "PriceText";
-            priceTextGO.transform.SetParent(button.transform, false);
-
-            TextMeshProUGUI priceText = priceTextGO.AddComponent<TextMeshProUGUI>();
             priceText.text = c.prix.ToString();
-            priceText.fontSize = 20;
-            priceText.alignment = TextAlignmentOptions.BottomRight;
-            priceText.color = caurisManager.CanAfford(c.prix) ? Color.white : Color.red;
+            priceText.color = (caurisManager.caurisCount >= c.prix) ? Color.white : Color.red;
 
-            RectTransform rtPrice = priceText.GetComponent<RectTransform>();
-            rtPrice.anchorMin = Vector2.zero;
-            rtPrice.anchorMax = Vector2.one;
-            rtPrice.offsetMin = new Vector2(10, 10);
-            rtPrice.offsetMax = new Vector2(-10, -10);
-            GameObject qtyTextGO = new GameObject("QtyText");
-            qtyTextGO.name = "QtyText";
-            qtyTextGO.transform.SetParent(button.transform, false);
+            // Trouve ou crée QtyText
+            TextMeshProUGUI qtyText = button.transform.Find("QtyText")?.GetComponent<TextMeshProUGUI>();
+            if (qtyText == null)
+            {
+                GameObject qtyTextGO = new GameObject("QtyText", typeof(RectTransform));
+                qtyTextGO.transform.SetParent(button.transform, false);
+                qtyText = qtyTextGO.AddComponent<TextMeshProUGUI>();
+                qtyText.fontSize = 30;
+                qtyText.alignment = TextAlignmentOptions.TopRight;
+                RectTransform rt = qtyText.GetComponent<RectTransform>();
+                rt.anchorMin = Vector2.zero;
+                rt.anchorMax = Vector2.one;
+                rt.offsetMin = new Vector2(10, 10);
+                rt.offsetMax = new Vector2(-10, -10);
+            }
 
-            TextMeshProUGUI qtyText = qtyTextGO.AddComponent<TextMeshProUGUI>();
             qtyText.text = $"x{c.quantiteDisponible}";
-            qtyText.fontSize = 30;
-            qtyText.alignment = TextAlignmentOptions.TopRight;
             qtyText.color = (c.quantiteDisponible <= 0) ? Color.red : Color.yellow;
-
-            RectTransform rtQty = qtyText.GetComponent<RectTransform>();
-            rtQty.anchorMin = Vector2.zero;
-            rtQty.anchorMax = Vector2.one;
-            rtQty.offsetMin = new Vector2(10, 10);
-            rtQty.offsetMax = new Vector2(-10, -10);
 
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => AcheterObjet(c));
@@ -119,14 +122,16 @@ public class MarchandManager : MonoBehaviour
             return;
         }
 
-        if (!caurisManager.CanAfford(c.prix))
+        if (caurisManager.caurisCount < c.prix)
         {
             Debug.Log("Pas assez de cauris !");
             return;
         }
 
-        caurisManager.SpendCauris(c.prix);
+        caurisManager.caurisCount -= c.prix;
         c.quantiteDisponible--;
+
+        // Placement dans l'inventaire
         for (int y = 0; y < inventory.playerData.height; y++)
         {
             for (int x = 0; x < inventory.playerData.width; x++)
@@ -141,6 +146,7 @@ public class MarchandManager : MonoBehaviour
                 }
             }
         }
+
         for (int y = 0; y < inventory.playerData.height; y++)
         {
             for (int x = 0; x < inventory.playerData.width; x++)
@@ -155,6 +161,7 @@ public class MarchandManager : MonoBehaviour
                 }
             }
         }
+
         Debug.Log("Inventaire plein !");
     }
 }
