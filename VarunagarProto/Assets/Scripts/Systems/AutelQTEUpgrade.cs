@@ -14,6 +14,7 @@ public class AutelQTEUpgrade : MonoBehaviour
     public Image imageDisplay;
     public TextMeshProUGUI[] affinityTexts = new TextMeshProUGUI[4];
     public TextMeshProUGUI[] caurisTextsPerAffinity = new TextMeshProUGUI[4];
+    public TextMeshProUGUI[] caurisCostTextsPerAffinity = new TextMeshProUGUI[4];
 
     [Header("Prix")]
     public int cout1 = 20;
@@ -96,7 +97,6 @@ public class AutelQTEUpgrade : MonoBehaviour
             NotEnoughCaurisFeedback(affinityIndex);
             return;
         }
-
         IncrementAffinity(affinityIndex);
         UpdateAffinityTexts(currentEntity);
     }
@@ -113,7 +113,7 @@ public class AutelQTEUpgrade : MonoBehaviour
         };
     }
 
-    private int GetUpgradeCost(int level)
+    public int GetUpgradeCost(int level)
     {
         if (level >=2) return cout3;
         if (level >=1) return cout2;
