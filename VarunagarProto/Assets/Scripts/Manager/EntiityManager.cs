@@ -33,7 +33,12 @@ public class EntiityManager : MonoBehaviour
             CombatManager.SINGLETON.RemoveUnitFromList(enemy);
             if (i < CombatManager.SINGLETON.circlesEnnemy.Count)
             {
-                CombatManager.SINGLETON.circlesEnnemy[i].SetActive(false);
+                GameObject deadCircle = CombatManager.SINGLETON.circlesEnnemy[i];
+                if (deadCircle != null)
+                {
+                    Object.Destroy(deadCircle);
+                    CombatManager.SINGLETON.circlesEnnemy.RemoveAt(i);
+                }
             }
 
             if (i < LifeEntity.SINGLETON.enemySliders.Length)
@@ -46,16 +51,8 @@ public class EntiityManager : MonoBehaviour
             {
                 enemy.instance.SetActive(false);
                 enemy.UnitLife = -1;
-                CombatManager.SINGLETON.ennemyDead++;
-                if (enemy.index == 0)
-                {
-                    CombatManager.SINGLETON.circlesEnnemy[1] = CombatManager.SINGLETON.circlesEnnemy[0];
-                }
-                if (enemy.index == 1)
-                {
-                    CombatManager.SINGLETON.circlesEnnemy[0] = CombatManager.SINGLETON.circlesEnnemy[1];
-                }
             }
+            
             entityHandler.ennemies.RemoveAt(i);
         }
     }
@@ -159,6 +156,7 @@ public class EntiityManager : MonoBehaviour
             CombatManager.SINGLETON.unitPlayedThisTurn.Clear();
             CombatManager.SINGLETON.StartUnitTurn();
             CombatManager.SINGLETON.ennemyDead = 0;
+            
         }
         bool isLastWave = GameManager.SINGLETON.EnemyPackIndex >= GameManager.SINGLETON.enemyPacks.Count - 1;
         bool isDefeat = !anyPlayerAlive;
