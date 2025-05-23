@@ -429,7 +429,14 @@ public class CombatManager : MonoBehaviour
 
     public void ApplyCapacityToTarget(CapacityData capacity, DataEntity target)
     {
+
         DataEntity caster = currentTurnOrder[0];
+        Animator anim = caster.instance?.GetComponent<Animator>();
+        if (anim != null && anim.runtimeAnimatorController != null)
+        {
+
+            anim.SetTrigger("Attack");
+        }
         int globalAim = Mathf.RoundToInt(capacity.précision * caster.UnitAim);
         float réussite = lancer(globalAim, 2f, 1f);
 
@@ -438,6 +445,7 @@ public class CombatManager : MonoBehaviour
             Debug.Log("Échec de la compétence");
             return;
         }
+
 
         float modifier = lancer(capacity.critique, 1f, 1.5f);
 
