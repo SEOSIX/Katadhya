@@ -838,8 +838,13 @@ public class CombatManager : MonoBehaviour
             //Reset de tout
             CapacityData CData = PCapacities[i];
             Transform EncartCpt = capacityPage[i].GetComponent<Transform>();
-            Transform EncartAffinity = capacityPageAffinity[i].GetComponent<Transform>();
-            EncartAffinity.gameObject.SetActive(false);
+            Transform EncartAffinity = null;
+            if (i < 3)
+            {
+                EncartAffinity = capacityPageAffinity[i].GetComponent<Transform>();
+                EncartAffinity.gameObject.SetActive(false);
+                EncartAffinity.GetChild(1).GameObject().SetActive(false);
+            }
             Transform Text = EncartCpt.GetChild(4);
             Sprite Target = TargetType[CData.TargetType];
             Sprite PictoType = Pictos[CData.PictoType];
@@ -847,7 +852,6 @@ public class CombatManager : MonoBehaviour
             String Sbuff = "";
             Text.GetChild(0).GameObject().SetActive(false);
             EncartCpt.GetChild(3).GetChild(0).GameObject().SetActive(false);
-            EncartAffinity.GetChild(1).GameObject().SetActive(false);
 
             //MAJ de la data de base
             EncartCpt.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(CData.Name);
@@ -856,7 +860,7 @@ public class CombatManager : MonoBehaviour
             EncartCpt.GetChild(3).GetChild(1).GetComponent<Image>().sprite = PictoType;
 
             //MAJ de la data si affinity
-            if (player.Affinity != 0)
+            if (player.Affinity != 0 && EncartAffinity!= null)
             {
                 Debug.Log("ICI");
                 Sprite Picto = null;
