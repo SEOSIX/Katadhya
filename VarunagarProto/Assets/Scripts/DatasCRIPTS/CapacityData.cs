@@ -18,22 +18,28 @@ public class CapacityData : ScriptableObject
     [field: Header("Cpt Stat"), SerializeField]
     public int atk;
     public int heal;
-    public int buffType;
-    public float buffValue;
-    public int buffDuration;
     public int critique;
     public int précision;
     public int cooldown;
     public int chargeUlti;
 
     [field: Header("Cpt Effect"), SerializeField]
-    public int Shield;
-    public int Shock;
-    public int ShieldRatioAtk;
     public bool MultipleHeal;
     public bool MultipleAttack;
     public bool TargetingAlly;
     public bool Provocation;
+
+    [field: Header("Buff"), SerializeField]
+    public bool BuffFromAffinity;
+    public int buffType;
+    public float buffValue;
+    public int buffDuration;
+
+    [field: Header("Affinity effects"), SerializeField]
+    public int Shield;
+    public int ShieldRatioAtk;
+    public int Shock;
+    public int Necrosis;
 
     [Header("Secondary Stats")]
     [HideInInspector] public int secondaryAtk;
@@ -51,6 +57,7 @@ public class CapacityData : ScriptableObject
     [field: Header("Text & icons"), SerializeField]
     public string Name;
     public string Description;
+    public string AffinityDescription;
     public int PictoType;
     public int TargetType;
 
