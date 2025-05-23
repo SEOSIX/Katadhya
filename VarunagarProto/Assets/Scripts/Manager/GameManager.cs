@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
     [Header("Parameters")]
     [SerializeField] private float sizeChara = 1f;
 
+    [SerializeField] private Vector3 circleOffset;
+
     public Dictionary<string, GameObject> prefabDictionary;
 
     private void Awake()
@@ -161,6 +163,37 @@ public class GameManager : MonoBehaviour
             if (i < healthSliders.Length) healthSliders[i].gameObject.SetActive(true);
             if (i < shieldSliders.Length) shieldSliders[i].gameObject.SetActive(true);
         }
+        for (int i = 0; i < CombatManager.SINGLETON.entityHandler.ennemies.Count; i++)
+        {
+            DataEntity enemy = CombatManager.SINGLETON.entityHandler.ennemies[i];
+
+            Vector3 worldPos = enemy.instance.transform.position + new Vector3(-0.42f, 2f, 0);
+
+            if (CombatManager.SINGLETON.originalCircleEnemysPositions.Count <= i)
+            {
+                CombatManager.SINGLETON.originalCircleEnemysPositions.Add(worldPos);
+            }
+            else
+            {
+                worldPos = CombatManager.SINGLETON.originalCircleEnemysPositions[i];
+            }
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+            Vector2 anchoredPos;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                CombatManager.SINGLETON.circleParentUI,
+                screenPos,
+                Camera.main,
+                out anchoredPos
+            );
+            RectTransform newCircle = Object.Instantiate(
+                CombatManager.SINGLETON.circlePrefab,
+                CombatManager.SINGLETON.circleParentUI
+            ).GetComponent<RectTransform>();
+
+            newCircle.anchoredPosition = anchoredPos;
+            CombatManager.SINGLETON.circlesEnnemy.Add(newCircle.gameObject);
+        }
+
     }
 
     private void AddEnemyToEncountered(DataEntity data)

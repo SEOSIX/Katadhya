@@ -34,7 +34,12 @@ public class EntiityManager : MonoBehaviour
             CombatManager.SINGLETON.RemoveUnitFromList(enemy);
             if (i < CombatManager.SINGLETON.circlesEnnemy.Count)
             {
-                CombatManager.SINGLETON.circlesEnnemy[i].SetActive(false);
+                GameObject deadCircle = CombatManager.SINGLETON.circlesEnnemy[i];
+                if (deadCircle != null)
+                {
+                    Object.Destroy(deadCircle);
+                    CombatManager.SINGLETON.circlesEnnemy.RemoveAt(i);
+                }
             }
 
             if (i < LifeEntity.SINGLETON.enemySliders.Length)
@@ -57,6 +62,7 @@ public class EntiityManager : MonoBehaviour
                     CombatManager.SINGLETON.circlesEnnemy[0] = CombatManager.SINGLETON.circlesEnnemy[1];
                 }
             }
+            
             entityHandler.ennemies.RemoveAt(i);
         }
     }

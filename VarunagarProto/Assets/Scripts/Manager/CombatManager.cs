@@ -49,11 +49,14 @@ public class CombatManager : MonoBehaviour
     public GameObject ennemyTurn;
     public GameObject TurnUI;
     public CanvasGroup canvasGroup;
+    public RectTransform circleParentUI;
     [Header("Turn Indicators")]
     public GameObject[] playerTurnIndicators;
 
     [Header("Target Indicators")]
     public List<GameObject> circlesEnnemy;
+    public GameObject circlePrefab;
+    [HideInInspector]public List<Vector3> originalCircleEnemysPositions = new List<Vector3>();
     public List<GameObject> circlesPlayer;
 
     [Header("Ultimate")]
@@ -911,17 +914,17 @@ public class CombatManager : MonoBehaviour
 
         if (capacity.atk > 0 && !capacity.MultipleAttack)
         {
-            for (int i = 0; i < entityHandler.ennemies.Count && i < circlesEnnemy.Count; i++)
+            int activeIndex = 0;
+
+            for (int i = 0; i < entityHandler.ennemies.Count; i++)
             {
                 DataEntity enemy = entityHandler.ennemies[i];
-                if (entityHandler.ennemies.Count == 1)
-                {
-                    i = 1;
-                }
                 if (enemy == null || enemy.UnitLife <= 0)
                     continue;
-                circlesEnnemy[i - ennemyDead].SetActive(true);
-                // Active le collider si le GameObject existe
+                if (activeIndex < circlesEnnemy.Count && circlesEnnemy[activeIndex] != null)
+                {
+                    circlesEnnemy[activeIndex].SetActive(true);
+                }
                 if (enemy.instance != null)
                 {
                     Collider2D enemyColl = enemy.instance.GetComponent<Collider2D>();
@@ -934,6 +937,7 @@ public class CombatManager : MonoBehaviour
                         Debug.LogWarning($"Pas de Collider2D sur {enemy.namE}");
                     }
                 }
+                activeIndex++;
             }
         }
         else if (capacity.heal > 0 && !capacity.MultipleHeal)
