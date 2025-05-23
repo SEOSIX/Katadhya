@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
+  m_Name: Cpt3c21
+  m_EditorClassIdentifier: 
+  atk: 7
+  heal: 0
+  critique: 5
+  "pr\xE9cision": 90
+  cooldown: 1
+  chargeUlti: 25
+  MultipleHeal: 0
+  MultipleAttack: 0
+  TargetingAlly: 0
+  Provocation: 0
+  BuffFromAffinity: 0
+  buffType: 2
+  buffValue: 0.7
+  buffDuration: 1
+  Shield: 0
+  ShieldRatioAtk: 0
+  Shock: 1
+  Necrosis: 0
+  secondaryAtk: 0
+  secondaryHeal: 0
+  secondaryBuffType: 0
+  secondaryBuffValue: 0
+  secondaryBuffDuration: 0
+  specialType: 0
+  specialDelay: 1
+  Name: "Mal\xE9diction"
+  Description: "Inflige des d\xE9g\xE2ts et r\xE9duit la r\xE9sistance de l'ennemi
+    pour 1 tour"
+  AffinityDescription: 
+  PictoType: 0
+  TargetType: 0
+  ValueAI: 0
+  DoubleEffect: 0
