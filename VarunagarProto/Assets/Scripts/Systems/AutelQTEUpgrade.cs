@@ -84,7 +84,10 @@ public class AutelQTEUpgrade : MonoBehaviour
             return;
 
         int currentLevel = GetAffinityLevel(affinityIndex);
-        if (currentLevel >= 9)
+        if (currentLevel >= 3)
+            return;
+        currentEntity.CptUltlvl = currentEntity.UltLvl_1 + currentEntity.UltLvl_2 + currentEntity.UltLvl_3 + currentEntity.UltLvl_4;
+        if (currentEntity.CptUltlvl >= 10)
             return;
 
         int cost = GetUpgradeCost(currentLevel);
@@ -112,8 +115,8 @@ public class AutelQTEUpgrade : MonoBehaviour
 
     private int GetUpgradeCost(int level)
     {
-        if (level >= 7) return cout3;
-        if (level >= 5) return cout2;
+        if (level >=2) return cout3;
+        if (level >=1) return cout2;
         return cout1;
     }
 
