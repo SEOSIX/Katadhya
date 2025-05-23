@@ -903,6 +903,8 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    [HideInInspector]public int ennemyDead;
+
     void ShowTargetIndicators(CapacityData capacity)
     {
         HideTargetIndicators();
@@ -918,8 +920,7 @@ public class CombatManager : MonoBehaviour
                 }
                 if (enemy == null || enemy.UnitLife <= 0)
                     continue;
-                circlesEnnemy[i].SetActive(true);
-
+                circlesEnnemy[i - ennemyDead].SetActive(true);
                 // Active le collider si le GameObject existe
                 if (enemy.instance != null)
                 {

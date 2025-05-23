@@ -32,7 +32,6 @@ public class EntiityManager : MonoBehaviour
 
             Debug.Log($"L'ennemi {enemy.namE} est mort et va être désactivé.");
             CombatManager.SINGLETON.RemoveUnitFromList(enemy);
-
             if (i < CombatManager.SINGLETON.circlesEnnemy.Count)
             {
                 CombatManager.SINGLETON.circlesEnnemy[i].SetActive(false);
@@ -48,6 +47,7 @@ public class EntiityManager : MonoBehaviour
             {
                 enemy.instance.SetActive(false);
                 enemy.UnitLife = -1;
+                CombatManager.SINGLETON.ennemyDead++;
                 if (enemy.index == 0)
                 {
                     CombatManager.SINGLETON.circlesEnnemy[1] = CombatManager.SINGLETON.circlesEnnemy[0];
@@ -159,6 +159,7 @@ public class EntiityManager : MonoBehaviour
             CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
             CombatManager.SINGLETON.unitPlayedThisTurn.Clear();
             CombatManager.SINGLETON.StartUnitTurn();
+            CombatManager.SINGLETON.ennemyDead = 0;
         }
         bool isLastWave = GameManager.SINGLETON.EnemyPackIndex >= GameManager.SINGLETON.enemyPacks.Count - 1;
         bool isDefeat = !anyPlayerAlive;
