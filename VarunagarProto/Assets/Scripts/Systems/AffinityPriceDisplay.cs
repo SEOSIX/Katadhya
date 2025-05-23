@@ -52,8 +52,6 @@ public class AffinityPriceDisplay : MonoBehaviour
     {
         var upgradeSystem = AutelQTEUpgrade.Instance;
 
-        if (level >= 7) return upgradeSystem.cout3;
-        if (level >= 5) return upgradeSystem.cout2;
-        return upgradeSystem.cout1;
+        return upgradeSystem.GetUpgradeCost(level);
     }
 }
