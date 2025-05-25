@@ -151,7 +151,7 @@ public class EntiityManager : MonoBehaviour
             Debug.Log("Fin de la vague");
             GameManager.SINGLETON.EnemyPackIndex += 1;
             GameManager.SINGLETON.SpawnEnemies();
-            CombatManager.SINGLETON.SetupBaseStat();
+            CombatManager.SINGLETON.ResetEnemies();
             CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
             CombatManager.SINGLETON.unitPlayedThisTurn.Clear();
             CombatManager.SINGLETON.StartUnitTurn();

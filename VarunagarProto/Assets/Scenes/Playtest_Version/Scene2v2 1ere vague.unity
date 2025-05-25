@@ -2289,7 +2289,7 @@ GameObject:
   - component: {fileID: 298287163}
   - component: {fileID: 298287162}
   m_Layer: 5
-  m_Name: Zone2_3
+  m_Name: Zone2_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2593,7 +2593,7 @@ GameObject:
   - component: {fileID: 320398151}
   - component: {fileID: 320398150}
   m_Layer: 5
-  m_Name: Zone1_3
+  m_Name: Zone1_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2763,7 +2763,7 @@ GameObject:
   - component: {fileID: 342100953}
   - component: {fileID: 342100952}
   m_Layer: 5
-  m_Name: Zone1_2
+  m_Name: Zone1_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8542,16 +8542,16 @@ RectTransform:
   m_Children:
   - {fileID: 1828042330}
   - {fileID: 1610673375}
-  - {fileID: 342100951}
   - {fileID: 320398149}
+  - {fileID: 342100951}
   - {fileID: 694274307}
   - {fileID: 1869860457}
-  - {fileID: 1978902114}
   - {fileID: 298287161}
+  - {fileID: 1978902114}
   - {fileID: 1984835956}
   - {fileID: 1605936204}
-  - {fileID: 1655757846}
   - {fileID: 1637927380}
+  - {fileID: 1655757846}
   - {fileID: 1812854272}
   m_Father: {fileID: 83124359}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12121,7 +12121,7 @@ GameObject:
   - component: {fileID: 1637927382}
   - component: {fileID: 1637927381}
   m_Layer: 5
-  m_Name: Zone3_3
+  m_Name: Zone3_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12134,7 +12134,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637927379}
-  m_LocalRotation: {x: -0, y: 0, z: -0.29570797, w: -0.9552784}
+  m_LocalRotation: {x: -0, y: -0, z: -0.29570797, w: -0.95527834}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12501,7 +12501,7 @@ GameObject:
   - component: {fileID: 1655757848}
   - component: {fileID: 1655757847}
   m_Layer: 5
-  m_Name: Zone3_2
+  m_Name: Zone3_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14554,7 +14554,7 @@ GameObject:
   - component: {fileID: 1978902116}
   - component: {fileID: 1978902115}
   m_Layer: 5
-  m_Name: Zone2_2
+  m_Name: Zone2_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

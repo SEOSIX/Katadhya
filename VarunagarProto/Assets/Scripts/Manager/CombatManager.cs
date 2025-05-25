@@ -94,7 +94,8 @@ public class CombatManager : MonoBehaviour
 
     void Start()
     {
-        SetupBaseStat();
+        ResetEnemies();
+        ResetPlayersBeforeCombat();
         CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
     }
 
@@ -103,7 +104,7 @@ public class CombatManager : MonoBehaviour
         InitializeStaticUI();
     }
 
-    public void SetupBaseStat()
+    public void ResetEnemies()
     {
         for (int i = 0; i < entityHandler.ennemies.Count; i++)
         {
@@ -122,9 +123,36 @@ public class CombatManager : MonoBehaviour
             entityHandler.ennemies[i].necrosis = null;
             entityHandler.ennemies[i].beenHurtThisTurn = false;
         }
+    }
+    public void ResetPlayersComplete()
+        {
+
+            for (int i = 0; i < entityHandler.players.Count; i++)
+            {
+                entityHandler.players[i].UnitLife = entityHandler.players[i].BaseLife;
+                entityHandler.players[i].UnitAtk = entityHandler.players[i].BaseAtk;
+                entityHandler.players[i].UnitDef = entityHandler.players[i].BaseDef;
+                entityHandler.players[i].UnitSpeed = entityHandler.players[i].BaseSpeed;
+                entityHandler.players[i].UnitAim = entityHandler.players[i].BaseAim;
+                entityHandler.players[i].ActiveBuffs.Clear();
+                entityHandler.players[i].ActiveCooldowns.Clear();
+                entityHandler.players[i].skipNextTurn = false;
+                entityHandler.players[i].delayedActions.Clear();
+                entityHandler.players[i].ShockMark = 0;
+                entityHandler.players[i].RageTick = 0;
+                entityHandler.players[i].LastRageTick = 0;
+                entityHandler.players[i].necrosis = null;
+                entityHandler.players[i].UltimateSlider = 100;
+                entityHandler.players[i].Affinity = 0;
+                entityHandler.players[i].beenHurtThisTurn = false;
+                entityHandler.players[i].UltLvlHit = 0;
+            }
+        }
+    public void ResetPlayersBeforeCombat()
+    {
+
         for (int i = 0; i < entityHandler.players.Count; i++)
         {
-            entityHandler.players[i].UnitLife = entityHandler.players[i].BaseLife;
             entityHandler.players[i].UnitAtk = entityHandler.players[i].BaseAtk;
             entityHandler.players[i].UnitDef = entityHandler.players[i].BaseDef;
             entityHandler.players[i].UnitSpeed = entityHandler.players[i].BaseSpeed;

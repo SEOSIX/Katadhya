@@ -69,12 +69,14 @@ public class GameManager : MonoBehaviour
         entityHandler.ennemies.Clear();
 
         SpawnPlayers();
+        CombatManager.SINGLETON.ResetPlayersBeforeCombat();
+
 
         if (isCombatEnabled)
         {
             SpawnEnemies();
 
-            CombatManager.SINGLETON.SetupBaseStat();
+            CombatManager.SINGLETON.ResetEnemies();
             CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
             CombatManager.SINGLETON.InitializeStaticUI();
             CombatManager.SINGLETON.StartUnitTurn();

@@ -204,7 +204,7 @@ public class Ultimate : MonoBehaviour
         ResetAllZones();
 
         player = Player;
-        player.UltLvlHit = 0;
+        player.UltLvlHit = 1;
         UltButton.interactable = false; 
         if (qteAnimator == null || qteUI == null)
         {
@@ -281,6 +281,10 @@ public class Ultimate : MonoBehaviour
             Debug.Log("Coroutine stoppée et tout");
             StopCoroutine(qteCoroutine);
             qteCoroutine = null;
+        }
+        if (CurrentEntity.UltLvlHit == 1)
+        {
+            CurrentEntity.UltLvlHit = 0;
         }
 
         qteAnimator.speed = 0f;
