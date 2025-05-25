@@ -22,10 +22,10 @@ MonoBehaviour:
   MultipleAttack: 0
   TargetingAlly: 1
   Provocation: 0
-  BuffFromAffinity: 0
-  buffType: 0
-  buffValue: 0
-  buffDuration: 0
+  BuffFromAffinity: 1
+  buffType: 1
+  buffValue: 1.3
+  buffDuration: 1
   Shield: 0
   ShieldRatioAtk: 0
   Shock: 0
@@ -39,7 +39,7 @@ MonoBehaviour:
   specialDelay: 1
   Name: Soin
   Description: "Soigne un alli\xE9."
-  AffinityDescription: 
+  AffinityDescription: Augmente l'attaque
   PictoType: 1
   TargetType: 0
   ValueAI: 0

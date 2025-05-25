@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cpt3a32
   m_EditorClassIdentifier: 
   atk: 0
-  heal: 14
+  heal: 18
   critique: 7
   "pr\xE9cision": 100
   cooldown: 1
@@ -39,7 +39,7 @@ MonoBehaviour:
   specialDelay: 1
   Name: Soin
   Description: "Soigne un alli\xE9."
-  AffinityDescription: 
+  AffinityDescription: Soigne encore plus
   PictoType: 1
   TargetType: 0
   ValueAI: 0

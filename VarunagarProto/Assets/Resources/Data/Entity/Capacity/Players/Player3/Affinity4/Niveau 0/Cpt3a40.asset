@@ -14,23 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atk: 0
   heal: 6
-  buffType: 0
-  buffValue: 0
-  buffDuration: 0
   critique: 5
   "pr\xE9cision": 98
   cooldown: 1
   chargeUlti: 25
-  Shield: 0
-  Shock: 0
-  ShieldRatioAtk: 0
   MultipleHeal: 0
   MultipleAttack: 0
   TargetingAlly: 1
+  Provocation: 0
+  BuffFromAffinity: 1
+  buffType: 1
+  buffValue: 1.3
+  buffDuration: 1
+  Shield: 0
+  ShieldRatioAtk: 0
+  Shock: 0
+  Necrosis: 0
+  secondaryAtk: 0
+  secondaryHeal: 0
+  secondaryBuffType: 0
+  secondaryBuffValue: 0
+  secondaryBuffDuration: 0
   specialType: 0
   specialDelay: 1
   Name: Soin
   Description: "Soigne un alli\xE9."
+  AffinityDescription: Augmente l'attaque
   PictoType: 1
   TargetType: 0
   ValueAI: 0
+  DoubleEffect: 0

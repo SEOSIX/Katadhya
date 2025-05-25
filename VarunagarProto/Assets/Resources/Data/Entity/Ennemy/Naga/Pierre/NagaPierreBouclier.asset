@@ -15,18 +15,18 @@ MonoBehaviour:
   instance: {fileID: 0}
   <UnitLife>k__BackingField: 35
   UnitAtk: 8
-  UnitSpeed: 51
+  UnitSpeed: 44
   UnitDef: 5
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns: []
   Affinity: 1
-  BaseLife: 35
+  BaseLife: 30
   BaseAtk: 8
   BaseSpeed: 44
   BaseDef: 5
   BaseAim: 100
-  UnitShield: 12
+  UnitShield: 0
   ShockMark: 0
   RageTick: 0
   LastRageTick: 0
@@ -59,7 +59,7 @@ MonoBehaviour:
   UltLvlHit: 0
   namE: NagaPierreBouclier
   size: 0
-  index: 3
+  index: 2
   ID: 5
   RageAtkBonus: 0
   skipNextTurn: 0
