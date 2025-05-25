@@ -490,7 +490,7 @@ public class CombatManager : MonoBehaviour
 
         float modifier = lancer(capacity.critique, 1f, 1.5f);
 
-        if (caster.Affinity == 3)
+        if (caster.Affinity == 4)
         {
             if (caster.RageTick >= 12)
             {
@@ -611,12 +611,7 @@ public class CombatManager : MonoBehaviour
         }
 
         target.beenHurtThisTurn = true;
-        if (caster.Affinity == 4)
-        {
-            EffectsManager.SINGLETON.AfficherAttaqueBouclier(visualIndex, DamageDone);
-        }
-        else
-            EffectsManager.SINGLETON.AfficherAttaqueSimple(target, DamageDone);
+        EffectsManager.SINGLETON.AfficherAttaqueSimple(target, DamageDone);
     }
     if (capacity.heal > 0)
     {
@@ -647,7 +642,7 @@ public class CombatManager : MonoBehaviour
         int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * DamageDone);
         caster.UnitShield += Shielding;
     }
-    if (target.Affinity == 3)
+    if (target.Affinity == 4)
     {
         RageApplication(target);
     }
@@ -765,7 +760,7 @@ public class CombatManager : MonoBehaviour
         caster.UnitShield += Shielding;
     }
 
-    if (target.Affinity == 3)
+    if (target.Affinity == 4)
     {
         RageApplication(target);
     }
@@ -1163,11 +1158,11 @@ public class CombatManager : MonoBehaviour
 
     public void RageApplication(DataEntity target)
     {
-        if (target.Affinity == 3)
+        if (target.Affinity == 4)
         {
             bool isPlayer = entityHandler.players.Contains(target);
             List<DataEntity> team = isPlayer ? entityHandler.players : entityHandler.ennemies;
-            int affinityCount = team.Count(entity => entity.Affinity == 3);
+            int affinityCount = team.Count(entity => entity.Affinity == 4);
             target.RageTick += Mathf.Clamp(affinityCount + 1,0,12);
             RecalculateStats(target);
             
@@ -1180,7 +1175,7 @@ public class CombatManager : MonoBehaviour
     
     public void RageProc(DataEntity caster)
     {
-        if (caster.Affinity == 3 && caster.RageTick >= 12)
+        if (caster.Affinity == 4 && caster.RageTick >= 12)
         {
             caster.UnitAtk = Mathf.RoundToInt(caster.UnitAtk * 1.5f);
             caster.RageTick = 0;
