@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NarashimaPierreBouclier1
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 45
+  <UnitLife>k__BackingField: 27
   UnitAtk: 5
   UnitSpeed: 43
   UnitDef: 10
@@ -26,7 +26,7 @@ MonoBehaviour:
   BaseSpeed: 43
   BaseDef: 10
   BaseAim: 100
-  UnitShield: 0
+  UnitShield: 3
   ShockMark: 0
   RageTick: 0
   LastRageTick: 0
@@ -59,7 +59,7 @@ MonoBehaviour:
   UltLvlHit: 0
   namE: NarashimaPierreBouclier
   size: 0
-  index: 0
+  index: 2
   ID: 6
   RageAtkBonus: 0
   skipNextTurn: 0

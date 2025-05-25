@@ -204,7 +204,7 @@ public class Ultimate : MonoBehaviour
         ResetAllZones();
 
         player = Player;
-        player.UltLvlHit = 1;
+        player.UltLvlHit = 0;
         UltButton.interactable = false; 
         if (qteAnimator == null || qteUI == null)
         {
@@ -262,9 +262,7 @@ public class Ultimate : MonoBehaviour
         if (hitSuccess && player.UltLvlHit < UltLvls[player.Affinity-1])
         {
             UpdateZonesAfterHit();
-            Debug.Log(player.namE);
             player.UltLvlHit += 1;
-            Debug.Log(player.UltLvlHit);
             // Logique de réussite
 
         }

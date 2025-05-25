@@ -56,7 +56,7 @@ public class AI : MonoBehaviour
 
         DataEntity target = targets.FirstOrDefault(p => p.provoking) ?? targets[Random.Range(0, targets.Count)];
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.1f);
 
         ToggleTargetIndicator(target);
 
@@ -65,7 +65,7 @@ public class AI : MonoBehaviour
 
         PostAttackProcessing(attacker);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.1f);
         CombatManager.SINGLETON.EndUnitTurn();
 
         DisableTargetIndicators();
@@ -86,12 +86,12 @@ public class AI : MonoBehaviour
             CapacityData chosenSpell = SelectSpell(attacker);
             CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, target);
 
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(0.1f);
         }
 
         PostAttackProcessing(attacker);
 
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(0.1f);
         CombatManager.SINGLETON.EndUnitTurn();
 
         DisableTargetIndicators();

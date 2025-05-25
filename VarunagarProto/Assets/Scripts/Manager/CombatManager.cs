@@ -873,7 +873,6 @@ public class CombatManager : MonoBehaviour
             //MAJ de la data si affinity
             if (player.Affinity != 0 && EncartAffinity!= null)
             {
-                Debug.Log("ICI");
                 Sprite Picto = null;
                 String EffectValue = "";
                 if (CData.Shield > 0)

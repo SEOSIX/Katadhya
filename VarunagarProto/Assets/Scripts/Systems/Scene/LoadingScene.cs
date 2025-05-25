@@ -34,4 +34,9 @@ public class LoadingScene : MonoBehaviour
         yield return new WaitForSeconds(0f);
         SceneManager.LoadScene(nextSceneIndex);
     }
+    public IEnumerator LoadScene(string SceneName)
+    {
+        yield return new WaitForSeconds(0f);
+        SceneManager.LoadScene(SceneName);
+    }
 }
