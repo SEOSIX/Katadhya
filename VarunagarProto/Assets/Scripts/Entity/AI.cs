@@ -28,8 +28,9 @@ public class AI : MonoBehaviour
         if (!IsCombatReady()) return;
 
         enemyTurnCounter++;
+        StartCoroutine(SingleAttackCoroutine(attacker));
 
-        if (enemyTurnCounter % 2 == 0)
+        /*if (enemyTurnCounter % 2 == 0)
         {
             Debug.Log("L'ennemi lance une attaque multiple");
             StartCoroutine(MultiAttackCoroutine(attacker));
@@ -38,7 +39,7 @@ public class AI : MonoBehaviour
         {
             Debug.Log("L'ennemi lance une attaque simple");
             StartCoroutine(SingleAttackCoroutine(attacker));
-        }
+        }*/
     }
 
     private bool IsCombatReady()
@@ -56,7 +57,7 @@ public class AI : MonoBehaviour
 
         DataEntity target = targets.FirstOrDefault(p => p.provoking) ?? targets[Random.Range(0, targets.Count)];
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
 
         ToggleTargetIndicator(target);
 
@@ -65,7 +66,7 @@ public class AI : MonoBehaviour
 
         PostAttackProcessing(attacker);
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         CombatManager.SINGLETON.EndUnitTurn();
 
         DisableTargetIndicators();

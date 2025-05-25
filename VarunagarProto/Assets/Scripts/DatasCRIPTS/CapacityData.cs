@@ -15,31 +15,31 @@ public enum SpecialCapacityType
 public class CapacityData : ScriptableObject
     //on appelle les comp�tences Cpt1a11 (1 : premier perso, a : premi�re cpt, 1 : affinity, 1 : Level)
 {
-    [field: Header("Cpt Stat"), SerializeField]
+    [Header("CptStats")]
     public int atk;
-    public int heal;
-    public int critique;
-    public int précision;
-    public int cooldown;
-    public int chargeUlti;
+    [SerializeField] public int heal;
+    [SerializeField] public int critique;
+    [SerializeField] public int précision;
+    [SerializeField] public int cooldown;
+    [SerializeField] public int chargeUlti;
 
-    [field: Header("Cpt Effect"), SerializeField]
-    public bool MultipleHeal;
-    public bool MultipleAttack;
-    public bool TargetingAlly;
-    public bool Provocation;
+    [Header("Cpt Effect")]
+    [SerializeField] public bool MultipleHeal;
+    [SerializeField] public bool MultipleAttack;
+    [SerializeField] public bool TargetingAlly;
+    [SerializeField] public bool Provocation;
 
-    [field: Header("Buff"), SerializeField]
-    public bool BuffFromAffinity;
-    public int buffType;
-    public float buffValue;
-    public int buffDuration;
+    [Header("Buff")]
+    [SerializeField] public bool BuffFromAffinity;
+    [SerializeField] public int buffType;
+    [SerializeField] public float buffValue;
+    [SerializeField] public int buffDuration;
 
-    [field: Header("Affinity effects"), SerializeField]
-    public int Shield;
-    public int ShieldRatioAtk;
-    public int Shock;
-    public int Necrosis;
+    [Header("Affinity Effect")]
+    [SerializeField] public int Shield;
+    [SerializeField] public int ShieldRatioAtk;
+    [SerializeField] public int Shock;
+    [SerializeField] public int Necrosis;
 
     [Header("Secondary Stats")]
     [HideInInspector] public int secondaryAtk;
@@ -54,16 +54,16 @@ public class CapacityData : ScriptableObject
     [Tooltip("Used if the special capacity needs a delay or multi-hit settings")]
     [SerializeField] public int specialDelay = 1;
 
-    [field: Header("Text & icons"), SerializeField]
-    public string Name;
-    public string Description;
-    public string AffinityDescription;
-    public int PictoType;
-    public int TargetType;
+    [Header("Text & Icons")]
+    [SerializeField] public string Name;
+    [SerializeField] public string Description;
+    [SerializeField] public string AffinityDescription;
+    [SerializeField] public int PictoType;
+    [SerializeField] public int TargetType;
 
-    [field: Header("Enemy Only"), SerializeField]
-    public int ValueAI;
+    [Header("Enemy Only")]
+    [SerializeField] public int ValueAI;
 
-    [field: Header("Second Effect"), SerializeField]
-    public bool DoubleEffect;
+    [Header("Second Effect")]
+    [SerializeField] public bool DoubleEffect;
 }

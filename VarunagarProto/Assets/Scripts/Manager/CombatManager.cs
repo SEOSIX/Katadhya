@@ -12,6 +12,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using static DataEntity;
 using static UnityEngine.EventSystems.EventTrigger;
+using UnityEditor.ShaderKeywordFilter;
 public class CombatManager : MonoBehaviour
 {
     public static CombatManager SINGLETON { get; private set; }
@@ -387,11 +388,20 @@ public class CombatManager : MonoBehaviour
 
         if (capacity.MultipleAttack)
         {
-            foreach (var enemy in entityHandler.ennemies)
+            List<DataEntity> pool = null;
+            if (entityHandler.players.Contains(currentPlayer))
             {
-                if (enemy.UnitLife > 0)
+                pool = entityHandler.ennemies;
+            }
+            else
+            {
+                pool = entityHandler.players;
+            }
+            foreach (var target in pool)
+            {
+                if (target.UnitLife > 0)
                 {
-                    ApplyCapacityToTarget(capacity, enemy);
+                    ApplyCapacityToTarget(capacity, target);
                 }
             }
             DecrementBuffDurations(currentTurnOrder[0]);
