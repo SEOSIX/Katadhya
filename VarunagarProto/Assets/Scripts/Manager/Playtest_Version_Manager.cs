@@ -12,6 +12,7 @@ public class RewardPack
 public class Playtest_Version_Manager : MonoBehaviour
 {
     public static Playtest_Version_Manager SINGLETON { get; private set; }
+    public int Combat;
 
     private void Awake()
     {
@@ -42,7 +43,6 @@ public class Playtest_Version_Manager : MonoBehaviour
     }
 
 
-    public int Combat;
     [SerializeField] public int CaurisDeBase;
     [SerializeField] public List<RewardPack> CaurisSpé;
     public GlobalPlayerData BigData;
@@ -60,6 +60,6 @@ public class Playtest_Version_Manager : MonoBehaviour
     public void LoadNextCombatScene()
     {
         Combat += 1;
-        SceneManager.LoadScene($"Combat {Combat}");
+        SceneManager.LoadScene($"Combat{Combat}");
     }
 }
