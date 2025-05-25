@@ -147,8 +147,9 @@ public class CombatManager : MonoBehaviour
                 entityHandler.players[i].Affinity = 0;
                 entityHandler.players[i].beenHurtThisTurn = false;
                 entityHandler.players[i].UltLvlHit = 0;
-            }
+                entiityManager.UpdateSpellData(entityHandler.players[i]);
         }
+    }
     public void ResetPlayersBeforeCombat()
     {
 
@@ -170,6 +171,7 @@ public class CombatManager : MonoBehaviour
             entityHandler.players[i].Affinity = 0;
             entityHandler.players[i].beenHurtThisTurn = false;
             entityHandler.players[i].UltLvlHit = 0;
+            entiityManager.UpdateSpellData(entityHandler.players[i]);
         }
     }
     public void InitializeStaticUI()

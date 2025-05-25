@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
   <UnitLife>k__BackingField: 70
-  UnitAtk: 4
+  UnitAtk: 3
   UnitSpeed: 40
   UnitDef: 0
   UnitAim: 100
-  ActiveBuffs: []
-  ActiveCooldowns:
-  - capacity: {fileID: 11400000, guid: 61295d1f04e126c48ad7deea93460813, type: 2}
-    remainingCooldown: 1
+  ActiveBuffs:
+  - type: 1
+    value: 0.8
+    duration: 1
+  ActiveCooldowns: []
   Affinity: 0
   BaseLife: 80
   BaseAtk: 4
@@ -33,7 +34,7 @@ MonoBehaviour:
   RageTick: 0
   LastRageTick: 0
   necrosis: []
-  beenHurtThisTurn: 0
+  beenHurtThisTurn: 1
   provoking: 0
   portrait: {fileID: 21300000, guid: 720a7ef09d762164291f08f84ceca96b, type: 3}
   portraitUI: {fileID: 21300000, guid: c7c7f85af6d269a4681482747a4a8408, type: 3}
@@ -51,13 +52,13 @@ MonoBehaviour:
   CptUltlvl: 10
   Ultimate: {fileID: 21300000, guid: 47156ee7c606bda4db4e0c7d377a295c, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: ce4265b8a8608f148b8c0bdfbd50f510, type: 3}
-  _CapacityDataUltimate: {fileID: 11400000, guid: 88655debae5d91c49b8a182719500b46, type: 2}
-  UltimateSlider: 75
+  _CapacityDataUltimate: {fileID: 11400000, guid: b500928d3256d974a861842354ea55e6, type: 2}
+  UltimateSlider: 100
   UltIsReady: 0
-  UltLvl_1: 0
-  UltLvl_2: 0
-  UltLvl_3: 0
-  UltLvl_4: 0
+  UltLvl_1: 1
+  UltLvl_2: 1
+  UltLvl_3: 1
+  UltLvl_4: 1
   UltLvlHit: 0
   namE: Moine
   size: 0.23

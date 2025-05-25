@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: "Prisonni\xE8re"
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 100
-  UnitAtk: 10
+  <UnitLife>k__BackingField: 79
+  UnitAtk: 14
   UnitSpeed: 50
   UnitDef: 0
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns: []
-  Affinity: 0
+  Affinity: 2
   BaseLife: 100
   BaseAtk: 10
   BaseSpeed: 50
@@ -28,7 +28,7 @@ MonoBehaviour:
   BaseAim: 100
   UnitShield: 0
   ShockMark: 0
-  RageTick: 0
+  RageTick: 12
   LastRageTick: 0
   necrosis: []
   beenHurtThisTurn: 0
@@ -39,24 +39,24 @@ MonoBehaviour:
   Animator: {fileID: 8405213795540640227, guid: 4889c64283bad3b4ebba15c49de2c5ba, type: 3}
   Cpt1lvl: 0
   capacity1: {fileID: 21300000, guid: 7de2447ac3ed5e244bfb6ef4835aa7f5, type: 3}
-  _CapacityData1: {fileID: 11400000, guid: ea9aa5da7ac13ab41af817f5a6a47216, type: 2}
+  _CapacityData1: {fileID: 11400000, guid: aa0f02b020153c1459de9bb910244083, type: 2}
   Cpt2lvl: 0
   capacity2: {fileID: 21300000, guid: a5d849fd5fe36704eb0571d9d4f654a9, type: 3}
-  _CapacityData2: {fileID: 11400000, guid: 1a41267a51c50ba4eba7870f31a0ca5a, type: 2}
+  _CapacityData2: {fileID: 11400000, guid: d0942534154041a44b17ead0b47998aa, type: 2}
   Cpt3lvl: 0
   capacity3: {fileID: 21300000, guid: 3e9946186a02f5647876b0ce959ffebc, type: 3}
-  _CapacityData3: {fileID: 11400000, guid: 5f364eb68e3793a4083208ce78d819f9, type: 2}
+  _CapacityData3: {fileID: 11400000, guid: 614b774f14d0cb547b373b02772cdaa0, type: 2}
   CptUltlvl: 10
   Ultimate: {fileID: 21300000, guid: b9dfd3aed188eda4e925aa347812de99, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: 32f764f830a8d39449df9ac27bfb030e, type: 3}
-  _CapacityDataUltimate: {fileID: 11400000, guid: daec32e88b3cc724699e3aa97648eadf, type: 2}
-  UltimateSlider: 100
+  _CapacityDataUltimate: {fileID: 11400000, guid: fa4ff77255bf75b41a4c7375c8e143c9, type: 2}
+  UltimateSlider: 0
   UltIsReady: 0
   UltLvl_1: 3
   UltLvl_2: 2
   UltLvl_3: 2
   UltLvl_4: 3
-  UltLvlHit: 0
+  UltLvlHit: 2
   namE: "Prisonni\xE8re"
   size: 0.21
   index: 1
