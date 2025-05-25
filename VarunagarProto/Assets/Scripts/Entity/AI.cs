@@ -20,7 +20,7 @@ public class AI : MonoBehaviour
             return;
         }
         SINGLETON = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     public void Attack(DataEntity attacker, int damages)

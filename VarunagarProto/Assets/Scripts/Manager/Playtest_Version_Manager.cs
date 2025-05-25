@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,11 +11,20 @@ public class RewardPack
 }
 public class Playtest_Version_Manager : MonoBehaviour
 {
+    public static Playtest_Version_Manager SINGLETON { get; private set; }
+
     private void Awake()
     {
+        if (SINGLETON != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        SINGLETON = this;
         DontDestroyOnLoad(this);
 
     }
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -39,6 +49,7 @@ public class Playtest_Version_Manager : MonoBehaviour
 
     public void Récompenses()
     {
+        GameManager.SINGLETON.isCombatEnabled = false;
         for (int i = 0; i < 4; i++)
         {
             BigData.AddCauris(CaurisSpé[Combat].values[i], i);
@@ -48,6 +59,7 @@ public class Playtest_Version_Manager : MonoBehaviour
     }
     public void LoadNextCombatScene()
     {
+        Combat += 1;
         SceneManager.LoadScene($"Combat {Combat}");
     }
 }

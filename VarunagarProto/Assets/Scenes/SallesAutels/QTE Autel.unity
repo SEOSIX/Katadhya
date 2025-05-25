@@ -2128,9 +2128,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1570314261}
-        m_TargetAssemblyTypeName: LoadingScene, Assembly-CSharp
-        m_MethodName: LoadNextSceneAsync
+      - m_Target: {fileID: 7496928765401069149, guid: b94f13846b4f6214fba16cd99c96ec3d, type: 3}
+        m_TargetAssemblyTypeName: Playtest_Version_Manager, Assembly-CSharp
+        m_MethodName: LoadNextCombatScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

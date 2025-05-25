@@ -182,9 +182,9 @@ public class CombatManager : MonoBehaviour
         DataEntity currentEntity = currentTurnOrder[0];
 
         textplayer.text = currentEntity.name;
-        speed.text = "Speed :" + currentEntity.UnitSpeed;
-        def.text = "Defence :" + currentEntity.UnitDef;
-        atck.text = "Attack :" + currentEntity.UnitAtk;
+        speed.text = "VIT :" + currentEntity.UnitSpeed;
+        def.text = "DEF :" + currentEntity.UnitDef;
+        atck.text = "ATQ :" + currentEntity.UnitAtk;
         lifeText.text = currentEntity.UnitLife + "/" + currentEntity.BaseLife;
         playerPortrait.sprite = currentEntity.bandeauUI;
         LifePlayers.maxValue = currentEntity.BaseLife;
@@ -980,7 +980,7 @@ public class CombatManager : MonoBehaviour
                 }
                 if (CData.buffType == 1)
                 {
-                    BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"ATK{arrow}");
+                    BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"ATQ{arrow}");
                 }
                 if (CData.buffType == 2)
                 {

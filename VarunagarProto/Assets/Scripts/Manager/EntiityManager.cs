@@ -141,6 +141,7 @@ public class EntiityManager : MonoBehaviour
 
         bool anyPlayerAlive = entityHandler.players.Any(p => p != null);
         bool anyEnemyAlive = entityHandler.ennemies.Any(e => e != null);
+        bool isLastWave = GameManager.SINGLETON.EnemyPackIndex >= GameManager.SINGLETON.enemyPacks.Count - 1;
 
         if (!anyPlayerAlive)
         {
@@ -149,16 +150,23 @@ public class EntiityManager : MonoBehaviour
         else if (!anyEnemyAlive)
         {
             Debug.Log("Fin de la vague");
-            GameManager.SINGLETON.EnemyPackIndex += 1;
-            GameManager.SINGLETON.SpawnEnemies();
-            CombatManager.SINGLETON.ResetEnemies();
-            CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
-            CombatManager.SINGLETON.unitPlayedThisTurn.Clear();
-            CombatManager.SINGLETON.StartUnitTurn();
-            CombatManager.SINGLETON.ennemyDead = 0;
-            
+            if (GameManager.SINGLETON.EnemyPackIndex+1 < GameManager.SINGLETON.enemyPacks.Count)
+            {
+                GameManager.SINGLETON.EnemyPackIndex += 1;
+                GameManager.SINGLETON.SpawnEnemies();
+                CombatManager.SINGLETON.ResetEnemies();
+                CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
+                CombatManager.SINGLETON.unitPlayedThisTurn.Clear();
+                CombatManager.SINGLETON.StartUnitTurn();
+                CombatManager.SINGLETON.ennemyDead = 0;
+            }
+
+            else
+            {
+                isLastWave = true;
+            }
+     
         }
-        bool isLastWave = GameManager.SINGLETON.EnemyPackIndex >= GameManager.SINGLETON.enemyPacks.Count - 1;
         bool isDefeat = !anyPlayerAlive;
         bool isVictory = anyPlayerAlive && !anyEnemyAlive && isLastWave;
 

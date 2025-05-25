@@ -56,11 +56,11 @@ private IEnumerator DelayedDisplay(bool playerWon, List<DataEntity> allEnemies)
         btn.interactable = false;
 
     resultText.text = playerWon ? "VICTOIRE" : "DÉFAITE";
-    resultText.color = playerWon ? Color.green : Color.red;
+    resultText.color = playerWon ? Color.yellow : Color.red;
 
     int maxDisplay = Mathf.Min(enemyPortraits.Count, allEnemies.Count);
 
-    for (int i = 0; i < maxDisplay; i++)
+    /*for (int i = 0; i < maxDisplay; i++)
     {
         DataEntity enemy = allEnemies[i];
 
@@ -77,7 +77,7 @@ private IEnumerator DelayedDisplay(bool playerWon, List<DataEntity> allEnemies)
     {
         enemyPortraits[i].gameObject.SetActive(false);
         enemyNames[i].gameObject.SetActive(false);
-    }
+    }*/
 
     endCombatPanel.SetActive(true);
 }

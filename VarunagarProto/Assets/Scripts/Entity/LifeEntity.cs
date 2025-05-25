@@ -27,7 +27,7 @@ public class LifeEntity : MonoBehaviour
             return;
         }
         SINGLETON = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     private void Start()

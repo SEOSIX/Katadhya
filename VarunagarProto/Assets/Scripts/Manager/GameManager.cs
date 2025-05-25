@@ -69,11 +69,12 @@ public class GameManager : MonoBehaviour
         entityHandler.ennemies.Clear();
 
         SpawnPlayers();
-        CombatManager.SINGLETON.ResetPlayersBeforeCombat();
+
 
 
         if (isCombatEnabled)
         {
+            CombatManager.SINGLETON.ResetPlayersBeforeCombat();
             SpawnEnemies();
 
             CombatManager.SINGLETON.ResetEnemies();
