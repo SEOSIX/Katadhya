@@ -13,28 +13,25 @@ MonoBehaviour:
   m_Name: Moine
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 70
-  UnitAtk: 3
+  <UnitLife>k__BackingField: 65
+  UnitAtk: 4
   UnitSpeed: 40
   UnitDef: 0
   UnitAim: 100
-  ActiveBuffs:
-  - type: 1
-    value: 0.8
-    duration: 1
+  ActiveBuffs: []
   ActiveCooldowns: []
-  Affinity: 0
+  Affinity: 1
   BaseLife: 80
   BaseAtk: 4
   BaseSpeed: 40
   BaseDef: 0
   BaseAim: 100
-  UnitShield: 0
+  UnitShield: 6
   ShockMark: 0
   RageTick: 0
   LastRageTick: 0
   necrosis: []
-  beenHurtThisTurn: 1
+  beenHurtThisTurn: 0
   provoking: 0
   portrait: {fileID: 21300000, guid: 720a7ef09d762164291f08f84ceca96b, type: 3}
   portraitUI: {fileID: 21300000, guid: c7c7f85af6d269a4681482747a4a8408, type: 3}
@@ -42,24 +39,24 @@ MonoBehaviour:
   Animator: {fileID: 1624137427931347417, guid: f776c726f2e39cf4db7483b1f17ccf67, type: 3}
   Cpt1lvl: 0
   capacity1: {fileID: 21300000, guid: 430094b588f0ce8448b16531b6de98f0, type: 3}
-  _CapacityData1: {fileID: 11400000, guid: 70dd0b3adc5127c439dc05f54c11c0d7, type: 2}
+  _CapacityData1: {fileID: 11400000, guid: abdbbbf2787ee054eb88f455f3bf56fa, type: 2}
   Cpt2lvl: 0
   capacity2: {fileID: 21300000, guid: 288bf75e334b6bf4f83cb7bd498a75b1, type: 3}
-  _CapacityData2: {fileID: 11400000, guid: f845f7eb8e898aa40a7582af25e08e8e, type: 2}
+  _CapacityData2: {fileID: 11400000, guid: 7e4c3ed46d15f1c4fa3c942c87fab8e6, type: 2}
   Cpt3lvl: 0
   capacity3: {fileID: 21300000, guid: b3a56775c42bab44884e5d04562a368e, type: 3}
-  _CapacityData3: {fileID: 11400000, guid: 61295d1f04e126c48ad7deea93460813, type: 2}
-  CptUltlvl: 10
+  _CapacityData3: {fileID: 11400000, guid: 7ebfe507566e92a4492260a690a04bf7, type: 2}
+  CptUltlvl: 3
   Ultimate: {fileID: 21300000, guid: 47156ee7c606bda4db4e0c7d377a295c, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: ce4265b8a8608f148b8c0bdfbd50f510, type: 3}
-  _CapacityDataUltimate: {fileID: 11400000, guid: b500928d3256d974a861842354ea55e6, type: 2}
-  UltimateSlider: 100
+  _CapacityDataUltimate: {fileID: 11400000, guid: 64d3299e3ee9e2e4781ac865e9fc6ddd, type: 2}
+  UltimateSlider: 50
   UltIsReady: 0
   UltLvl_1: 1
   UltLvl_2: 1
-  UltLvl_3: 1
+  UltLvl_3: 0
   UltLvl_4: 1
-  UltLvlHit: 0
+  UltLvlHit: 1
   namE: Moine
   size: 0.23
   index: 0

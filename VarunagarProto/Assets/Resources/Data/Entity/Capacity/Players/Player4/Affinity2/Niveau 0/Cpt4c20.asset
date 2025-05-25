@@ -14,23 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atk: 18
   heal: 0
-  buffType: 0
-  buffValue: 0
-  buffDuration: 0
   critique: 30
   "pr\xE9cision": 95
   cooldown: 1
   chargeUlti: 62
-  Shield: 0
-  Shock: 2
-  ShieldRatioAtk: 0
   MultipleHeal: 0
   MultipleAttack: 0
   TargetingAlly: 0
+  Provocation: 0
+  BuffFromAffinity: 0
+  buffType: 0
+  buffValue: 0
+  buffDuration: 0
+  Shield: 0
+  ShieldRatioAtk: 0
+  Shock: 2
+  Necrosis: 0
+  secondaryAtk: 0
+  secondaryHeal: 0
+  secondaryBuffType: 0
+  secondaryBuffValue: 0
+  secondaryBuffDuration: 0
   specialType: 1
   specialDelay: 1
   Name: 'Frappe lourde '
   Description: "Inflige des d\xE9gats a un ennemi. N\xE9cessite 1 tour d'activation."
+  AffinityDescription: Applique du choc
   PictoType: 0
   TargetType: 0
   ValueAI: 0
+  DoubleEffect: 0

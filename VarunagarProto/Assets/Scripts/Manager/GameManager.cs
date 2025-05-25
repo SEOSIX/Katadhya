@@ -133,8 +133,8 @@ public class GameManager : MonoBehaviour
 
     // 📁 Chargement des données depuis Resources
     DataEntity[] enemyDataArray = Resources.LoadAll<DataEntity>("Data/Entity/Ennemy");
-    DataEntity data1 = enemyDataArray.FirstOrDefault(d => d.name == $"{E1.name}{EnemyPackIndex}");
-    DataEntity data2 = enemyDataArray.FirstOrDefault(d => d.name == $"{E2.name}{EnemyPackIndex}");
+    DataEntity data1 = enemyDataArray.FirstOrDefault(d => d.name == $"{E1.name}");
+    DataEntity data2 = enemyDataArray.FirstOrDefault(d => d.name == $"{E2.name}");
 
     if (data1 != null) entityHandler.ennemies.Add(data1);
     if (data2 != null) entityHandler.ennemies.Add(data2);
