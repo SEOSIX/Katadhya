@@ -1,0 +1,825 @@
+fileFormatVersion: 2
+guid: 8c4f7536036174f41a5d7a76d4078ef4
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 1
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 108
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  spriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+    spritePosition: {x: 0, y: 0}
+  mosaicSpriteImportData: []
+  rigSpriteImportData:
+  - name: cheapeau haut
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 254
+      width: 204
+      height: 165
+    spriteID: a331b13c6ea49224a81373bfba601bc1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 254}
+    spritePosition: {x: 103, y: 285}
+  - name: chapeau bas
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 408
+      y: 254
+      width: 92
+      height: 76
+    spriteID: 0625b90c8eb22244fa342b891614511f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 408, y: 254}
+    spritePosition: {x: 197, y: 285}
+  - name: machoire
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 345
+      y: 4
+      width: 105
+      height: 95
+    spriteID: a58c3af2e707fa34fbbf332caf553139
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 345, y: 4}
+    spritePosition: {x: 87, y: 258}
+  - name: sourcil
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 420
+      y: 107
+      width: 55
+      height: 44
+    spriteID: a011c89575d55fa448fde1a6df2b58d5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 420, y: 107}
+    spritePosition: {x: 105, y: 330}
+  - name: tete
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 216
+      y: 254
+      width: 184
+      height: 160
+    spriteID: bd2bfa4050f3df04c94cc3abb58912b4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 216, y: 254}
+    spritePosition: {x: 57, y: 237}
+  - name: langue ?
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 408
+      y: 338
+      width: 94
+      height: 58
+    spriteID: 65181564bebf1dd44813beea16a7de47
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 408, y: 338}
+    spritePosition: {x: 92, y: 285}
+  - name: sonette
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 345
+      y: 107
+      width: 67
+      height: 74
+    spriteID: 3c7a51e91e675c847b87659f74f53aa4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 345, y: 107}
+    spritePosition: {x: 358, y: 133}
+  - name: corps
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 333
+      height: 242
+    spriteID: 1db764d6285621b4cabf1798d238dc18
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+    spritePosition: {x: 92, y: 114}
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0, y: 0}
+    boneReadOnly: 0
+  sharedRigSpriteImportData:
+  - name: cheapeau haut
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 254
+      width: 204
+      height: 165
+    spriteID: d2f1dc6236aa27b4aaeca95bedbe274a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 254}
+    spritePosition: {x: 103, y: 285}
+  - name: chapeau bas
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 408
+      y: 254
+      width: 92
+      height: 76
+    spriteID: 8323e553440843b468d31dbcf94efc6e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 408, y: 254}
+    spritePosition: {x: 197, y: 285}
+  - name: machoire
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 345
+      y: 4
+      width: 105
+      height: 95
+    spriteID: c7daca58c9ed3524a9280d2b4b809209
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 345, y: 4}
+    spritePosition: {x: 87, y: 258}
+  - name: sourcil
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 420
+      y: 107
+      width: 55
+      height: 44
+    spriteID: 68be26d5d0b582b4dbe73f34b7d33f4d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 420, y: 107}
+    spritePosition: {x: 105, y: 330}
+  - name: tete
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 216
+      y: 254
+      width: 184
+      height: 160
+    spriteID: c96657a6c07379748b0d222e35ed3902
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 216, y: 254}
+    spritePosition: {x: 57, y: 237}
+  - name: langue ?
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 408
+      y: 338
+      width: 94
+      height: 58
+    spriteID: 59a0b5e12995344468ea3d3d721cbcb9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 408, y: 338}
+    spritePosition: {x: 92, y: 285}
+  - name: sonette
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 345
+      y: 107
+      width: 67
+      height: 74
+    spriteID: bfde7132d6bd5aa4f9198e8953c952ce
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 345, y: 107}
+    spritePosition: {x: 358, y: 133}
+  - name: corps
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 333
+      height: 242
+    spriteID: c6c4659150e11934baeaded8d281b748
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+    spritePosition: {x: 92, y: 114}
+  sharedRigCharacterData:
+    bones:
+    - name: corps_1
+      guid: 9c6aa5400c4cefc4bb4ceda6d128c4cf
+      position: {x: 304.85995, y: 259.7446, z: 0}
+      rotation: {x: 0, y: 0, z: -0.9480109, w: 0.31823787}
+      length: 194.05586
+      parentId: -1
+      color:
+        serializedVersion: 2
+        rgba: 4278190335
+    - name: corps_2
+      guid: 3dd9d816cfa0ea343a273779d77a1220
+      position: {x: 194.05586, y: 0.000094093586, z: 0}
+      rotation: {x: 0, y: 0, z: -0.939808, w: 0.34170312}
+      length: 207.71944
+      parentId: 0
+      color:
+        serializedVersion: 2
+        rgba: 4278255615
+    - name: tete
+      guid: 5807c040fc76b474297264f9793ac630
+      position: {x: 225.99226, y: 34.840862, z: 0}
+      rotation: {x: 0, y: -0, z: 0.92444116, w: 0.38132486}
+      length: 109.31266
+      parentId: 1
+      color:
+        serializedVersion: 2
+        rgba: 4278255360
+    - name: machoire
+      guid: 943f59819b84b774ab254ec767410fa3
+      position: {x: 10.488302, y: 32.62473, z: 0}
+      rotation: {x: 0, y: 0, z: -0.010777857, w: 0.99994195}
+      length: 106.764755
+      parentId: 2
+      color:
+        serializedVersion: 2
+        rgba: 4294967040
+    - name: plaque_Haut
+      guid: ff9fcf86358c65848b6e0b05ef6d095e
+      position: {x: 5.4662476, y: -75.76244, z: 0}
+      rotation: {x: 0, y: -0, z: 0.86046344, w: 0.5095123}
+      length: 153.44559
+      parentId: 2
+      color:
+        serializedVersion: 2
+        rgba: 4294901760
+    - name: plaque_bas
+      guid: 22befd97297a82b47a087ccb1841c98c
+      position: {x: -25.659254, y: 41.9717, z: 0}
+      rotation: {x: 0, y: -0, z: 0.82492065, w: 0.56524855}
+      length: 59.64691
+      parentId: 2
+      color:
+        serializedVersion: 2
+        rgba: 4294902015
+    - name: sonette
+      guid: 61543fef8b45e574296e0cd75a454a26
+      position: {x: 130.23238, y: 64.65813, z: 0}
+      rotation: {x: 0, y: 0, z: -0.96039265, w: -0.27865025}
+      length: 59.386307
+      parentId: 9
+      color:
+        serializedVersion: 2
+        rgba: 4278223103
+    - name: langue
+      guid: 5f0a0675c6bc2f14f8e5792b19455d85
+      position: {x: -99.15366, y: -28.277563, z: 0}
+      rotation: {x: 0, y: 0, z: -0.012475085, w: 0.9999222}
+      length: 59.871452
+      parentId: 2
+      color:
+        serializedVersion: 2
+        rgba: 4286643968
+    - name: sourcil
+      guid: 4d440435c4b765a488382c23f4e13aba
+      position: {x: 38.46221, y: -30.672276, z: 0}
+      rotation: {x: 0, y: 0, z: 0.09603512, w: 0.99537796}
+      length: 34.36943
+      parentId: 2
+      color:
+        serializedVersion: 2
+        rgba: 4286643968
+    - name: corps_3
+      guid: 63c19e42c7dabf441821fddc16bfacba
+      position: {x: -46.909264, y: 13.042811, z: 0}
+      rotation: {x: 0, y: 0, z: 0.396584, w: 0.91799843}
+      length: 161.44075
+      parentId: 0
+      color:
+        serializedVersion: 2
+        rgba: 4294934528
+    parts:
+    - spritePosition:
+        x: 103
+        y: 285
+        width: 204
+        height: 165
+      spriteId: d2f1dc6236aa27b4aaeca95bedbe274a
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 197
+        y: 285
+        width: 92
+        height: 76
+      spriteId: 8323e553440843b468d31dbcf94efc6e
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 87
+        y: 258
+        width: 105
+        height: 95
+      spriteId: c7daca58c9ed3524a9280d2b4b809209
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 105
+        y: 330
+        width: 55
+        height: 44
+      spriteId: 68be26d5d0b582b4dbe73f34b7d33f4d
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 57
+        y: 237
+        width: 184
+        height: 160
+      spriteId: c96657a6c07379748b0d222e35ed3902
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 92
+        y: 285
+        width: 94
+        height: 58
+      spriteId: 59a0b5e12995344468ea3d3d721cbcb9
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 358
+        y: 133
+        width: 67
+        height: 74
+      spriteId: bfde7132d6bd5aa4f9198e8953c952ce
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 92
+        y: 114
+        width: 333
+        height: 242
+      spriteId: c6c4659150e11934baeaded8d281b748
+      bones: 
+      parentGroup: 0
+      order: 0
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0.5, y: 0.5}
+    boneReadOnly: 0
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  mosaicLayers: 1
+  characterMode: 1
+  documentPivot: {x: 0.5, y: 0.5}
+  documentAlignment: 0
+  importHiddenLayers: 0
+  layerMappingOption: 2
+  generatePhysicsShape: 0
+  paperDollMode: 0
+  keepDupilcateSpriteName: 1
+  skeletonAssetReferenceID: a58999b484e295b42b427ead79779478
+  pipeline: {instanceID: 0}
+  pipelineVersion: 
+  padding: 4
+  spriteSizeExpand: 0
+  spriteCategoryList:
+    categories: []
+  spritePackingTag: 
+  resliceFromLayer: 0
+  mosaicPSDLayers: []
+  rigPSDLayers:
+  - name: cheapeau haut
+    spriteName: cheapeau haut
+    isGroup: 0
+    parentIndex: -1
+    spriteID: a331b13c6ea49224a81373bfba601bc1
+    layerID: 30
+    mosaicPosition: {x: 4, y: 254}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: chapeau bas
+    spriteName: chapeau bas
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 0625b90c8eb22244fa342b891614511f
+    layerID: 26
+    mosaicPosition: {x: 408, y: 254}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: machoire
+    spriteName: machoire
+    isGroup: 0
+    parentIndex: -1
+    spriteID: a58c3af2e707fa34fbbf332caf553139
+    layerID: 23
+    mosaicPosition: {x: 345, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: sourcil
+    spriteName: sourcil
+    isGroup: 0
+    parentIndex: -1
+    spriteID: a011c89575d55fa448fde1a6df2b58d5
+    layerID: 18
+    mosaicPosition: {x: 420, y: 107}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: tete
+    spriteName: tete
+    isGroup: 0
+    parentIndex: -1
+    spriteID: bd2bfa4050f3df04c94cc3abb58912b4
+    layerID: 16
+    mosaicPosition: {x: 216, y: 254}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: langue ?
+    spriteName: langue ?
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 65181564bebf1dd44813beea16a7de47
+    layerID: 12
+    mosaicPosition: {x: 408, y: 338}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: sonette
+    spriteName: sonette
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 3c7a51e91e675c847b87659f74f53aa4
+    layerID: 10
+    mosaicPosition: {x: 345, y: 107}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: corps
+    spriteName: corps
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 1db764d6285621b4cabf1798d238dc18
+    layerID: 8
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  sharedRigPSDLayers:
+  - name: cheapeau haut
+    spriteName: cheapeau haut
+    isGroup: 0
+    parentIndex: -1
+    spriteID: d2f1dc6236aa27b4aaeca95bedbe274a
+    layerID: 30
+    mosaicPosition: {x: 4, y: 254}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: chapeau bas
+    spriteName: chapeau bas
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 8323e553440843b468d31dbcf94efc6e
+    layerID: 26
+    mosaicPosition: {x: 408, y: 254}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: machoire
+    spriteName: machoire
+    isGroup: 0
+    parentIndex: -1
+    spriteID: c7daca58c9ed3524a9280d2b4b809209
+    layerID: 23
+    mosaicPosition: {x: 345, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: sourcil
+    spriteName: sourcil
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 68be26d5d0b582b4dbe73f34b7d33f4d
+    layerID: 18
+    mosaicPosition: {x: 420, y: 107}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: tete
+    spriteName: tete
+    isGroup: 0
+    parentIndex: -1
+    spriteID: c96657a6c07379748b0d222e35ed3902
+    layerID: 16
+    mosaicPosition: {x: 216, y: 254}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: langue ?
+    spriteName: langue ?
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 59a0b5e12995344468ea3d3d721cbcb9
+    layerID: 12
+    mosaicPosition: {x: 408, y: 338}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: sonette
+    spriteName: sonette
+    isGroup: 0
+    parentIndex: -1
+    spriteID: bfde7132d6bd5aa4f9198e8953c952ce
+    layerID: 10
+    mosaicPosition: {x: 345, y: 107}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: corps
+    spriteName: corps
+    isGroup: 0
+    parentIndex: -1
+    spriteID: c6c4659150e11934baeaded8d281b748
+    layerID: 8
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  pSDLayerImportSetting: []
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  spriteSizeExpandChanged: 0
+  generateGOHierarchy: 0
+  textureAssetName: 
+  prefabAssetName: 
+  spriteLibAssetName: 
+  skeletonAssetName: 
+  secondarySpriteTextures: []
