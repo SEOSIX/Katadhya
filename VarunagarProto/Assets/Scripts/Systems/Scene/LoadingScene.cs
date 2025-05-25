@@ -34,9 +34,17 @@ public class LoadingScene : MonoBehaviour
         yield return new WaitForSeconds(0f);
         SceneManager.LoadScene(nextSceneIndex);
     }
-    public IEnumerator LoadScene(string SceneName)
+    public void LoadScene(string SceneName)
     {
+        FadeManager.Instance.FadeOut(() =>
+        {
+            StartCoroutine(LoadSceneByName(SceneName));
+        });
+    }
+    private IEnumerator LoadSceneByName(string Name)
+    {
+
         yield return new WaitForSeconds(0f);
-        SceneManager.LoadScene(SceneName);
+        SceneManager.LoadScene(Name);
     }
 }

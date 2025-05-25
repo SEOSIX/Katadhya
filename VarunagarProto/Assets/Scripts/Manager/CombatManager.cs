@@ -105,6 +105,7 @@ public class CombatManager : MonoBehaviour
         InitializeStaticUI();
     }
 
+
     public void ResetEnemies()
     {
         for (int i = 0; i < entityHandler.ennemies.Count; i++)
@@ -968,7 +969,7 @@ public class CombatManager : MonoBehaviour
                 {
                     BuffIcon.GetComponent<TextMeshProUGUI>().color = new Color32(0, 39, 11, 255);
                     arrow = "▲";
-                    Sbuff = $"{Mathf.RoundToInt((CData.buffValue - 1) * 100)}";
+                    Sbuff = $"+{Mathf.RoundToInt((CData.buffValue - 1) * 100)}%";
                 }
                 else
                 {
