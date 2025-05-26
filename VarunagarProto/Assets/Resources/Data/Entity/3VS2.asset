@@ -10,15 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6722c5d7ac97b964da67764d5bd76aa2, type: 3}
-  m_Name: DataEntityHandler
+  m_Name: 3VS2
   m_EditorClassIdentifier: 
+  ennemies:
+  - {fileID: 11400000, guid: c8551e37c97dc3a49a30b8740ad8e408, type: 2}
+  - {fileID: 11400000, guid: 18b7d760630569d41ba0176bab30fd15, type: 2}
   players:
-  - {fileID: 11400000, guid: ca3b31cb6095a1640b4484e450cbab95, type: 2}
-  - {fileID: 11400000, guid: 45bca055ce33dad40a5fb666311de096, type: 2}
   - {fileID: 11400000, guid: b3a9dc3142da51d4bad44a5388ab35cf, type: 2}
   - {fileID: 11400000, guid: d273d40c7b18bed41a8ff1f83e20eb7a, type: 2}
-  ennemies:
-  - {fileID: 11400000, guid: 45c9e56c193340e4883d2105fbf1d9ee, type: 2}
-  - {fileID: 11400000, guid: 1af5b48280eae0b4da2ae0e767e25d16, type: 2}
-  - {fileID: 11400000, guid: 9a138dd0a7a35cf42b4459046366a407, type: 2}
-  - {fileID: 11400000, guid: 97cb192645a3fab4d9b61f03fd2b7322, type: 2}
+  - {fileID: 11400000, guid: ca3b31cb6095a1640b4484e450cbab95, type: 2}
