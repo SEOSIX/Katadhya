@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using JetBrains.Annotations;
 
 public class VictoryDefeatUI : MonoBehaviour
 {
@@ -13,10 +14,15 @@ public class VictoryDefeatUI : MonoBehaviour
     public TextMeshProUGUI resultText;
 
     [Header("Slots Ennemis")]
+    public List<TextMeshProUGUI> CaurisCountsSpé;
+
+    [Header("Slots Ennemis")]
     public List<Image> enemyPortraits;
     public List<TextMeshProUGUI> enemyNames;
 
     private bool combatEnded = false;
+    [SerializeField] public bool IsTheEnd;
+
 
     private void Awake()
     {
@@ -57,8 +63,17 @@ private IEnumerator DelayedDisplay(bool playerWon, List<DataEntity> allEnemies)
 
     resultText.text = playerWon ? "VICTOIRE" : "DÉFAITE";
     resultText.color = playerWon ? Color.yellow : Color.red;
+        if (!IsTheEnd)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                CaurisCountsSpé[i].text = $"{Playtest_Version_Manager.SINGLETON.CaurisSpé[Playtest_Version_Manager.SINGLETON.BigData.Combat].values[i]}";
 
-    int maxDisplay = Mathf.Min(enemyPortraits.Count, allEnemies.Count);
+            }
+
+            int maxDisplay = Mathf.Min(enemyPortraits.Count, allEnemies.Count);
+        }
+
 
     /*for (int i = 0; i < maxDisplay; i++)
     {

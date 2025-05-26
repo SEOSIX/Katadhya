@@ -3,6 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObject/GlobalPlayer", order = 4)]
 public class GlobalPlayerData : ScriptableObject
 {
+    [Header("Combat Index")]
+    [SerializeField] public int Combat;
+
     [Header("Cauris global")]
     public int caurisCount;
 

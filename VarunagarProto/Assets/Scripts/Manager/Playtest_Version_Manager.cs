@@ -12,10 +12,10 @@ public class RewardPack
 public class Playtest_Version_Manager : MonoBehaviour
 {
     public static Playtest_Version_Manager SINGLETON { get; private set; }
-    public int Combat;
 
     private void Awake()
     {
+        BigData.Combat = 0;
         if (SINGLETON != null)
         {
             Destroy(gameObject);
@@ -47,19 +47,21 @@ public class Playtest_Version_Manager : MonoBehaviour
     [SerializeField] public List<RewardPack> CaurisSpé;
     public GlobalPlayerData BigData;
 
-    public void Récompenses()
+    public void Récompenses(int index)
     {
         GameManager.SINGLETON.isCombatEnabled = false;
         for (int i = 0; i < 4; i++)
         {
-            BigData.AddCauris(CaurisSpé[Combat].values[i], i);
+            BigData.AddCauris(CaurisSpé[index].values[i], i);
+            Debug.Log($"Récomp {index}");
         }
         BigData.baseCaurisCount += CaurisDeBase;
 
     }
     public void LoadNextCombatScene()
     {
-        Combat += 1;
-        SceneManager.LoadScene($"Combat{Combat}");
+        BigData.Combat += 1;
+        Debug.Log($"Debut du combat : {BigData.Combat}");
+        SceneManager.LoadScene($"Combat{BigData.Combat}");
     }
 }

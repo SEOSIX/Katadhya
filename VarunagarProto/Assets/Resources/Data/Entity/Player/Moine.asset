@@ -13,21 +13,23 @@ MonoBehaviour:
   m_Name: Moine
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 65
+  <UnitLife>k__BackingField: 51
   UnitAtk: 4
   UnitSpeed: 40
-  UnitDef: 0
+  UnitDef: 5
   UnitAim: 100
   ActiveBuffs: []
-  ActiveCooldowns: []
-  Affinity: 1
+  ActiveCooldowns:
+  - capacity: {fileID: 11400000, guid: 3314a8f2220f3e84dafd3ee121cb5a48, type: 2}
+    remainingCooldown: 1
+  Affinity: 3
   BaseLife: 80
   BaseAtk: 4
   BaseSpeed: 40
-  BaseDef: 0
+  BaseDef: 5
   BaseAim: 100
-  UnitShield: 6
-  ShockMark: 0
+  UnitShield: 0
+  ShockMark: 3
   RageTick: 0
   LastRageTick: 0
   necrosis: []
@@ -39,24 +41,24 @@ MonoBehaviour:
   Animator: {fileID: 1624137427931347417, guid: f776c726f2e39cf4db7483b1f17ccf67, type: 3}
   Cpt1lvl: 0
   capacity1: {fileID: 21300000, guid: 430094b588f0ce8448b16531b6de98f0, type: 3}
-  _CapacityData1: {fileID: 11400000, guid: abdbbbf2787ee054eb88f455f3bf56fa, type: 2}
+  _CapacityData1: {fileID: 11400000, guid: b2fdd8744a3c80142b3d7c175abff405, type: 2}
   Cpt2lvl: 0
   capacity2: {fileID: 21300000, guid: 288bf75e334b6bf4f83cb7bd498a75b1, type: 3}
-  _CapacityData2: {fileID: 11400000, guid: 7e4c3ed46d15f1c4fa3c942c87fab8e6, type: 2}
+  _CapacityData2: {fileID: 11400000, guid: 9bd3a4bc270fe2f49beadaf543ef5f19, type: 2}
   Cpt3lvl: 0
   capacity3: {fileID: 21300000, guid: b3a56775c42bab44884e5d04562a368e, type: 3}
-  _CapacityData3: {fileID: 11400000, guid: 7ebfe507566e92a4492260a690a04bf7, type: 2}
-  CptUltlvl: 3
+  _CapacityData3: {fileID: 11400000, guid: 3314a8f2220f3e84dafd3ee121cb5a48, type: 2}
+  CptUltlvl: 9
   Ultimate: {fileID: 21300000, guid: 47156ee7c606bda4db4e0c7d377a295c, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: ce4265b8a8608f148b8c0bdfbd50f510, type: 3}
-  _CapacityDataUltimate: {fileID: 11400000, guid: 64d3299e3ee9e2e4781ac865e9fc6ddd, type: 2}
-  UltimateSlider: 50
+  _CapacityDataUltimate: {fileID: 11400000, guid: 5becd3d037a43a04daa2b75514ddfd75, type: 2}
+  UltimateSlider: 0
   UltIsReady: 0
-  UltLvl_1: 1
-  UltLvl_2: 1
+  UltLvl_1: 0
+  UltLvl_2: 0
   UltLvl_3: 0
-  UltLvl_4: 1
-  UltLvlHit: 1
+  UltLvl_4: 0
+  UltLvlHit: 2
   namE: Moine
   size: 0.23
   index: 0

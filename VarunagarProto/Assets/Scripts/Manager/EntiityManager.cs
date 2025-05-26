@@ -149,7 +149,6 @@ public class EntiityManager : MonoBehaviour
         }
         else if (!anyEnemyAlive)
         {
-            Debug.Log("Fin de la vague");
             if (GameManager.SINGLETON.EnemyPackIndex+1 < GameManager.SINGLETON.enemyPacks.Count)
             {
                 GameManager.SINGLETON.EnemyPackIndex += 1;

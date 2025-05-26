@@ -67,6 +67,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 77c3b721d661cc7478af904419396d95, type: 3}
       insertIndex: -1
       addedObject: {fileID: -7509878106004565670}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 77c3b721d661cc7478af904419396d95, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2015161611371582574}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 77c3b721d661cc7478af904419396d95, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2896104441354532868}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: 77c3b721d661cc7478af904419396d95, type: 3}
 --- !u!1 &4493399983760142657 stripped
 GameObject:
@@ -94,3 +100,62 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!61 &-2015161611371582574
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4493399983760142657}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.008461475, y: -0.12692046}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.5891733, y: 2.6753469}
+  m_EdgeRadius: 0
+--- !u!114 &2896104441354532868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4493399983760142657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec9c554d987a3545b3a8aef68532713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityHandler: {fileID: 11400000, guid: 47a834e79b0175a418d05f2ad7ab7ddd, type: 2}
+  Clickable: 1

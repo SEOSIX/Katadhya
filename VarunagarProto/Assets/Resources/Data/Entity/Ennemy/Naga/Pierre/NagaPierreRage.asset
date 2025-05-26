@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: NagaPierreRage
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 30
-  UnitAtk: 8
-  UnitSpeed: 51
-  UnitDef: 5
+  <UnitLife>k__BackingField: -1
+  UnitAtk: 11
+  UnitSpeed: 48
+  UnitDef: 4
   UnitAim: 100
-  ActiveBuffs: []
+  ActiveBuffs:
+  - type: 2
+    value: 0.7
+    duration: 1
   ActiveCooldowns: []
   Affinity: 4
   BaseLife: 30
@@ -28,10 +31,10 @@ MonoBehaviour:
   BaseAim: 100
   UnitShield: 0
   ShockMark: 0
-  RageTick: 0
+  RageTick: 5
   LastRageTick: 0
   necrosis: []
-  beenHurtThisTurn: 0
+  beenHurtThisTurn: 1
   provoking: 0
   portrait: {fileID: 21300000, guid: e7af767f4ebe2f8428096772caef3660, type: 3}
   portraitUI: {fileID: 21300000, guid: f3110e1ff46e6d24a8b5d50ab832a686, type: 3}
@@ -39,10 +42,10 @@ MonoBehaviour:
   Animator: {fileID: 0}
   Cpt1lvl: 0
   capacity1: {fileID: 0}
-  _CapacityData1: {fileID: 11400000, guid: f786658140a091b4e81082d4ba5f72ae, type: 2}
+  _CapacityData1: {fileID: 11400000, guid: 0cecaa7928dc9d64fa550067efd6a216, type: 2}
   Cpt2lvl: 0
   capacity2: {fileID: 0}
-  _CapacityData2: {fileID: 11400000, guid: 8725b63059510b749b0092608bf7224e, type: 2}
+  _CapacityData2: {fileID: 11400000, guid: fdef3e718569de04a804f9585b67b188, type: 2}
   Cpt3lvl: 0
   capacity3: {fileID: 0}
   _CapacityData3: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
@@ -57,7 +60,7 @@ MonoBehaviour:
   UltLvl_3: 0
   UltLvl_4: 0
   UltLvlHit: 0
-  namE: NagaPierreFoudre
+  namE: NagaPierreRage
   size: 0
   index: 3
   ID: 5
