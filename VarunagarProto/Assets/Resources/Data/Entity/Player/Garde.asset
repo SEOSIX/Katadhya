@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Garde
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: 30
-  UnitAtk: 20
-  UnitSpeed: 3
-  UnitDef: 62
+  <UnitLife>k__BackingField: 40
+  UnitAtk: 0
+  UnitSpeed: 0
+  UnitDef: 0
   UnitAim: 0
   ActiveBuffs: []
   ActiveCooldowns: []
@@ -33,23 +33,23 @@ MonoBehaviour:
   necrosis: []
   beenHurtThisTurn: 0
   provoking: 0
-  portrait: {fileID: 21300000, guid: 9b96e4b2f467f3e49b6d34a40e65b416, type: 3}
+  portrait: {fileID: 21300000, guid: 8a37cff721508cf4db97e71718893af4, type: 3}
   portraitUI: {fileID: 21300000, guid: 4885f9c0c9e0c9f43bbba51adaffc06b, type: 3}
   bandeauUI: {fileID: 21300000, guid: 45ce174521594fb488b34e7f1d741497, type: 3}
   Animator: {fileID: 0}
   Cpt1lvl: 0
-  capacity1: {fileID: 21300000, guid: c7d6767b226091c4482d7d6ee37da679, type: 3}
-  _CapacityData1: {fileID: 11400000, guid: ee5a9ea222a69d44b8016412a1f60998, type: 2}
+  capacity1: {fileID: 21300000, guid: e5d92a8f25f364e4fa79806b175b13f1, type: 3}
+  _CapacityData1: {fileID: 0}
   Cpt2lvl: 0
-  capacity2: {fileID: 0}
-  _CapacityData2: {fileID: 11400000, guid: 7de049d2eb775684abacc6e5c1395d62, type: 2}
+  capacity2: {fileID: 21300000, guid: c023eb4755339ca4cab5e315e210404b, type: 3}
+  _CapacityData2: {fileID: 0}
   Cpt3lvl: 0
-  capacity3: {fileID: 0}
-  _CapacityData3: {fileID: 11400000, guid: 4d3e825f9e7ba554a9b6df524f35c1c2, type: 2}
+  capacity3: {fileID: 21300000, guid: c023eb4755339ca4cab5e315e210404b, type: 3}
+  _CapacityData3: {fileID: 0}
   CptUltlvl: 0
-  Ultimate: {fileID: 0}
+  Ultimate: {fileID: 21300000, guid: f0f3d14119d252b4595754ed73d77782, type: 3}
   UltimateEmpty: {fileID: 0}
-  _CapacityDataUltimate: {fileID: 11400000, guid: badaedd18cdd16b45b0fbc3546643ca6, type: 2}
+  _CapacityDataUltimate: {fileID: 0}
   UltimateSlider: 100
   UltIsReady: 0
   UltLvl_1: 0
@@ -58,8 +58,8 @@ MonoBehaviour:
   UltLvl_4: 0
   UltLvlHit: 0
   namE: Garde
-  size: 0
-  index: 2
-  ID: 2
+  size: 0.8
+  index: 3
+  ID: 5
   RageAtkBonus: 0
   skipNextTurn: 0
