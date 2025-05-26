@@ -1,18 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
-using Image = UnityEngine.UIElements.Image;
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObject/DataEntity", order = 2)]
 public class DataEntity : ScriptableObject
 {
-    
     public GameObject instance;
-    [field: Header("Unit Current Stat"), SerializeField]
-    public int UnitLife { get; set; }
+    
+    [SerializeField] public int UnitLife { get; set; }
     public int UnitAtk;
     public int UnitSpeed;
     public int UnitDef;
@@ -21,47 +16,111 @@ public class DataEntity : ScriptableObject
     public List<CooldownData> ActiveCooldowns = new List<CooldownData>();
     public int Affinity;
 
-    [field: Header("Unit Base Stat"), SerializeField]
+    [Header("Unit Base Stat")]
     public int BaseLife;
     public int BaseAtk;
     public int BaseSpeed;
     public int BaseDef;
     public int BaseAim;
 
-    [field: Header("Special Effect"), SerializeField]
+    [Header("Special Effect")]
     public int UnitShield;
     public int ShockMark;
     public int RageTick;
     [HideInInspector] public int LastRageTick;
     public List<Necrosis> necrosis = new List<Necrosis>();
 
-    [field: Header("Other Information"), SerializeField]
+    [Header("Other Information")]
     public bool beenHurtThisTurn;
     public bool provoking;
 
-    [field: Header("Art"), SerializeField] 
+    [Header("Art")]
     public Sprite portrait;
     public Sprite portraitUI;
     public Sprite bandeauUI;
     public GameObject Animator;
 
-    [field: Header("Capacities"), SerializeField]
-    public int Cpt1lvl;
+    [Header("Capacities")]
+    [SerializeField] private CapacityData capacityData1Source;
     public Sprite capacity1;
-    public CapacityData _CapacityData1;
-    public int Cpt2lvl;
-    public Sprite capacity2;
-    public CapacityData _CapacityData2;
-    public int Cpt3lvl;
-    public Sprite capacity3;
-    public CapacityData _CapacityData3;
+    public int Cpt1lvl;
 
-    [field: Header("Ultimate"), SerializeField]
-    public int CptUltlvl;
+    [SerializeField] private CapacityData capacityData2Source;
+    public Sprite capacity2;
+    public int Cpt2lvl;
+
+    [SerializeField] private CapacityData capacityData3Source;
+    public Sprite capacity3;
+    public int Cpt3lvl;
+
+    [SerializeField] private CapacityData capacityDataUltimateSource;
     public Sprite Ultimate;
     public Sprite UltimateEmpty;
-    public CapacityData _CapacityDataUltimate;
+    public int CptUltlvl;
 
+    private CapacityData _capacityData1Instance;
+    private CapacityData _capacityData2Instance;
+    private CapacityData _capacityData3Instance;
+    private CapacityData _capacityDataUltimateInstance;
+
+    public CapacityData _CapacityData1
+    {
+        get
+        {
+            if (_capacityData1Instance == null && capacityData1Source != null)
+                _capacityData1Instance = Instantiate(capacityData1Source);
+            return _capacityData1Instance;
+        }
+        set
+        {
+            _capacityData1Instance = value;
+        }
+    }
+
+    public CapacityData _CapacityData2
+    {
+        get
+        {
+            if (_capacityData2Instance == null && capacityData2Source != null)
+                _capacityData2Instance = Instantiate(capacityData2Source);
+            return _capacityData2Instance;
+        }
+        set
+        {
+            _capacityData2Instance = value;
+        }
+    }
+
+    public CapacityData _CapacityData3
+    {
+        get
+        {
+            if (_capacityData3Instance == null && capacityData3Source != null)
+                _capacityData3Instance = Instantiate(capacityData3Source);
+            return _capacityData3Instance;
+        }
+        set
+        {
+            _capacityData3Instance = value;
+        }
+    }
+
+    public CapacityData _CapacityDataUltimate
+    {
+        get
+        {
+            if (_capacityDataUltimateInstance == null && capacityDataUltimateSource != null)
+                _capacityDataUltimateInstance = Instantiate(capacityDataUltimateSource);
+            return _capacityDataUltimateInstance;
+        }
+        set
+        {
+            _capacityDataUltimateInstance = value;
+        }
+    }
+
+
+    [Header("Ultimate")]
     [Range(0, 100)]
     public int UltimateSlider;
     public bool UltIsReady;
@@ -70,22 +129,21 @@ public class DataEntity : ScriptableObject
     public int UltLvl_3;
     public int UltLvl_4;
 
-    [field: Header("Ultimate Pas Touche"), HideInInspector]
+    [Header("Ultimate Pas Touche"), HideInInspector]
     public int UltLvlHit;
 
-    [field: Header("Custom"), SerializeField]
-    public string namE;
+    [Header("Custom")]
+    [SerializeField] public string namE;
     public float size;
     public int index;
     public int ID;
-    
-    
+
     public GameObject GameObject()
     {
         return instance;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class ActiveBuff
     {
         public int type;
@@ -100,7 +158,7 @@ public class DataEntity : ScriptableObject
         }
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct CooldownData
     {
         public CapacityData capacity;
@@ -112,6 +170,7 @@ public class DataEntity : ScriptableObject
             this.remainingCooldown = cooldown;
         }
     }
+
     public int RageAtkBonus = 0;
 
     public int GetEffectiveAtk()
@@ -119,7 +178,7 @@ public class DataEntity : ScriptableObject
         return UnitAtk + RageAtkBonus;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class Necrosis
     {
         public int level; // 1 à 5
@@ -131,6 +190,7 @@ public class DataEntity : ScriptableObject
             this.remainingTurns = 4;
             Debug.Log($"[NÉCROSE] Nouveau statut appliqué : niveau {this.level}, {this.remainingTurns} tours");
         }
+
         public bool IsExpired => remainingTurns <= 0;
     }
 
@@ -149,5 +209,3 @@ public class DataEntity : ScriptableObject
     public bool skipNextTurn;
     public List<DelayedAction> delayedActions = new List<DelayedAction>();
 }
-
-
