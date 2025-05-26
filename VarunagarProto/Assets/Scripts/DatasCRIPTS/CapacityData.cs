@@ -25,6 +25,7 @@ public class CapacityData : ScriptableObject
     [Header("Cpt Effect")]
     [SerializeField] public bool MultipleHeal;
     [SerializeField] public bool MultipleAttack;
+    [SerializeField] public bool MultipleBuff;
     [SerializeField] public bool TargetingAlly;
     [SerializeField] public bool Provocation;
 
