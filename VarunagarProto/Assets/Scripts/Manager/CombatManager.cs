@@ -414,6 +414,31 @@ public class CombatManager : MonoBehaviour
             EndUnitTurn();
             return;
         }
+        if (capacity.MultipleBuff)
+        {
+            List<DataEntity> pool = null;
+            if (entityHandler.players.Contains(currentPlayer))
+            {
+                pool = entityHandler.players;
+            }
+            else
+            {
+                pool = entityHandler.ennemies;
+            }
+            foreach (var target in pool)
+            {
+                if (target.UnitLife > 0)
+                {
+                    ApplyCapacityToTarget(capacity, target);
+                }
+            }
+            DecrementBuffDurations(currentTurnOrder[0]);
+            DecrementCooldowns(currentTurnOrder[0]);
+            GlobalVars.currentSelectedCapacity = null;
+            Debug.Log("Buff de zone appliquée à tous les alliés !");
+            EndUnitTurn();
+            return;
+        }
         ShowTargetIndicators(capacity);
         DecrementBuffDurations(caster);
         DecrementCooldowns(caster);
@@ -490,17 +515,7 @@ public class CombatManager : MonoBehaviour
             return;
         }
 
-
         float modifier = lancer(capacity.critique, 1f, 1.5f);
-
-        if (caster.Affinity == 4)
-        {
-            if (caster.RageTick >= 12)
-            {
-                RageProc(caster);
-            }
-                
-        }
 
         if (capacity.specialType != SpecialCapacityType.None)
         {
@@ -590,7 +605,14 @@ public class CombatManager : MonoBehaviour
         {
             Debug.Log("Pas d'animator actif");
         }
-        float calculatedDamage = (((caster.UnitAtk + 1) * capacity.atk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
+            
+        float BonusRageDamage = 0;
+        if (caster.Affinity == 4) BonusRageDamage = GetBonusRageDamage(caster);
+        Debug.Log(BonusRageDamage);
+        float calculatedDamage = ((caster.UnitAtk + 1) * capacity.atk) / (2 + caster.UnitAtk + target.UnitDef) * modifier + BonusRageDamage;
+        if (caster.RageTick >= 12) caster.RageTick = 0;
+        EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
+        Debug.Log($"UnitAtk : {caster.UnitAtk + 1}, capacity.atk : {capacity.atk}, modifier : {modifier}, BonusRageDamage : {BonusRageDamage}, Défense ennemie : {(2 + caster.UnitAtk + target.UnitDef)} ");
         int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
         DamageDone += icalculatedDamage;
 
@@ -645,9 +667,9 @@ public class CombatManager : MonoBehaviour
         int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * DamageDone);
         caster.UnitShield += Shielding;
     }
-    if (target.Affinity == 4)
+    if (target.Affinity == 4 && capacity.atk > 0)
     {
-        RageApplication(target);
+        ApplyRage(target);
     }
 
     if (capacity.Necrosis > 0)
@@ -684,8 +706,16 @@ public class CombatManager : MonoBehaviour
   public void ApplySecondaryCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
 {
     int DamageDone = 0;
+    int visualIndex = entityHandler.players.Contains(target)
+        ? entityHandler.players.IndexOf(target)
+        : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
 
-    // ATTAQUE
+    if (capacity.atk > 0 && caster.instance != null && target.instance != null)
+    {
+        StartCoroutine(MoveTowardsTarget(caster, target, 0.5f, 5f));
+    }
+
+        // ATTAQUE
     if (capacity.atk > 0)
     {
         Animator anim = target.instance?.GetComponent<Animator>();
@@ -697,9 +727,15 @@ public class CombatManager : MonoBehaviour
         {
             Debug.Log("Ca a pas marché ptdrr");
         }
-        float calculatedDamage = (((caster.UnitAtk + 1) * capacity.secondaryAtk * modifier) / (2 + caster.UnitAtk + target.UnitDef));
+        float BonusRageDamage = 0;
+        if (caster.Affinity == 4) BonusRageDamage = GetBonusRageDamage(caster);
+        float calculatedDamage = ((caster.UnitAtk + 1) * capacity.atk) / (2 + caster.UnitAtk + target.UnitDef) * modifier + BonusRageDamage;
+        if (caster.RageTick >= 12) caster.RageTick = 0;
+        EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
+        Debug.Log($"UnitAtk : {caster.UnitAtk + 1}, capacity.atk : {capacity.atk}, modifier : {modifier}, BonusRageDamage : {BonusRageDamage}, Défense ennemie : {(2 + caster.UnitAtk + target.UnitDef)} ");
         int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
         DamageDone += icalculatedDamage;
+        Debug.Log(icalculatedDamage);
 
         if (target.UnitShield > 0)
         {
@@ -745,9 +781,6 @@ public class CombatManager : MonoBehaviour
 
     if (capacity.secondaryBuffType > 0)
     {
-        int visualIndex = entityHandler.players.Contains(target)
-            ? entityHandler.players.IndexOf(target)
-            : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
         GiveBuff(capacity, target);
         EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex);
     }
@@ -763,9 +796,9 @@ public class CombatManager : MonoBehaviour
         caster.UnitShield += Shielding;
     }
 
-    if (target.Affinity == 4)
+    if (target.Affinity == 4 && capacity.atk > 0)
     {
-        RageApplication(target);
+        ApplyRage(target);
     }
 
     if (capacity.Necrosis > 0)
@@ -1159,37 +1192,57 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public void RageApplication(DataEntity target)
+    public float GetBonusRageDamage(DataEntity caster)
     {
-        if (target.Affinity == 4)
-        {
-            bool isPlayer = entityHandler.players.Contains(target);
-            List<DataEntity> team = isPlayer ? entityHandler.players : entityHandler.ennemies;
-            int affinityCount = team.Count(entity => entity.Affinity == 4);
-            target.RageTick += Mathf.Clamp(affinityCount + 1,0,12);
-            RecalculateStats(target);
-            
-            int visualIndex = entityHandler.players.Contains(target)
-                ? entityHandler.players.IndexOf(target)
-                : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
-            EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
-        }
-    }
-    
-    public void RageProc(DataEntity caster)
-    {
-        if (caster.Affinity == 4 && caster.RageTick >= 12)
-        {
-            caster.UnitAtk = Mathf.RoundToInt(caster.UnitAtk * 1.5f);
-            caster.RageTick = 0;
-            RecalculateStats(caster);
+        if (caster.Affinity != 4 || caster.RageTick < 3) return 0f;
 
-            int visualIndex = entityHandler.players.Contains(caster)
-                ? entityHandler.players.IndexOf(caster)
-                : entityHandler.players.Count + entityHandler.ennemies.IndexOf(caster);
-            EffectsManager.SINGLETON.AfficherRageSlider(caster.RageTick, visualIndex);
+        int level = caster.RageTick >= 12 ? 3 :
+                    caster.RageTick >= 9 ? 2 :
+                    caster.RageTick >= 6 ? 1 :
+                    0;
+
+        if (level == 0) return 0f;
+
+        float[] baseDamages = level switch
+        {
+            1 => new float[] { 1f, 1f, 1f, 3f },
+            2 => new float[] { 1f, 1f, 2f, 4f },
+            3 => new float[] { 1f, 2f, 3f, 5f },
+            _ => new float[4]
+        };
+
+        int activeTicks = Mathf.Min(caster.RageTick, 12);
+        int rageStageCount = activeTicks / 3;
+
+        float bonus = 0f;
+        for (int i = 0; i < rageStageCount; i++)
+        {
+            bonus += baseDamages[i];
         }
+
+        // Ajout du bonus d'attaque : +0.5 par 10 points d'atk de base
+        float atkBonus = Mathf.Floor(caster.BaseAtk / 10f) * 0.5f * rageStageCount;
+
+        return bonus + atkBonus;
     }
+
+    public void ApplyRage(DataEntity target)
+    {
+        if (target.Affinity != 4) return;
+
+        bool isPlayer = entityHandler.players.Contains(target);
+        List<DataEntity> team = isPlayer ? entityHandler.players : entityHandler.ennemies;
+
+        int sameAffinityCount = team.Count(entity => entity.Affinity == 4);
+        target.RageTick = Mathf.Min(target.RageTick + sameAffinityCount + 1, 12);
+
+        int visualIndex = isPlayer
+            ? entityHandler.players.IndexOf(target)
+            : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
+
+        EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
+    }
+
 
     public void ApplyNecrosis(DataEntity target, int levelToAdd)
     {
@@ -1262,8 +1315,7 @@ public class CombatManager : MonoBehaviour
                 case 4: aimMultiplier *= buff.value; break;
             }
         }
-
-        target.UnitAtk = Mathf.RoundToInt(target.BaseAtk * atkMultiplier) + (target.RageTick / 3 * (target.BaseAtk / 10));
+        target.UnitAtk = Mathf.RoundToInt(target.BaseAtk * atkMultiplier);
         target.UnitDef = Mathf.RoundToInt(target.BaseDef * defMultiplier);
         target.UnitSpeed = Mathf.RoundToInt(target.BaseSpeed * speedMultiplier);
         target.UnitAim = Mathf.RoundToInt(target.BaseAim * aimMultiplier);
