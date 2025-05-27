@@ -1110,7 +1110,6 @@ public class CombatManager : MonoBehaviour
             }
         }
     }
-    
     public void GiveBuff(CapacityData capacity, DataEntity target)
     {
         // buffType; 1 = Atk, 2 = Def, 3 = Speed, 4 = Précision

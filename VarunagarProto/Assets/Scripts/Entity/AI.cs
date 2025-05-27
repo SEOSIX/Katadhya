@@ -54,7 +54,7 @@ public class AI : MonoBehaviour
         var targets = CombatManager.SINGLETON.entityHandler.players.Where(p => p.UnitLife > 0).ToList();
         if (targets.Count == 0) yield break;
 
-        DataEntity target = targets.FirstOrDefault(p => p.provoking) ?? targets[Random.Range(0, targets.Count)];
+        DataEntity target = targets.FirstOrDefault(p => p.provoking) ? targets[Random.Range(0, targets.Count)] : targets[Random.Range(0, targets.Count)];
 
         yield return new WaitForSeconds(0.5f);
 
