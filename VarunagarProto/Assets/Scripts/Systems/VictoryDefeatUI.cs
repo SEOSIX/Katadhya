@@ -67,7 +67,7 @@ private IEnumerator DelayedDisplay(bool playerWon, List<DataEntity> allEnemies)
         {
             for (int i = 0; i < 4; i++)
             {
-                CaurisCountsSpé[i].text = $"{Playtest_Version_Manager.SINGLETON.CaurisSpé[Playtest_Version_Manager.SINGLETON.BigData.Combat].values[i]}";
+                CaurisCountsSpé[i].text = $"{Playtest_Version_Manager.SINGLETON.CaurisSpe[Playtest_Version_Manager.SINGLETON.BigData.Combat].values[i]}";
 
             }
 

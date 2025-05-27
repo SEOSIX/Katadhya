@@ -44,16 +44,16 @@ public class Playtest_Version_Manager : MonoBehaviour
 
 
     [SerializeField] public int CaurisDeBase;
-    [SerializeField] public List<RewardPack> CaurisSpé;
+    [SerializeField] public List<RewardPack> CaurisSpe;
     public GlobalPlayerData BigData;
 
-    public void Récompenses(int index)
+    public void Recompenses(int index)
     {
         GameManager.SINGLETON.isCombatEnabled = false;
         for (int i = 0; i < 4; i++)
         {
-            BigData.AddCauris(CaurisSpé[index].values[i], i);
-            Debug.Log($"Récomp {index}");
+            BigData.AddCauris(CaurisSpe[index].values[i], i);
+            Debug.Log($"Rï¿½comp {index}");
         }
         BigData.baseCaurisCount += CaurisDeBase;
 

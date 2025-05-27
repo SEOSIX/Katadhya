@@ -92,6 +92,9 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        List<GameObject> playerObjects = new List<GameObject>();
+        List<Vector3> targetPositions = new List<Vector3>();
+
         for (int i = 0; i < entityHandler.players.Count && i < playerSpawnPoints.Count; i++)
         {
             DataEntity data = entityHandler.players[i];
@@ -101,11 +104,9 @@ public class GameManager : MonoBehaviour
                 Debug.LogWarning($"Aucun prefab trouvé pour {data.namE}, joueur ignoré.");
                 continue;
             }
-
-            GameObject playerObj = Instantiate(prefab, playerSpawnPoints[i].position, Quaternion.identity);
+            GameObject playerObj = Instantiate(prefab, Vector3.zero, Quaternion.identity);
             playerObj.name = data.namE;
             data.instance = playerObj;
-
             SpriteRenderer renderer = playerObj.GetComponent<SpriteRenderer>();
             if (renderer != null)
             {
@@ -113,48 +114,76 @@ public class GameManager : MonoBehaviour
                 renderer.sortingOrder = 3;
                 playerObj.transform.localScale = Vector3.one * data.size;
             }
+
+            playerObjects.Add(playerObj);
+            targetPositions.Add(playerSpawnPoints[i].position);
         }
+        StartingScene.MoveFromLeft(playerObjects.ToArray(), targetPositions.ToArray());
     }
 
     public void SpawnEnemies()
 {
+    // Vérification initiale des packs
     if (enemyPacks == null || enemyPacks.Count <= EnemyPackIndex || enemyPacks[EnemyPackIndex] == null)
     {
-        Debug.LogError("Aucun EnemyPack valide à l'index " + EnemyPackIndex);
+        Debug.LogError($"ERREUR: Pack ennemi {EnemyPackIndex} invalide");
         return;
     }
-    entityHandler.ennemies.Clear();
 
     var pack = enemyPacks[EnemyPackIndex];
     GameObject E1 = pack.enemyPrefab1;
     GameObject E2 = pack.enemyPrefab2;
 
-    DataEntity[] enemyDataArray = Resources.LoadAll<DataEntity>("Data/Entity/Ennemy");
-        Debug.Log($"{E1.name} {E2.name}");
-    DataEntity data1 = enemyDataArray.FirstOrDefault(d => d.name == $"{E1.name}");
-    DataEntity data2 = enemyDataArray.FirstOrDefault(d => d.name == $"{E2.name}");
+    // Debug 1 - Liste des spawn points
+    Debug.Log($"[SPAWN] Points disponibles ({enemySpawnPoints.Count}):");
+    for (int i = 0; i < enemySpawnPoints.Count; i++)
+    {
+        Debug.Log($" - #{i}: {enemySpawnPoints[i]?.name} ({(enemySpawnPoints[i] != null ? "OK" : "NULL")})");
+    }
 
-        Debug.Log($"{data1.name} {data2.name}");
-     if (data1 != null) entityHandler.ennemies.Add(data1);
+    entityHandler.ennemies.Clear();
+
+    // Chargement des données
+    DataEntity[] enemyDataArray = Resources.LoadAll<DataEntity>("Data/Entity/Ennemy");
+    DataEntity data1 = enemyDataArray.FirstOrDefault(d => d.name == E1.name);
+    DataEntity data2 = enemyDataArray.FirstOrDefault(d => d.name == E2.name);
+
+    // Debug 2 - Vérification DataEntity
+    Debug.Log($"[DATA] E1: {data1?.name ?? "NULL"}, E2: {data2?.name ?? "NULL"}");
+
+    if (data1 != null) entityHandler.ennemies.Add(data1);
     if (data2 != null) entityHandler.ennemies.Add(data2);
 
-    AddEnemyToEncountered(data1);
-    AddEnemyToEncountered(data2);
+    // Debug 3 - Comptage final
+    Debug.Log($"[SPAWN] {entityHandler.ennemies.Count} ennemis à instancier");
 
-    Slider[] healthSliders = LifeEntity.SINGLETON.enemySliders;
-    Slider[] shieldSliders = LifeEntity.SINGLETON.enemyShieldSliders;
-    
-    for (int i = 0; i < entityHandler.ennemies.Count && i < enemySpawnPoints.Count; i++)
+    for (int i = 0; i < entityHandler.ennemies.Count; i++)
     {
+        // Vérification index/spawnpoint
+        if (i >= enemySpawnPoints.Count)
+        {
+            Debug.LogError($"ERREUR: Index {i} > nombre de spawn points ({enemySpawnPoints.Count})");
+            continue;
+        }
+
+        Transform spawnPoint = enemySpawnPoints[i];
+        if (spawnPoint == null)
+        {
+            Debug.LogError($"ERREUR: SpawnPoint {i} est null");
+            continue;
+        }
+
         DataEntity data = entityHandler.ennemies[i];
         GameObject prefab = (data.namE == E1.name) ? E1 : E2;
-          Debug.Log(prefab);
-        GameObject enemyObj = Instantiate(prefab, enemySpawnPoints[i].position, Quaternion.identity);
+
+        // Debug 4 - Instantiation
+        Debug.Log($"[INSTANCE] Création #{i} ({data.namE}) sur {spawnPoint.name} ({spawnPoint.position})");
+
+        GameObject enemyObj = Instantiate(prefab, Vector3.zero, Quaternion.identity);
         enemyObj.name = data.namE;
         data.instance = enemyObj;
 
-        VictoryDefeatUI.SINGLETON.RegisterEnemy(data);
-
+        // Configuration visuelle
         SpriteRenderer renderer = enemyObj.GetComponent<SpriteRenderer>();
         if (renderer != null)
         {
@@ -163,58 +192,52 @@ public class GameManager : MonoBehaviour
             enemyObj.transform.localScale = Vector3.one * sizeChara;
         }
 
-        if (i < healthSliders.Length) healthSliders[i].gameObject.SetActive(true);
-        if (i < shieldSliders.Length) shieldSliders[i].gameObject.SetActive(true);
+        // Déplacement contrôlé
+        Debug.Log($"[MOUVEMENT] #{i} vers {spawnPoint.position}");
+        StartingScene.MoveFromRight(new GameObject[] { enemyObj }, new Vector3[] { spawnPoint.position });
+
+        // UI
+        if (i < LifeEntity.SINGLETON.enemySliders.Length) 
+            LifeEntity.SINGLETON.enemySliders[i].gameObject.SetActive(true);
+        if (i < LifeEntity.SINGLETON.enemyShieldSliders.Length) 
+            LifeEntity.SINGLETON.enemyShieldSliders[i].gameObject.SetActive(true);
+
+        VictoryDefeatUI.SINGLETON.RegisterEnemy(data);
     }
+
+    // Gestion des cercles de combat (version compacte)
+    foreach (var oldCircle in CombatManager.SINGLETON.circlesEnnemy.Where(c => c != null)) 
+        Destroy(oldCircle);
     
-    foreach (var oldCircle in CombatManager.SINGLETON.circlesEnnemy)
-    {
-        if (oldCircle != null)
-            Object.Destroy(oldCircle);
-    }
     CombatManager.SINGLETON.circlesEnnemy.Clear();
-    
+
     for (int i = 0; i < CombatManager.SINGLETON.entityHandler.ennemies.Count; i++)
     {
         DataEntity enemy = CombatManager.SINGLETON.entityHandler.ennemies[i];
+        if (enemy?.instance == null) continue;
 
-        if (enemy?.instance == null)
-        {
-            Debug.LogWarning($"L'ennemi à l'index {i} n'a pas d'instance !");
-            continue;
-        }
+        Vector3 basePos = enemy.instance.transform.position + new Vector3(-0.52f, 2f, 0);
+        Vector3 worldPos = CombatManager.SINGLETON.originalCircleEnemysPositions.Count > i ? 
+                          CombatManager.SINGLETON.originalCircleEnemysPositions[i] : 
+                          basePos;
 
-        Vector3 worldPos = enemy.instance.transform.position + new Vector3(-0.52f, 2f, 0);
-
-        if (CombatManager.SINGLETON.originalCircleEnemysPositions.Count <= i)
-        {
-            CombatManager.SINGLETON.originalCircleEnemysPositions.Add(worldPos);
-        }
-        else
-        {
-            worldPos = CombatManager.SINGLETON.originalCircleEnemysPositions[i];
-        }
-
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
-        Vector2 anchoredPos;
+        // Conversion position UI
+        Vector2 screenPos = Camera.main.WorldToScreenPoint(worldPos);
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             CombatManager.SINGLETON.circleParentUI,
             screenPos,
-            Camera.main,
-            out anchoredPos
+            null,
+            out Vector2 anchoredPos
         );
 
         RectTransform newCircle = Object.Instantiate(
             CombatManager.SINGLETON.circlePrefab,
             CombatManager.SINGLETON.circleParentUI
         ).GetComponent<RectTransform>();
-
         newCircle.anchoredPosition = anchoredPos;
-
         CombatManager.SINGLETON.circlesEnnemy.Add(newCircle.gameObject);
     }
 }
-
 
     private void AddEnemyToEncountered(DataEntity data)
     {
