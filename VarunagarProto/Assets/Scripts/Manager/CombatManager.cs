@@ -93,7 +93,6 @@ public class CombatManager : MonoBehaviour
             return;
         }
         SINGLETON = this;
-        SetIndexEnemys();
     }
 
     void Start()
@@ -1406,24 +1405,4 @@ public class CombatManager : MonoBehaviour
             AffinityPage.SetActive(false);
         }
     }
-
-    public void SetIndexEnemys()
-    {
-        /*
-        foreach (DataEntity enemys in entityHandler.ennemies)
-        {
-            if (enemys.index == 4 || enemys.index == 5 && entityHandler.ennemies.Count > 1)
-            {
-                entityHandler.ennemies[0].index ++;
-                Debug.Log("Meme entitée, changement d'index");
-            }
-            else
-            {
-                Debug.Log("Pa la meme entitée, pa changement d'index");
-                return;
-            }
-           
-        }
-         */
-    } 
 }
