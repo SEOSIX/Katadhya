@@ -158,10 +158,20 @@ public class EffectsManager : MonoBehaviour
 
     private bool IsValid(int index)
     {
-        return index >= 0 &&
-            index < DamagePosition.Count && DamagePosition[index] != null &&
-            index < Effects1Position.Count && Effects1Position[index] != null &&
-            index < Effects2Position.Count && Effects2Position[index] != null;
+        bool isValid = index >= 0 
+                       && index < DamagePosition.Count && DamagePosition[index] != null
+                       && index < Effects1Position.Count && Effects1Position[index] != null
+                       && index < Effects2Position.Count && Effects2Position[index] != null;
+
+        if (!isValid)
+        {
+            Debug.LogError($"Validation failed for index {index}. Counts: "
+                           + $"Damage={DamagePosition.Count}, "
+                           + $"Eff1={Effects1Position.Count}, "
+                           + $"Eff2={Effects2Position.Count}");
+        }
+
+        return isValid;
     }
 
     public void ResetAll()
