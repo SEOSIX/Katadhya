@@ -13,6 +13,8 @@ using UnityEngine.EventSystems;
 using static DataEntity;
 using static UnityEngine.EventSystems.EventTrigger;
 using UnityEditor.ShaderKeywordFilter;
+using Random = UnityEngine.Random;
+
 public class CombatManager : MonoBehaviour
 {
     public static CombatManager SINGLETON { get; private set; }
@@ -91,13 +93,14 @@ public class CombatManager : MonoBehaviour
             return;
         }
         SINGLETON = this;
+        SetIndexEnemys();
     }
 
     void Start()
     {
         ResetEnemies();
         ResetPlayersBeforeCombat();
-        CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
+        currentTurnOrder = GetUnitTurn();
     }
 
     void Update()
@@ -1403,4 +1406,21 @@ public class CombatManager : MonoBehaviour
             AffinityPage.SetActive(false);
         }
     }
+
+    public void SetIndexEnemys()
+    {
+        foreach (DataEntity enemys in entityHandler.ennemies)
+        {
+            if (enemys.index == 4 || enemys.index == 5 && entityHandler.ennemies.Count > 1)
+            {
+                entityHandler.ennemies[0].index ++;
+                Debug.Log("Meme entitée, changement d'index");
+            }
+            else
+            {
+                Debug.Log("Pa la meme entitée, pa changement d'index");
+                return;
+            }
+        }
+    } 
 }

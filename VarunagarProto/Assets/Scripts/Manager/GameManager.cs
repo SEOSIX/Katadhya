@@ -123,16 +123,12 @@ public class GameManager : MonoBehaviour
         Debug.LogError("Aucun EnemyPack valide à l'index " + EnemyPackIndex);
         return;
     }
-
-    // 🧹 Nettoyage
     entityHandler.ennemies.Clear();
 
-    // 📦 Chargement du pack
     var pack = enemyPacks[EnemyPackIndex];
     GameObject E1 = pack.enemyPrefab1;
     GameObject E2 = pack.enemyPrefab2;
 
-    // 📁 Chargement des données depuis Resources
     DataEntity[] enemyDataArray = Resources.LoadAll<DataEntity>("Data/Entity/Ennemy");
         Debug.Log($"{E1.name} {E2.name}");
     DataEntity data1 = enemyDataArray.FirstOrDefault(d => d.name == $"{E1.name}");
@@ -147,8 +143,7 @@ public class GameManager : MonoBehaviour
 
     Slider[] healthSliders = LifeEntity.SINGLETON.enemySliders;
     Slider[] shieldSliders = LifeEntity.SINGLETON.enemyShieldSliders;
-
-    // 🧍 Spawn des ennemis
+    
     for (int i = 0; i < entityHandler.ennemies.Count && i < enemySpawnPoints.Count; i++)
     {
         DataEntity data = entityHandler.ennemies[i];
@@ -171,16 +166,14 @@ public class GameManager : MonoBehaviour
         if (i < healthSliders.Length) healthSliders[i].gameObject.SetActive(true);
         if (i < shieldSliders.Length) shieldSliders[i].gameObject.SetActive(true);
     }
-
-    // 🔁 🔥 SUPPRESSION des anciens cercles
+    
     foreach (var oldCircle in CombatManager.SINGLETON.circlesEnnemy)
     {
         if (oldCircle != null)
             Object.Destroy(oldCircle);
     }
     CombatManager.SINGLETON.circlesEnnemy.Clear();
-
-    // 🟢 RÉCRÉATION des cercles UI synchronisés
+    
     for (int i = 0; i < CombatManager.SINGLETON.entityHandler.ennemies.Count; i++)
     {
         DataEntity enemy = CombatManager.SINGLETON.entityHandler.ennemies[i];
@@ -191,7 +184,7 @@ public class GameManager : MonoBehaviour
             continue;
         }
 
-        Vector3 worldPos = enemy.instance.transform.position + new Vector3(-0.42f, 2f, 0);
+        Vector3 worldPos = enemy.instance.transform.position + new Vector3(-0.52f, 2f, 0);
 
         if (CombatManager.SINGLETON.originalCircleEnemysPositions.Count <= i)
         {

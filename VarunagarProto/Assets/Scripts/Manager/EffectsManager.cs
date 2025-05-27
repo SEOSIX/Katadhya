@@ -25,7 +25,7 @@ public class EffectsManager : MonoBehaviour
     public List<Transform> Effects2Position = new List<Transform>();
 
     public Canvas canvas;
-    public float effetDuration = 2f;
+    public float effetDuration = 3f;
 
     void Awake()
     {
