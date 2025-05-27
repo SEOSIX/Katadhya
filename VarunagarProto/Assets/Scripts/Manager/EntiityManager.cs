@@ -154,7 +154,6 @@ public class EntiityManager : MonoBehaviour
                 GameManager.SINGLETON.EnemyPackIndex += 1;
                 GameManager.SINGLETON.SpawnEnemies();
                 CombatManager.SINGLETON.ResetEnemies();
-                EffectsManager.SINGLETON.ResetAll();
                 CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
                 CombatManager.SINGLETON.unitPlayedThisTurn.Clear();
                 CombatManager.SINGLETON.StartUnitTurn();
