@@ -809,6 +809,8 @@ public class CombatManager : MonoBehaviour
 
     private void SetupCapacityButtons(DataEntity player)
     {
+        entiityManager.UpdateSpellData(player);  // <-- ici, en premier
+
         for (int i = 0; i < Banderoles.Count(); i++)
         {
             Banderoles[i].SetActive(false);
@@ -828,16 +830,22 @@ public class CombatManager : MonoBehaviour
         {
             SetupButtonFunction(0, player._CapacityData1, player.capacity1);
         }
+        else
+            Debug.LogWarning("CapacityData1 is null!");
 
         if (player._CapacityData2 != null)
         {
             SetupButtonFunction(1, player._CapacityData2, player.capacity2);
         }
+        else
+            Debug.LogWarning("CapacityData2 is null!");
 
         if (player._CapacityData3 != null)
         {
             SetupButtonFunction(2, player._CapacityData3, player.capacity3);
         }
+        else
+            Debug.LogWarning("CapacityData3 is null!");
 
         if (player._CapacityDataUltimate != null)
         {
@@ -850,10 +858,12 @@ public class CombatManager : MonoBehaviour
                 capacityAnimButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start(player, capacityAnimButtons[3]));
             }
         }
-        entiityManager.UpdateSpellData(player);
-        //Debug.Log($"DEBUG ULTIME : {player._CapacityData1}{player._CapacityData2}{player._CapacityData3}{player._CapacityDataUltimate}");
+        else
+            Debug.LogWarning("CapacityDataUltimate is null!");
+
         UpdatePage(player);
     }
+
     public void SetUltimate()
     {
         entiityManager.UpdateSpellData(currentPlayer);
@@ -865,16 +875,10 @@ public class CombatManager : MonoBehaviour
         DataEntity.CooldownData? cooldownData = caster.ActiveCooldowns.Find(cd => cd.capacity == CData);
         if (cooldownData.HasValue)
         {
-            // On récupère le cooldown restant
             int remainingCooldown = cooldownData.Value.remainingCooldown;
-
-            // Si le cooldown est encore actif (plus grand que zéro)
             if (remainingCooldown > 0)
             {
-                // Afficher le cooldown restant sur le texte associé au bouton
                 CoolDownTexts[i].SetText($"{remainingCooldown}");
-
-                // Désactiver le bouton et l'afficher en gris
                 capacityButtons[i].gameObject.SetActive(true);
                 capacityButtons[i].GetComponent<Image>().sprite = CSprite;
                 capacityButtons[i].GetComponent<Image>().material = GreyScale;
@@ -883,7 +887,6 @@ public class CombatManager : MonoBehaviour
             }
             else
             {
-                // Si le cooldown est terminé, activer le bouton pour pouvoir utiliser la capacité
                 capacityButtons[i].gameObject.SetActive(true);
                 capacityButtons[i].GetComponent<Image>().sprite = CSprite;
                 capacityButtons[i].GetComponent<Image>().material = null;
@@ -891,7 +894,6 @@ public class CombatManager : MonoBehaviour
                 capacityAnimButtons[i].GetComponent<Animator>().SetTrigger("Normal");
                 capacityAnimButtons[i].onClick.AddListener(() => UseCapacity(CData));
 
-                // Masquer le cooldown restant
                 CoolDownTexts[i].SetText("");
             }
         }
@@ -1052,8 +1054,6 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    [HideInInspector]public int ennemyDead;
-
     void ShowTargetIndicators(CapacityData capacity)
     {
         HideTargetIndicators();
@@ -1110,7 +1110,6 @@ public class CombatManager : MonoBehaviour
             }
         }
     }
-    
     public void GiveBuff(CapacityData capacity, DataEntity target)
     {
         // buffType; 1 = Atk, 2 = Def, 3 = Speed, 4 = Précision

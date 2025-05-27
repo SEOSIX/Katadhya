@@ -6,10 +6,11 @@ using UnityEngine;
 public class AI : MonoBehaviour
 {
     public static AI SINGLETON { get; private set; }
-
+    
     public GameObject playerTarget1;
     public GameObject playerTarget2;
-
+    public GameObject playerTarget3;
+    
     private int enemyTurnCounter = 0;
 
     private void Awake()
@@ -20,7 +21,6 @@ public class AI : MonoBehaviour
             return;
         }
         SINGLETON = this;
-        //DontDestroyOnLoad(gameObject);
     }
 
     public void Attack(DataEntity attacker, int damages)
@@ -29,7 +29,6 @@ public class AI : MonoBehaviour
 
         enemyTurnCounter++;
         StartCoroutine(SingleAttackCoroutine(attacker));
-
         /*if (enemyTurnCounter % 2 == 0)
         {
             Debug.Log("L'ennemi lance une attaque multiple");
@@ -55,7 +54,7 @@ public class AI : MonoBehaviour
         var targets = CombatManager.SINGLETON.entityHandler.players.Where(p => p.UnitLife > 0).ToList();
         if (targets.Count == 0) yield break;
 
-        DataEntity target = targets.FirstOrDefault(p => p.provoking) ?? targets[Random.Range(0, targets.Count)];
+        DataEntity target = targets.FirstOrDefault(p => p.provoking) ? targets[Random.Range(0, targets.Count)] : targets[Random.Range(0, targets.Count)];
 
         yield return new WaitForSeconds(0.5f);
 
@@ -122,12 +121,14 @@ public class AI : MonoBehaviour
         int index = CombatManager.SINGLETON.entityHandler.players.IndexOf(target);
         playerTarget1.SetActive(index == 1);
         playerTarget2.SetActive(index == 0);
+        playerTarget3.SetActive(index == 2);
     }
 
     private void DisableTargetIndicators()
     {
         playerTarget1.SetActive(false);
         playerTarget2.SetActive(false);
+        playerTarget3.SetActive(false);
     }
 
     public CapacityData SelectSpell(DataEntity enemy)
