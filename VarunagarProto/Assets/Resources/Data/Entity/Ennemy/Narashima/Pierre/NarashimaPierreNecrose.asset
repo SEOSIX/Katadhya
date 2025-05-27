@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: NarashimaPierreNecrose
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: -1
   UnitAtk: 5
   UnitSpeed: 43
   UnitDef: 8
@@ -37,19 +36,19 @@ MonoBehaviour:
   portraitUI: {fileID: 21300000, guid: 13273dbd6a9492c4d8ca1b26df5742ba, type: 3}
   bandeauUI: {fileID: 0}
   Animator: {fileID: 0}
-  Cpt1lvl: 0
+  capacityData1Source: {fileID: 11400000, guid: ae3c508d298b16b4990d652cc866ca0d, type: 2}
   capacity1: {fileID: 0}
-  _CapacityData1: {fileID: 11400000, guid: 639a0a82930fa42488c6a89677d424ce, type: 2}
-  Cpt2lvl: 0
+  Cpt1lvl: 0
+  capacityData2Source: {fileID: 11400000, guid: cc7e76ddf1daf9c46a86030d324c84d9, type: 2}
   capacity2: {fileID: 0}
-  _CapacityData2: {fileID: 11400000, guid: b22f4a772440e784d952c746d5d5fb17, type: 2}
-  Cpt3lvl: 0
+  Cpt2lvl: 0
+  capacityData3Source: {fileID: 11400000, guid: ae3c508d298b16b4990d652cc866ca0d, type: 2}
   capacity3: {fileID: 0}
-  _CapacityData3: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
-  CptUltlvl: 0
+  Cpt3lvl: 0
+  capacityDataUltimateSource: {fileID: 11400000, guid: cc7e76ddf1daf9c46a86030d324c84d9, type: 2}
   Ultimate: {fileID: 0}
   UltimateEmpty: {fileID: 0}
-  _CapacityDataUltimate: {fileID: 11400000, guid: 0dce4f00902c7664087b92eb65ac541c, type: 2}
+  CptUltlvl: 0
   UltimateSlider: 0
   UltIsReady: 1
   UltLvl_1: 0

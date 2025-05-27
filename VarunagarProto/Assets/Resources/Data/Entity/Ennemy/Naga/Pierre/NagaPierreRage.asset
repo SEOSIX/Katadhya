@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: NagaPierreRage
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  <UnitLife>k__BackingField: -1
   UnitAtk: 11
   UnitSpeed: 48
   UnitDef: 4
@@ -40,19 +39,19 @@ MonoBehaviour:
   portraitUI: {fileID: 21300000, guid: f3110e1ff46e6d24a8b5d50ab832a686, type: 3}
   bandeauUI: {fileID: 0}
   Animator: {fileID: 0}
-  Cpt1lvl: 0
+  capacityData1Source: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
   capacity1: {fileID: 0}
-  _CapacityData1: {fileID: 11400000, guid: 0cecaa7928dc9d64fa550067efd6a216, type: 2}
-  Cpt2lvl: 0
+  Cpt1lvl: 0
+  capacityData2Source: {fileID: 11400000, guid: 0dce4f00902c7664087b92eb65ac541c, type: 2}
   capacity2: {fileID: 0}
-  _CapacityData2: {fileID: 11400000, guid: fdef3e718569de04a804f9585b67b188, type: 2}
-  Cpt3lvl: 0
+  Cpt2lvl: 0
+  capacityData3Source: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
   capacity3: {fileID: 0}
-  _CapacityData3: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
-  CptUltlvl: 0
+  Cpt3lvl: 0
+  capacityDataUltimateSource: {fileID: 11400000, guid: 0dce4f00902c7664087b92eb65ac541c, type: 2}
   Ultimate: {fileID: 0}
   UltimateEmpty: {fileID: 0}
-  _CapacityDataUltimate: {fileID: 11400000, guid: 0dce4f00902c7664087b92eb65ac541c, type: 2}
+  CptUltlvl: 0
   UltimateSlider: 0
   UltIsReady: 1
   UltLvl_1: 0
