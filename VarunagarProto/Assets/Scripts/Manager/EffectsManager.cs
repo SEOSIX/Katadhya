@@ -93,7 +93,7 @@ public class EffectsManager : MonoBehaviour
     {
         int index = entity.index;
         if (index == -1) return;
-
+        Debug.Log($"AfficherAttaqueSimple: Entity={entity.namE}, index={entity.index}");
         AfficherTexteDegats(index, degats, Color.red);
     }
     public void AfficherHeal(DataEntity entity, int healAmmount)
