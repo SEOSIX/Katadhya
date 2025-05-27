@@ -1409,6 +1409,7 @@ public class CombatManager : MonoBehaviour
 
     public void SetIndexEnemys()
     {
+        /*
         foreach (DataEntity enemys in entityHandler.ennemies)
         {
             if (enemys.index == 4 || enemys.index == 5 && entityHandler.ennemies.Count > 1)
@@ -1421,6 +1422,8 @@ public class CombatManager : MonoBehaviour
                 Debug.Log("Pa la meme entitée, pa changement d'index");
                 return;
             }
+           
         }
+         */
     } 
 }
