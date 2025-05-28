@@ -63,6 +63,7 @@ public class CombatManager : MonoBehaviour
     public GameObject circlePrefab;
     [HideInInspector]public List<Vector3> originalCircleEnemysPositions = new List<Vector3>();
     public List<GameObject> circlesPlayer;
+    [HideInInspector]public List<Vector3> originalCirclePlayersPositions = new List<Vector3>();
 
     [Header("Ultimate")]
     public Ultimate ultimateScript;

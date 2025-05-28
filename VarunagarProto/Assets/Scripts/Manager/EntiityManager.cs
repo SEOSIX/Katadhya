@@ -52,13 +52,11 @@ public class EntiityManager : MonoBehaviour
                 enemy.instance.SetActive(false);
                 enemy.UnitLife = -1;
             }
-            
-            entityHandler.ennemies.RemoveAt(i);
         }
     }
     public void DestroyDeadPlayers()
     {
-        for (int i = entityHandler.ennemies.Count - 1; i >= 0; i--)
+        for (int i = entityHandler.players.Count - 1; i >= 0; i--)
         {
             var player = entityHandler.players[i];
             if (player == null || player.UnitLife > 0)
@@ -67,12 +65,17 @@ public class EntiityManager : MonoBehaviour
             int visualIndex = player.index;
             EffectsManager.SINGLETON.ClearEffectsForEntity(visualIndex);
 
-            Debug.Log($"L'ennemi {player.namE} est mort et va être désactivé.");
+            Debug.Log($"Le joueur {player.namE} est mort et va être désactivé.");
             CombatManager.SINGLETON.RemoveUnitFromList(player);
 
             if (i < CombatManager.SINGLETON.circlesPlayer.Count)
             {
-                CombatManager.SINGLETON.circlesPlayer[i].SetActive(false);
+                GameObject deadCircle = CombatManager.SINGLETON.circlesPlayer[i];
+                if (deadCircle != null)
+                {
+                    Object.Destroy(deadCircle);
+                    CombatManager.SINGLETON.circlesPlayer.RemoveAt(i);
+                }
             }
 
             if (i < LifeEntity.SINGLETON.PlayerSliders.Length)
@@ -80,18 +83,17 @@ public class EntiityManager : MonoBehaviour
                 LifeEntity.SINGLETON.PlayerSliders[i].gameObject.SetActive(false);
                 LifeEntity.SINGLETON.PlayerShieldSliders[i].gameObject.SetActive(false);
             }
+
             if (player.instance != null)
             {
                 player.instance.SetActive(false);
                 player.UnitLife = -1;
-                if (player.index == 0)
-                {
-                    CombatManager.SINGLETON.circlesPlayer[1] = CombatManager.SINGLETON.circlesPlayer[0];
-                }
             }
+
             entityHandler.players.RemoveAt(i);
         }
     }
+
 
     private void RestoreEnemiesLife()
     {
@@ -156,9 +158,9 @@ public class EntiityManager : MonoBehaviour
                 CombatManager.SINGLETON.ResetEnemies();
                 CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
                 CombatManager.SINGLETON.unitPlayedThisTurn.Clear();
+                CombatManager.SINGLETON.entityHandler.ennemies.Clear();
                 CombatManager.SINGLETON.StartUnitTurn();
             }
-
             else
             {
                 isLastWave = true;
