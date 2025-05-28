@@ -194,10 +194,11 @@ public class DataEntity : ScriptableObject
         public bool IsExpired => remainingTurns <= 0;
     }
 
-    public struct DelayedAction
+    [Serializable]
+    public class DelayedAction
     {
         public CapacityData capacity;
-        public DataEntity target;
+        [NonSerialized] public DataEntity target;
 
         public DelayedAction(CapacityData capacity, DataEntity target)
         {

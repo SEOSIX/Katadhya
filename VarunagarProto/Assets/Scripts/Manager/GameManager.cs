@@ -117,52 +117,61 @@ public class GameManager : MonoBehaviour
     public void SpawnEnemies()
     {
         if (enemyPacks == null || enemyPacks.Count <= EnemyPackIndex || enemyPacks[EnemyPackIndex] == null)
+    {
+        return;
+    }
+
+    var pack = enemyPacks[EnemyPackIndex];
+    GameObject E1 = pack.enemyPrefab1;
+    GameObject E2 = pack.enemyPrefab2;
+
+    entityHandler.ennemies.Clear();
+
+    DataEntity[] enemyDataArray = Resources.LoadAll<DataEntity>("Data/Entity/Ennemy");
+    DataEntity data1 = enemyDataArray.FirstOrDefault(d => d.name == E1.name);
+    DataEntity data2 = enemyDataArray.FirstOrDefault(d => d.name == E2.name);
+
+    if (data1 != null) entityHandler.ennemies.Add(data1);
+    if (data2 != null) entityHandler.ennemies.Add(data2);
+
+    List<GameObject> enemyObjects = new List<GameObject>();
+    List<Vector3> targetPositions = new List<Vector3>();
+
+    for (int i = 0; i < entityHandler.ennemies.Count; i++)
+    {
+        DataEntity data = entityHandler.ennemies[i];
+        GameObject prefab = (data.namE == E1.name) ? E1 : E2;
+
+        Vector3 startPos = new Vector3(5f, 0, 0); 
+        GameObject enemyObj = Instantiate(prefab, startPos, Quaternion.identity);
+        enemyObj.name = data.namE;
+        data.instance = enemyObj;
+
+        SpriteRenderer renderer = enemyObj.GetComponent<SpriteRenderer>();
+        if (renderer != null)
         {
-            return;
+            renderer.sprite = data.portrait;
+            renderer.sortingOrder = 3;
+            enemyObj.transform.localScale = Vector3.one * sizeChara;
         }
 
-        var pack = enemyPacks[EnemyPackIndex];
-        GameObject E1 = pack.enemyPrefab1;
-        GameObject E2 = pack.enemyPrefab2;
+        enemyObjects.Add(enemyObj);
 
-        entityHandler.ennemies.Clear();
-
-        DataEntity[] enemyDataArray = Resources.LoadAll<DataEntity>("Data/Entity/Ennemy");
-        DataEntity data1 = enemyDataArray.FirstOrDefault(d => d.name == E1.name);
-        DataEntity data2 = enemyDataArray.FirstOrDefault(d => d.name == E2.name);
-
-        if (data1 != null) entityHandler.ennemies.Add(data1);
-        if (data2 != null) entityHandler.ennemies.Add(data2);
-
-        for (int i = 0; i < entityHandler.ennemies.Count; i++)
+        if (i < enemySpawnPoints.Count && enemySpawnPoints[i] != null)
         {
-            if (i >= enemySpawnPoints.Count)
-            {
-                continue;
-            }
+            targetPositions.Add(enemySpawnPoints[i].position);
+        }
+        else
+        {
+            targetPositions.Add(startPos);
+        }
 
-            Transform spawnPoint = enemySpawnPoints[i];
-            if (spawnPoint == null)
-            {
-                continue;
-            }
+        if (i < LifeEntity.SINGLETON.enemySliders.Length)
+            LifeEntity.SINGLETON.enemySliders[i].gameObject.SetActive(true);
+        if (i < LifeEntity.SINGLETON.enemyShieldSliders.Length)
+            LifeEntity.SINGLETON.enemyShieldSliders[i].gameObject.SetActive(true);
 
-            DataEntity data = entityHandler.ennemies[i];
-            GameObject prefab = (data.namE == E1.name) ? E1 : E2;
-
-            GameObject enemyObj = Instantiate(prefab, Vector3.zero, Quaternion.identity);
-            enemyObj.name = data.namE;
-            data.instance = enemyObj;
-
-            SpriteRenderer renderer = enemyObj.GetComponent<SpriteRenderer>();
-            if (renderer != null)
-            {
-                renderer.sprite = data.portrait;
-                renderer.sortingOrder = 3;
-                enemyObj.transform.localScale = Vector3.one * sizeChara;
-            }
-
-            StartingScene.MoveFromRight(new GameObject[] { enemyObj }, new Vector3[] { spawnPoint.position });
+        VictoryDefeatUI.SINGLETON.RegisterEnemy(data);
 
             if (i < LifeEntity.SINGLETON.enemySliders.Length) 
                 LifeEntity.SINGLETON.enemySliders[i].gameObject.SetActive(true);
@@ -171,37 +180,45 @@ public class GameManager : MonoBehaviour
 
             VictoryDefeatUI.SINGLETON.RegisterEnemy(data);
         }
-
-        foreach (var oldCircle in CombatManager.SINGLETON.circlesEnnemy.Where(c => c != null)) 
+        foreach (var oldCircle in CombatManager.SINGLETON.circlesEnnemy.Where(c => c != null))
             Destroy(oldCircle);
 
         CombatManager.SINGLETON.circlesEnnemy.Clear();
-
-        for (int i = 0; i < CombatManager.SINGLETON.entityHandler.ennemies.Count; i++)
+        
+        for (int i = 0; i < LifeEntity.SINGLETON.enemySliders.Length; i++)
         {
-            DataEntity enemy = CombatManager.SINGLETON.entityHandler.ennemies[i];
-            if (enemy?.instance == null) continue;
+            if (i >= CombatManager.SINGLETON.entityHandler.ennemies.Count)
+                break;
 
-            Vector3 basePos = enemy.instance.transform.position + new Vector3(-0.52f, 2f, 0);
-            Vector3 worldPos = CombatManager.SINGLETON.originalCircleEnemysPositions.Count > i ? 
-                              CombatManager.SINGLETON.originalCircleEnemysPositions[i] : 
-                              basePos;
+            if (!LifeEntity.SINGLETON.enemySliders[i].gameObject.activeSelf)
+                continue;
 
-            Vector2 screenPos = Camera.main.WorldToScreenPoint(worldPos);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                CombatManager.SINGLETON.circleParentUI,
-                screenPos,
-                null,
-                out Vector2 anchoredPos
-            );
+            RectTransform sliderRect = LifeEntity.SINGLETON.enemySliders[i].GetComponent<RectTransform>();
 
             RectTransform newCircle = Object.Instantiate(
                 CombatManager.SINGLETON.circlePrefab,
                 CombatManager.SINGLETON.circleParentUI
             ).GetComponent<RectTransform>();
-            newCircle.anchoredPosition = anchoredPos;
+
+            if (sliderRect.parent == CombatManager.SINGLETON.circleParentUI)
+            {
+                newCircle.anchoredPosition = sliderRect.anchoredPosition;
+            }
+            else
+            {
+                Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, sliderRect.position);
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    CombatManager.SINGLETON.circleParentUI,
+                    screenPos,
+                    null,
+                    out Vector2 localPoint
+                );
+                newCircle.anchoredPosition = localPoint;
+            }
             CombatManager.SINGLETON.circlesEnnemy.Add(newCircle.gameObject);
         }
+        
+        StartingScene.MoveFromRight(enemyObjects.ToArray(), targetPositions.ToArray());
     }
 
     private void AddEnemyToEncountered(DataEntity data)
