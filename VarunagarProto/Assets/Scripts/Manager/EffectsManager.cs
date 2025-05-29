@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
 public class EffectsManager : MonoBehaviour
 {
@@ -109,12 +110,8 @@ public class EffectsManager : MonoBehaviour
     public void AfficherPictoBuff(int index)
     {
         if (!IsValid(index)) return;
-
-        if (pictoBuff != null)
-        {
-            GameObject instance = Instantiate(pictoBuff, DamagePosition[index].position, Quaternion.identity);
-            Destroy(instance, effetDuration);
-        }
+        BuffUI(index);
+        
     }
 
     private void AfficherTexteDegats(int index, int degats, Color couleur)
@@ -180,5 +177,16 @@ public class EffectsManager : MonoBehaviour
         Effects1Position.Clear();
         Effects2Position.Clear();
         lastFoudreEffects.Clear();
+    }
+
+    IEnumerator BuffUI(int index)
+    {
+        yield return new WaitForSeconds(0.5f);
+        if (pictoBuff != null)
+        {
+            
+            GameObject instance = Instantiate(pictoBuff, DamagePosition[index].position, Quaternion.identity);
+            Destroy(instance, effetDuration);
+        }
     }
 }

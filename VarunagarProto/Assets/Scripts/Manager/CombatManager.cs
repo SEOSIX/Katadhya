@@ -611,7 +611,6 @@ public class CombatManager : MonoBehaviour
             
         float BonusRageDamage = 0;
         if (caster.Affinity == 4) BonusRageDamage = GetBonusRageDamage(caster);
-        Debug.Log(BonusRageDamage);
         float calculatedDamage = ((caster.UnitAtk + 1) * capacity.atk) / (2 + caster.UnitAtk + target.UnitDef) * modifier + BonusRageDamage;
         if (caster.RageTick >= 12) caster.RageTick = 0;
         EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
@@ -643,7 +642,9 @@ public class CombatManager : MonoBehaviour
     }
     if (capacity.heal > 0)
     {
-        int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.heal) / 2) * modifier);
+        float BonusRageHeal = 0;
+        if (caster.Affinity == 4) BonusRageHeal = GetBonusRageDamage(caster);
+        int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.heal) / 2) * modifier + BonusRageHeal);
         target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
 
         EffectsManager.SINGLETON.AfficherHeal(target, healAmount);
