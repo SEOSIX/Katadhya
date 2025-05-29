@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class LifeEntity : MonoBehaviour
 {
@@ -10,8 +12,10 @@ public class LifeEntity : MonoBehaviour
     [Tooltip("Tableau de sliders (entre 1 et 4 éléments requis)")]
     public Slider[] enemySliders;
     public Slider[] enemyShieldSliders;
+    public TextMeshProUGUI[] enemyPVTexts;
     public Slider[] PlayerSliders;
     public Slider[] PlayerShieldSliders;
+    public TextMeshProUGUI[] PlayerPVTexts;
 
     private int currentLifeValue;
     public EntityHandler entityHandler;
@@ -52,6 +56,7 @@ public class LifeEntity : MonoBehaviour
                 enemySliders[i].value = Mathf.Max(0, enemy.UnitLife);
                 enemyShieldSliders[i].maxValue = enemy.BaseLife;
                 enemyShieldSliders[i].value = Mathf.Max(0, enemy.UnitShield);
+                enemyPVTexts[i].text = $"{Mathf.Max(0, enemy.UnitLife)} / {enemy.BaseLife}";
             }
         }
 
@@ -64,6 +69,8 @@ public class LifeEntity : MonoBehaviour
                 PlayerSliders[i].value = Mathf.Max(0, player.UnitLife);
                 PlayerShieldSliders[i].maxValue = player.BaseLife;
                 PlayerShieldSliders[i].value = Mathf.Max(0, player.UnitShield);
+                PlayerPVTexts[i].text = $"{Mathf.Max(0, player.UnitLife)} / {player.BaseLife}";
+
             }
         }
     }
