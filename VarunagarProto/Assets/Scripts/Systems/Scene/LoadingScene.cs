@@ -8,6 +8,8 @@ public class LoadingScene : MonoBehaviour
 {
     
     public static LoadingScene SINGLETON { get; private set; }
+    public GlobalGameData globalGameData;
+    public Transform BackgroundParent;
 
     void Awake()
     {
@@ -17,6 +19,7 @@ public class LoadingScene : MonoBehaviour
             return;
         }
         SINGLETON = this;
+        globalGameData.LoadBackground(BackgroundParent,globalGameData.CurrentCombat);
     }
 
     public void LoadNextSceneAsync()

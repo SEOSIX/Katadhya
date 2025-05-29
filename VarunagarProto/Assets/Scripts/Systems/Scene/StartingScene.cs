@@ -17,6 +17,7 @@ public static class StartingScene
         InitializeHost();
     }
 
+
     #region Interface Principale
     public static void MoveFromLeft(GameObject[] objects, Vector3[] targets)
     {

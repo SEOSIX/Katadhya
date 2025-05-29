@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -172,8 +173,10 @@ public class GameManager : MonoBehaviour
 
     Slider[] healthSliders = LifeEntity.SINGLETON.enemySliders;
     Slider[] shieldSliders = LifeEntity.SINGLETON.enemyShieldSliders;
-    
-    for (int i = 0; i < entityHandler.ennemies.Count && i < enemySpawnPoints.Count; i++)
+    TextMeshProUGUI[] PVTexts = LifeEntity.SINGLETON.enemyPVTexts;
+
+
+        for (int i = 0; i < entityHandler.ennemies.Count && i < enemySpawnPoints.Count; i++)
     {
         DataEntity data = entityHandler.ennemies[i];
         GameObject prefab = (data.namE == E1.name) ? E1 : E2;
@@ -193,9 +196,11 @@ public class GameManager : MonoBehaviour
 
         if (i < healthSliders.Length) healthSliders[i].gameObject.SetActive(true);
         if (i < shieldSliders.Length) shieldSliders[i].gameObject.SetActive(true);
-    }
-    
-    foreach (var oldCircle in CombatManager.SINGLETON.circlesEnnemy)
+        if (i < shieldSliders.Length) PVTexts[i].gameObject.SetActive(true);
+
+        }
+
+        foreach (var oldCircle in CombatManager.SINGLETON.circlesEnnemy)
     {
         if (oldCircle != null)
             Object.Destroy(oldCircle);

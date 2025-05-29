@@ -45,6 +45,8 @@ public class EntiityManager : MonoBehaviour
             {
                 LifeEntity.SINGLETON.enemySliders[i].gameObject.SetActive(false);
                 LifeEntity.SINGLETON.enemyShieldSliders[i].gameObject.SetActive(false);
+                LifeEntity.SINGLETON.enemyPVTexts[i].gameObject.SetActive(false);
+
             }
 
             if (enemy.instance != null)
@@ -82,6 +84,8 @@ public class EntiityManager : MonoBehaviour
             {
                 LifeEntity.SINGLETON.PlayerSliders[i].gameObject.SetActive(false);
                 LifeEntity.SINGLETON.PlayerShieldSliders[i].gameObject.SetActive(false);
+                LifeEntity.SINGLETON.PlayerPVTexts[i].gameObject.SetActive(false);
+
             }
 
             if (player.instance != null)
