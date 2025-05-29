@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4844450872343480221}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.06268148, w: 0.9980336}
+  m_LocalRotation: {x: -0, y: -0, z: -0.04825433, w: 0.9988351}
   m_LocalPosition: {x: 0.501, y: 0.004, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -145,7 +145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8358279505697051416, guid: b3cb26c920a7a9848bf8058a27ba16e1, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.2452488
+      value: 0.22959194
       objectReference: {fileID: 0}
     - target: {fileID: -8358279505697051416, guid: b3cb26c920a7a9848bf8058a27ba16e1, type: 3}
       propertyPath: m_LocalRotation.y
@@ -153,7 +153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8358279505697051416, guid: b3cb26c920a7a9848bf8058a27ba16e1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.9694601
+      value: -0.97328705
       objectReference: {fileID: 0}
     - target: {fileID: -8358279505697051416, guid: b3cb26c920a7a9848bf8058a27ba16e1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -281,11 +281,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8639621680119759833, guid: b3cb26c920a7a9848bf8058a27ba16e1, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.78531945
+      value: 0.78614664
       objectReference: {fileID: 0}
     - target: {fileID: 8639621680119759833, guid: b3cb26c920a7a9848bf8058a27ba16e1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.6190908
+      value: -0.61804
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -303,6 +303,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: b3cb26c920a7a9848bf8058a27ba16e1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7344210711716004234}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: b3cb26c920a7a9848bf8058a27ba16e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6814366057578754490}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: b3cb26c920a7a9848bf8058a27ba16e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6501724985150964891}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: b3cb26c920a7a9848bf8058a27ba16e1, type: 3}
 --- !u!4 &1269123853946923538 stripped
 Transform:
@@ -357,6 +363,65 @@ MonoBehaviour:
     showGizmo: 1
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
+--- !u!61 &6814366057578754490
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7033778814545610870}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.19948244, y: 2.1761696}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.3419714, y: 4.409332}
+  m_EdgeRadius: 0
+--- !u!114 &6501724985150964891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7033778814545610870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec9c554d987a3545b3a8aef68532713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityHandler: {fileID: 11400000, guid: 1cc7fee22bc149049a1bcda2676c8263, type: 2}
+  Clickable: 1
 --- !u!4 &7672904913261266211 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8358279505697051416, guid: b3cb26c920a7a9848bf8058a27ba16e1, type: 3}

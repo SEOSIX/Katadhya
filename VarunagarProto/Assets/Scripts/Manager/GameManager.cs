@@ -160,11 +160,10 @@ public class GameManager : MonoBehaviour
     GameObject E2 = pack.enemyPrefab2;
 
     DataEntity[] enemyDataArray = Resources.LoadAll<DataEntity>("Data/Entity/Ennemy");
-        Debug.Log($"{E1.name} {E2.name}");
+    Debug.Log($"{E1.name} {E2.name}");
     DataEntity data1 = enemyDataArray.FirstOrDefault(d => d.name == $"{E1.name}");
     DataEntity data2 = enemyDataArray.FirstOrDefault(d => d.name == $"{E2.name}");
 
-        Debug.Log($"{data1.name} {data2.name}");
      if (data1 != null) entityHandler.ennemies.Add(data1);
     if (data2 != null) entityHandler.ennemies.Add(data2);
 
@@ -178,7 +177,6 @@ public class GameManager : MonoBehaviour
     {
         DataEntity data = entityHandler.ennemies[i];
         GameObject prefab = (data.namE == E1.name) ? E1 : E2;
-          Debug.Log(prefab);
         GameObject enemyObj = Instantiate(prefab, enemySpawnPoints[i].position, Quaternion.identity);
         enemyObj.name = data.namE;
         data.instance = enemyObj;
