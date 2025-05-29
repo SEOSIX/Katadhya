@@ -56,7 +56,7 @@ public class LifeEntity : MonoBehaviour
                 enemySliders[i].value = Mathf.Max(0, enemy.UnitLife);
                 enemyShieldSliders[i].maxValue = enemy.BaseLife;
                 enemyShieldSliders[i].value = Mathf.Max(0, enemy.UnitShield);
-                enemyPVTexts[i].text = $"{Mathf.Max(0, enemy.UnitLife)} / {enemy.BaseLife}";
+                //enemyPVTexts[i].text = $"{Mathf.Max(0, enemy.UnitLife)} / {enemy.BaseLife}";
             }
         }
 
@@ -69,7 +69,7 @@ public class LifeEntity : MonoBehaviour
                 PlayerSliders[i].value = Mathf.Max(0, player.UnitLife);
                 PlayerShieldSliders[i].maxValue = player.BaseLife;
                 PlayerShieldSliders[i].value = Mathf.Max(0, player.UnitShield);
-                PlayerPVTexts[i].text = $"{Mathf.Max(0, player.UnitLife)} / {player.BaseLife}";
+                //PlayerPVTexts[i].text = $"{Mathf.Max(0, player.UnitLife)} / {player.BaseLife}";
 
             }
         }
