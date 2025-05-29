@@ -6516,6 +6516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endCombatPanel: {fileID: 725707046}
   resultText: {fileID: 621627231}
+  "CaurisCountsSp\xE9": []
   enemyPortraits:
   - {fileID: 1002304247}
   - {fileID: 1643188785}
@@ -6534,6 +6535,7 @@ MonoBehaviour:
   - {fileID: 611771141}
   - {fileID: 2097572565}
   - {fileID: 1652043325}
+  IsTheEnd: 0
   allEnemiesEncountered: []
 --- !u!114 &711964561
 MonoBehaviour:
@@ -10882,6 +10884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTarget1: {fileID: 1213612031}
   playerTarget2: {fileID: 712382127}
+  playerTarget3: {fileID: 0}
 --- !u!114 &1329118466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11046,7 +11049,6 @@ MonoBehaviour:
   PlayerClickable: 0
   EnemyClickable: 0
   isEnnemyTurn: 0
-  ennemyDead: 0
 --- !u!4 &1329118469
 Transform:
   m_ObjectHideFlags: 0
