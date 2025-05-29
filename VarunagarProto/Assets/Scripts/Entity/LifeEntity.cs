@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.EventSystems.EventTrigger;
@@ -41,6 +42,16 @@ public class LifeEntity : MonoBehaviour
             if (entityHandler.players[i] != null && PlayerSliders[i] != null)
             {
                 entityHandler.players[i].UnitLife = entityHandler.players[i].BaseLife;
+            }
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            for(int i =0; i<entityHandler.ennemies.Count; i++)
+            {
+                Debug.Log($"{entityHandler.ennemies[i].UnitLife}");
             }
         }
     }
