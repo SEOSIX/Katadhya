@@ -486,7 +486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &219561489
 RectTransform:
   m_ObjectHideFlags: 0
@@ -714,6 +714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 4fb73a1ffcd886e4fb39374b68c0afad, type: 2}
+  maxLevel: 10
   statTexts:
   - {fileID: 1946851270}
   - {fileID: 1309477411}
@@ -730,17 +731,17 @@ MonoBehaviour:
   statCurrentText: {fileID: 698473455}
   statNextText: {fileID: 84827090}
   atkPrice: 5
-  defPrice: 10
+  defPrice: 4
   speedPrice: 7
-  lifePrice: 15
-  atkPriceIncrement: 2
-  defPriceIncrement: 3
-  speedPriceIncrement: 2
+  lifePrice: 3
+  atkPriceIncrement: 3
+  defPriceIncrement: 5
+  speedPriceIncrement: 5
   lifePriceIncrement: 5
-  atkUpgradeValue: 1
-  defUpgradeValue: 2
-  speedUpgradeValue: 1
-  lifeUpgradeValue: 5
+  atkUpgradeValue: 14
+  defUpgradeValue: 3
+  speedUpgradeValue: 3
+  lifeUpgradeValue: 22
 --- !u!4 &275826892
 Transform:
   m_ObjectHideFlags: 0
@@ -3428,7 +3429,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000019073, y: -0.0000023842}
+  m_AnchoredPosition: {x: -13.563, y: -0.0000023842}
   m_SizeDelta: {x: 27.125, y: 43.36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1618979458
@@ -3451,7 +3452,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '>'
+  m_text: "\u25BA"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c214cad729eeb6e45b8a6c6adc8b6fe7, type: 2}
   m_sharedMaterial: {fileID: -1955422408995387526, guid: c214cad729eeb6e45b8a6c6adc8b6fe7, type: 2}
@@ -4088,7 +4089,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -6.8, y: -5.5}
+  m_AnchoredPosition: {x: -6.800003, y: -5.5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1939586605

@@ -10,6 +10,9 @@ public class AutelStats : MonoBehaviour
 
     [Header("Référence aux Données Globales")]
     public GlobalPlayerData playerData;
+    
+    [Header("Limite de niveau")]
+    public int maxLevel = 10;
 
     [Header("UI - Affichage des Stats")]
     public TextMeshProUGUI[] statTexts; // 0 = ATK, 1 = DEF, 2 = SPEED, 3 = LIFE
@@ -247,7 +250,7 @@ public class AutelStats : MonoBehaviour
         statNextText.text = $"{statName} {nextStat}";
 
         tooltipPanel.SetActive(true);
-        tooltipPanel.transform.position = buttonPosition + new Vector3(-4, 0, 0);
+        tooltipPanel.transform.position = buttonPosition + new Vector3(-2, 0, 0);
         
         StopBlinking();
     }
