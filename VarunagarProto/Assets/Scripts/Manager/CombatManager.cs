@@ -611,7 +611,7 @@ public class CombatManager : MonoBehaviour
             
         float BonusRageDamage = 0;
         if (caster.Affinity == 4) BonusRageDamage = GetBonusRageDamage(caster);
-        float calculatedDamage = ((caster.UnitAtk + 1) * capacity.atk) / (2 + caster.UnitAtk + target.UnitDef) * modifier + BonusRageDamage;
+        float calculatedDamage = ((capacity.atk) * (caster.UnitAtk + 20) / (target.UnitDef +20)) * modifier + BonusRageDamage;
         if (caster.RageTick >= 12) caster.RageTick = 0;
         EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
         Debug.Log($"UnitAtk : {caster.UnitAtk + 1}, capacity.atk : {capacity.atk}, modifier : {modifier}, BonusRageDamage : {BonusRageDamage}, Défense ennemie : {(2 + caster.UnitAtk + target.UnitDef)} ");
@@ -644,7 +644,7 @@ public class CombatManager : MonoBehaviour
     {
         float BonusRageHeal = 0;
         if (caster.Affinity == 4) BonusRageHeal = GetBonusRageDamage(caster);
-        int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.heal) / 2) * modifier + BonusRageHeal);
+        int healAmount = Mathf.RoundToInt((Mathf.Sqrt (2*caster.UnitAtk) + capacity.heal) * modifier + BonusRageHeal);
         target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
 
         EffectsManager.SINGLETON.AfficherHeal(target, healAmount);
@@ -733,7 +733,7 @@ public class CombatManager : MonoBehaviour
         }
         float BonusRageDamage = 0;
         if (caster.Affinity == 4) BonusRageDamage = GetBonusRageDamage(caster);
-        float calculatedDamage = ((caster.UnitAtk + 1) * capacity.atk) / (2 + caster.UnitAtk + target.UnitDef) * modifier + BonusRageDamage;
+        float calculatedDamage = ((capacity.atk) * ((caster.UnitAtk + 20) / (20 + target.UnitDef))) * modifier + BonusRageDamage;
         if (caster.RageTick >= 12) caster.RageTick = 0;
         EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
         Debug.Log($"UnitAtk : {caster.UnitAtk + 1}, capacity.atk : {capacity.atk}, modifier : {modifier}, BonusRageDamage : {BonusRageDamage}, Défense ennemie : {(2 + caster.UnitAtk + target.UnitDef)} ");
@@ -1165,7 +1165,7 @@ public class CombatManager : MonoBehaviour
             }
             if (target.ShockMark >= 4)
             {
-                float calculatedDamage = (caster.UnitSpeed - 20) / 2;
+                float calculatedDamage = (caster.UnitSpeed) / 2;
                 int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
                 float fshieldDamage = calculatedDamage * 150 / 100;
                 int ishieldDamage = Mathf.RoundToInt(fshieldDamage);
@@ -1271,7 +1271,7 @@ public class CombatManager : MonoBehaviour
         if (target.necrosis?.Count > 0)
         {
             int[] baseDamage = { 0, 1, 2, 3, 4, 5 };
-            float[] speedPercents = { 0f, 0.04f, 0.08f, 0.11f, 0.13f, 0.15f };
+            float[] speedPercents = { 0f, 0.05f, 0.010f, 0.15f, 0.20f, 0.25f };
             var necrosisEffect = target.necrosis[0];
             int level = necrosisEffect.level;
             int speedDamage = Mathf.RoundToInt(target.UnitSpeed * speedPercents[level]);
