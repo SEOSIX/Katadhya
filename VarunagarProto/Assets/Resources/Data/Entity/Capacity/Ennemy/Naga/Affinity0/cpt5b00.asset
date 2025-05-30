@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
   m_Name: cpt5b00
   m_EditorClassIdentifier: 
-  atk: 5
+  atk: 15
   heal: 0
   critique: 5
   "pr\xE9cision": 90
   cooldown: 0
   chargeUlti: 0
   MultipleHeal: 0
-  MultipleAttack: 0
+  MultipleAttack: 1
+  MultipleBuff: 0
   TargetingAlly: 0
   Provocation: 0
   BuffFromAffinity: 0
@@ -42,5 +43,5 @@ MonoBehaviour:
   AffinityDescription: 
   PictoType: 0
   TargetType: 0
-  ValueAI: 30
+  ValueAI: 90
   DoubleEffect: 0
