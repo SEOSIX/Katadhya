@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Cpt3d00
   m_EditorClassIdentifier: 
   atk: 0
-  heal: 0
-  critique: 20
+  heal: 20
+  critique: 10
   "pr\xE9cision": 100
   cooldown: 1
   chargeUlti: 25
@@ -38,10 +38,10 @@ MonoBehaviour:
   secondaryBuffDuration: 0
   specialType: 0
   specialDelay: 0
-  Name: 
-  Description: 
+  Name: 'Revitalisation '
+  Description: "Soigne tous les alli\xE9s"
   AffinityDescription: 
   PictoType: 1
-  TargetType: 4
+  TargetType: 3
   ValueAI: 0
   DoubleEffect: 0
