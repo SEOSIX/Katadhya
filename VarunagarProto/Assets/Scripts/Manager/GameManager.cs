@@ -154,8 +154,8 @@ public class GameManager : MonoBehaviour
         Debug.LogError("Aucun EnemyPack valide à l'index " + EnemyPackIndex);
         return;
     }
-    entityHandler.ennemies.Clear();
 
+    entityHandler.ennemies.Clear();
     var pack = enemyPacks[EnemyPackIndex];
     GameObject E1 = pack.enemyPrefab1;
     GameObject E2 = pack.enemyPrefab2;
@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
     DataEntity[] enemyDataArray = Resources.LoadAll<DataEntity>("Data/Entity/Ennemy");
     DataEntity data1 = enemyDataArray.FirstOrDefault(d => d.name == $"{E1.name}");
     DataEntity data2 = enemyDataArray.FirstOrDefault(d => d.name == $"{E2.name}");
-        Debug.Log($"{data1.name} {data2.name}");
+    Debug.Log($"{data1.name} {data2.name}");
 
     if (data1 != null) entityHandler.ennemies.Add(data1);
     if (data2 != null) entityHandler.ennemies.Add(data2);
@@ -175,11 +175,14 @@ public class GameManager : MonoBehaviour
     Slider[] shieldSliders = LifeEntity.SINGLETON.enemyShieldSliders;
     TextMeshProUGUI[] PVTexts = LifeEntity.SINGLETON.enemyPVTexts;
 
+    List<GameObject> enemyObjects = new List<GameObject>();
+    List<Vector3> enemyTargetPositions = new List<Vector3>();
 
-        for (int i = 0; i < entityHandler.ennemies.Count && i < enemySpawnPoints.Count; i++)
+    for (int i = 0; i < entityHandler.ennemies.Count && i < enemySpawnPoints.Count; i++)
     {
         DataEntity data = entityHandler.ennemies[i];
         GameObject prefab = (data.namE == E1.name) ? E1 : E2;
+
         GameObject enemyObj = Instantiate(prefab, enemySpawnPoints[i].position, Quaternion.identity);
         enemyObj.name = data.namE;
         data.instance = enemyObj;
@@ -194,23 +197,28 @@ public class GameManager : MonoBehaviour
             enemyObj.transform.localScale = Vector3.one * sizeChara;
         }
 
+        // UI sliders
         if (i < healthSliders.Length) healthSliders[i].gameObject.SetActive(true);
         if (i < shieldSliders.Length) shieldSliders[i].gameObject.SetActive(true);
-        if (i < shieldSliders.Length) PVTexts[i].gameObject.SetActive(true);
+        if (i < PVTexts.Length) PVTexts[i].gameObject.SetActive(true);
 
-        }
+        // Désactiver temporairement l'Animator
+        Animator anim = enemyObj.GetComponent<Animator>();
+        if (anim != null) anim.enabled = false;
 
-        foreach (var oldCircle in CombatManager.SINGLETON.circlesEnnemy)
+        enemyObjects.Add(enemyObj);
+        enemyTargetPositions.Add(enemySpawnPoints[i].position);
+    }
+    StartingScene.MoveFromRight(enemyObjects.ToArray(), enemyTargetPositions.ToArray());
+    foreach (var oldCircle in CombatManager.SINGLETON.circlesEnnemy)
     {
-        if (oldCircle != null)
-            Object.Destroy(oldCircle);
+        if (oldCircle != null) Object.Destroy(oldCircle);
     }
     CombatManager.SINGLETON.circlesEnnemy.Clear();
-    
+
     for (int i = 0; i < CombatManager.SINGLETON.entityHandler.ennemies.Count; i++)
     {
         DataEntity enemy = CombatManager.SINGLETON.entityHandler.ennemies[i];
-
         if (enemy?.instance == null)
         {
             Debug.LogWarning($"L'ennemi à l'index {i} n'a pas d'instance !");
@@ -218,35 +226,29 @@ public class GameManager : MonoBehaviour
         }
 
         Vector3 worldPos = enemy.instance.transform.position + new Vector3(-0.52f, 2f, 0);
-
         if (CombatManager.SINGLETON.originalCircleEnemysPositions.Count <= i)
-        {
             CombatManager.SINGLETON.originalCircleEnemysPositions.Add(worldPos);
-        }
         else
-        {
             worldPos = CombatManager.SINGLETON.originalCircleEnemysPositions[i];
-        }
 
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
-        Vector2 anchoredPos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             CombatManager.SINGLETON.circleParentUI,
             screenPos,
             Camera.main,
-            out anchoredPos
+            out Vector2 anchoredPos
         );
 
         RectTransform newCircle = Object.Instantiate(
             CombatManager.SINGLETON.circlePrefab,
             CombatManager.SINGLETON.circleParentUI
         ).GetComponent<RectTransform>();
-
         newCircle.anchoredPosition = anchoredPos;
 
         CombatManager.SINGLETON.circlesEnnemy.Add(newCircle.gameObject);
     }
 }
+
 
     private void AddEnemyToEncountered(DataEntity data)
     {

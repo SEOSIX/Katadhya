@@ -65,6 +65,10 @@ public static class StartingScene
         {
             if (obj != null)
             {
+                var anim = obj.GetComponent<Animator>();
+                if (anim != null)
+                    anim.enabled = false;
+
                 obj.transform.position = screenEdge;
                 startPositions.Add(screenEdge);
             }
@@ -90,7 +94,13 @@ public static class StartingScene
         foreach (var obj in objects)
         {
             if (obj != null)
+            {
                 obj.transform.position = target;
+
+                var anim = obj.GetComponent<Animator>();
+                if (anim != null)
+                    anim.enabled = true;
+            }
         }
     }
 
