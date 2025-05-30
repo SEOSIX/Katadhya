@@ -92,16 +92,16 @@ public static class StartingScene
             yield return null;
         }
         foreach (var obj in objects)
-        {
-            if (obj != null)
-            {
-                obj.transform.position = target;
+{
+    if (obj != null)
+    {
+        obj.transform.position = target;
 
-                var anim = obj.GetComponent<Animator>();
-                if (anim != null)
-                    anim.enabled = true;
-            }
-        }
+        var anim = obj.GetComponent<Animator>();
+        if (anim != null)
+            anim.enabled = true;
+    }
+}
     }
 
     private static Vector3 CalculateEdgePosition(bool leftSide, Vector3 reference)

@@ -22,6 +22,11 @@ public class DataEntity : ScriptableObject
     public int BaseSpeed;
     public int BaseDef;
     public int BaseAim;
+    
+    public int AtkLevel { get; set; } = 0;
+    public int DefLevel { get; set; } = 0;
+    public int SpeedLevel { get; set; } = 0;
+    public int LifeLevel { get; set; } = 0;
 
     [Header("Special Effect")]
     public int UnitShield;
