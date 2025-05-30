@@ -56,7 +56,13 @@ public class Ultimate : MonoBehaviour
         : null;
 
     private Coroutine qteCoroutine;
-    
+
+
+    [Header("Feedbacks")]
+    [SerializeField] private ParticleSystem feedBackVFX;
+    [SerializeField] private Animator animator;
+    //[SerializeField] private Animation AnimCLick;
+
 
     private void Awake()
     {
@@ -78,6 +84,7 @@ public class Ultimate : MonoBehaviour
         UltButton.interactable = false;
         StartCoroutine(CheckEntityChange());
         StartCoroutine(SyncSliderWithEntity());
+        GainUltimateCharge(100); // DEBUG TODELETE
     }
 
     private void LoadZonesFromChildren()
@@ -256,6 +263,13 @@ public class Ultimate : MonoBehaviour
                 zone.gameObject.GetComponent<QTEZoneMarker>().Hit = true;
                 CombatManager.SINGLETON.SetupNewAffinity(zone.Affinity);
 
+
+                // Jeanne et Tonin qui ont setup les feedbacks oeoe
+                Debug.Log("Successful click");
+                feedBackVFX.Play();
+                animator.SetTrigger("QTEClick");
+
+
             }
         }
         List<int> UltLvls = new List<int>() { player.UltLvl_1, player.UltLvl_2, player.UltLvl_3, player.UltLvl_4 };
@@ -290,7 +304,7 @@ public class Ultimate : MonoBehaviour
         qteAnimator.speed = 0f;
         CurrentEntity.UltimateSlider = 100;
         CurrentEntity.UltIsReady = false;
-        qteUI.SetActive(false);
+        //qteUI.SetActive(false); // COMMENTED FOR DEBUG
         CombatManager.SINGLETON.SetUltimate();
         CombatManager.SINGLETON.UseCapacity(GlobalVars.currentSelectedCapacity);
     }
