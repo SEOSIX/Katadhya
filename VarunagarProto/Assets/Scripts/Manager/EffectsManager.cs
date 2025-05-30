@@ -67,7 +67,6 @@ public class EffectsManager : MonoBehaviour
     
     public void AfficherRageSlider(int rageValue, int index)
     {
-        Debug.Log($"Mise à jour Rage: valeur={rageValue}, index={index}");
         if (!IsValid(index) || rageValue < 0 || rageSliders == null || rageSliders.Count <= index)
             return;
 
@@ -94,7 +93,6 @@ public class EffectsManager : MonoBehaviour
     {
         int index = entity.index;
         if (index == -1) return;
-        Debug.Log($"AfficherAttaqueSimple: Entity={entity.namE}, index={entity.index}");
         AfficherTexteDegats(index, degats, Color.red);
     }
     public void AfficherHeal(DataEntity entity, int healAmmount)
@@ -107,10 +105,12 @@ public class EffectsManager : MonoBehaviour
         AfficherTexteHeal(index, healAmmount, darkGreen);
     }
 
-    public void AfficherPictoBuff(int index)
+    public void AfficherPictoBuff(int index, CapacityData CData)
     {
+        Debug.Log("2");
+
         if (!IsValid(index)) return;
-        BuffUI(index);
+        StartCoroutine(BuffUI(index,CData));
         
     }
 
@@ -179,14 +179,45 @@ public class EffectsManager : MonoBehaviour
         lastFoudreEffects.Clear();
     }
 
-    IEnumerator BuffUI(int index)
+    IEnumerator BuffUI(int index, CapacityData CData)
     {
+        Debug.Log("3");
         yield return new WaitForSeconds(0.5f);
-        if (pictoBuff != null)
+        GameObject instance = Instantiate(pictoBuff, DamagePosition[index].position+new Vector3(0.25f,0f,0f), Quaternion.identity, canvas.transform);
+        Debug.Log(instance);
+        if (instance != null)
         {
-            
-            GameObject instance = Instantiate(pictoBuff, DamagePosition[index].position, Quaternion.identity);
-            Destroy(instance, effetDuration);
+            string arrow;
+            if (CData.buffValue > 1)
+            {
+                instance.GetComponent<TextMeshProUGUI>().color = new Color32(0, 39, 11, 255);
+                arrow = "▲";
+            }
+            else
+            {
+                instance.GetComponent<TextMeshProUGUI>().color = new Color32(155, 0, 0, 255);
+                arrow = "▼";
+            }
+
+            switch (CData.buffType)
+            {
+                case 1:
+                    instance.GetComponent<TextMeshProUGUI>().SetText($"ATQ{arrow}");
+                    break;
+                case 2:
+                    instance.GetComponent<TextMeshProUGUI>().SetText($"DEF{arrow}");
+                    break;
+                case 3:
+                    instance.GetComponent<TextMeshProUGUI>().SetText($"VIT{arrow}");
+                    break;
+                case 4:
+                    instance.GetComponent<TextMeshProUGUI>().SetText($"PRE{arrow}");
+                    break;
+            }
         }
+        yield return new WaitForSeconds(1f);
+        
+        Destroy(instance, effetDuration);
+        
     }
 }

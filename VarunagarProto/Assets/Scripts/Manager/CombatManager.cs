@@ -614,7 +614,7 @@ public class CombatManager : MonoBehaviour
         float calculatedDamage = ((caster.UnitAtk + 1) * capacity.atk) / (2 + caster.UnitAtk + target.UnitDef) * modifier + BonusRageDamage;
         if (caster.RageTick >= 12) caster.RageTick = 0;
         EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
-        Debug.Log($"UnitAtk : {caster.UnitAtk + 1}, capacity.atk : {capacity.atk}, modifier : {modifier}, BonusRageDamage : {BonusRageDamage}, Défense ennemie : {(2 + caster.UnitAtk + target.UnitDef)} ");
+        //Debug.Log($"UnitAtk : {caster.UnitAtk + 1}, capacity.atk : {capacity.atk}, modifier : {modifier}, BonusRageDamage : {BonusRageDamage}, Défense ennemie : {(2 + caster.UnitAtk + target.UnitDef)} ");
         int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
         DamageDone += icalculatedDamage;
 
@@ -660,7 +660,7 @@ public class CombatManager : MonoBehaviour
     if (capacity.buffType > 0)
     {
         GiveBuff(capacity, target);
-        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex);
+        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity);
     }
     if (capacity.Shock > 0)
     {
@@ -786,7 +786,7 @@ public class CombatManager : MonoBehaviour
     if (capacity.secondaryBuffType > 0)
     {
         GiveBuff(capacity, target);
-        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex);
+        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity);
     }
 
     if (capacity.Shock > 0)
@@ -990,7 +990,8 @@ public class CombatManager : MonoBehaviour
             {
                 GameObject BuffIcon = null;
                 GameObject BuffValue = null;
-                if (CData.BuffFromAffinity == false)
+
+                if (!CData.BuffFromAffinity)
                 {
                     BuffIcon = EncartCpt.GetChild(3).GetChild(0).GameObject();
                     Text.GetChild(0).GameObject().SetActive(true);
@@ -1002,8 +1003,10 @@ public class CombatManager : MonoBehaviour
                     EncartAffinity.GetChild(3).GameObject().SetActive(true);
                     BuffValue = EncartAffinity.GetChild(3).GameObject();
                 }
+
                 BuffIcon.SetActive(true);
-                string arrow = "";
+
+                string arrow;
                 if (CData.buffValue > 1)
                 {
                     BuffIcon.GetComponent<TextMeshProUGUI>().color = new Color32(0, 39, 11, 255);
@@ -1013,28 +1016,29 @@ public class CombatManager : MonoBehaviour
                 else
                 {
                     BuffIcon.GetComponent<TextMeshProUGUI>().color = new Color32(155, 0, 0, 255);
-
                     arrow = "▼";
                     Sbuff = $"-{Mathf.RoundToInt((1 - CData.buffValue) * 100)}%";
                 }
-                if (CData.buffType == 1)
+
+                switch (CData.buffType)
                 {
-                    BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"ATQ{arrow}");
+                    case 1:
+                        BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"ATQ{arrow}");
+                        break;
+                    case 2:
+                        BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"DEF{arrow}");
+                        break;
+                    case 3:
+                        BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"VIT{arrow}");
+                        break;
+                    case 4:
+                        BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"PRE{arrow}");
+                        break;
                 }
-                if (CData.buffType == 2)
-                {
-                    BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"DEF{arrow}");
-                }
-                if (CData.buffType == 3)
-                {
-                    BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"VIT{arrow}");
-                }
-                if (CData.buffType == 4)
-                {
-                    BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"PRE{arrow}");
-                }
+
                 BuffValue.GetComponent<TextMeshProUGUI>().SetText(Sbuff);
             }
+
             int Value = 0;
             Value = Math.Max(CData.atk, CData.heal);
             if (CData.heal > 0)
@@ -1046,12 +1050,12 @@ public class CombatManager : MonoBehaviour
             Text.GetChild(3).GetComponent<TextMeshProUGUI>().SetText($"{CData.critique}%");
             if (CData.MultipleAttack)
             {
-                EncartCpt.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"CD: {CData.cooldown-1}");
+                EncartCpt.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"{CData.cooldown-1} tour");
 
             }
             else
             {
-                EncartCpt.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"CD: {CData.cooldown}");
+                EncartCpt.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"{CData.cooldown} tour");
 
             }
 
