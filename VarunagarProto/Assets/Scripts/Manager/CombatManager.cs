@@ -98,6 +98,7 @@ public class CombatManager : MonoBehaviour
 
     void Start()
     {
+        ResetPlayersComplete();
         ResetEnemies();
         ResetPlayersBeforeCombat();
         currentTurnOrder = GetUnitTurn();
@@ -106,6 +107,7 @@ public class CombatManager : MonoBehaviour
     void Update()
     {
         InitializeStaticUI();
+        
     }
 
 

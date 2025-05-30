@@ -122,7 +122,6 @@ public class Ultimate : MonoBehaviour
     }
     public void PickAndAssignZones(DataEntity player)
     {
-        Debug.Log("Coucou, je vais toucher tes boules");
         List<List<Sprite>> ListAllSpriteLists = new List<List<Sprite>>() {SpritesLvl1,SpritesLvl2,SpritesLvl3};
         List<List<GameObject>> ListAllZoneLists = new List<List<GameObject>>() {ZonesLvl1,ZonesLvl2,ZonesLvl3};
         player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
@@ -304,9 +303,12 @@ public class Ultimate : MonoBehaviour
         qteAnimator.speed = 0f;
         CurrentEntity.UltimateSlider = 100;
         CurrentEntity.UltIsReady = false;
-        //qteUI.SetActive(false); // COMMENTED FOR DEBUG
+        animator.SetTrigger("QTEStop");
+
+        qteUI.SetActive(false);
         CombatManager.SINGLETON.SetUltimate();
         CombatManager.SINGLETON.UseCapacity(GlobalVars.currentSelectedCapacity);
+
     }
     private void ResetAllZones()
     {

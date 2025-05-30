@@ -13,14 +13,14 @@ public class QTEFeedback : MonoBehaviour
 
     // DEFINE METHODS
     // Start is called before the first frame update
-    void Start()
+    void awake()
     {
         animator = GetComponent<Animator>();
-        Debug.Log(animator);
     }
 
     private void OnEnable()
     {
+        animator = this.GetComponent<Animator>();
         animator.SetTrigger(triggerOnEnable);
     }
 

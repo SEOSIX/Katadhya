@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerOnEnable: Feedback
-  feedbackVFX: {fileID: 0}
+  feedbackVFX: {fileID: 1262745839}
 --- !u!114 &94579338 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8703925619164528647, guid: aeea05e002b2c3e438d820a99ac0b2d5, type: 3}
@@ -7291,7 +7291,6 @@ GameObject:
   - component: {fileID: 737275361}
   - component: {fileID: 737275360}
   - component: {fileID: 737275359}
-  - component: {fileID: 737275362}
   m_Layer: 5
   m_Name: "capacit\xE9e 1 (3)"
   m_TagString: Untagged
@@ -7463,27 +7462,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!95 &737275362
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737275355}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e7094fb25d53c2348adcb565ac18d1c3, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &762315281
 GameObject:
   m_ObjectHideFlags: 0
