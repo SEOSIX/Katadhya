@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -50,6 +51,7 @@ public class AutelStats : MonoBehaviour
 
     private DataEntity currentEntity;
     private Animator currentAnimator;
+    private Coroutine blinkCoroutine;
 
     private void Awake()
     {
@@ -219,7 +221,11 @@ public class AutelStats : MonoBehaviour
 
         UpdateStatDisplay();
         CaurisManage.Instance.UpdateCaurisDisplay();
+        
+        Vector3 btnPos = statButtons[index].transform.position;
+        ShowTooltip(index, btnPos);
     }
+    
     
     public void ShowTooltip(int index, Vector3 buttonPosition)
     {
@@ -248,6 +254,11 @@ public class AutelStats : MonoBehaviour
 
         tooltipPanel.SetActive(true);
         tooltipPanel.transform.position = buttonPosition + new Vector3(-4, 0, 0);
+        
+        StopBlinking();
+        blinkCoroutine = StartCoroutine(BlinkTextAlpha(levelNextText));
+        StartCoroutine(BlinkTextAlpha(statNextText));
+        StartCoroutine(BlinkTextAlpha(priceNextText));
     }
     public void HideTooltip()
     {
@@ -312,6 +323,44 @@ public class AutelStats : MonoBehaviour
             case 3: return lifePriceIncrement;
             default: return 0;
         }
+    }
+    
+    private IEnumerator BlinkTextAlpha(TextMeshProUGUI text, float minAlpha = 0.3f, float maxAlpha = 1f, float duration = 1f)
+    {
+        Color c = text.color;
+        while (true)
+        {
+            for (float t = 0; t < duration; t += Time.deltaTime)
+            {
+                float alpha = Mathf.Lerp(maxAlpha, minAlpha, t / duration);
+                text.color = new Color(c.r, c.g, c.b, alpha);
+                yield return null;
+            }
+            for (float t = 0; t < duration; t += Time.deltaTime)
+            {
+                float alpha = Mathf.Lerp(minAlpha, maxAlpha, t / duration);
+                text.color = new Color(c.r, c.g, c.b, alpha);
+                yield return null;
+            }
+        }
+    }
+    
+    private void StopBlinking()
+    {
+        if (blinkCoroutine != null)
+        {
+            StopCoroutine(blinkCoroutine);
+            blinkCoroutine = null;
+        }
+        SetAlpha(levelNextText, 1f);
+        SetAlpha(statNextText, 1f);
+        SetAlpha(priceNextText, 1f);
+    }
+
+    private void SetAlpha(TextMeshProUGUI text, float alpha)
+    {
+        Color c = text.color;
+        text.color = new Color(c.r, c.g, c.b, alpha);
     }
 
 }
