@@ -23,9 +23,7 @@ public class AutelStats : MonoBehaviour
     public TextMeshProUGUI levelNextText;
     public TextMeshProUGUI statCurrentText;
     public TextMeshProUGUI statNextText;
-    public TextMeshProUGUI priceCurrentText;
-    public TextMeshProUGUI priceNextText;
-
+    
     [Header("Prix par Stat")]
     public int atkPrice = 5;
     public int defPrice = 10;
@@ -241,24 +239,17 @@ public class AutelStats : MonoBehaviour
         int currentStat = GetCurrentStat(index);
         int nextStat = currentStat + GetUpgradeValue(index);
 
-        int currentPrice = GetCurrentPrice(index);
-        int nextPrice = currentPrice + GetPriceIncrement(index);
-        levelCurrentText.text = $"Niveau : {currentLevel}";
-        levelNextText.text = $"Niveau : {nextLevel}";
-
-        statCurrentText.text = $"Stat : {currentStat}";
-        statNextText.text = $"Stat : {nextStat}";
-
-        priceCurrentText.text = currentPrice.ToString();
-        priceNextText.text = nextPrice.ToString();
+        string statName = GetStatName(index);
+        
+        levelCurrentText.text = currentLevel.ToString();
+        levelNextText.text = nextLevel.ToString();
+        statCurrentText.text = $"{statName} {currentStat}";
+        statNextText.text = $"{statName} {nextStat}";
 
         tooltipPanel.SetActive(true);
         tooltipPanel.transform.position = buttonPosition + new Vector3(-4, 0, 0);
         
         StopBlinking();
-        blinkCoroutine = StartCoroutine(BlinkTextAlpha(levelNextText));
-        StartCoroutine(BlinkTextAlpha(statNextText));
-        StartCoroutine(BlinkTextAlpha(priceNextText));
     }
     public void HideTooltip()
     {
@@ -313,15 +304,15 @@ public class AutelStats : MonoBehaviour
         }
     }
 
-    private int GetPriceIncrement(int index)
+    private string GetStatName(int index)
     {
         switch (index)
         {
-            case 0: return atkPriceIncrement;
-            case 1: return defPriceIncrement;
-            case 2: return speedPriceIncrement;
-            case 3: return lifePriceIncrement;
-            default: return 0;
+            case 0: return "ATK";
+            case 1: return "DEF";
+            case 2: return "VIT";
+            case 3: return "VIE";
+            default: return "STAT";
         }
     }
     
@@ -354,7 +345,6 @@ public class AutelStats : MonoBehaviour
         }
         SetAlpha(levelNextText, 1f);
         SetAlpha(statNextText, 1f);
-        SetAlpha(priceNextText, 1f);
     }
 
     private void SetAlpha(TextMeshProUGUI text, float alpha)
@@ -362,5 +352,4 @@ public class AutelStats : MonoBehaviour
         Color c = text.color;
         text.color = new Color(c.r, c.g, c.b, alpha);
     }
-
 }
