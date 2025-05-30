@@ -917,7 +917,7 @@ public class CombatManager : MonoBehaviour
     }
     private void UpdatePage(DataEntity player)
     {
-        List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
+        List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate};
 
         for (int i = 0; i < PCapacities.Count(); i++)
         {
@@ -925,7 +925,7 @@ public class CombatManager : MonoBehaviour
             CapacityData CData = PCapacities[i];
             Transform EncartCpt = capacityPage[i].GetComponent<Transform>();
             Transform EncartAffinity = null;
-            if (i < 3)
+            if (i < 4)
             {
                 EncartAffinity = capacityPageAffinity[i].GetComponent<Transform>();
                 EncartAffinity.gameObject.SetActive(false);
