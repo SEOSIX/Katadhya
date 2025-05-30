@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
   m_Name: Cpt4b10
   m_EditorClassIdentifier: 
-  atk: 7
+  atk: 13
   heal: 0
   critique: 5
   "pr\xE9cision": 90
@@ -20,6 +20,7 @@ MonoBehaviour:
   chargeUlti: 19
   MultipleHeal: 0
   MultipleAttack: 1
+  MultipleBuff: 0
   TargetingAlly: 0
   Provocation: 0
   BuffFromAffinity: 0
@@ -39,7 +40,7 @@ MonoBehaviour:
   specialDelay: 1
   Name: Swing
   Description: "Inflige des d\xE9gats aux ennemis."
-  AffinityDescription: "Gagne un pourcentage des d\xE9g\xE2ts inflig\xE9s en bouclier."
+  AffinityDescription: 
   PictoType: 0
   TargetType: 0
   ValueAI: 0

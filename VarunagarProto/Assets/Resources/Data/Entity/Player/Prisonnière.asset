@@ -22,10 +22,10 @@ MonoBehaviour:
   - capacity: {fileID: 11400000, guid: 1a41267a51c50ba4eba7870f31a0ca5a, type: 2}
     remainingCooldown: 1
   Affinity: 0
-  BaseLife: 100
+  BaseLife: 200
   BaseAtk: 10
   BaseSpeed: 50
-  BaseDef: 5
+  BaseDef: 0
   BaseAim: 100
   UnitShield: 0
   ShockMark: 0
@@ -64,3 +64,4 @@ MonoBehaviour:
   ID: 4
   RageAtkBonus: 0
   skipNextTurn: 0
+  delayedActions: []

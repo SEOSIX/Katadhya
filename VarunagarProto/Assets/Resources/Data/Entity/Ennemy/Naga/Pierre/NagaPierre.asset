@@ -20,8 +20,8 @@ MonoBehaviour:
   ActiveBuffs: []
   ActiveCooldowns: []
   Affinity: 0
-  BaseLife: 20
-  BaseAtk: 8
+  BaseLife: 50
+  BaseAtk: 20
   BaseSpeed: 48
   BaseDef: 5
   BaseAim: 100
@@ -62,3 +62,4 @@ MonoBehaviour:
   ID: 7
   RageAtkBonus: 0
   skipNextTurn: 0
+  delayedActions: []

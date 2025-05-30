@@ -13,43 +13,48 @@ MonoBehaviour:
   m_Name: Garde
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  UnitAtk: 4
-  UnitSpeed: 26
-  UnitDef: 0
-  UnitAim: 100
-  ActiveBuffs: []
-  ActiveCooldowns: []
+  UnitAtk: 5
+  UnitSpeed: 45
+  UnitDef: 10
+  UnitAim: 80
+  ActiveBuffs:
+  - type: 4
+    value: 0.8
+    duration: 1
+  ActiveCooldowns:
+  - capacity: {fileID: 0}
+    remainingCooldown: 2
   Affinity: 0
-  BaseLife: 80
-  BaseAtk: 4
-  BaseSpeed: 26
-  BaseDef: 0
+  BaseLife: 240
+  BaseAtk: 5
+  BaseSpeed: 45
+  BaseDef: 10
   BaseAim: 100
   UnitShield: 0
   ShockMark: 0
   RageTick: 0
   LastRageTick: 0
   necrosis: []
-  beenHurtThisTurn: 0
-  provoking: 0
+  beenHurtThisTurn: 1
+  provoking: 1
   portrait: {fileID: 21300000, guid: 8a37cff721508cf4db97e71718893af4, type: 3}
   portraitUI: {fileID: 21300000, guid: 136d23904e9af024ca629de861fce00f, type: 3}
   bandeauUI: {fileID: 21300000, guid: 45ce174521594fb488b34e7f1d741497, type: 3}
   Animator: {fileID: 0}
-  capacityData1Source: {fileID: 11400000, guid: 15c7b3d57f873904290ff40fd3daa20d, type: 2}
+  capacityData1Source: {fileID: 11400000, guid: 090787d629367114789beeeee97d4c19, type: 2}
   capacity1: {fileID: 21300000, guid: e5d92a8f25f364e4fa79806b175b13f1, type: 3}
   Cpt1lvl: 0
-  capacityData2Source: {fileID: 11400000, guid: d63414db2766f6d4ea72ebb9f8abe5d4, type: 2}
+  capacityData2Source: {fileID: 11400000, guid: 122efb8404a2b374b84fa7f550e1e198, type: 2}
   capacity2: {fileID: 21300000, guid: c023eb4755339ca4cab5e315e210404b, type: 3}
   Cpt2lvl: 0
-  capacityData3Source: {fileID: 11400000, guid: 082a1d9d999a93f4985da27c442f6b23, type: 2}
+  capacityData3Source: {fileID: 11400000, guid: dadd6a2d543809040bbc7b21bc3795ad, type: 2}
   capacity3: {fileID: 21300000, guid: 6fd112e6b21cea14d9e963515ddf23fc, type: 3}
   Cpt3lvl: 0
-  capacityDataUltimateSource: {fileID: 11400000, guid: f172efd948f5abd458a08c2b9d475c71, type: 2}
+  capacityDataUltimateSource: {fileID: 11400000, guid: 98aae579e67c79a4db7bc8f044e974ba, type: 2}
   Ultimate: {fileID: 21300000, guid: f0f3d14119d252b4595754ed73d77782, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: 6a68f6d10d7cb754dbbcb47f8340e7e1, type: 3}
   CptUltlvl: 3
-  UltimateSlider: 100
+  UltimateSlider: 60
   UltIsReady: 0
   UltLvl_1: 1
   UltLvl_2: 1
@@ -62,3 +67,4 @@ MonoBehaviour:
   ID: 5
   RageAtkBonus: 0
   skipNextTurn: 0
+  delayedActions: []
