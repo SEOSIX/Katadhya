@@ -20,6 +20,7 @@ MonoBehaviour:
   chargeUlti: 19
   MultipleHeal: 0
   MultipleAttack: 1
+  MultipleBuff: 0
   TargetingAlly: 0
   Provocation: 0
   BuffFromAffinity: 0
@@ -41,6 +42,6 @@ MonoBehaviour:
   Description: "Inflige des d\xE9gats aux ennemis."
   AffinityDescription: "Gagne un pourcentage des d\xE9g\xE2ts inflig\xE9s en bouclier."
   PictoType: 0
-  TargetType: 0
+  TargetType: 2
   ValueAI: 0
   DoubleEffect: 0

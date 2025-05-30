@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
   m_Name: cpt6b10
   m_EditorClassIdentifier: 
-  atk: 4
+  atk: 15
   heal: 0
   critique: 5
   "pr\xE9cision": 85
@@ -20,10 +20,11 @@ MonoBehaviour:
   chargeUlti: 0
   MultipleHeal: 0
   MultipleAttack: 0
+  MultipleBuff: 0
   TargetingAlly: 0
   Provocation: 0
   BuffFromAffinity: 0
-  buffType: 4
+  buffType: 1
   buffValue: 0.8
   buffDuration: 1
   Shield: 0

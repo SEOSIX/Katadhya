@@ -23,8 +23,8 @@ MonoBehaviour:
     duration: 1
   ActiveCooldowns: []
   Affinity: 4
-  BaseLife: 30
-  BaseAtk: 10
+  BaseLife: 60
+  BaseAtk: 20
   BaseSpeed: 48
   BaseDef: 5
   BaseAim: 100
@@ -65,3 +65,4 @@ MonoBehaviour:
   ID: 7
   RageAtkBonus: 0
   skipNextTurn: 0
+  delayedActions: []

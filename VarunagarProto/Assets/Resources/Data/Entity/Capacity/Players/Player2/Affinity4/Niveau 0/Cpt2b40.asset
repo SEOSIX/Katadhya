@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
+  m_Name: Cpt2b40
+  m_EditorClassIdentifier: 
+  atk: 10
+  heal: 0
+  critique: 5
+  "pr\xE9cision": 100
+  cooldown: 1
+  chargeUlti: 27
+  MultipleHeal: 0
+  MultipleAttack: 0
+  MultipleBuff: 0
+  TargetingAlly: 0
+  Provocation: 0
+  BuffFromAffinity: 0
+  buffType: 1
+  buffValue: 0.8
+  buffDuration: 1
+  Shield: 0
+  ShieldRatioAtk: 0
+  Shock: 0
+  Necrosis: 0
+  secondaryAtk: 0
+  secondaryHeal: 0
+  secondaryBuffType: 0
+  secondaryBuffValue: 0
+  secondaryBuffDuration: 0
+  specialType: 0
+  specialDelay: 1
+  Name: 'Intimidation '
+  Description: "Inflige des d\xE9g\xE2ts et baisse la puissance de la cible "
+  AffinityDescription: "Augmente les d\xE9g\xE2ts de la capacit\xE9 en fonction de
+    la rage"
+  PictoType: 0
+  TargetType: 1
+  ValueAI: 0
+  DoubleEffect: 0

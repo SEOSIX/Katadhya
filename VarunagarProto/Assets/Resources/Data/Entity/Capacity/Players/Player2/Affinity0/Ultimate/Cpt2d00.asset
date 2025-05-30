@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atk: 0
   heal: 0
-  critique: 5
+  critique: 0
   "pr\xE9cision": 100
   cooldown: 0
-  chargeUlti: 18
+  chargeUlti: 0
   MultipleHeal: 0
   MultipleAttack: 0
-  MultipleBuff: 0
+  MultipleBuff: 1
   TargetingAlly: 0
   Provocation: 0
-  BuffFromAffinity: 1
+  BuffFromAffinity: 0
   buffType: 2
   buffValue: 1.2
   buffDuration: 2
@@ -38,10 +38,10 @@ MonoBehaviour:
   secondaryBuffDuration: 0
   specialType: 0
   specialDelay: 1
-  Name: 
-  Description: 
+  Name: Protection
+  Description: "augmente la d\xE9fence des alli\xE9s"
   AffinityDescription: 
   PictoType: 0
-  TargetType: 0
+  TargetType: 4
   ValueAI: 0
   DoubleEffect: 0

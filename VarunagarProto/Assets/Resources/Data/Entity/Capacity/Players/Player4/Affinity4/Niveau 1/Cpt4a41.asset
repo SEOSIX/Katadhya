@@ -20,6 +20,7 @@ MonoBehaviour:
   chargeUlti: 25
   MultipleHeal: 0
   MultipleAttack: 0
+  MultipleBuff: 0
   TargetingAlly: 0
   Provocation: 0
   BuffFromAffinity: 0
@@ -42,6 +43,6 @@ MonoBehaviour:
   AffinityDescription: "Augmente les d\xE9g\xE2ts de la capacit\xE9 en fonction de
     la rage"
   PictoType: 0
-  TargetType: 0
+  TargetType: 1
   ValueAI: 0
   DoubleEffect: 0
