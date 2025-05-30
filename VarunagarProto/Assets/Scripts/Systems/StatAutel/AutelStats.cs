@@ -53,6 +53,8 @@ public class AutelStats : MonoBehaviour
     private DataEntity currentEntity;
     private Animator currentAnimator;
     private Coroutine blinkCoroutine;
+    
+    private readonly Color goldColor = new Color(1f, 0.84f, 0f);
 
     private void Awake()
     {
@@ -156,6 +158,7 @@ public class AutelStats : MonoBehaviour
         UpdateStatDisplay();
     }
 
+    
     private void UpdateStatDisplay()
     {
         if (currentEntity == null || statTexts.Length < 4)
@@ -173,29 +176,34 @@ public class AutelStats : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            statTexts[i].text = prices[i].ToString();
-            statTexts[i].color = (cauris >= prices[i]) ? Color.black : Color.red;
+            bool isMax = GetCurrentLevel(i) >= maxLevel;
+            statTexts[i].text = isMax ? "MAX" : prices[i].ToString();
+            statTexts[i].color = isMax ? goldColor : (cauris >= prices[i] ? Color.black : Color.red);
+
+            statButtons[i].interactable = !isMax;
         }
     }
+
 
     private void OnStatButtonClicked(int index)
     {
         if (currentEntity == null) return;
 
-        int cost = 0;
-        switch (index)
+        int currentLevel = GetCurrentLevel(index);
+        if (currentLevel >= maxLevel)
         {
-            case 0: cost = atkPrice; break;
-            case 1: cost = defPrice; break;
-            case 2: cost = speedPrice; break;
-            case 3: cost = lifePrice; break;
+            Debug.Log("Niveau maximum atteint !");
+            return;
         }
+
+        int cost = GetCurrentPrice(index);
 
         if (!playerData.SpendGlobalCauris(cost))
         {
             Debug.Log("Pas assez de cauris globaux !");
             return;
         }
+
         switch (index)
         {
             case 0:
@@ -222,10 +230,11 @@ public class AutelStats : MonoBehaviour
 
         UpdateStatDisplay();
         CaurisManage.Instance.UpdateCaurisDisplay();
-        
+
         Vector3 btnPos = statButtons[index].transform.position;
         ShowTooltip(index, btnPos);
     }
+
     
     
     public void ShowTooltip(int index, Vector3 buttonPosition)
@@ -236,24 +245,30 @@ public class AutelStats : MonoBehaviour
             return;
         }
 
+        string statName = GetStatName(index);
         int currentLevel = GetCurrentLevel(index);
         int nextLevel = currentLevel + 1;
+        bool isMaxLevel = currentLevel >= maxLevel;
 
         int currentStat = GetCurrentStat(index);
         int nextStat = currentStat + GetUpgradeValue(index);
 
-        string statName = GetStatName(index);
-        
         levelCurrentText.text = currentLevel.ToString();
-        levelNextText.text = nextLevel.ToString();
-        statCurrentText.text = $"{statName} {currentStat}";
-        statNextText.text = $"{statName} {nextStat}";
+        levelNextText.text = isMaxLevel ? "-" : nextLevel.ToString();
+
+        statCurrentText.text = $"{statName} : {currentStat}";
+        statNextText.text = isMaxLevel ? $"{statName} : MAX" : $"{statName} : {nextStat}";
+
+        levelCurrentText.color = isMaxLevel ? goldColor : Color.black;
+        levelNextText.color = isMaxLevel ? goldColor : Color.black;
+        statNextText.color = isMaxLevel ? goldColor : Color.black;
 
         tooltipPanel.SetActive(true);
-        tooltipPanel.transform.position = buttonPosition + new Vector3(-2, 0, 0);
-        
+        tooltipPanel.transform.position = buttonPosition + new Vector3(-3, 0, 0);
+
         StopBlinking();
     }
+
     public void HideTooltip()
     {
         tooltipPanel.SetActive(false);

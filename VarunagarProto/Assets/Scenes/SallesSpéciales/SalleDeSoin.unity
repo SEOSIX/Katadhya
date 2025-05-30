@@ -131,6 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 325274644}
+  - component: {fileID: 325274645}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -153,6 +154,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &325274645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 325274643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd3b0452618b0bb4f96835daf8bcdbfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCombatEnabled: 0
+  playerSpawnPoints:
+  - {fileID: 1771093544}
+  - {fileID: 362555811}
+  - {fileID: 350521202}
+  enemySpawnPoints: []
+  entityHandler: {fileID: 11400000, guid: 779db6a0d8027e04a8c21117fb5fdb15, type: 2}
+  playerPrefabs:
+  - playerName: Moine
+    prefab: {fileID: 1624137427931347417, guid: ee713a023e71dcc4bbcd518a1d2cd088, type: 3}
+  - playerName: "Prisonni\xE8re"
+    prefab: {fileID: 8405213795540640227, guid: c7713fff9b5dbf848b35da83b66f4561, type: 3}
+  - playerName: Garde
+    prefab: {fileID: 7033778814545610870, guid: 1313d386f1219944381b560ad4453fbe, type: 3}
+  EnemyPackIndex: 0
+  enemyPacks: []
+  allEnemiesEncountered: []
+  sizeChara: 0.21
+  circleOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &350521201
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +197,7 @@ GameObject:
   m_Layer: 0
   m_Name: Player1 (2)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -178,7 +210,7 @@ Transform:
   m_GameObject: {fileID: 350521201}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6262836, y: 0.16920568, z: -3.0738537}
+  m_LocalPosition: {x: -2.26, y: -2.29, z: -3.0738537}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -196,7 +228,7 @@ GameObject:
   m_Layer: 0
   m_Name: Player1 (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -209,7 +241,7 @@ Transform:
   m_GameObject: {fileID: 362555810}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6262836, y: 0.16920568, z: -3.0738537}
+  m_LocalPosition: {x: -4.79, y: -3.94, z: -3.0738537}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -739,7 +771,7 @@ GameObject:
   m_Layer: 0
   m_Name: Player1
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -752,7 +784,7 @@ Transform:
   m_GameObject: {fileID: 1771093543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6262836, y: 0.16920568, z: -3.0738537}
+  m_LocalPosition: {x: -7.27, y: -2.29, z: -3.0738537}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
