@@ -107,6 +107,7 @@ public class EffectsManager : MonoBehaviour
 
     public void AfficherPictoBuff(int index, CapacityData CData)
     {
+        Debug.Log("2");
 
         if (!IsValid(index)) return;
         StartCoroutine(BuffUI(index,CData));
@@ -180,8 +181,10 @@ public class EffectsManager : MonoBehaviour
 
     IEnumerator BuffUI(int index, CapacityData CData)
     {
+        Debug.Log("3");
         yield return new WaitForSeconds(0.5f);
         GameObject instance = Instantiate(pictoBuff, DamagePosition[index].position+new Vector3(0.25f,0f,0f), Quaternion.identity, canvas.transform);
+        Debug.Log(instance);
         if (instance != null)
         {
             string arrow;
