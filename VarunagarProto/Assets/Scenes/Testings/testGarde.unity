@@ -2202,7 +2202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityHandler: {fileID: 11400000, guid: 1cc7fee22bc149049a1bcda2676c8263, type: 2}
-  Clickable: 1
+  Clickable: 0
 --- !u!1 &280407252
 GameObject:
   m_ObjectHideFlags: 0
@@ -10528,7 +10528,6 @@ GameObject:
   - component: {fileID: 1227277674}
   - component: {fileID: 1227277673}
   - component: {fileID: 1227277672}
-  - component: {fileID: 1227277675}
   m_Layer: 5
   m_Name: Next Button
   m_TagString: Untagged
@@ -10612,7 +10611,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1227277675}
+      - m_Target: {fileID: 433323617}
         m_TargetAssemblyTypeName: LoadingScene, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
@@ -10662,20 +10661,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1227277670}
   m_CullTransparentMesh: 1
---- !u!114 &1227277675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1227277670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99f8c8beb3190dc4897dc3c8f08e373b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  globalGameData: {fileID: 0}
-  BackgroundParent: {fileID: 0}
 --- !u!1 &1232718539
 GameObject:
   m_ObjectHideFlags: 0

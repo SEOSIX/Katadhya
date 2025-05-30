@@ -54,6 +54,8 @@ public class EntiityManager : MonoBehaviour
                 enemy.instance.SetActive(false);
                 enemy.UnitLife = -1;
             }
+            entityHandler.ennemies.RemoveAt(i);
+
         }
     }
     public void DestroyDeadPlayers()
@@ -158,11 +160,11 @@ public class EntiityManager : MonoBehaviour
             if (GameManager.SINGLETON.EnemyPackIndex+1 < GameManager.SINGLETON.enemyPacks.Count)
             {
                 GameManager.SINGLETON.EnemyPackIndex += 1;
+                CombatManager.SINGLETON.entityHandler.ennemies.Clear();
                 GameManager.SINGLETON.SpawnEnemies();
                 CombatManager.SINGLETON.ResetEnemies();
                 CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
                 CombatManager.SINGLETON.unitPlayedThisTurn.Clear();
-                CombatManager.SINGLETON.entityHandler.ennemies.Clear();
                 CombatManager.SINGLETON.StartUnitTurn();
             }
             else
