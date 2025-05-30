@@ -201,6 +201,7 @@ public class CombatManager : MonoBehaviour
                 ImagePortrait[i].enabled = true;
                 ImagePortrait[i].sprite = initialTurnOrder[i].portraitUI;
                 targetSizes = new Vector2[ImagePortrait.Length];
+                Color PortraitColor = Color.white;
                 if (initialTurnOrder[i] == currentEntity)
                 {
                     targetSizes[i] = new Vector2(98.67f, 122.36f);
@@ -208,6 +209,7 @@ public class CombatManager : MonoBehaviour
                 else
                 {
                     targetSizes[i] = new Vector2(75, 93);
+                    PortraitColor = new Color(225f/255f, 225f/255f, 225f/255f);
                 }
                 if (ImagePortrait[i] != null && ImagePortrait[i].enabled)
                 {
@@ -216,6 +218,7 @@ public class CombatManager : MonoBehaviour
                         targetSizes[i],
                         Time.deltaTime * 10f
                     );
+                    ImagePortrait[i].color = PortraitColor;
                 }
             }
             else
