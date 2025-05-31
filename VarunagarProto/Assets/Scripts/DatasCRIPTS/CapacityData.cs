@@ -6,6 +6,9 @@ public enum SpecialCapacityType
 {
     None,
     DelayedAttack,
+    UltMoine,
+    UltPriso,
+    UltGarde,
 
 }
 
