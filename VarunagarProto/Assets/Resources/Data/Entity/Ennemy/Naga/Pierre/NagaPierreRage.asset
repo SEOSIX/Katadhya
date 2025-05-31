@@ -23,7 +23,7 @@ MonoBehaviour:
     duration: 1
   ActiveCooldowns: []
   Affinity: 4
-  BaseLife: 70
+  BaseLife: 60
   BaseAtk: 20
   BaseSpeed: 48
   BaseDef: 5
@@ -39,10 +39,10 @@ MonoBehaviour:
   portraitUI: {fileID: 21300000, guid: f3110e1ff46e6d24a8b5d50ab832a686, type: 3}
   bandeauUI: {fileID: 0}
   Animator: {fileID: 0}
-  capacityData1Source: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}
+  capacityData1Source: {fileID: 11400000, guid: 0cecaa7928dc9d64fa550067efd6a216, type: 2}
   capacity1: {fileID: 0}
   Cpt1lvl: 0
-  capacityData2Source: {fileID: 11400000, guid: 0dce4f00902c7664087b92eb65ac541c, type: 2}
+  capacityData2Source: {fileID: 11400000, guid: fdef3e718569de04a804f9585b67b188, type: 2}
   capacity2: {fileID: 0}
   Cpt2lvl: 0
   capacityData3Source: {fileID: 11400000, guid: 90a6be163c0c0c646a0d28c5989032b7, type: 2}

@@ -15,15 +15,15 @@ MonoBehaviour:
   instance: {fileID: 0}
   UnitAtk: 10
   UnitSpeed: 50
-  UnitDef: 0
+  UnitDef: 5
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns: []
-  Affinity: 2
+  Affinity: 0
   BaseLife: 200
   BaseAtk: 10
   BaseSpeed: 50
-  BaseDef: 0
+  BaseDef: 5
   BaseAim: 100
   UnitShield: 0
   ShockMark: 0
@@ -48,14 +48,14 @@ MonoBehaviour:
   capacityDataUltimateSource: {fileID: 11400000, guid: daec32e88b3cc724699e3aa97648eadf, type: 2}
   Ultimate: {fileID: 21300000, guid: b9dfd3aed188eda4e925aa347812de99, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: 32f764f830a8d39449df9ac27bfb030e, type: 3}
-  CptUltlvl: 12
-  UltimateSlider: 100
+  CptUltlvl: 0
+  UltimateSlider: -12
   UltIsReady: 0
   UltLvl_1: 0
   UltLvl_2: 0
   UltLvl_3: 0
   UltLvl_4: 0
-  UltLvlHit: 3
+  UltLvlHit: 0
   namE: "Prisonni\xE8re"
   size: 0.21
   index: 1
