@@ -6996,6 +6996,11 @@ MonoBehaviour:
   UltButton: {fileID: 491080710}
   fill: {fileID: 905097224}
   GreyScale: {fileID: 2100000, guid: 05796b9dab687d9428b4033e717c72bb, type: 2}
+  AffinityColors:
+  - {r: 0, g: 0.78128433, b: 1, a: 1}
+  - {r: 1, g: 0.903612, b: 0, a: 1}
+  - {r: 0.575233, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0.009137107, b: 0, a: 1}
   qteAnimator: {fileID: 1812854273}
   qteUI: {fileID: 83124358}
   pointer: {fileID: 1745443985}
@@ -7057,6 +7062,13 @@ MonoBehaviour:
   - {fileID: 31069913}
   - {fileID: 1777097957}
   damageTextPrefab: {fileID: 2084743422030266279, guid: d0ae8f142e2a5e743a582b63d9664cc7, type: 3}
+  ParticlePrefabs:
+  - {fileID: 838566247304738673, guid: ac39f0207cba8014a90c59c9d6832600, type: 3}
+  - {fileID: 8091763265229311911, guid: 82e82f8872311be4296e6f45ddecafac, type: 3}
+  - {fileID: 838566247304738673, guid: e6185fcaae54bd947b5af5d75d7c3549, type: 3}
+  - {fileID: 8091763265229311911, guid: dd2bdd72cf6ab6f469bcf43aa35cf6e5, type: 3}
+  - {fileID: 8091763265229311911, guid: 6e67426f0b593fa4b960e3a1a40c8e29, type: 3}
+  ParticleParent: {fileID: 433323616}
   DamagePosition:
   - {fileID: 1918882185}
   - {fileID: 289581611}
