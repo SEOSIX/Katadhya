@@ -14,6 +14,7 @@ using static DataEntity;
 using static UnityEngine.EventSystems.EventTrigger;
 using UnityEditor.ShaderKeywordFilter;
 using Random = UnityEngine.Random;
+using static UnityEditor.Experimental.GraphView.Port;
 
 public class CombatManager : MonoBehaviour
 {
@@ -1053,15 +1054,30 @@ public class CombatManager : MonoBehaviour
                         BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"PRE{arrow}");
                         break;
                 }
-
+                if (CData.specialType == SpecialCapacityType.UltGarde)
+                {
+                    player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
+                    Sbuff = $"+{Mathf.RoundToInt((CData.buffValue-1) * 100 + (0.05f * player.CptUltlvl))}%";
+                }
                 BuffValue.GetComponent<TextMeshProUGUI>().SetText(Sbuff);
+
             }
 
             int Value = 0;
             Value = Math.Max(CData.atk, CData.heal);
             if (CData.heal > 0)
             {
-                Value = ((CData.heal + player.UnitAtk) / 2);
+                Value = Mathf.RoundToInt((Mathf.Sqrt(2 * player.UnitAtk) + CData.heal));
+            }
+            if (CData.specialType == SpecialCapacityType.UltMoine)
+            {
+                player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
+                Value += Mathf.RoundToInt(0.05f * player.CptUltlvl);
+            }
+            if (CData.specialType == SpecialCapacityType.UltPriso)
+            {
+                player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
+                Value +=Mathf.RoundToInt(2*player.CptUltlvl);
             }
             Text.GetChild(1).GetComponent<TextMeshProUGUI>().SetText($"{Value}");
             Text.GetChild(2).GetComponent<TextMeshProUGUI>().SetText($"{CData.précision}%");
