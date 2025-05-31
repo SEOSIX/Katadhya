@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class EffectsManager : MonoBehaviour
 {
@@ -19,6 +20,11 @@ public class EffectsManager : MonoBehaviour
 
     [Header("Prefab de texte pour afficher les dégâts")]
     public GameObject damageTextPrefab;
+
+    [Header("VFX")]
+    //0 : Atk,  1 : Heal, 2 : Crit, 3 : Débuff, 4 : Buff
+    public GameObject[] ParticlePrefabs;
+    public Transform ParticleParent;
 
     [Header("Positions d'effet par entité")]
     public List<Transform> DamagePosition = new List<Transform>();
@@ -47,7 +53,7 @@ public class EffectsManager : MonoBehaviour
         }
     }
 
-    public void AfficherAttaqueFoudre(int typeFoudre, int index)
+    public void AfficherAttaqueFoudre(int typeFoudre, int index, DataEntity player)
     {
         if (typeFoudre < 1 || typeFoudre > 4 || !IsValid(index)) return;
 
@@ -78,22 +84,22 @@ public class EffectsManager : MonoBehaviour
         slider.gameObject.SetActive(rageValue > 0);
     }
 
-    public void AfficherAttaqueBouclier(int index, int degats)
+    public void AfficherAttaqueBouclier(int index, int degats, DataEntity player)
     {
         if (!IsValid(index)) return;
 
         if (effetBouclier != null)
         {
             Instantiate(effetBouclier, Effects2Position[index].position, Quaternion.identity);
-            AfficherTexteDegats(index, degats, Color.cyan);
+            AfficherTexteDegats(index, degats, Color.cyan, player);
         }
     }
 
-    public void AfficherAttaqueSimple(DataEntity entity, int degats)
+    public void AfficherAttaqueSimple(DataEntity entity, int degats, float modifier)
     {
         int index = entity.index;
         if (index == -1) return;
-        AfficherTexteDegats(index, degats, Color.red);
+        AfficherTexteDegats(index, degats, Color.red, entity, modifier);
     }
     public void AfficherHeal(DataEntity entity, int healAmmount)
     {
@@ -105,7 +111,7 @@ public class EffectsManager : MonoBehaviour
         AfficherTexteHeal(index, healAmmount, darkGreen);
     }
 
-    public void AfficherPictoBuff(int index, CapacityData CData)
+    public void AfficherPictoBuff(int index, CapacityData CData, DataEntity player)
     {
 
         if (!IsValid(index)) return;
@@ -113,14 +119,19 @@ public class EffectsManager : MonoBehaviour
         
     }
 
-    private void AfficherTexteDegats(int index, int degats, Color couleur)
+    private void AfficherTexteDegats(int index, int degats, Color couleur, DataEntity entity, float modifier = 1)
     {
         if (!IsValid(index) || damageTextPrefab == null || canvas == null) return;
 
         GameObject dmgText = Instantiate(damageTextPrefab, DamagePosition[index].position, Quaternion.identity, canvas.transform);
+        dmgText.transform.localScale = new Vector3(modifier, modifier, modifier);
         var tmp = dmgText.GetComponent<TextMeshProUGUI>();
         tmp.text = "-" + degats;
         tmp.color = couleur;
+        Renderer[] renderers = entity.instance.GetComponentsInChildren<Renderer>();
+        Bounds AllRenderers = renderers[0].bounds;
+        foreach (Renderer r in renderers) AllRenderers.Encapsulate(r.bounds);
+        GameObject dmgVFX = Instantiate(ParticlePrefabs[0],new Vector3(AllRenderers.center.x,AllRenderers.min.y, AllRenderers.center.z), Quaternion.identity, ParticleParent);
         Destroy(dmgText, effetDuration);
     }
     private void AfficherTexteHeal(int index, int healAmmount, Color couleur)

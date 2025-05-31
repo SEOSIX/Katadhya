@@ -47,6 +47,8 @@ public class CombatManager : MonoBehaviour
     public Material GreyScale;
     private DataEntity currentPlayer;
 
+
+
     [Header("Turn Management")]
     public Button endTurnButton;
     public Slider LifePlayers;
@@ -56,6 +58,7 @@ public class CombatManager : MonoBehaviour
     public GameObject TurnUI;
     public CanvasGroup canvasGroup;
     public RectTransform circleParentUI;
+
     [Header("Turn Indicators")]
     public GameObject[] playerTurnIndicators;
 
@@ -68,6 +71,8 @@ public class CombatManager : MonoBehaviour
 
     [Header("Ultimate")]
     public Ultimate ultimateScript;
+
+
 
     [HideInInspector] public List<DataEntity> currentTurnOrder = new List<DataEntity>();
     [HideInInspector] public List<DataEntity> unitPlayedThisTurn = new List<DataEntity>();
@@ -644,7 +649,7 @@ public class CombatManager : MonoBehaviour
         }
 
         target.beenHurtThisTurn = true;
-        EffectsManager.SINGLETON.AfficherAttaqueSimple(target, DamageDone);
+        EffectsManager.SINGLETON.AfficherAttaqueSimple(target, DamageDone, modifier);
     }
     if (capacity.heal > 0)
     {
@@ -666,7 +671,7 @@ public class CombatManager : MonoBehaviour
     if (capacity.buffType > 0)
     {
         GiveBuff(capacity, target, UltGarde);
-        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity);
+        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity, caster);
     }
     if (capacity.Shock > 0)
     {
@@ -781,7 +786,7 @@ public class CombatManager : MonoBehaviour
 
         target.beenHurtThisTurn = true;
         
-        EffectsManager.SINGLETON.AfficherAttaqueSimple(target, icalculatedDamage);
+        EffectsManager.SINGLETON.AfficherAttaqueSimple(target, icalculatedDamage, modifier);
     }
 
     if (capacity.secondaryHeal > 0)
@@ -805,7 +810,7 @@ public class CombatManager : MonoBehaviour
     if (capacity.secondaryBuffType > 0)
     {
         GiveBuff(capacity, target);
-        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity);
+        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity, caster);
     }
 
     if (capacity.Shock > 0)
@@ -1199,7 +1204,7 @@ public class CombatManager : MonoBehaviour
                 int visualIndex = entityHandler.players.Contains(target)
                     ? entityHandler.players.IndexOf(target)
                     : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
-                EffectsManager.SINGLETON.AfficherAttaqueFoudre(target.ShockMark, visualIndex);
+                EffectsManager.SINGLETON.AfficherAttaqueFoudre(target.ShockMark, visualIndex, target);
             }
             if (target.ShockMark >= 4)
             {

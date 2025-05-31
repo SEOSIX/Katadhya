@@ -31,6 +31,7 @@ public class Ultimate : MonoBehaviour
     public Button UltButton;
     public Image fill;
     public Material GreyScale;
+    public Color[] AffinityColors;
 
     [Header("QTE")]
     public Animator qteAnimator;
@@ -207,9 +208,12 @@ public class Ultimate : MonoBehaviour
 
     public void QTE_Start(DataEntity Player, Button UltButton)
     {
+
         ResetAllZones();
 
         player = Player;
+        player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
+        if (player.CptUltlvl == 0) QTEStop();
         player.UltLvlHit = 1;
         UltButton.interactable = false; 
         if (qteAnimator == null || qteUI == null)
@@ -265,6 +269,8 @@ public class Ultimate : MonoBehaviour
 
                 // Jeanne et Tonin qui ont setup les feedbacks oeoe
                 Debug.Log("Successful click");
+                var main = feedBackVFX.main;
+                main.startColor = AffinityColors[zone.Affinity-1];
                 feedBackVFX.Play();
                 animator.SetTrigger("QTEClick");
 

@@ -60,7 +60,7 @@ public class AI : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        ToggleTargetIndicator(target);
+        //ToggleTargetIndicator(target);
 
         CapacityData chosenSpell = SelectSpell(attacker);
         CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, target);
@@ -83,7 +83,7 @@ public class AI : MonoBehaviour
             if (targets.Count == 0) break;
 
             DataEntity target = targets.FirstOrDefault(p => p.provoking) ?? targets[Random.Range(0, targets.Count)];
-            ToggleTargetIndicator(target);
+            //ToggleTargetIndicator(target);
 
             CapacityData chosenSpell = SelectSpell(attacker);
             CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, target);
