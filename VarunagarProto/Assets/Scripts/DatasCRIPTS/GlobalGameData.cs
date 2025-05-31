@@ -8,14 +8,14 @@ using UnityEngine.UIElements;
 public class GlobalGameData : ScriptableObject
 {
     public int CurrentCombat;   
-    public GameObject[] BackgroundPrefabs;
+    public GameObject[] CombatBackgroundPrefabs;
 
-    public void LoadBackground(Transform BackgroundParent, int index)
+    public void LoadBackground(Transform BackgroundParent,GameObject background)
     {
         if (BackgroundParent.GetChild(0))
         {
             Destroy(BackgroundParent.GetChild(0).gameObject);
         }
-        Instantiate(BackgroundPrefabs[index],BackgroundParent);
+        Instantiate(background,BackgroundParent);
     }
 }

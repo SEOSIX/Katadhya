@@ -37,13 +37,13 @@ public class LifeEntity : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < entityHandler.players.Count; i++)
+        /*for (int i = 0; i < entityHandler.players.Count; i++)
         {
             if (entityHandler.players[i] != null && PlayerSliders[i] != null)
             {
                 entityHandler.players[i].UnitLife = entityHandler.players[i].BaseLife;
             }
-        }
+        }*/
     }
     private void Update()
     {
@@ -65,7 +65,7 @@ public class LifeEntity : MonoBehaviour
             {
                 enemySliders[i].maxValue = enemy.BaseLife;
                 enemySliders[i].value = Mathf.Max(0, enemy.UnitLife);
-                enemyShieldSliders[i].maxValue = enemy.BaseLife;
+                enemyShieldSliders[i].maxValue = enemy.BaseLife/2;
                 enemyShieldSliders[i].value = Mathf.Max(0, enemy.UnitShield);
                 enemyPVTexts[i].text = $"{Mathf.Max(0, enemy.UnitLife)} / {enemy.BaseLife}";
             }
@@ -78,7 +78,7 @@ public class LifeEntity : MonoBehaviour
             {
                 PlayerSliders[i].maxValue = player.BaseLife;
                 PlayerSliders[i].value = Mathf.Max(0, player.UnitLife);
-                PlayerShieldSliders[i].maxValue = player.BaseLife;
+                PlayerShieldSliders[i].maxValue = player.BaseLife/2;
                 PlayerShieldSliders[i].value = Mathf.Max(0, player.UnitShield);
                 PlayerPVTexts[i].text = $"{Mathf.Max(0, player.UnitLife)} / {player.BaseLife}";
 

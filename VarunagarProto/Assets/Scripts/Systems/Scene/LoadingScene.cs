@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.GraphicsBuffer;
+using Random = UnityEngine.Random;
 
 public class LoadingScene : MonoBehaviour
 {
@@ -19,7 +22,8 @@ public class LoadingScene : MonoBehaviour
             return;
         }
         SINGLETON = this;
-        globalGameData.LoadBackground(BackgroundParent,globalGameData.CurrentCombat);
+        GameObject Background = globalGameData.CombatBackgroundPrefabs[Random.Range(0,globalGameData.CombatBackgroundPrefabs.Length-1)];
+        globalGameData.LoadBackground(BackgroundParent, Background);
     }
 
     public void LoadNextSceneAsync()

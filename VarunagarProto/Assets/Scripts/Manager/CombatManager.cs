@@ -14,6 +14,7 @@ using static DataEntity;
 using static UnityEngine.EventSystems.EventTrigger;
 using UnityEditor.ShaderKeywordFilter;
 using Random = UnityEngine.Random;
+using static UnityEditor.Experimental.GraphView.Port;
 
 public class CombatManager : MonoBehaviour
 {
@@ -98,6 +99,7 @@ public class CombatManager : MonoBehaviour
 
     void Start()
     {
+        ResetPlayersComplete();
         ResetEnemies();
         ResetPlayersBeforeCombat();
         currentTurnOrder = GetUnitTurn();
@@ -106,6 +108,7 @@ public class CombatManager : MonoBehaviour
     void Update()
     {
         InitializeStaticUI();
+        
     }
 
 
@@ -586,7 +589,7 @@ public class CombatManager : MonoBehaviour
 
 
 
- public void ApplyNormalCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
+ public void ApplyNormalCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier, float UltMoine = 0, float UltPriso = 0, float UltGarde = 0)
 {
     int DamageDone = 0;
     int visualIndex = entityHandler.players.Contains(target)
@@ -614,7 +617,7 @@ public class CombatManager : MonoBehaviour
             
         float BonusRageDamage = 0;
         if (caster.Affinity == 4) BonusRageDamage = GetBonusRageDamage(caster);
-        float calculatedDamage = ((capacity.atk) * (caster.UnitAtk + 20) / (target.UnitDef +20)) * modifier + BonusRageDamage;
+        float calculatedDamage = ((capacity.atk+UltPriso) * (caster.UnitAtk + 20) / (target.UnitDef +20)) * modifier + BonusRageDamage;
         if (caster.RageTick >= 12) caster.RageTick = 0;
         EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
         //Debug.Log($"UnitAtk : {caster.UnitAtk + 1}, capacity.atk : {capacity.atk}, modifier : {modifier}, BonusRageDamage : {BonusRageDamage}, Défense ennemie : {(2 + caster.UnitAtk + target.UnitDef)} ");
@@ -647,7 +650,7 @@ public class CombatManager : MonoBehaviour
     {
         float BonusRageHeal = 0;
         if (caster.Affinity == 4) BonusRageHeal = GetBonusRageDamage(caster);
-        int healAmount = Mathf.RoundToInt((Mathf.Sqrt (2*caster.UnitAtk) + capacity.heal) * modifier + BonusRageHeal);
+        int healAmount = Mathf.RoundToInt((Mathf.Sqrt (2*caster.UnitAtk) + capacity.heal+ UltMoine) * modifier + BonusRageHeal);
         target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
 
         EffectsManager.SINGLETON.AfficherHeal(target, healAmount);
@@ -662,7 +665,7 @@ public class CombatManager : MonoBehaviour
     }
     if (capacity.buffType > 0)
     {
-        GiveBuff(capacity, target);
+        GiveBuff(capacity, target, UltGarde);
         EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity);
     }
     if (capacity.Shock > 0)
@@ -705,6 +708,19 @@ public class CombatManager : MonoBehaviour
                     return;
                 }
                 break;
+            case SpecialCapacityType.UltMoine:
+                caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
+                ApplyNormalCapacity(capacity, caster, target, modifier, 2 * caster.CptUltlvl);
+                break;
+            case SpecialCapacityType.UltPriso:
+                caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
+                ApplyNormalCapacity(capacity, caster, target, modifier, 0, 2*caster.CptUltlvl);
+                break;
+            case SpecialCapacityType.UltGarde:
+                caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
+                ApplyNormalCapacity(capacity, caster, target, modifier, 0, 0, 0.05f*caster.CptUltlvl);
+                break;
+
             default:
                 Debug.LogWarning("Special capacity type not handled.");
                 break;
@@ -1038,15 +1054,30 @@ public class CombatManager : MonoBehaviour
                         BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"PRE{arrow}");
                         break;
                 }
-
+                if (CData.specialType == SpecialCapacityType.UltGarde)
+                {
+                    player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
+                    Sbuff = $"+{Mathf.RoundToInt((CData.buffValue-1) * 100 + (0.05f * player.CptUltlvl))}%";
+                }
                 BuffValue.GetComponent<TextMeshProUGUI>().SetText(Sbuff);
+
             }
 
             int Value = 0;
             Value = Math.Max(CData.atk, CData.heal);
             if (CData.heal > 0)
             {
-                Value = ((CData.heal + player.UnitAtk) / 2);
+                Value = Mathf.RoundToInt((Mathf.Sqrt(2 * player.UnitAtk) + CData.heal));
+            }
+            if (CData.specialType == SpecialCapacityType.UltMoine)
+            {
+                player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
+                Value += Mathf.RoundToInt(0.05f * player.CptUltlvl);
+            }
+            if (CData.specialType == SpecialCapacityType.UltPriso)
+            {
+                player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
+                Value +=Mathf.RoundToInt(2*player.CptUltlvl);
             }
             Text.GetChild(1).GetComponent<TextMeshProUGUI>().SetText($"{Value}");
             Text.GetChild(2).GetComponent<TextMeshProUGUI>().SetText($"{CData.précision}%");
@@ -1121,7 +1152,7 @@ public class CombatManager : MonoBehaviour
             }
         }
     }
-    public void GiveBuff(CapacityData capacity, DataEntity target)
+    public void GiveBuff(CapacityData capacity, DataEntity target, float ultGarde = 0)
     {
         // buffType; 1 = Atk, 2 = Def, 3 = Speed, 4 = Précision
         if (capacity.buffType > 0 && capacity.DoubleEffect == false)
@@ -1129,12 +1160,12 @@ public class CombatManager : MonoBehaviour
             ActiveBuff existingBuff = target.ActiveBuffs.Find(b => b.type == capacity.buffType);
             if (existingBuff != null)
             {
-                existingBuff.value *= capacity.buffValue;
+                existingBuff.value *= capacity.buffValue+ultGarde;
                 existingBuff.duration = Mathf.Max(existingBuff.duration, capacity.buffDuration);
             }
             else
             {
-                target.ActiveBuffs.Add(new ActiveBuff(capacity.buffType, capacity.buffValue, capacity.buffDuration));
+                target.ActiveBuffs.Add(new ActiveBuff(capacity.buffType, capacity.buffValue+ultGarde, capacity.buffDuration));
             }
 
             RecalculateStats(target);
@@ -1144,12 +1175,12 @@ public class CombatManager : MonoBehaviour
             ActiveBuff existingBuff = target.ActiveBuffs.Find(b => b.type == capacity.secondaryBuffType);
             if (existingBuff != null)
             {
-                existingBuff.value *= capacity.buffValue;
+                existingBuff.value *= capacity.buffValue+ultGarde;
                 existingBuff.duration = Mathf.Max(existingBuff.duration, capacity.secondaryBuffDuration);
             }
             else
             {
-                target.ActiveBuffs.Add(new ActiveBuff(capacity.secondaryBuffType, capacity.secondaryBuffValue, capacity.secondaryBuffDuration));
+                target.ActiveBuffs.Add(new ActiveBuff(capacity.secondaryBuffType, capacity.secondaryBuffValue+ultGarde, capacity.secondaryBuffDuration));
             }
 
             RecalculateStats(target);
