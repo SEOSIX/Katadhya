@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,11 @@ public class AutelQTEUpgrade : MonoBehaviour
     public TextMeshProUGUI[] affinityTexts = new TextMeshProUGUI[4];
     public TextMeshProUGUI[] caurisTextsPerAffinity = new TextMeshProUGUI[4];
     public TextMeshProUGUI[] caurisCostTextsPerAffinity = new TextMeshProUGUI[4];
+    public GameObject[] ZonesAff1 =new GameObject[3];
+    public GameObject[] ZonesAff2 = new GameObject[3];
+    public GameObject[] ZonesAff3 = new GameObject[3];
+    public GameObject[] ZonesAff4 = new GameObject[3];
+
 
     [Header("Prix")]
     public int cout1 = 20;
@@ -24,6 +30,7 @@ public class AutelQTEUpgrade : MonoBehaviour
     [Header("Who is Selected")]
     public bool isSelectedMonk;
     public bool isSelectedPriso;
+    public bool isSelectedGard;
 
     private QTEUpgrade currentQTE;
     [HideInInspector]public DataEntity currentEntity;
@@ -40,6 +47,7 @@ public class AutelQTEUpgrade : MonoBehaviour
     void Update()
     {
         UpdateCaurisDisplay();
+        UpdateZones();
     }
 
     public void SelectPlayer(DataEntity entity, QTEUpgrade qte, Animator animator)
@@ -62,6 +70,8 @@ public class AutelQTEUpgrade : MonoBehaviour
 
         isSelectedMonk = (entity.index == 0);
         isSelectedPriso = (entity.index == 1);
+        isSelectedGard = (entity.index == 2);
+
 
         imageDisplay.sprite = qte.imageToDisplay;
         imageDisplay.enabled = true;
@@ -77,6 +87,8 @@ public class AutelQTEUpgrade : MonoBehaviour
         currentAnimator = null;
         isSelectedMonk = false;
         isSelectedPriso = false;
+        isSelectedGard = false;
+
     }
 
     public void UpgradeAffinity(int affinityIndex)
@@ -161,6 +173,21 @@ public class AutelQTEUpgrade : MonoBehaviour
         {
             if (caurisTextsPerAffinity[i] != null)
                 caurisTextsPerAffinity[i].text = playerData.caurisPerAffinity[i].ToString();
+        }
+    }
+
+    private void UpdateZones()
+    {
+        if (currentEntity == null) return;
+        List<GameObject[]> AllZones = new List<GameObject[]> { ZonesAff1, ZonesAff2, ZonesAff3, ZonesAff4 };
+        List<int> Affinities = new List<int> { currentEntity.UltLvl_1, currentEntity.UltLvl_2, currentEntity.UltLvl_3, currentEntity.UltLvl_4 };
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j=0; j<3; j++)
+            {
+                if (j >= Affinities[i]) AllZones[i][j].SetActive(false);
+                else AllZones[i][j].SetActive(true);
+            } 
         }
     }
 

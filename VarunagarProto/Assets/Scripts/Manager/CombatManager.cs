@@ -603,7 +603,7 @@ public class CombatManager : MonoBehaviour
 
      if (capacity.atk > 0 && caster.instance != null && target.instance != null)
     {
-        StartCoroutine(MoveTowardsTarget(caster, target, 0.5f, 5f)); 
+        //StartCoroutine(MoveTowardsTarget(caster, target, 0.5f, 5f)); 
     }
 
     // ATTAQUE
@@ -740,7 +740,7 @@ public class CombatManager : MonoBehaviour
 
     if (capacity.atk > 0 && caster.instance != null && target.instance != null)
     {
-        StartCoroutine(MoveTowardsTarget(caster, target, 0.5f, 5f));
+        //StartCoroutine(MoveTowardsTarget(caster, target, 0.5f, 5f));
     }
 
         // ATTAQUE
