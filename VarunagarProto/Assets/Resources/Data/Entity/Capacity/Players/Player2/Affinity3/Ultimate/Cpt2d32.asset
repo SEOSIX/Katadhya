@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cpt2d32
   m_EditorClassIdentifier: 
   atk: 0
-  heal: 15
+  heal: 17
   critique: 0
   "pr\xE9cision": 100
   cooldown: 0
@@ -23,10 +23,10 @@ MonoBehaviour:
   MultipleBuff: 1
   TargetingAlly: 0
   Provocation: 0
-  BuffFromAffinity: 1
+  BuffFromAffinity: 0
   buffType: 2
   buffValue: 1.2
-  buffDuration: 2
+  buffDuration: 1
   Shield: 0
   ShieldRatioAtk: 0
   Shock: 0
@@ -36,7 +36,7 @@ MonoBehaviour:
   secondaryBuffType: 0
   secondaryBuffValue: 0
   secondaryBuffDuration: 0
-  specialType: 0
+  specialType: 4
   specialDelay: 1
   Name: Protection
   Description: "augmente la d\xE9fence des alli\xE9s"

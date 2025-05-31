@@ -12,11 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
   m_Name: Cpt2d10
   m_EditorClassIdentifier: 
-  atk: 17
-  heal: 3
-  buffType: 0
-  buffValue: 0
-  buffTime: 0
+  atk: 0
+  heal: 0
+  critique: 0
+  "pr\xE9cision": 100
+  cooldown: 0
+  chargeUlti: 0
+  MultipleHeal: 0
+  MultipleAttack: 0
+  MultipleBuff: 1
+  TargetingAlly: 0
+  Provocation: 0
+  BuffFromAffinity: 0
+  buffType: 2
+  buffValue: 1.2
+  buffDuration: 1
   Shield: 0
-  Electrik: 0
-  CanHeal: 0
+  ShieldRatioAtk: 0
+  Shock: 0
+  Necrosis: 0
+  secondaryAtk: 0
+  secondaryHeal: 0
+  secondaryBuffType: 0
+  secondaryBuffValue: 0
+  secondaryBuffDuration: 0
+  specialType: 4
+  specialDelay: 1
+  Name: 
+  Description: 
+  AffinityDescription: 
+  PictoType: 0
+  TargetType: 0
+  ValueAI: 0
+  DoubleEffect: 0

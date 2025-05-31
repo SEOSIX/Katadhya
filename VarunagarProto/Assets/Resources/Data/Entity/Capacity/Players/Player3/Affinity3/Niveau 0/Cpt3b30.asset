@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
   m_Name: Cpt3b30
   m_EditorClassIdentifier: 
-  atk: 14
+  atk: 18
   heal: 0
   critique: 5
-  "pr\xE9cision": 85
+  "pr\xE9cision": 50
   cooldown: 1
   chargeUlti: 17
   MultipleHeal: 0
@@ -25,7 +25,7 @@ MonoBehaviour:
   Provocation: 0
   BuffFromAffinity: 0
   buffType: 4
-  buffValue: 0.7
+  buffValue: 0
   buffDuration: 1
   Shield: 0
   ShieldRatioAtk: 0
