@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6722c5d7ac97b964da67764d5bd76aa2, type: 3}
   m_Name: 3VS2
   m_EditorClassIdentifier: 
-  ennemies: []
+  ennemies:
+  - {fileID: 11400000, guid: 19481d266b85d0346ab649c19c37ad57, type: 2}
+  - {fileID: 11400000, guid: 7ade0cccee6288342b653a6923986871, type: 2}
   players:
   - {fileID: 11400000, guid: b3a9dc3142da51d4bad44a5388ab35cf, type: 2}
   - {fileID: 11400000, guid: d273d40c7b18bed41a8ff1f83e20eb7a, type: 2}

@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class EffectsManager : MonoBehaviour
 {
@@ -108,14 +109,13 @@ public class EffectsManager : MonoBehaviour
         Color darkGreen;
         ColorUtility.TryParseHtmlString("#0b4d0b", out darkGreen);
         
-        AfficherTexteHeal(index, healAmmount, darkGreen);
+        AfficherTexteHeal(index, healAmmount, darkGreen, entity);
     }
 
-    public void AfficherPictoBuff(int index, CapacityData CData, DataEntity player)
+    public void AfficherPictoBuff(int index, CapacityData CData, DataEntity target)
     {
-
         if (!IsValid(index)) return;
-        StartCoroutine(BuffUI(index,CData));
+        StartCoroutine(BuffUI(index,CData,target));
         
     }
 
@@ -131,10 +131,12 @@ public class EffectsManager : MonoBehaviour
         Renderer[] renderers = entity.instance.GetComponentsInChildren<Renderer>();
         Bounds AllRenderers = renderers[0].bounds;
         foreach (Renderer r in renderers) AllRenderers.Encapsulate(r.bounds);
-        GameObject dmgVFX = Instantiate(ParticlePrefabs[0],new Vector3(AllRenderers.center.x,AllRenderers.min.y, AllRenderers.center.z), Quaternion.identity, ParticleParent);
+        int particleIndex = 0;
+        if (modifier != 1) particleIndex = 2;
+        GameObject dmgVFX = Instantiate(ParticlePrefabs[particleIndex],new Vector3(AllRenderers.center.x,AllRenderers.min.y, AllRenderers.center.z), Quaternion.identity, ParticleParent);
         Destroy(dmgText, effetDuration);
     }
-    private void AfficherTexteHeal(int index, int healAmmount, Color couleur)
+    private void AfficherTexteHeal(int index, int healAmmount, Color couleur, DataEntity entity)
     {
         if (!IsValid(index) || damageTextPrefab == null || canvas == null) return;
 
@@ -142,6 +144,10 @@ public class EffectsManager : MonoBehaviour
         var tmp = dmgText.GetComponent<TextMeshProUGUI>();
         tmp.text = "+" + healAmmount;
         tmp.color = couleur;
+        Renderer[] renderers = entity.instance.GetComponentsInChildren<Renderer>();
+        Bounds AllRenderers = renderers[0].bounds;
+        foreach (Renderer r in renderers) AllRenderers.Encapsulate(r.bounds);
+        GameObject dmgVFX = Instantiate(ParticlePrefabs[1], new Vector3(AllRenderers.center.x, AllRenderers.min.y, AllRenderers.center.z), Quaternion.identity, ParticleParent);
         Destroy(dmgText, effetDuration);
     }
 
@@ -189,20 +195,28 @@ public class EffectsManager : MonoBehaviour
         lastFoudreEffects.Clear();
     }
 
-    IEnumerator BuffUI(int index, CapacityData CData)
+    IEnumerator BuffUI(int index, CapacityData CData, DataEntity entity)
     {
         yield return new WaitForSeconds(0.5f);
         GameObject instance = Instantiate(pictoBuff, DamagePosition[index].position+new Vector3(0.25f,0f,0f), Quaternion.identity, canvas.transform);
+        Renderer[] renderers = entity.instance.GetComponentsInChildren<Renderer>();
+        Bounds AllRenderers = renderers[0].bounds;
+        foreach (Renderer r in renderers) AllRenderers.Encapsulate(r.bounds);
+        int particleIndex = 3;
+        Vector3 particlePosition = new Vector3(AllRenderers.center.x, AllRenderers.min.y, AllRenderers.center.z);
         if (instance != null)
         {
             string arrow;
             if (CData.buffValue > 1)
             {
+                particleIndex = 4;
                 instance.GetComponent<TextMeshProUGUI>().color = new Color32(0, 39, 11, 255);
                 arrow = "▲";
             }
             else
             {
+                particleIndex = 3;
+                particlePosition = new Vector3(AllRenderers.center.x, AllRenderers.max.y, AllRenderers.center.z);
                 instance.GetComponent<TextMeshProUGUI>().color = new Color32(155, 0, 0, 255);
                 arrow = "▼";
             }
@@ -223,8 +237,8 @@ public class EffectsManager : MonoBehaviour
                     break;
             }
         }
+        GameObject dmgVFX = Instantiate(ParticlePrefabs[particleIndex], particlePosition, Quaternion.identity, ParticleParent);
         yield return new WaitForSeconds(1f);
-        
         Destroy(instance, effetDuration);
         
     }

@@ -671,7 +671,7 @@ public class CombatManager : MonoBehaviour
     if (capacity.buffType > 0)
     {
         GiveBuff(capacity, target, UltGarde);
-        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity, caster);
+        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity, target);
     }
     if (capacity.Shock > 0)
     {
@@ -810,7 +810,7 @@ public class CombatManager : MonoBehaviour
     if (capacity.secondaryBuffType > 0)
     {
         GiveBuff(capacity, target);
-        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity, caster);
+        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity, target);
     }
 
     if (capacity.Shock > 0)
