@@ -6,7 +6,7 @@ using UnityEngine;
 public class DataEntity : ScriptableObject
 {
     public GameObject instance;
-    
+
     [SerializeField] public int UnitLife { get; set; }
     public int UnitAtk;
     public int UnitSpeed;
@@ -15,6 +15,7 @@ public class DataEntity : ScriptableObject
     public List<ActiveBuff> ActiveBuffs;
     public List<CooldownData> ActiveCooldowns = new List<CooldownData>();
     public int Affinity;
+    public int ChargePower;
 
     [Header("Unit Base Stat")]
     public int BaseLife;
