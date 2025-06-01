@@ -56,7 +56,10 @@ public class AI : MonoBehaviour
         var targets = CombatManager.SINGLETON.entityHandler.players.Where(p => p.UnitLife > 0).ToList();
         if (targets.Count == 0) yield break;
 
-        DataEntity target = targets.FirstOrDefault(p => p.provoking) ? targets[Random.Range(0, targets.Count)] : targets[Random.Range(0, targets.Count)];
+        List<DataEntity> provokers = targets.Where(p => p.provoking).ToList();
+        DataEntity target = provokers.Count > 0
+            ? provokers[Random.Range(0, provokers.Count)]
+            : targets[Random.Range(0, targets.Count)];
 
         yield return new WaitForSeconds(0.5f);
 
@@ -82,7 +85,10 @@ public class AI : MonoBehaviour
         {
             if (targets.Count == 0) break;
 
-            DataEntity target = targets.FirstOrDefault(p => p.provoking) ?? targets[Random.Range(0, targets.Count)];
+            List<DataEntity> provokers = targets.Where(p => p.provoking).ToList();
+            DataEntity target = provokers.Count > 0
+                ? provokers[Random.Range(0, provokers.Count)]
+                : targets[Random.Range(0, targets.Count)];
             //ToggleTargetIndicator(target);
 
             CapacityData chosenSpell = SelectSpell(attacker);

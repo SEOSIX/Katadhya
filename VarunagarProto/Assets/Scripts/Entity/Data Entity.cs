@@ -38,6 +38,7 @@ public class DataEntity : ScriptableObject
     [Header("Other Information")]
     public bool beenHurtThisTurn;
     public bool provoking;
+    public int provokingDuration;
 
     [Header("Art")]
     public Sprite portrait;
