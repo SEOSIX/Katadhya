@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: "Prisonni\xE8re"
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  UnitAtk: 8
+  UnitAtk: 10
   UnitSpeed: 50
-  UnitDef: 5
+  UnitDef: 4
   UnitAim: 100
   ActiveBuffs:
-  - type: 1
+  - type: 2
     value: 0.8
     duration: 1
   ActiveCooldowns:
-  - capacity: {fileID: 11400000, guid: 5f364eb68e3793a4083208ce78d819f9, type: 2}
+  - capacity: {fileID: 11400000, guid: 6317947b86f53ce41a49efef22908c7d, type: 2}
     remainingCooldown: 1
-  Affinity: 0
+  Affinity: 4
   BaseLife: 200
   BaseAtk: 10
   BaseSpeed: 50
@@ -32,9 +32,11 @@ MonoBehaviour:
   BaseAim: 100
   UnitShield: 0
   ShockMark: 0
-  RageTick: 0
+  RageTick: 8
   LastRageTick: 0
-  necrosis: []
+  necrosis:
+  - level: 2
+    remainingTurns: 4
   beenHurtThisTurn: 1
   provoking: 1
   portrait: {fileID: 21300000, guid: d6dffbf58b723a84993b7caa718951db, type: 3}
@@ -53,14 +55,14 @@ MonoBehaviour:
   capacityDataUltimateSource: {fileID: 11400000, guid: daec32e88b3cc724699e3aa97648eadf, type: 2}
   Ultimate: {fileID: 21300000, guid: b9dfd3aed188eda4e925aa347812de99, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: 32f764f830a8d39449df9ac27bfb030e, type: 3}
-  CptUltlvl: 3
-  UltimateSlider: 0
+  CptUltlvl: 4
+  UltimateSlider: 18
   UltIsReady: 0
   UltLvl_1: 0
   UltLvl_2: 0
-  UltLvl_3: 3
+  UltLvl_3: 0
   UltLvl_4: 0
-  UltLvlHit: 0
+  UltLvlHit: 1
   namE: "Prisonni\xE8re"
   size: 0.21
   index: 1

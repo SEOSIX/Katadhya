@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
   m_Name: Cpt4c32
   m_EditorClassIdentifier: 
-  atk: 30
+  atk: 38
   heal: 0
-  critique: 30
-  "pr\xE9cision": 97
+  critique: 100
+  "pr\xE9cision": 95
   cooldown: 1
   chargeUlti: 62
   MultipleHeal: 0
@@ -36,8 +36,8 @@ MonoBehaviour:
   secondaryBuffType: 0
   secondaryBuffValue: 0
   secondaryBuffDuration: 0
-  specialType: 1
-  specialDelay: 1
+  specialType: 0
+  specialDelay: 0
   Name: 'Frappe lourde '
   Description: "Inflige des d\xE9gats a un ennemi. N\xE9cessite 1 tour d'activation."
   AffinityDescription: "Applique de la n\xE9crose"

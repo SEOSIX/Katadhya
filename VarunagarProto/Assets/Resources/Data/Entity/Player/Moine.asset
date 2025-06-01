@@ -19,17 +19,17 @@ MonoBehaviour:
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns:
-  - capacity: {fileID: 11400000, guid: f845f7eb8e898aa40a7582af25e08e8e, type: 2}
+  - capacity: {fileID: 11400000, guid: a7938812eecff6047842706e97952bc0, type: 2}
     remainingCooldown: 1
-  Affinity: 0
+  Affinity: 4
   BaseLife: 180
   BaseAtk: 5
   BaseSpeed: 40
   BaseDef: 5
   BaseAim: 100
   UnitShield: 0
-  ShockMark: 0
-  RageTick: 0
+  ShockMark: 2
+  RageTick: 3
   LastRageTick: 0
   necrosis: []
   beenHurtThisTurn: 0
@@ -50,14 +50,14 @@ MonoBehaviour:
   capacityDataUltimateSource: {fileID: 11400000, guid: b500928d3256d974a861842354ea55e6, type: 2}
   Ultimate: {fileID: 21300000, guid: 47156ee7c606bda4db4e0c7d377a295c, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: ce4265b8a8608f148b8c0bdfbd50f510, type: 3}
-  CptUltlvl: 1
-  UltimateSlider: 16
+  CptUltlvl: 4
+  UltimateSlider: 0
   UltIsReady: 0
   UltLvl_1: 0
   UltLvl_2: 0
-  UltLvl_3: 1
+  UltLvl_3: 0
   UltLvl_4: 0
-  UltLvlHit: 0
+  UltLvlHit: 1
   namE: Moine
   size: 1.25
   index: 0
