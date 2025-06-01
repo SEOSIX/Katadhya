@@ -7,6 +7,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class EnemyPack
 {
+    [Header("Wave : ")]
     public GameObject enemyPrefab1;
     public GameObject enemyPrefab2;
 }
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Enemy Packs")]
     public int EnemyPackIndex = 0;
-    public List<EnemyPack> enemyPacks = new List<EnemyPack>();
+    public CombatEncounters currentCombat;
     public List<DataEntity> allEnemiesEncountered = new List<DataEntity>();
 
     [Header("Parameters")]
@@ -164,6 +165,8 @@ public class GameManager : MonoBehaviour
 
     public void SpawnEnemies()
     {
+        List<EnemyPack> enemyPacks = currentCombat.Combat;
+
         if (enemyPacks == null || enemyPacks.Count <= EnemyPackIndex || enemyPacks[EnemyPackIndex] == null)
         {
             Debug.LogError("Aucun EnemyPack valide à l'index " + EnemyPackIndex);

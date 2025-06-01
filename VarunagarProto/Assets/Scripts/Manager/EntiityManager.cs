@@ -149,7 +149,7 @@ public class EntiityManager : MonoBehaviour
 
         bool anyPlayerAlive = entityHandler.players.Any(p => p != null);
         bool anyEnemyAlive = entityHandler.ennemies.Any(e => e != null);
-        bool isLastWave = GameManager.SINGLETON.EnemyPackIndex >= GameManager.SINGLETON.enemyPacks.Count - 1;
+        bool isLastWave = GameManager.SINGLETON.EnemyPackIndex >= GameManager.SINGLETON.currentCombat.Combat.Count - 1;
 
         if (!anyPlayerAlive)
         {
@@ -157,7 +157,7 @@ public class EntiityManager : MonoBehaviour
         }
         else if (!anyEnemyAlive)
         {
-            if (GameManager.SINGLETON.EnemyPackIndex+1 < GameManager.SINGLETON.enemyPacks.Count)
+            if (GameManager.SINGLETON.EnemyPackIndex+1 < GameManager.SINGLETON.currentCombat.Combat.Count)
             {
                 GameManager.SINGLETON.EnemyPackIndex += 1;
                 CombatManager.SINGLETON.entityHandler.ennemies.Clear();
