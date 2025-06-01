@@ -6,10 +6,20 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using static UnityEngine.EventSystems.EventTrigger;
+using JetBrains.Annotations;
+
+[System.Serializable]
+public class SoundPackage
+{
+    public AudioClip Cpt1;
+    public AudioClip Cpt2;
+    public AudioClip Cpt3;
+    public AudioClip Cpt4;
+}
 
 public class EffectsManager : MonoBehaviour
 {
-    public static EffectsManager SINGLETON;
+    public static EffectsManager SINGLETON { get; private set; }
 
     public GameObject[] effetsFoudre = new GameObject[4];
     private Dictionary<int, GameObject> lastFoudreEffects = new Dictionary<int, GameObject>();
@@ -26,6 +36,9 @@ public class EffectsManager : MonoBehaviour
     //0 : Atk,  1 : Heal, 2 : Crit, 3 : Débuff, 4 : Buff
     public GameObject[] ParticlePrefabs;
     public Transform ParticleParent;
+
+    [Header("Sound Effects")]
+    public List<SoundPackage> PlayerCptSounds;
 
     [Header("Positions d'effet par entité")]
     public List<Transform> DamagePosition = new List<Transform>();
@@ -217,12 +230,14 @@ public class EffectsManager : MonoBehaviour
             string arrow;
             if (CData.buffValue > 1)
             {
+                StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(6));
                 particleIndex = 4;
                 instance.GetComponent<TextMeshProUGUI>().color = new Color32(0, 39, 11, 255);
                 arrow = "▲";
             }
             else
             {
+                StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(7));
                 particleIndex = 3;
                 particlePosition = new Vector3(AllRenderers.center.x, AllRenderers.max.y, AllRenderers.center.z);
                 instance.GetComponent<TextMeshProUGUI>().color = new Color32(155, 0, 0, 255);
@@ -250,4 +265,6 @@ public class EffectsManager : MonoBehaviour
         Destroy(instance, effetDuration);
         
     }
+
+
 }

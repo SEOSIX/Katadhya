@@ -293,7 +293,7 @@ public class Ultimate : MonoBehaviour
         
     }
 
-    private void QTEStop()
+    private IEnumerator QTEStop()
     {
         if (qteCoroutine != null)
         {
@@ -311,6 +311,7 @@ public class Ultimate : MonoBehaviour
         CurrentEntity.UltIsReady = false;
         animator.SetTrigger("QTEStop");
 
+        yield return new WaitForSeconds(0.5f);
         qteUI.SetActive(false);
         CombatManager.SINGLETON.SetUltimate();
         CombatManager.SINGLETON.UseCapacity(GlobalVars.currentSelectedCapacity);

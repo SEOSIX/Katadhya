@@ -611,6 +611,37 @@ public class CombatManager : MonoBehaviour
         int globalAim = Mathf.RoundToInt(capacity.précision * caster.UnitAim);
         float réussite = lancer(globalAim, 2f, 1f);
 
+        if (entityHandler.players.Contains(caster))
+        {
+            int PlayerIndex = caster.ID -3;
+            int CapacityIndex = -1;
+            switch (capacity.ToString()[4])
+            {
+                case 'a': 
+                    CapacityIndex = 0;
+                    break;
+
+                case 'b': 
+                    CapacityIndex = 1;
+                    break;
+
+                case 'c':
+                    CapacityIndex = 2;
+                    break;
+
+                case 'd':
+                    CapacityIndex = 3;
+                    break;
+                    
+            }
+            SoundPackage pack = EffectsManager.SINGLETON.PlayerCptSounds[PlayerIndex];
+            List<AudioClip> PlayerClips = new List<AudioClip>() { pack.Cpt1, pack.Cpt2, pack.Cpt3, pack.Cpt4 };
+            if (CapacityIndex!= -1 && PlayerClips[CapacityIndex]!= null)
+            {
+                Coroutine play = StartCoroutine(AudioManager.SINGLETON.PlayClip(PlayerClips[CapacityIndex]));
+            }
+        }
+
         if (réussite == 2)
         {
             Debug.Log("Échec de la compétence");
@@ -629,6 +660,8 @@ public class CombatManager : MonoBehaviour
         }
         if (capacity.heal > 0)
         {
+            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(8));
+
             float BonusRageHeal = 0;
             if (caster.Affinity == 4) BonusRageHeal = GetBonusRageDamage(caster);
             int healAmount = Mathf.RoundToInt((Mathf.Sqrt (2*caster.UnitAtk) + capacity.heal+ UltMoine) * modifier + BonusRageHeal);
@@ -649,6 +682,7 @@ public class CombatManager : MonoBehaviour
         {
             GiveBuff(capacity, target, UltGarde);
             EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity, target);
+
         }
         if (capacity.ShieldRatioAtk > 0)
         {
@@ -657,11 +691,13 @@ public class CombatManager : MonoBehaviour
         }
         if (target.Affinity == 4 && capacity.atk > 0)
         {
+            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(5));
             ApplyRage(target);
         }
 
         if (capacity.Necrosis > 0)
         {
+            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(4));
             ApplyNecrosis(target, capacity.Necrosis);
         }
     }
@@ -763,11 +799,13 @@ public class CombatManager : MonoBehaviour
 
         if (target.Affinity == 4 && capacity.atk > 0)
         {
+            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(5));
             ApplyRage(target);
         }
 
         if (capacity.Necrosis > 0)
         {
+            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(4));
             ApplyNecrosis(target, capacity.Necrosis);
         }
     }
@@ -783,7 +821,7 @@ public class CombatManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Ca a pas marché ptdrr");
+            Debug.Log("PB Animator");
         }
         bool enemyHasShield = false;
         if (target.UnitShield > 0) enemyHasShield = true;
@@ -792,7 +830,7 @@ public class CombatManager : MonoBehaviour
         float calculatedDamage = ((capacity.atk + UltPriso) * (caster.UnitAtk + 20) / (target.UnitDef + 20)) * modifier + BonusRageDamage;
         if (caster.RageTick >= 12) caster.RageTick = 0;
         EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
-        Debug.Log($"UnitAtk : {caster.UnitAtk + 1}, capacity.atk : {capacity.atk}, modifier : {modifier}, BonusRageDamage : {BonusRageDamage}, Défense ennemie : {(2 + caster.UnitAtk + target.UnitDef)} ");
+        //Debug.Log($"UnitAtk : {caster.UnitAtk + 1}, capacity.atk : {capacity.atk}, modifier : {modifier}, BonusRageDamage : {BonusRageDamage}, Défense ennemie : {(2 + caster.UnitAtk + target.UnitDef)} ");
         int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
         DamageDone += icalculatedDamage;
 
@@ -808,6 +846,12 @@ public class CombatManager : MonoBehaviour
                 target.UnitShield -= icalculatedDamage;
                 icalculatedDamage = 0;
             }
+            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(1));
+
+        }
+        else
+        {
+            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(0));
         }
 
         if (icalculatedDamage > 0)
