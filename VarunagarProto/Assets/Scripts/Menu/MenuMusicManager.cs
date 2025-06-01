@@ -39,7 +39,7 @@ public class MenuMusicManager : MonoBehaviour
         Invoke(nameof(StartLoopWithFade), timeToStartLoop);
     }
 
-    void StartLoopWithFade()
+    public void StartLoopWithFade()
     {
         audioLoop.Play();
         StartCoroutine(FadeInLoopAndFadeOutIntro());

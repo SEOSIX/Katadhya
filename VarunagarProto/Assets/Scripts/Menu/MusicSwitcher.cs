@@ -5,6 +5,7 @@ using UnityEngine;
 public class MusicSwitcher : MonoBehaviour
 {
     [SerializeField] private AudioSource menuMusicSource;
+    [SerializeField] private AudioSource introMusicSource;
     [SerializeField] private AudioSource creditsMusicSource;
 
     void Start()
@@ -16,6 +17,8 @@ public class MusicSwitcher : MonoBehaviour
     {
         if (menuMusicSource.isPlaying)
             menuMusicSource.Stop();
+        if (introMusicSource.isPlaying)
+            introMusicSource.Stop();
 
         creditsMusicSource.Play();
     }

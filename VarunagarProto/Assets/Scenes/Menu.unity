@@ -1252,6 +1252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuMusicSource: {fileID: 820018347}
+  introMusicSource: {fileID: 0}
   creditsMusicSource: {fileID: 820018349}
 --- !u!1 &892834952
 GameObject:
@@ -2190,7 +2191,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2479,6 +2480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuMusicSource: {fileID: 1901697187}
+  introMusicSource: {fileID: 1901697188}
   creditsMusicSource: {fileID: 1901697189}
 --- !u!1 &1914997443
 GameObject:
