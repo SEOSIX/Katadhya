@@ -129,7 +129,10 @@ public class EffectsManager : MonoBehaviour
         if (!IsValid(index) || damageTextPrefab == null || canvas == null) return;
 
         GameObject dmgText = Instantiate(damageTextPrefab, DamagePosition[index].position, Quaternion.identity, canvas.transform);
-        dmgText.transform.localScale = new Vector3(modifier, modifier, modifier);
+        if(modifier != 1)
+        {
+            dmgText.GetComponent<Animator>().SetBool("Crit", true);
+        }
         var tmp = dmgText.GetComponent<TextMeshProUGUI>();
         tmp.text = "-" + degats;
         tmp.color = couleur;
