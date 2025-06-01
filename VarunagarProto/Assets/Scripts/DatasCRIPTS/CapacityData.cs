@@ -31,6 +31,7 @@ public class CapacityData : ScriptableObject
     [SerializeField] public bool MultipleBuff;
     [SerializeField] public bool TargetingAlly;
     [SerializeField] public bool Provocation;
+    [SerializeField] public int ProvocationDuration;
 
     [Header("Buff")]
     [SerializeField] public bool BuffFromAffinity;

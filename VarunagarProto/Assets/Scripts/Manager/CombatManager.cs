@@ -15,6 +15,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 using UnityEditor.ShaderKeywordFilter;
 using Random = UnityEngine.Random;
 using static UnityEditor.Experimental.GraphView.Port;
+using static UnityEngine.GraphicsBuffer;
 
 public class CombatManager : MonoBehaviour
 {
@@ -135,31 +136,35 @@ public class CombatManager : MonoBehaviour
             entityHandler.ennemies[i].LastRageTick = 0;
             entityHandler.ennemies[i].necrosis = null;
             entityHandler.ennemies[i].beenHurtThisTurn = false;
+            entityHandler.ennemies[i].provoking = false;
+            entityHandler.ennemies[i].provokingDuration = 0;
         }
     }
     public void ResetPlayersComplete()
-        {
+    {
 
-            for (int i = 0; i < entityHandler.players.Count; i++)
-            {
-                entityHandler.players[i].UnitLife = entityHandler.players[i].BaseLife;
-                entityHandler.players[i].UnitAtk = entityHandler.players[i].BaseAtk;
-                entityHandler.players[i].UnitDef = entityHandler.players[i].BaseDef;
-                entityHandler.players[i].UnitSpeed = entityHandler.players[i].BaseSpeed;
-                entityHandler.players[i].UnitAim = entityHandler.players[i].BaseAim;
-                entityHandler.players[i].ActiveBuffs.Clear();
-                entityHandler.players[i].ActiveCooldowns.Clear();
-                entityHandler.players[i].skipNextTurn = false;
-                entityHandler.players[i].delayedActions.Clear();
-                entityHandler.players[i].ShockMark = 0;
-                entityHandler.players[i].RageTick = 0;
-                entityHandler.players[i].LastRageTick = 0;
-                entityHandler.players[i].necrosis = null;
-                entityHandler.players[i].UltimateSlider = 100;
-                entityHandler.players[i].Affinity = 0;
-                entityHandler.players[i].beenHurtThisTurn = false;
-                entityHandler.players[i].UltLvlHit = 0;
-                entiityManager.UpdateSpellData(entityHandler.players[i]);
+        for (int i = 0; i < entityHandler.players.Count; i++)
+        {
+            entityHandler.players[i].UnitLife = entityHandler.players[i].BaseLife;
+            entityHandler.players[i].UnitAtk = entityHandler.players[i].BaseAtk;
+            entityHandler.players[i].UnitDef = entityHandler.players[i].BaseDef;
+            entityHandler.players[i].UnitSpeed = entityHandler.players[i].BaseSpeed;
+            entityHandler.players[i].UnitAim = entityHandler.players[i].BaseAim;
+            entityHandler.players[i].ActiveBuffs.Clear();
+            entityHandler.players[i].ActiveCooldowns.Clear();
+            entityHandler.players[i].skipNextTurn = false;
+            entityHandler.players[i].delayedActions.Clear();
+            entityHandler.players[i].ShockMark = 0;
+            entityHandler.players[i].RageTick = 0;
+            entityHandler.players[i].LastRageTick = 0;
+            entityHandler.players[i].necrosis = null;
+            entityHandler.players[i].UltimateSlider = 100;
+            entityHandler.players[i].Affinity = 0;
+            entityHandler.players[i].beenHurtThisTurn = false;
+            entityHandler.players[i].provoking = false;
+            entityHandler.players[i].provokingDuration = 0;
+            entityHandler.players[i].UltLvlHit = 0;
+            entiityManager.UpdateSpellData(entityHandler.players[i]);
         }
     }
     public void ResetPlayersBeforeCombat()
@@ -182,6 +187,8 @@ public class CombatManager : MonoBehaviour
             entityHandler.players[i].UltimateSlider = 100;
             entityHandler.players[i].Affinity = 0;
             entityHandler.players[i].beenHurtThisTurn = false;
+            entityHandler.players[i].provoking = false;
+            entityHandler.players[i].provokingDuration = 0;
             entityHandler.players[i].UltLvlHit = 0;
             entiityManager.UpdateSpellData(entityHandler.players[i]);
         }
@@ -281,6 +288,25 @@ public class CombatManager : MonoBehaviour
 
     public void StartUnitTurn()
     {
+        DataEntity caster = currentTurnOrder[0];
+        if (caster.beenHurtThisTurn == false && caster.RageTick > 0)
+        {
+            caster.RageTick -= 1;
+        }
+        if (caster.necrosis != null && caster.necrosis.Count > 0)
+        {
+            TickNecrosisEffect(caster);
+        }
+        if (caster.provoking == true)
+        {
+            caster.provokingDuration -= 1;
+            if (caster.provokingDuration <= 0)
+            {
+                caster.provoking = false;
+            }
+        }
+        caster.beenHurtThisTurn = false;
+        RecalculateStats(caster);
         StartCoroutine(StartUnitTurnRoutine());
     }
     
@@ -456,15 +482,7 @@ public class CombatManager : MonoBehaviour
         ShowTargetIndicators(capacity);
         DecrementBuffDurations(caster);
         DecrementCooldowns(caster);
-        if (caster.beenHurtThisTurn == false && caster.RageTick > 0)
-        {
-            caster.RageTick -= 1;
-        }
-        if (caster.necrosis != null && caster.necrosis.Count > 0)
-        {
-            TickNecrosisEffect(caster);
-        }
-        caster.beenHurtThisTurn = false;
+        
         RecalculateStats(caster);
     }
 
@@ -520,30 +538,20 @@ public class CombatManager : MonoBehaviour
 
             anim.SetTrigger("Attack");
         }
-        int globalAim = Mathf.RoundToInt(capacity.précision * caster.UnitAim);
-        float réussite = lancer(globalAim, 2f, 1f);
-
-        if (réussite == 2)
-        {
-            Debug.Log("Échec de la compétence");
-            return;
-        }
-
-        float modifier = lancer(capacity.critique, 1f, 1.5f);
 
         if (capacity.specialType != SpecialCapacityType.None)
         {
-            ApplySpecialCapacity(capacity, caster, target, modifier);
+            ApplySpecialCapacity(capacity, caster, target);
         }
         else
         {
             if (capacity.DoubleEffect && entityHandler.ennemies.Contains(target))
             {
-                ApplySecondaryCapacity(capacity, caster, target, modifier);
+                ApplySecondaryCapacity(capacity, caster, target);
             }
             else
             {
-                ApplyNormalCapacity(capacity, caster, target, modifier);
+                ApplyNormalCapacity(capacity, caster, target);
             }
         }
 
@@ -594,109 +602,72 @@ public class CombatManager : MonoBehaviour
 
 
 
- public void ApplyNormalCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier, float UltMoine = 0, float UltPriso = 0, float UltGarde = 0)
-{
-    int DamageDone = 0;
-    int visualIndex = entityHandler.players.Contains(target)
-        ? entityHandler.players.IndexOf(target)
-        : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
-
-     if (capacity.atk > 0 && caster.instance != null && target.instance != null)
+    public void ApplyNormalCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float UltMoine = 0, float UltPriso = 0, float UltGarde = 0)
     {
-        //StartCoroutine(MoveTowardsTarget(caster, target, 0.5f, 5f)); 
-    }
+        int DamageDone = 0;
+        int visualIndex = entityHandler.players.Contains(target)
+            ? entityHandler.players.IndexOf(target)
+            : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
+        int globalAim = Mathf.RoundToInt(capacity.précision * caster.UnitAim);
+        float réussite = lancer(globalAim, 2f, 1f);
 
-    // ATTAQUE
-    if (capacity.atk > 0)
-    {
-        Animator anim = target.instance?.GetComponent<Animator>();
-        if (anim != null && anim.runtimeAnimatorController != null)
+        if (réussite == 2)
         {
-
-            anim.SetTrigger("TakeDamage");
+            Debug.Log("Échec de la compétence");
+            return;
         }
-        else
+        float modifier = lancer(capacity.critique, 1f, 1.5f);
+        if (capacity.atk > 0 && caster.instance != null && target.instance != null)
         {
-            Debug.Log("Pas d'animator actif");
+            //StartCoroutine(MoveTowardsTarget(caster, target, 0.5f, 5f)); 
         }
 
-        bool enemyHasShield = false;
-        if (target.UnitShield > 0) enemyHasShield = true;
-        float BonusRageDamage = 0;
-        if (caster.Affinity == 4) BonusRageDamage = GetBonusRageDamage(caster);
-        float calculatedDamage = ((capacity.atk+UltPriso) * (caster.UnitAtk + 20) / (target.UnitDef +20)) * modifier + BonusRageDamage;
-        if (caster.RageTick >= 12) caster.RageTick = 0;
-        EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
-        //Debug.Log($"UnitAtk : {caster.UnitAtk + 1}, capacity.atk : {capacity.atk}, modifier : {modifier}, BonusRageDamage : {BonusRageDamage}, Défense ennemie : {(2 + caster.UnitAtk + target.UnitDef)} ");
-        int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
-        DamageDone += icalculatedDamage;
-
-            if (target.UnitShield > 0)
+        // ATTAQUE
+        if (capacity.atk > 0)
         {
-            if (target.UnitShield < icalculatedDamage)
-            {
-                icalculatedDamage -= target.UnitShield;
-                target.UnitShield = 0;
-            }
-            else
-            {
-                target.UnitShield -= icalculatedDamage;
-                icalculatedDamage = 0;
-            }
+            ApplyDamage(capacity, caster, target, modifier);
+        }
+        if (capacity.heal > 0)
+        {
+            float BonusRageHeal = 0;
+            if (caster.Affinity == 4) BonusRageHeal = GetBonusRageDamage(caster);
+            int healAmount = Mathf.RoundToInt((Mathf.Sqrt (2*caster.UnitAtk) + capacity.heal+ UltMoine) * modifier + BonusRageHeal);
+            target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
+
+            EffectsManager.SINGLETON.AfficherHeal(target, healAmount);
+        }
+        if (capacity.Shield > 0)
+        {
+            target.UnitShield += Mathf.RoundToInt(capacity.Shield * modifier);
+        }
+        if (capacity.Provocation == true)
+        {
+            target.provoking = true;
+            target.provokingDuration = capacity.ProvocationDuration;
+        }
+        if (capacity.buffType > 0)
+        {
+            GiveBuff(capacity, target, UltGarde);
+            EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity, target);
+        }
+        if (capacity.ShieldRatioAtk > 0)
+        {
+            int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * DamageDone);
+            caster.UnitShield += Shielding;
+        }
+        if (target.Affinity == 4 && capacity.atk > 0)
+        {
+            ApplyRage(target);
         }
 
-        if (icalculatedDamage > 0)
+        if (capacity.Necrosis > 0)
         {
-            target.UnitLife -= icalculatedDamage;
-        }
-
-        target.beenHurtThisTurn = true;
-        EffectsManager.SINGLETON.AfficherAttaqueSimple(target, DamageDone, modifier);
-        if (capacity.Shock > 0)
-        {
-            ShockProc(capacity, target, enemyHasShield);
+            ApplyNecrosis(target, capacity.Necrosis);
         }
     }
-    if (capacity.heal > 0)
-    {
-        float BonusRageHeal = 0;
-        if (caster.Affinity == 4) BonusRageHeal = GetBonusRageDamage(caster);
-        int healAmount = Mathf.RoundToInt((Mathf.Sqrt (2*caster.UnitAtk) + capacity.heal+ UltMoine) * modifier + BonusRageHeal);
-        target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
-
-        EffectsManager.SINGLETON.AfficherHeal(target, healAmount);
-    }
-    if (capacity.Shield > 0)
-    {
-        target.UnitShield += Mathf.RoundToInt(capacity.Shield * modifier);
-    }
-    if (capacity.Provocation == true)
-    {
-        target.provoking = true;
-    }
-    if (capacity.buffType > 0)
-    {
-        GiveBuff(capacity, target, UltGarde);
-        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity, target);
-    }
-    if (capacity.ShieldRatioAtk > 0)
-    {
-        int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * DamageDone);
-        caster.UnitShield += Shielding;
-    }
-    if (target.Affinity == 4 && capacity.atk > 0)
-    {
-        ApplyRage(target);
-    }
-
-    if (capacity.Necrosis > 0)
-    {
-        ApplyNecrosis(target, capacity.Necrosis);
-    }
-    }
 
 
-    private void ApplySpecialCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
+    private void ApplySpecialCapacity(CapacityData capacity, DataEntity caster, DataEntity target)
     {
         switch (capacity.specialType)
         {
@@ -717,15 +688,15 @@ public class CombatManager : MonoBehaviour
                 break;
             case SpecialCapacityType.UltMoine:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
-                ApplyNormalCapacity(capacity, caster, target, modifier, 2 * caster.CptUltlvl);
+                ApplyNormalCapacity(capacity, caster, target, 2 * caster.CptUltlvl);
                 break;
             case SpecialCapacityType.UltPriso:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
-                ApplyNormalCapacity(capacity, caster, target, modifier, 0, 2*caster.CptUltlvl);
+                ApplyNormalCapacity(capacity, caster, target, 0, 2*caster.CptUltlvl);
                 break;
             case SpecialCapacityType.UltGarde:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
-                ApplyNormalCapacity(capacity, caster, target, modifier, 0, 0, 0.05f*caster.CptUltlvl);
+                ApplyNormalCapacity(capacity, caster, target, 0, 0, 0.05f*caster.CptUltlvl);
                 break;
 
             default:
@@ -733,21 +704,78 @@ public class CombatManager : MonoBehaviour
                 break;
         }
     }
-  public void ApplySecondaryCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float modifier)
-{
-    int DamageDone = 0;
-    int visualIndex = entityHandler.players.Contains(target)
+  public void ApplySecondaryCapacity(CapacityData capacity, DataEntity caster, DataEntity target)
+    {
+        int DamageDone = 0;
+        int visualIndex = entityHandler.players.Contains(target)
         ? entityHandler.players.IndexOf(target)
         : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
+        int globalAim = Mathf.RoundToInt(capacity.précision * caster.UnitAim);
+        float réussite = lancer(globalAim, 2f, 1f);
 
-    if (capacity.atk > 0 && caster.instance != null && target.instance != null)
-    {
-        //StartCoroutine(MoveTowardsTarget(caster, target, 0.5f, 5f));
+        if (réussite == 2)
+        {
+            Debug.Log("Échec de la compétence");
+            return;
+        }
+        float modifier = lancer(capacity.critique, 1f, 1.5f);
+
+        if (capacity.atk > 0 && caster.instance != null && target.instance != null)
+        {
+            //StartCoroutine(MoveTowardsTarget(caster, target, 0.5f, 5f));
+        }
+
+            // ATTAQUE
+        if (capacity.atk > 0)
+        {
+            ApplyDamage(capacity, caster, target, modifier);
+        }
+
+        if (capacity.secondaryHeal > 0)
+        {
+            int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.secondaryHeal) / 2) * modifier);
+            target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
+        
+            //effet de soins
+        }
+
+        if (capacity.Shield > 0)
+        {
+            target.UnitShield += Mathf.RoundToInt(capacity.Shield * modifier);
+        }
+
+        if (capacity.Provocation == true)
+        {
+            target.provoking = true;
+        }
+
+        if (capacity.secondaryBuffType > 0)
+        {
+            GiveBuff(capacity, target);
+            EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity, target);
+        }
+
+        if (capacity.ShieldRatioAtk > 0)
+        {
+            int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * DamageDone);
+            caster.UnitShield += Shielding;
+        }
+
+        if (target.Affinity == 4 && capacity.atk > 0)
+        {
+            ApplyRage(target);
+        }
+
+        if (capacity.Necrosis > 0)
+        {
+            ApplyNecrosis(target, capacity.Necrosis);
+        }
     }
-
-        // ATTAQUE
-    if (capacity.atk > 0)
+    public void ApplyDamage(CapacityData capacity, DataEntity caster, DataEntity target, float modifier, float UltMoine = 0, float UltPriso = 0, float UltGarde = 0, int DamageDone = 0)
     {
+        int visualIndex = entityHandler.players.Contains(target)
+        ? entityHandler.players.IndexOf(target)
+        : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
         Animator anim = target.instance?.GetComponent<Animator>();
         if (anim != null && anim.runtimeAnimatorController != null)
         {
@@ -761,7 +789,7 @@ public class CombatManager : MonoBehaviour
         if (target.UnitShield > 0) enemyHasShield = true;
         float BonusRageDamage = 0;
         if (caster.Affinity == 4) BonusRageDamage = GetBonusRageDamage(caster);
-        float calculatedDamage = ((caster.UnitAtk + 1) * capacity.atk) / (2 + caster.UnitAtk + target.UnitDef) * modifier + BonusRageDamage;
+        float calculatedDamage = ((capacity.atk + UltPriso) * (caster.UnitAtk + 20) / (target.UnitDef + 20)) * modifier + BonusRageDamage;
         if (caster.RageTick >= 12) caster.RageTick = 0;
         EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
         Debug.Log($"UnitAtk : {caster.UnitAtk + 1}, capacity.atk : {capacity.atk}, modifier : {modifier}, BonusRageDamage : {BonusRageDamage}, Défense ennemie : {(2 + caster.UnitAtk + target.UnitDef)} ");
@@ -786,55 +814,13 @@ public class CombatManager : MonoBehaviour
         {
             target.UnitLife -= icalculatedDamage;
         }
-
         target.beenHurtThisTurn = true;
-        
+
         EffectsManager.SINGLETON.AfficherAttaqueSimple(target, icalculatedDamage, modifier);
         if (capacity.Shock > 0)
         {
             ShockProc(capacity, target, enemyHasShield);
         }
-    }
-
-    if (capacity.secondaryHeal > 0)
-    {
-        int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.secondaryHeal) / 2) * modifier);
-        target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
-        
-        //effet de soins
-    }
-
-    if (capacity.Shield > 0)
-    {
-        target.UnitShield += Mathf.RoundToInt(capacity.Shield * modifier);
-    }
-
-    if (capacity.Provocation == true)
-    {
-        target.provoking = true;
-    }
-
-    if (capacity.secondaryBuffType > 0)
-    {
-        GiveBuff(capacity, target);
-        EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity, target);
-    }
-
-    if (capacity.ShieldRatioAtk > 0)
-    {
-        int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * DamageDone);
-        caster.UnitShield += Shielding;
-    }
-
-    if (target.Affinity == 4 && capacity.atk > 0)
-    {
-        ApplyRage(target);
-    }
-
-    if (capacity.Necrosis > 0)
-    {
-        ApplyNecrosis(target, capacity.Necrosis);
-    }
     }
 
     private void SetupCapacityButtons(DataEntity player)
