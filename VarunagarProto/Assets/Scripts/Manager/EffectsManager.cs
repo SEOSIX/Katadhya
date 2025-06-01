@@ -54,7 +54,7 @@ public class EffectsManager : MonoBehaviour
         }
     }
 
-    public void AfficherAttaqueFoudre(int typeFoudre, int index, DataEntity player)
+    public void AfficherAttaqueFoudre(int typeFoudre, int index, DataEntity entity)
     {
         if (typeFoudre < 1 || typeFoudre > 4 || !IsValid(index)) return;
 
@@ -70,6 +70,11 @@ public class EffectsManager : MonoBehaviour
             GameObject nouvelEffet = Instantiate(effet, Effects1Position[index].position, Quaternion.identity, Effects1Position[index]);
             lastFoudreEffects.Add(index, nouvelEffet);
         }
+        Renderer[] renderers = entity.instance.GetComponentsInChildren<Renderer>();
+        Bounds AllRenderers = renderers[0].bounds;
+        foreach (Renderer r in renderers) AllRenderers.Encapsulate(r.bounds);
+        GameObject dmgVFX = Instantiate(ParticlePrefabs[4], new Vector3(AllRenderers.center.x, AllRenderers.min.y, AllRenderers.center.z), Quaternion.identity, ParticleParent);
+
     }
     
     public void AfficherRageSlider(int rageValue, int index)

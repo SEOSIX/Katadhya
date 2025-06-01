@@ -619,7 +619,9 @@ public class CombatManager : MonoBehaviour
         {
             Debug.Log("Pas d'animator actif");
         }
-            
+
+        bool enemyHasShield = false;
+        if (target.UnitShield > 0) enemyHasShield = true;
         float BonusRageDamage = 0;
         if (caster.Affinity == 4) BonusRageDamage = GetBonusRageDamage(caster);
         float calculatedDamage = ((capacity.atk+UltPriso) * (caster.UnitAtk + 20) / (target.UnitDef +20)) * modifier + BonusRageDamage;
@@ -629,7 +631,7 @@ public class CombatManager : MonoBehaviour
         int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
         DamageDone += icalculatedDamage;
 
-        if (target.UnitShield > 0)
+            if (target.UnitShield > 0)
         {
             if (target.UnitShield < icalculatedDamage)
             {
@@ -650,6 +652,10 @@ public class CombatManager : MonoBehaviour
 
         target.beenHurtThisTurn = true;
         EffectsManager.SINGLETON.AfficherAttaqueSimple(target, DamageDone, modifier);
+        if (capacity.Shock > 0)
+        {
+            ShockProc(capacity, target, enemyHasShield);
+        }
     }
     if (capacity.heal > 0)
     {
@@ -672,10 +678,6 @@ public class CombatManager : MonoBehaviour
     {
         GiveBuff(capacity, target, UltGarde);
         EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity, target);
-    }
-    if (capacity.Shock > 0)
-    {
-        ShockProc(capacity, target);
     }
     if (capacity.ShieldRatioAtk > 0)
     {
@@ -755,15 +757,16 @@ public class CombatManager : MonoBehaviour
         {
             Debug.Log("Ca a pas marché ptdrr");
         }
+        bool enemyHasShield = false;
+        if (target.UnitShield > 0) enemyHasShield = true;
         float BonusRageDamage = 0;
         if (caster.Affinity == 4) BonusRageDamage = GetBonusRageDamage(caster);
-        float calculatedDamage = ((capacity.atk) * ((caster.UnitAtk + 20) / (20 + target.UnitDef))) * modifier + BonusRageDamage;
+        float calculatedDamage = ((caster.UnitAtk + 1) * capacity.atk) / (2 + caster.UnitAtk + target.UnitDef) * modifier + BonusRageDamage;
         if (caster.RageTick >= 12) caster.RageTick = 0;
         EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
         Debug.Log($"UnitAtk : {caster.UnitAtk + 1}, capacity.atk : {capacity.atk}, modifier : {modifier}, BonusRageDamage : {BonusRageDamage}, Défense ennemie : {(2 + caster.UnitAtk + target.UnitDef)} ");
         int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
         DamageDone += icalculatedDamage;
-        Debug.Log(icalculatedDamage);
 
         if (target.UnitShield > 0)
         {
@@ -787,6 +790,10 @@ public class CombatManager : MonoBehaviour
         target.beenHurtThisTurn = true;
         
         EffectsManager.SINGLETON.AfficherAttaqueSimple(target, icalculatedDamage, modifier);
+        if (capacity.Shock > 0)
+        {
+            ShockProc(capacity, target, enemyHasShield);
+        }
     }
 
     if (capacity.secondaryHeal > 0)
@@ -811,11 +818,6 @@ public class CombatManager : MonoBehaviour
     {
         GiveBuff(capacity, target);
         EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity, target);
-    }
-
-    if (capacity.Shock > 0)
-    {
-        ShockProc(capacity, target);
     }
 
     if (capacity.ShieldRatioAtk > 0)
@@ -1192,7 +1194,7 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public void ShockProc(CapacityData capacity, DataEntity target)
+    public void ShockProc(CapacityData capacity, DataEntity target,bool enemyHasShield)
     {
         DataEntity caster = currentTurnOrder[0];
         if (capacity.Shock > 0)
@@ -1208,27 +1210,26 @@ public class CombatManager : MonoBehaviour
             }
             if (target.ShockMark >= 4)
             {
-                float calculatedDamage = (caster.UnitSpeed) / 2;
+                float calculatedDamage = (caster.UnitSpeed - 20) / 2;
+                if (enemyHasShield) calculatedDamage = calculatedDamage * 150 / 100;
                 int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
-                float fshieldDamage = calculatedDamage * 150 / 100;
-                int ishieldDamage = Mathf.RoundToInt(fshieldDamage);
                 if (target.UnitShield > 0)
                 {
-                    if (target.UnitShield < ishieldDamage)
+                    if (target.UnitShield < icalculatedDamage)
                     {
-                        ishieldDamage -= target.UnitShield;
+                        icalculatedDamage -= target.UnitShield;
                         target.UnitShield = 0;
                         Debug.Log($"{caster.namE} a brisé le shield de {target.namE} grâce au choc");
                     }
                     else
                     {
-                        target.UnitShield -= ishieldDamage;
-                        ishieldDamage = 0;
-                        Debug.Log($"{caster.namE} inflige {ishieldDamage} dégâts au bouclier de {target.namE} grâce au choc");
+                        target.UnitShield -= icalculatedDamage;
+                        icalculatedDamage = 0;
+                        Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts au bouclier de {target.namE} grâce au choc");
                     }
 
                 }
-                if (ishieldDamage > 0)
+                if (icalculatedDamage > 0)
                 {
                     target.UnitLife -= icalculatedDamage;
                     Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts à {target.namE} grâce au choc");
