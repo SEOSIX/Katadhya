@@ -26,13 +26,15 @@ public class GameManager : MonoBehaviour
 
     [Header("Combat Settings")]
     public bool isCombatEnabled = true;
+    public bool salleSpeciale = false;
 
     [Header("Spawn Positions")]
     public List<Transform> playerSpawnPoints;
     public List<Transform> enemySpawnPoints;
+    public List<RectTransform> objectsToSpawn;
 
     [Header("Entity Handler")]
-    [SerializeField] private EntityHandler entityHandler;
+    public EntityHandler entityHandler;
 
     [Header("Player Prefabs")]
     public List<PlayerPrefabData> playerPrefabs;
@@ -44,10 +46,15 @@ public class GameManager : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField] private float sizeChara = 1f;
+    
+    
+    public bool ispressed;
 
     [SerializeField] private Vector3 circleOffset;
 
     public Dictionary<string, GameObject> prefabDictionary;
+        
+    private Dictionary<RectTransform, Vector3> originalPositions = new Dictionary<RectTransform, Vector3>();
 
     private void Awake()
     {
@@ -74,9 +81,9 @@ public class GameManager : MonoBehaviour
 
         if (isCombatEnabled)
         {
-            CombatManager.SINGLETON.ResetPlayersBeforeCombat();
+            ReseterData.ResetPlayersBeforeCombat(entityHandler,CombatManager.SINGLETON.entiityManager);
             SpawnEnemies();
-            CombatManager.SINGLETON.ResetEnemies();
+            ReseterData.ResetEnemies(entityHandler);
             CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
             CombatManager.SINGLETON.InitializeStaticUI();
             CombatManager.SINGLETON.StartUnitTurn();
@@ -125,7 +132,6 @@ public class GameManager : MonoBehaviour
             CombatManager.SINGLETON.circlePrefab == null || 
             CombatManager.SINGLETON.circlesPlayer == null)
         {
-            Debug.LogWarning("CombatManager ou composants UI cercles joueurs sont manquants");
             return;
         }
 
@@ -284,6 +290,88 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    [SerializeField] private float offsetX = 400f;
+
+    public void SpawnObject()
+    {
+        if (objectsToSpawn == null || objectsToSpawn.Count == 0)
+        {
+            Debug.LogWarning("Aucun élément UI à déplacer");
+            return;
+        }
+
+        if (!ispressed)
+            MoveUIFromRight();
+        else
+            MoveUIToRight();
+
+        ispressed = !ispressed;
+    }
+
+    private void MoveUIFromRight()
+    {
+        foreach (RectTransform rt in objectsToSpawn)
+        {
+            if (rt == null) continue;
+
+            if (!originalPositions.ContainsKey(rt))
+                originalPositions[rt] = rt.anchoredPosition3D;
+
+            Vector3 targetPosition = originalPositions[rt];
+            Vector3 offscreenStartPos = targetPosition + new Vector3(offsetX, 0f, 0f);
+
+            rt.anchoredPosition3D = offscreenStartPos;
+
+            StartCoroutine(AnimateUIElement(rt, offscreenStartPos, targetPosition, 0.5f, false));
+        }
+    }
+
+    private void MoveUIToRight()
+    {
+        foreach (RectTransform rt in objectsToSpawn)
+        {
+            if (rt == null) continue;
+
+            if (!originalPositions.ContainsKey(rt))
+            {
+                continue;
+            }
+
+            Vector3 startPos = rt.anchoredPosition3D;
+            Vector3 offscreenTarget = startPos  + new Vector3(offsetX, 0f, 0f);
+            
+            
+
+            StartCoroutine(AnimateUIElement(rt, startPos, offscreenTarget, 0.5f, true));
+        }
+    }
+    
+    [SerializeField] private Camera uiCamera;
+    private System.Collections.IEnumerator AnimateUIElement(RectTransform element, 
+        Vector3 startPos, 
+        Vector3 targetPos, 
+        float duration = 0.5f,
+        bool disableAtEnd = false)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / duration);
+            element.anchoredPosition3D = Vector3.Lerp(startPos, targetPos, t);
+            yield return null;
+        }
+
+        element.anchoredPosition3D = targetPos;
+        
+        if (disableAtEnd)
+        {
+            element.gameObject.SetActive(false);
+        }
+    }
+
 
     private void AddEnemyToEncountered(DataEntity data)
     {

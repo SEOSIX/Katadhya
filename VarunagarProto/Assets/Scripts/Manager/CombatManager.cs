@@ -106,9 +106,9 @@ public class CombatManager : MonoBehaviour
 
     void Start()
     {
-        ResetPlayersComplete();
-        ResetEnemies();
-        ResetPlayersBeforeCombat();
+        ReseterData.ResetPlayersComplete(entityHandler, entiityManager);  //a retirer avant de build
+        ReseterData.ResetEnemies(entityHandler);
+        ReseterData.ResetPlayersBeforeCombat(entityHandler, entiityManager);
         currentTurnOrder = GetUnitTurn();
     }
 
@@ -116,83 +116,6 @@ public class CombatManager : MonoBehaviour
     {
         InitializeStaticUI();
         
-    }
-
-
-    public void ResetEnemies()
-    {
-        for (int i = 0; i < entityHandler.ennemies.Count; i++)
-        {
-            entityHandler.ennemies[i].UnitLife = entityHandler.ennemies[i].BaseLife;
-            entityHandler.ennemies[i].UnitAtk = entityHandler.ennemies[i].BaseAtk;
-            entityHandler.ennemies[i].UnitDef = entityHandler.ennemies[i].BaseDef;
-            entityHandler.ennemies[i].UnitSpeed = entityHandler.ennemies[i].BaseSpeed;
-            entityHandler.ennemies[i].UnitAim = entityHandler.ennemies[i].BaseAim;
-            entityHandler.ennemies[i].ActiveBuffs.Clear();
-            entityHandler.ennemies[i].ActiveCooldowns.Clear();
-            entityHandler.ennemies[i].skipNextTurn = false;
-            entityHandler.ennemies[i].delayedActions.Clear();
-            entityHandler.ennemies[i].ShockMark = 0;
-            entityHandler.ennemies[i].RageTick = 0;
-            entityHandler.ennemies[i].LastRageTick = 0;
-            entityHandler.ennemies[i].necrosis = null;
-            entityHandler.ennemies[i].beenHurtThisTurn = false;
-            entityHandler.ennemies[i].provoking = false;
-            entityHandler.ennemies[i].provokingDuration = 0;
-        }
-    }
-    public void ResetPlayersComplete()
-    {
-
-        for (int i = 0; i < entityHandler.players.Count; i++)
-        {
-            entityHandler.players[i].UnitLife = entityHandler.players[i].BaseLife;
-            entityHandler.players[i].UnitAtk = entityHandler.players[i].BaseAtk;
-            entityHandler.players[i].UnitDef = entityHandler.players[i].BaseDef;
-            entityHandler.players[i].UnitSpeed = entityHandler.players[i].BaseSpeed;
-            entityHandler.players[i].UnitAim = entityHandler.players[i].BaseAim;
-            entityHandler.players[i].ActiveBuffs.Clear();
-            entityHandler.players[i].ActiveCooldowns.Clear();
-            entityHandler.players[i].skipNextTurn = false;
-            entityHandler.players[i].delayedActions.Clear();
-            entityHandler.players[i].ShockMark = 0;
-            entityHandler.players[i].RageTick = 0;
-            entityHandler.players[i].LastRageTick = 0;
-            entityHandler.players[i].necrosis = null;
-            entityHandler.players[i].UltimateSlider = 100;
-            entityHandler.players[i].Affinity = 0;
-            entityHandler.players[i].beenHurtThisTurn = false;
-            entityHandler.players[i].provoking = false;
-            entityHandler.players[i].provokingDuration = 0;
-            entityHandler.players[i].UltLvlHit = 0;
-            entiityManager.UpdateSpellData(entityHandler.players[i]);
-        }
-    }
-    public void ResetPlayersBeforeCombat()
-    {
-
-        for (int i = 0; i < entityHandler.players.Count; i++)
-        {
-            entityHandler.players[i].UnitAtk = entityHandler.players[i].BaseAtk;
-            entityHandler.players[i].UnitDef = entityHandler.players[i].BaseDef;
-            entityHandler.players[i].UnitSpeed = entityHandler.players[i].BaseSpeed;
-            entityHandler.players[i].UnitAim = entityHandler.players[i].BaseAim;
-            entityHandler.players[i].ActiveBuffs.Clear();
-            entityHandler.players[i].ActiveCooldowns.Clear();
-            entityHandler.players[i].skipNextTurn = false;
-            entityHandler.players[i].delayedActions.Clear();
-            entityHandler.players[i].ShockMark = 0;
-            entityHandler.players[i].RageTick = 0;
-            entityHandler.players[i].LastRageTick = 0;
-            entityHandler.players[i].necrosis = null;
-            entityHandler.players[i].UltimateSlider = 100;
-            entityHandler.players[i].Affinity = 0;
-            entityHandler.players[i].beenHurtThisTurn = false;
-            entityHandler.players[i].provoking = false;
-            entityHandler.players[i].provokingDuration = 0;
-            entityHandler.players[i].UltLvlHit = 0;
-            entiityManager.UpdateSpellData(entityHandler.players[i]);
-        }
     }
     public void InitializeStaticUI()
     {

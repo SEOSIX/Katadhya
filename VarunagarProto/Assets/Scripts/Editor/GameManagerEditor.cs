@@ -10,6 +10,7 @@ public class GameManagerEditor : Editor
 
         GameManager gm = (GameManager)target;
         EditorGUILayout.PropertyField(serializedObject.FindProperty("isCombatEnabled"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("salleSpeciale"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("playerSpawnPoints"), true);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("entityHandler"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("playerPrefabs"), true);
@@ -22,6 +23,13 @@ public class GameManagerEditor : Editor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("EnemyPackIndex"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("enemyPacks"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("allEnemiesEncountered"), true);
+        }
+
+        if (gm.salleSpeciale)
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("objectsToSpawn"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("ispressed"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("uiCamera"));
         }
         serializedObject.ApplyModifiedProperties();
     }

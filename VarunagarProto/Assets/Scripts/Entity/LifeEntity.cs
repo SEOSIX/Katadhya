@@ -9,6 +9,10 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class LifeEntity : MonoBehaviour
 {
+    [Header("Combat Settings")]
+    public bool isCombatEnabled = true;
+    
+    
     [Header("Enemy Health Bars")]
     [Tooltip("Tableau de sliders (entre 1 et 4 éléments requis)")]
     public Slider[] enemySliders;
@@ -17,6 +21,9 @@ public class LifeEntity : MonoBehaviour
     public Slider[] PlayerSliders;
     public Slider[] PlayerShieldSliders;
     public TextMeshProUGUI[] PlayerPVTexts;
+
+    public float[] healingPlayers;
+    public float GlobalHealingAmount;
 
     private int currentLifeValue;
     public EntityHandler entityHandler;
@@ -32,7 +39,6 @@ public class LifeEntity : MonoBehaviour
             return;
         }
         SINGLETON = this;
-        //DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
@@ -47,6 +53,18 @@ public class LifeEntity : MonoBehaviour
     }
     private void Update()
     {
+        
+        for (int i = 0; i < entityHandler.players.Count && i < PlayerSliders.Length && i < PlayerPVTexts.Length; i++)
+        {
+            var currentEntity = entityHandler.players[i];
+            if (currentEntity != null)
+            {
+                PlayerPVTexts[i].text = currentEntity.UnitLife + " / " + currentEntity.BaseLife;
+                PlayerSliders[i].maxValue = currentEntity.BaseLife;
+                PlayerSliders[i].value = currentEntity.UnitLife;
+            }
+        }
+        
         if (Input.GetKeyDown(KeyCode.A))
         {
             for(int i =0; i<entityHandler.ennemies.Count; i++)
@@ -84,5 +102,35 @@ public class LifeEntity : MonoBehaviour
 
             }
         }
+    }
+    public void SetAllPlayersToOnePercentLife()
+    {
+        for (int i = 0; i < entityHandler.players.Count; i++)
+        {
+            var player = entityHandler.players[i];
+            if (player != null)
+            {
+                player.UnitLife = Mathf.Max(1, (int)(player.BaseLife * 0.01f));
+            }
+        }
+    }
+
+    public void HealSpecificPlayer(int playerIndex)
+    {
+        if (playerIndex < 0 || playerIndex >= entityHandler.players.Count) return;
+
+        var player = entityHandler.players[playerIndex];
+        if (player != null)
+        {
+            float healAmount = healingPlayers.Length > playerIndex ? healingPlayers[playerIndex] : 0f;
+
+            player.UnitLife = Mathf.Min(player.BaseLife, player.UnitLife + (int)healAmount);
+        }
+    }
+
+    public void HealAllPlayer()
+    {
+        HealingPlayer.HealAllPlayersByPercent(entityHandler, GlobalHealingAmount);
+        LifeManage();
     }
 }
