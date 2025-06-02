@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class RightClickDetector : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class RightClickDetector : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     public int CptIndex;
     public bool MouseIsOver;
+    public GameObject Button = null;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -14,17 +15,17 @@ public class RightClickDetector : MonoBehaviour, IPointerEnterHandler, IPointerE
     }
     public void OnPointerExit(PointerEventData eventData)
     {
+        CombatManager.SINGLETON.ResetListener(CptIndex);
         MouseIsOver = false;
     }
-    public void Update()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        if (MouseIsOver)
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (Input.GetMouseButtonDown(1))
-            {
-                CombatManager CM = CombatManager.SINGLETON;
-                CM.UpgradeCpt(CptIndex);
-            }
+            Button = eventData.pointerEnter;
+            CombatManager CM = CombatManager.SINGLETON;
+            CM.UpgradeCpt(CptIndex, Button);
         }
     }
+
 }

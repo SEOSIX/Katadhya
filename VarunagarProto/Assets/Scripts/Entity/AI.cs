@@ -106,7 +106,6 @@ public class AI : MonoBehaviour
         DataEntity target = possibleTargets.OrderBy(e => e.UnitLife).First();
 
         yield return new WaitForSeconds(0.5f);
-        Debug.Log($"[AI] Tentative d'appliquer {chosenSpell.name} sur {target.name} (HP {target.UnitLife}/{target.BaseLife})");
         CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, target);
 
         PostAttackProcessing(attacker);

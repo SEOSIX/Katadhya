@@ -48,6 +48,7 @@ public class CombatManager : MonoBehaviour
     public Sprite[] PictoBuffs;
     public Material GreyScale;
     private DataEntity currentPlayer;
+    public GameObject currentInterractingButton;
 
 
 
@@ -167,6 +168,7 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    #region TurnManagement
     public List<DataEntity> GetUnitTurn()
     {
         var speedValue = new List<DataEntity>();
@@ -316,7 +318,8 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         AI.SINGLETON.Attack(currentEntity, 50);
     }
-    
+
+    #endregion
     void HideTargetIndicators()
     {
         foreach (var circle in circlesEnnemy)
@@ -330,7 +333,7 @@ public class CombatManager : MonoBehaviour
     {
         StartTargetSelectionMode(cpt);
     }
-
+    #region Selection
     public void StartTargetSelectionMode(CapacityData capacity)
     {
         DataEntity caster = currentTurnOrder[0]; 
@@ -460,7 +463,9 @@ public class CombatManager : MonoBehaviour
         EndUnitTurn();
         HideTargetIndicators();
     }
+    #endregion
 
+    #region ApplyCapacity
     public void ApplyCapacityToTarget(CapacityData capacity, DataEntity target)
     {
 
@@ -799,6 +804,9 @@ public class CombatManager : MonoBehaviour
         return DamageDone;
     }
 
+    #endregion
+
+    #region PowerCharge
     public void ChargePower(DataEntity player,int amount)
     {
         player.ChargePower = Mathf.Clamp(player.ChargePower + amount, 0, 10); ;
@@ -845,8 +853,72 @@ public class CombatManager : MonoBehaviour
 
         return newCapacity;
     }
-    public void UpgradeCpt(int i)
+    public CapacityData GetBaseCapacity(CapacityData currentCapacity)
     {
+        string currentName = currentCapacity.name;
+        if (currentName.Length > 7)
+        {
+            currentName = currentName.Remove(7);
+        }
+        char levelChar = currentName[6];
+
+        if (!char.IsDigit(levelChar)|| levelChar == '0') return currentCapacity;
+        string newName = currentName.Remove(6)+'0';
+
+        CapacityData[] CptArray = Resources.LoadAll<CapacityData>("Data/Entity/Capacity");
+        CapacityData newCapacity = CptArray.FirstOrDefault(d => d.name == $"{newName}");
+
+        //string path = $"Data/Entity/Capacity/Players/Players{playerId}/Affinity{affinityId}/Niveau {nextLevel}/{newName}";
+
+        if (newCapacity == null)
+        {
+            Debug.LogWarning($"Capacité introuvable");
+            return currentCapacity;
+        }
+
+        return newCapacity;
+    }
+
+    public void ResetAllCapacities()
+    {
+        DataEntity player = currentTurnOrder[0];
+        List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
+        for (int i = 0; i < PCapacities.Count; i++)
+        {
+            CapacityData baseC = GetBaseCapacity(PCapacities[i]);
+
+            switch (i)
+            {
+                case 0: player._CapacityData1 = baseC; break;
+                case 1: player._CapacityData2 = baseC; break;
+                case 2: player._CapacityData3 = baseC; break;
+                case 3: player._CapacityDataUltimate = baseC; break;
+            }
+
+            UpdateSlot(player, i, baseC);
+        }
+    }
+
+    public void ResetListener(int index)
+    {
+        DataEntity player = currentTurnOrder[0];
+        CapacityData CData = null;
+        switch (index)
+        {
+            case 0: CData = player._CapacityData1; break;
+            case 1: CData = player._CapacityData2; break;
+            case 2: CData = player._CapacityData3; break;
+            case 3: CData = player._CapacityDataUltimate; break;
+        }
+        UseCapacity(CData);
+    }
+    public void UpgradeCpt(int i, GameObject button = null)
+    {
+        if (button != currentInterractingButton)
+        {
+            currentInterractingButton = button;
+            ResetAllCapacities();
+        }
         DataEntity player = currentTurnOrder[0];
         List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
         CapacityData CData = PCapacities[i];
@@ -858,9 +930,14 @@ public class CombatManager : MonoBehaviour
             case 2: player._CapacityData3 = CData; break;
             case 3: player._CapacityDataUltimate = CData; break;
         }
-        Debug.Log(CData);
         UpdateSlot(player,i,CData);
+        capacityAnimButtons[i].onClick.RemoveAllListeners();
+        capacityAnimButtons[i].onClick.AddListener(() => UseCapacity(CData));
     }
+
+    #endregion
+
+    #region SetupUI
 
     private void SetupCapacityButtons(DataEntity player)
     {
@@ -1192,6 +1269,10 @@ public class CombatManager : MonoBehaviour
             }
         }
     }
+    #endregion
+
+    #region StatusEffects
+
     public void GiveBuff(CapacityData capacity, DataEntity target, float ultGarde = 0)
     {
         // buffType; 1 = Atk, 2 = Def, 3 = Speed, 4 = Précision
@@ -1367,7 +1448,9 @@ public class CombatManager : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region Miscellaneous
     public float lancer(int valeur, float above, float under)
     {
         int lancer = UnityEngine.Random.Range(0, 101);
@@ -1484,4 +1567,5 @@ public class CombatManager : MonoBehaviour
             AffinityPage.SetActive(false);
         }
     }
+    #endregion
 }

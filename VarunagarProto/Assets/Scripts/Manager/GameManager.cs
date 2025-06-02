@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        currentCombat = ExplorationManager.SINGLETON.LD.CombatList[ExplorationManager.SINGLETON.CombatIndex];
+        if(isCombatEnabled) currentCombat = ExplorationManager.SINGLETON.LD.CombatList[ExplorationManager.SINGLETON.CombatIndex];
         if (entityHandler == null)
         {
             return;
