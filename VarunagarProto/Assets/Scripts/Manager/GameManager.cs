@@ -25,11 +25,12 @@ public class GameManager : MonoBehaviour
 
     [Header("Combat Settings")]
     public bool isCombatEnabled = true;
+    public bool salleSpeciale = false;
 
     [Header("Spawn Positions")]
     public List<Transform> playerSpawnPoints;
     public List<Transform> enemySpawnPoints;
-    public List<GameObject> objectsToSpawn;
+    public List<RectTransform> objectsToSpawn;
 
     [Header("Entity Handler")]
     public EntityHandler entityHandler;
@@ -44,10 +45,15 @@ public class GameManager : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField] private float sizeChara = 1f;
+    
+    
+    public bool ispressed;
 
     [SerializeField] private Vector3 circleOffset;
 
     public Dictionary<string, GameObject> prefabDictionary;
+        
+    private Dictionary<RectTransform, Vector3> originalPositions = new Dictionary<RectTransform, Vector3>();
 
     private void Awake()
     {
@@ -124,7 +130,6 @@ public class GameManager : MonoBehaviour
             CombatManager.SINGLETON.circlePrefab == null || 
             CombatManager.SINGLETON.circlesPlayer == null)
         {
-            Debug.LogWarning("CombatManager ou composants UI cercles joueurs sont manquants");
             return;
         }
 
@@ -283,35 +288,79 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    
-    public void SpawnObject()
+
+    [SerializeField] private float offsetX = 10f;
+
+    public void SpawnObjectFinal()
     {
         if (objectsToSpawn == null || objectsToSpawn.Count == 0)
         {
-            Debug.LogWarning("Liste d'objets à spawner vide - opération ignorée");
-            return;
-        }
-        if (enemySpawnPoints == null || enemySpawnPoints.Count == 0)
-        {
-            Debug.LogError("Aucun spawn point défini pour les ennemis");
             return;
         }
 
-        List<GameObject> spawnedObjects = new List<GameObject>();
-        List<Vector3> targetPositions = new List<Vector3>();
-        for (int i = 0; i < objectsToSpawn.Count && i < enemySpawnPoints.Count; i++)
+        if (!ispressed)
         {
-            if (objectsToSpawn[i] == null) continue;
-
-            GameObject obj = Instantiate(objectsToSpawn[i], enemySpawnPoints[i].position, Quaternion.identity);
-            spawnedObjects.Add(obj);
-            targetPositions.Add(enemySpawnPoints[i].position);
+            MoveUIFromRight();
+            ispressed = true;
         }
-        if (spawnedObjects.Count > 0)
+        else
         {
-            StartingScene.MoveFromRight(spawnedObjects.ToArray(), targetPositions.ToArray());
+            MoveUIBackToStart();
+            ispressed = false;
         }
     }
+    
+    private void MoveUIFromRight()
+    {
+        foreach (RectTransform rt in objectsToSpawn)
+        {
+            if (rt == null) continue;
+
+            Vector3 targetPosition = rt.anchoredPosition3D;
+
+            if (!originalPositions.ContainsKey(rt))
+            {
+                originalPositions[rt] = targetPosition;
+            }
+
+            Vector3 startPosition = targetPosition + new Vector3(offsetX, 0, 0);
+            rt.anchoredPosition3D = startPosition;
+
+            StartCoroutine(AnimateUIElement(rt, startPosition, targetPosition));
+        }
+    }
+
+    private void MoveUIBackToStart()
+    {
+        foreach (RectTransform rt in objectsToSpawn)
+        {
+            if (rt == null || !originalPositions.ContainsKey(rt)) continue;
+
+            Vector3 startPosition = rt.anchoredPosition3D;
+            Vector3 targetPosition = originalPositions[rt];
+
+            StartCoroutine(AnimateUIElement(rt, startPosition, targetPosition));
+        }
+    }
+    
+    private System.Collections.IEnumerator AnimateUIElement(RectTransform element, 
+        Vector3 startPos, 
+        Vector3 targetPos, 
+        float duration = 0.5f)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / duration);
+            element.anchoredPosition3D = Vector3.Lerp(startPos, targetPos, t);
+            yield return null;
+        }
+
+        element.anchoredPosition3D = targetPos;
+    }
+
 
     private void AddEnemyToEncountered(DataEntity data)
     {
