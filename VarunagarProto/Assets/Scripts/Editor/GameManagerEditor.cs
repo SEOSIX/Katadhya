@@ -12,6 +12,7 @@ public class GameManagerEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("isCombatEnabled"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("playerSpawnPoints"), true);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("entityHandler"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("objectsToSpawn"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("playerPrefabs"), true);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("sizeChara"));
         if (gm.isCombatEnabled)

@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     [Header("Spawn Positions")]
     public List<Transform> playerSpawnPoints;
     public List<Transform> enemySpawnPoints;
+    public List<GameObject> objectsToSpawn;
 
     [Header("Entity Handler")]
     public EntityHandler entityHandler;
@@ -280,6 +281,35 @@ public class GameManager : MonoBehaviour
                 newCircle.anchoredPosition = anchoredPos;
                 CombatManager.SINGLETON.circlesEnnemy.Add(newCircle.gameObject);
             }
+        }
+    }
+    
+    public void SpawnObject()
+    {
+        if (objectsToSpawn == null || objectsToSpawn.Count == 0)
+        {
+            Debug.LogWarning("Liste d'objets à spawner vide - opération ignorée");
+            return;
+        }
+        if (enemySpawnPoints == null || enemySpawnPoints.Count == 0)
+        {
+            Debug.LogError("Aucun spawn point défini pour les ennemis");
+            return;
+        }
+
+        List<GameObject> spawnedObjects = new List<GameObject>();
+        List<Vector3> targetPositions = new List<Vector3>();
+        for (int i = 0; i < objectsToSpawn.Count && i < enemySpawnPoints.Count; i++)
+        {
+            if (objectsToSpawn[i] == null) continue;
+
+            GameObject obj = Instantiate(objectsToSpawn[i], enemySpawnPoints[i].position, Quaternion.identity);
+            spawnedObjects.Add(obj);
+            targetPositions.Add(enemySpawnPoints[i].position);
+        }
+        if (spawnedObjects.Count > 0)
+        {
+            StartingScene.MoveFromRight(spawnedObjects.ToArray(), targetPositions.ToArray());
         }
     }
 
