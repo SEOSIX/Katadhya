@@ -656,7 +656,7 @@ public class CombatManager : MonoBehaviour
         // ATTAQUE
         if (capacity.atk > 0)
         {
-            ApplyDamage(capacity, caster, target, modifier);
+            DamageDone = ApplyDamage(capacity, caster, target, modifier);
         }
         if (capacity.heal > 0)
         {
@@ -809,7 +809,7 @@ public class CombatManager : MonoBehaviour
             ApplyNecrosis(target, capacity.Necrosis);
         }
     }
-    public void ApplyDamage(CapacityData capacity, DataEntity caster, DataEntity target, float modifier, float UltMoine = 0, float UltPriso = 0, float UltGarde = 0, int DamageDone = 0)
+    public int ApplyDamage(CapacityData capacity, DataEntity caster, DataEntity target, float modifier, float UltMoine = 0, float UltPriso = 0, float UltGarde = 0, int DamageDone = 0)
     {
         int visualIndex = entityHandler.players.Contains(target)
         ? entityHandler.players.IndexOf(target)
@@ -865,6 +865,8 @@ public class CombatManager : MonoBehaviour
         {
             ShockProc(capacity, target, enemyHasShield);
         }
+
+        return DamageDone;
     }
 
     private void SetupCapacityButtons(DataEntity player)
@@ -1105,6 +1107,10 @@ public class CombatManager : MonoBehaviour
             if (CData.heal > 0)
             {
                 Value = Mathf.RoundToInt((Mathf.Sqrt(2 * player.UnitAtk) + CData.heal));
+            }
+            if (CData.atk > 0)
+            {
+                Value = Mathf.RoundToInt(CData.atk * (player.UnitAtk + 20) / 20);
             }
             if (CData.specialType == SpecialCapacityType.UltMoine)
             {

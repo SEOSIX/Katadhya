@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.Sprites;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Enemy Packs")]
     public int EnemyPackIndex = 0;
-    public CombatEncounters currentCombat;
+    public Combat currentCombat;
     public List<DataEntity> allEnemiesEncountered = new List<DataEntity>();
 
     [Header("Parameters")]
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        currentCombat = ExplorationManager.SINGLETON.LD.CombatList[ExplorationManager.SINGLETON.CombatIndex];
         if (entityHandler == null)
         {
             return;
@@ -165,11 +167,11 @@ public class GameManager : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        List<EnemyPack> enemyPacks = currentCombat.Combat;
+        List<EnemyPack> enemyPacks = currentCombat.WaveList;
 
         if (enemyPacks == null || enemyPacks.Count <= EnemyPackIndex || enemyPacks[EnemyPackIndex] == null)
         {
-            Debug.LogError("Aucun EnemyPack valide à l'index " + EnemyPackIndex);
+            Debug.Log("Aucun EnemyPack valide à l'index " + EnemyPackIndex);
             return;
         }
 

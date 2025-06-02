@@ -6,17 +6,23 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 [System.Serializable]
-public class CombatEncounters
+public class Combat
 {
-    public List<EnemyPack> Combat = new List<EnemyPack>();
-    public int NexCombatIndex;
+    public List<EnemyPack> WaveList = new List<EnemyPack>();
+    public int NextCombatIndex;
+    public int CaurisDor;
+    public int CaurisSpé1;
+    public int CaurisSpé2;
+    public int CaurisSpé3;
+    public int CaurisSpé4;
+
     public string[] RoomOptions = new string[2];
 }
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObject/LevelDesign", order = 6)]
 public class LevelDesign : ScriptableObject
 {
-    public CombatEncounters[] CombatList;
+    public Combat[] CombatList;
 }
 
 public class ExplorationManager : MonoBehaviour
@@ -64,7 +70,13 @@ public class ExplorationManager : MonoBehaviour
 
     public void LoadChoicesAfterCombat()
     {
-        foreach (string option in LD.CombatList[CombatIndex].RoomOptions)
+        Combat combat = GameManager.SINGLETON.currentCombat;
+        if (combat.RoomOptions.Length == 0 || combat.WaveList.Count == 0)
+        {
+            Debug.Log("pas de sorties");
+            return;
+        }
+        foreach (string option in combat.RoomOptions)
         {
             if (option == CombatScene) CombatSceneButton.SetActive(true);
             if (option == AutelQTEScene) QTESceneButton.SetActive(true);
