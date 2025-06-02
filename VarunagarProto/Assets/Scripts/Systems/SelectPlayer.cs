@@ -19,8 +19,15 @@ public class SelectPlayer : MonoBehaviour
             {
                 Debug.Log($"[CLICK] Joueur sélectionné : {player.namE}");
 
-                LifeEntity.SINGLETON.HealSpecificPlayer(i);
-                LifeEntity.SINGLETON.LifeManage();
+                if (LifeEntity.SINGLETON != null)
+                {
+                    LifeEntity.SINGLETON.HealSpecificPlayer(i);
+                    LifeEntity.SINGLETON.LifeManage();   
+                }
+                else
+                {
+                    return;
+                }
 
                 break;
             }
