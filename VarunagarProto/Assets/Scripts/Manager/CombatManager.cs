@@ -903,12 +903,14 @@ public class CombatManager : MonoBehaviour
         int nextLevel = (level + 1) % (maxLevel + 1);
         string newName = currentName.Substring(0, currentName.Length - 1) + nextLevel;
 
-        string path = $"Data/Entity/Capacity/Players/Players{playerId}/Affinity{affinityId}/Niveau {nextLevel}/{newName}";
+        CapacityData[] CptArray = Resources.LoadAll<CapacityData>("Data/Entity/Capacity");
+        CapacityData newCapacity = CptArray.FirstOrDefault(d => d.name == $"{newName}");
 
-        CapacityData newCapacity = Resources.Load<CapacityData>(path);
+        //string path = $"Data/Entity/Capacity/Players/Players{playerId}/Affinity{affinityId}/Niveau {nextLevel}/{newName}";
+
         if (newCapacity == null)
         {
-            Debug.LogWarning($"Capacité introuvable à : {path}");
+            Debug.LogWarning($"Capacité introuvable");
             return currentCapacity;
         }
 
