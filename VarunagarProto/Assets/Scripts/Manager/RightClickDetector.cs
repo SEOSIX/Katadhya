@@ -1,20 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class RightClickDetector : MonoBehaviour
+public class RightClickDetector : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public string function;
-    private GameObject button;
+    public int CptIndex;
+    public bool MouseIsOver;
 
-    public GameObject Button { get => button; set => button = value; }
-
-    public void OnMouseOver()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        if (Input.GetMouseButtonDown(1))
+        MouseIsOver = true;
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        MouseIsOver = false;
+    }
+    public void Update()
+    {
+        if (MouseIsOver)
         {
-            CombatManager CM = CombatManager.SINGLETON;
-            CM.Invoke(function, 0f);
+            if (Input.GetMouseButtonDown(1))
+            {
+                CombatManager CM = CombatManager.SINGLETON;
+                CM.UpgradeCpt(CptIndex);
+            }
         }
     }
 }

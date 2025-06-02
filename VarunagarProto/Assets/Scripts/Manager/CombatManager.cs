@@ -16,6 +16,7 @@ using UnityEditor.ShaderKeywordFilter;
 using Random = UnityEngine.Random;
 using static UnityEditor.Experimental.GraphView.Port;
 using static UnityEngine.GraphicsBuffer;
+using Unity.Collections;
 
 public class CombatManager : MonoBehaviour
 {
@@ -894,10 +895,9 @@ public class CombatManager : MonoBehaviour
     public CapacityData GetCycledCapacity(CapacityData currentCapacity, int maxLevel = 2)
     {
         string currentName = currentCapacity.name;
-        if (currentName.Length < 8)
+        if (currentName.Length > 7)
         {
-            Debug.LogWarning($"Nom de capacité inattendu : {currentName}");
-            return currentCapacity;
+            currentName = currentName.Remove(7);
         }
 
         char playerId = currentName[3];
@@ -922,9 +922,21 @@ public class CombatManager : MonoBehaviour
 
         return newCapacity;
     }
-    public void UpgradeCpt()
+    public void UpgradeCpt(int i)
     {
-        
+        DataEntity player = currentTurnOrder[0];
+        List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
+        CapacityData CData = PCapacities[i];
+        CData = GetCycledCapacity(CData);
+        switch (i)
+        {
+            case 0: player._CapacityData1 = CData; break;
+            case 1: player._CapacityData2 = CData; break;
+            case 2: player._CapacityData3 = CData; break;
+            case 3: player._CapacityDataUltimate = CData; break;
+        }
+        Debug.Log(CData);
+        UpdateSlot(player,i,CData);
     }
 
     private void SetupCapacityButtons(DataEntity player)
@@ -1031,168 +1043,172 @@ public class CombatManager : MonoBehaviour
             CoolDownTexts[i].SetText("");
         }
     }
+
     private void UpdatePage(DataEntity player)
     {
-        List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate};
+        List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
 
-        for (int i = 0; i < PCapacities.Count(); i++)
+        for (int i = 0; i<4; i++)
         {
-            //Reset de tout
-            CapacityData CData = PCapacities[i];
-            Transform EncartCpt = capacityPage[i].GetComponent<Transform>();
-            Transform EncartAffinity = null;
-            if (i < 4)
+            UpdateSlot(player, i, PCapacities[i]);
+        }
+    }
+    private void UpdateSlot(DataEntity player, int i, CapacityData CData)
+    {
+        List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
+        //Reset de tout
+        Transform EncartCpt = capacityPage[i].GetComponent<Transform>();
+        Transform EncartAffinity = null;
+        if (i < 4)
+        {
+            EncartAffinity = capacityPageAffinity[i].GetComponent<Transform>();
+            EncartAffinity.gameObject.SetActive(false);
+            EncartAffinity.GetChild(1).GameObject().SetActive(false);
+        }
+        Transform Text = EncartCpt.GetChild(4);
+        Sprite Target = TargetType[CData.TargetType];
+        Sprite PictoType = Pictos[CData.PictoType];
+        TextMeshProUGUI Description = EncartCpt.GetChild(1).GetComponent<TextMeshProUGUI>();
+        String Sbuff = "";
+        Text.GetChild(0).GameObject().SetActive(false);
+        EncartCpt.GetChild(3).GetChild(0).GameObject().SetActive(false);
+
+        //MAJ de la data de base
+        EncartCpt.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(CData.Name);
+        Description.SetText(CData.Description);
+        EncartCpt.GetChild(2).GetComponent<Image>().sprite = Target;
+        EncartCpt.GetChild(3).GetChild(1).GetComponent<Image>().sprite = PictoType;
+
+        //MAJ de la data si affinity
+        if (player.Affinity != 0 && EncartAffinity!= null)
+        {
+            Sprite Picto = null;
+            String EffectValue = "";
+            if (CData.Shield > 0)
             {
-                EncartAffinity = capacityPageAffinity[i].GetComponent<Transform>();
-                EncartAffinity.gameObject.SetActive(false);
-                EncartAffinity.GetChild(1).GameObject().SetActive(false);
+                Picto = PictosAffinity[0];
+                EffectValue = $"{CData.Shield}";
             }
-            Transform Text = EncartCpt.GetChild(4);
-            Sprite Target = TargetType[CData.TargetType];
-            Sprite PictoType = Pictos[CData.PictoType];
-            TextMeshProUGUI Description = EncartCpt.GetChild(1).GetComponent<TextMeshProUGUI>();
-            String Sbuff = "";
-            Text.GetChild(0).GameObject().SetActive(false);
-            EncartCpt.GetChild(3).GetChild(0).GameObject().SetActive(false);
-
-            //MAJ de la data de base
-            EncartCpt.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(CData.Name);
-            Description.SetText(CData.Description);
-            EncartCpt.GetChild(2).GetComponent<Image>().sprite = Target;
-            EncartCpt.GetChild(3).GetChild(1).GetComponent<Image>().sprite = PictoType;
-
-            //MAJ de la data si affinity
-            if (player.Affinity != 0 && EncartAffinity!= null)
+            if (CData.ShieldRatioAtk > 0)
             {
-                Sprite Picto = null;
-                String EffectValue = "";
-                if (CData.Shield > 0)
-                {
-                    Picto = PictosAffinity[0];
-                    EffectValue = $"{CData.Shield}";
-                }
-                if (CData.ShieldRatioAtk > 0)
-                {
-                    Picto = PictosAffinity[0];
-                    EffectValue = $"{CData.ShieldRatioAtk}%";
-                }
-                if (CData.Shock > 0)
-                {
-                    Picto = PictosAffinity[1];
-                    EffectValue = $"{CData.Shock}";
-                }
-
-                if (CData.Necrosis > 0)
-                {
-                    Picto = PictosAffinity[2];
-                    EffectValue = $"{CData.Necrosis}";
-                }
-                if (Picto != null)
-                {
-                    EncartAffinity.GetChild(2).gameObject.SetActive(true);
-                    EncartAffinity.GetChild(2).GetComponent<Image>().sprite = Picto;
-                }
-                else
-                {
-                    EncartAffinity.GetChild(2).gameObject.SetActive(false);
-                }
-                EncartAffinity.GetChild(3).GetComponent<TextMeshProUGUI>().text = EffectValue;
-                EncartAffinity.GetChild(0).GetComponent<TextMeshProUGUI>().text = CData.AffinityDescription;
-
-
+                Picto = PictosAffinity[0];
+                EffectValue = $"{CData.ShieldRatioAtk}%";
+            }
+            if (CData.Shock > 0)
+            {
+                Picto = PictosAffinity[1];
+                EffectValue = $"{CData.Shock}";
             }
 
-            if (CData.buffType != 0)
+            if (CData.Necrosis > 0)
             {
-                GameObject BuffIcon = null;
-                GameObject BuffValue = null;
-
-                if (!CData.BuffFromAffinity)
-                {
-                    BuffIcon = EncartCpt.GetChild(3).GetChild(0).GameObject();
-                    Text.GetChild(0).GameObject().SetActive(true);
-                    BuffValue = Text.GetChild(0).GameObject();
-                }
-                else
-                {
-                    BuffIcon = EncartAffinity.GetChild(1).GameObject();
-                    EncartAffinity.GetChild(3).GameObject().SetActive(true);
-                    BuffValue = EncartAffinity.GetChild(3).GameObject();
-                }
-
-                BuffIcon.SetActive(true);
-
-                string arrow;
-                if (CData.buffValue > 1)
-                {
-                    BuffIcon.GetComponent<TextMeshProUGUI>().color = new Color32(0, 39, 11, 255);
-                    arrow = "▲";
-                    Sbuff = $"+{Mathf.RoundToInt((CData.buffValue - 1) * 100)}%";
-                }
-                else
-                {
-                    BuffIcon.GetComponent<TextMeshProUGUI>().color = new Color32(155, 0, 0, 255);
-                    arrow = "▼";
-                    Sbuff = $"-{Mathf.RoundToInt((1 - CData.buffValue) * 100)}%";
-                }
-
-                switch (CData.buffType)
-                {
-                    case 1:
-                        BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"ATQ{arrow}");
-                        break;
-                    case 2:
-                        BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"DEF{arrow}");
-                        break;
-                    case 3:
-                        BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"VIT{arrow}");
-                        break;
-                    case 4:
-                        BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"PRE{arrow}");
-                        break;
-                }
-                if (CData.specialType == SpecialCapacityType.UltGarde)
-                {
-                    player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
-                    Sbuff = $"+{Mathf.RoundToInt((CData.buffValue-1) * 100 + (0.05f * player.CptUltlvl))}%";
-                }
-                BuffValue.GetComponent<TextMeshProUGUI>().SetText(Sbuff);
-
+                Picto = PictosAffinity[2];
+                EffectValue = $"{CData.Necrosis}";
             }
-
-            int Value = 0;
-            Value = Math.Max(CData.atk, CData.heal);
-            if (CData.heal > 0)
+            if (Picto != null)
             {
-                Value = Mathf.RoundToInt((Mathf.Sqrt(2 * player.UnitAtk) + CData.heal));
-            }
-            if (CData.atk > 0)
-            {
-                Value = Mathf.RoundToInt(CData.atk * (player.UnitAtk + 20) / 20);
-            }
-            if (CData.specialType == SpecialCapacityType.UltMoine)
-            {
-                player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
-                Value += Mathf.RoundToInt(0.05f * player.CptUltlvl);
-            }
-            if (CData.specialType == SpecialCapacityType.UltPriso)
-            {
-                player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
-                Value +=Mathf.RoundToInt(2*player.CptUltlvl);
-            }
-            Text.GetChild(1).GetComponent<TextMeshProUGUI>().SetText($"{Value}");
-            Text.GetChild(2).GetComponent<TextMeshProUGUI>().SetText($"{CData.précision}%");
-            Text.GetChild(3).GetComponent<TextMeshProUGUI>().SetText($"{CData.critique}%");
-            if (CData.MultipleAttack)
-            {
-                EncartCpt.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"{CData.cooldown-1} tour");
-
+                EncartAffinity.GetChild(2).gameObject.SetActive(true);
+                EncartAffinity.GetChild(2).GetComponent<Image>().sprite = Picto;
             }
             else
             {
-                EncartCpt.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"{CData.cooldown} tour");
-
+                EncartAffinity.GetChild(2).gameObject.SetActive(false);
             }
+            EncartAffinity.GetChild(3).GetComponent<TextMeshProUGUI>().text = EffectValue;
+            EncartAffinity.GetChild(0).GetComponent<TextMeshProUGUI>().text = CData.AffinityDescription;
+
+
+        }
+
+        if (CData.buffType != 0)
+        {
+            GameObject BuffIcon = null;
+            GameObject BuffValue = null;
+
+            if (!CData.BuffFromAffinity)
+            {
+                BuffIcon = EncartCpt.GetChild(3).GetChild(0).GameObject();
+                Text.GetChild(0).GameObject().SetActive(true);
+                BuffValue = Text.GetChild(0).GameObject();
+            }
+            else
+            {
+                BuffIcon = EncartAffinity.GetChild(1).GameObject();
+                EncartAffinity.GetChild(3).GameObject().SetActive(true);
+                BuffValue = EncartAffinity.GetChild(3).GameObject();
+            }
+
+            BuffIcon.SetActive(true);
+
+            string arrow;
+            if (CData.buffValue > 1)
+            {
+                BuffIcon.GetComponent<TextMeshProUGUI>().color = new Color32(0, 39, 11, 255);
+                arrow = "▲";
+                Sbuff = $"+{Mathf.RoundToInt((CData.buffValue - 1) * 100)}%";
+            }
+            else
+            {
+                BuffIcon.GetComponent<TextMeshProUGUI>().color = new Color32(155, 0, 0, 255);
+                arrow = "▼";
+                Sbuff = $"-{Mathf.RoundToInt((1 - CData.buffValue) * 100)}%";
+            }
+
+            switch (CData.buffType)
+            {
+                case 1:
+                    BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"ATQ{arrow}");
+                    break;
+                case 2:
+                    BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"DEF{arrow}");
+                    break;
+                case 3:
+                    BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"VIT{arrow}");
+                    break;
+                case 4:
+                    BuffIcon.GetComponent<TextMeshProUGUI>().SetText($"PRE{arrow}");
+                    break;
+            }
+            if (CData.specialType == SpecialCapacityType.UltGarde)
+            {
+                player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
+                Sbuff = $"+{Mathf.RoundToInt((CData.buffValue-1) * 100 + (0.05f * player.CptUltlvl))}%";
+            }
+            BuffValue.GetComponent<TextMeshProUGUI>().SetText(Sbuff);
+
+        }
+
+        int Value = 0;
+        Value = Math.Max(CData.atk, CData.heal);
+        if (CData.heal > 0)
+        {
+            Value = Mathf.RoundToInt((Mathf.Sqrt(2 * player.UnitAtk) + CData.heal));
+        }
+        if (CData.atk > 0)
+        {
+            Value = Mathf.RoundToInt(CData.atk * (player.UnitAtk + 20) / 20);
+        }
+        if (CData.specialType == SpecialCapacityType.UltMoine)
+        {
+            player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
+            Value += Mathf.RoundToInt(0.05f * player.CptUltlvl);
+        }
+        if (CData.specialType == SpecialCapacityType.UltPriso)
+        {
+            player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
+            Value +=Mathf.RoundToInt(2*player.CptUltlvl);
+        }
+        Text.GetChild(1).GetComponent<TextMeshProUGUI>().SetText($"{Value}");
+        Text.GetChild(2).GetComponent<TextMeshProUGUI>().SetText($"{CData.précision}%");
+        Text.GetChild(3).GetComponent<TextMeshProUGUI>().SetText($"{CData.critique}%");
+        if (CData.MultipleAttack)
+        {
+            EncartCpt.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"{CData.cooldown-1} tour");
+
+        }
+        else
+        {
+            EncartCpt.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"{CData.cooldown} tour");
 
         }
     }
