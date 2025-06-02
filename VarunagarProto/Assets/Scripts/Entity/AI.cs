@@ -53,19 +53,60 @@ public class AI : MonoBehaviour
 
     private IEnumerator SingleAttackCoroutine(DataEntity attacker)
     {
-        var targets = CombatManager.SINGLETON.entityHandler.players.Where(p => p.UnitLife > 0).ToList();
-        if (targets.Count == 0) yield break;
+        var entityHandler = CombatManager.SINGLETON.entityHandler;
 
-        List<DataEntity> provokers = targets.Where(p => p.provoking).ToList();
-        DataEntity target = provokers.Count > 0
-            ? provokers[Random.Range(0, provokers.Count)]
-            : targets[Random.Range(0, targets.Count)];
+        bool playerIsProvoking = entityHandler.players.Any(p => p.provoking);
+
+        // Récupère toutes les capacités disponibles de l'attaquant
+        List<CapacityData> allSpells = new List<CapacityData>();
+        if (attacker._CapacityData1 != null) allSpells.Add(attacker._CapacityData1);
+        if (attacker._CapacityData2 != null) allSpells.Add(attacker._CapacityData2);
+
+        // Filtre selon provocation : si provocation, on enlève les sorts ciblant alliés (soins)
+        List<CapacityData> validSpells = playerIsProvoking
+            ? allSpells.Where(s => !s.TargetingAlly).ToList()
+            : allSpells;
+
+        if (validSpells.Count == 0)
+        {
+            Debug.Log("Aucune capacité valide pour ce tour (provocation). Fin du tour.");
+            CombatManager.SINGLETON.EndUnitTurn();
+            yield break;
+        }
+
+        // Choix aléatoire pondéré parmi les capacités valides
+        CapacityData chosenSpell = SelectSpellFromList(validSpells);
+
+        List<DataEntity> possibleTargets;
+
+        if (chosenSpell.TargetingAlly)
+        {
+            possibleTargets = entityHandler.ennemies
+                .Where(e => e.UnitLife > 0 && e.UnitLife < e.BaseLife)
+                .ToList();
+        }
+        else
+        {
+            possibleTargets = entityHandler.players
+                .Where(p => p.UnitLife > 0)
+                .ToList();
+
+            var provokers = possibleTargets.Where(p => p.provoking).ToList();
+            if (provokers.Count > 0)
+                possibleTargets = provokers;
+        }
+
+        if (possibleTargets.Count == 0)
+        {
+            Debug.Log("Aucune cible valide trouvée.");
+            CombatManager.SINGLETON.EndUnitTurn();
+            yield break;
+        }
+
+        DataEntity target = possibleTargets.OrderBy(e => e.UnitLife).First();
 
         yield return new WaitForSeconds(0.5f);
-
-        //ToggleTargetIndicator(target);
-
-        CapacityData chosenSpell = SelectSpell(attacker);
+        Debug.Log($"[AI] Tentative d'appliquer {chosenSpell.name} sur {target.name} (HP {target.UnitLife}/{target.BaseLife})");
         CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, target);
 
         PostAttackProcessing(attacker);
@@ -75,6 +116,7 @@ public class AI : MonoBehaviour
 
         DisableTargetIndicators();
     }
+
 
     private IEnumerator MultiAttackCoroutine(DataEntity attacker)
     {
@@ -145,10 +187,40 @@ public class AI : MonoBehaviour
         int value2 = enemy._CapacityData2?.ValueAI ?? 0;
         int total = value1 + value2;
 
+        CapacityData chosen = null;
         if (total == 0 || enemy._CapacityData1 == null || enemy._CapacityData2 == null)
-            return enemy._CapacityData1 ?? enemy._CapacityData2;
+            chosen = enemy._CapacityData1 ?? enemy._CapacityData2;
+        else
+            chosen = Random.Range(0, total) < value1 ? enemy._CapacityData1 : enemy._CapacityData2;
 
-        int roll = Random.Range(0, total);
-        return roll < value1 ? enemy._CapacityData1 : enemy._CapacityData2;
+        Debug.Log($"[AI] Choix de la capacité : {chosen.name}, TargetingAlly = {chosen.TargetingAlly}");
+
+        return chosen;
     }
+    public CapacityData SelectSpellFromList(List<CapacityData> spells)
+    {
+        if (spells == null || spells.Count == 0)
+            return null;
+
+        int totalWeight = spells.Sum(s => s.ValueAI);
+
+        if (totalWeight == 0)
+        {
+            return spells[Random.Range(0, spells.Count)];
+        }
+
+        int randomValue = Random.Range(0, totalWeight);
+        int cumulative = 0;
+
+        foreach (var spell in spells)
+        {
+            cumulative += spell.ValueAI;
+            if (randomValue < cumulative)
+                return spell;
+        }
+
+        return spells[0]; 
+    }
+
+
 }

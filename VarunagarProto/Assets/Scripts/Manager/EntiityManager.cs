@@ -182,10 +182,20 @@ public class EntiityManager : MonoBehaviour
         }
     }
 
-    void OnMouseDown()
+    /*void OnMouseDown()
     {
         if (!Clickable || GlobalVars.currentSelectedCapacity == null)
             return;
+        DataEntity caster = CombatManager.currentTurnOrder[0];
+        List<DataEntity> pool = null;
+        if (entityHandler.players.Contains(caster))
+        {
+            pool = entityHandler.ennemies;
+        }
+        else
+        {
+            pool = entityHandler.players;
+        }
         //Debug.Log($"Tentative de sélection. Index: {playerIndex}");
         if (GlobalVars.currentSelectedCapacity.TargetingAlly)
         {
@@ -196,6 +206,32 @@ public class EntiityManager : MonoBehaviour
         {
             int index = entityHandler.ennemies.IndexOf(entityHandler.ennemies.FirstOrDefault(e => e.instance == this.gameObject));
             if (index != -1) SINGLETON.SelectEnemy(entityHandler.players.Count + index);
+        }
+    }*/
+    void OnMouseDown()
+    {
+        if (!Clickable || GlobalVars.currentSelectedCapacity == null)
+            return;
+
+        DataEntity caster = CombatManager.SINGLETON.currentTurnOrder[0];
+        List<DataEntity> allies = entityHandler.players.Contains(caster) ? entityHandler.players : entityHandler.ennemies;
+        List<DataEntity> enemies = entityHandler.players.Contains(caster) ? entityHandler.ennemies : entityHandler.players;
+
+        if (GlobalVars.currentSelectedCapacity.TargetingAlly)
+        {
+            int index = allies.FindIndex(p => p.instance == this.gameObject);
+            if (index != -1)
+            {
+                SINGLETON.SelectAlly(index);
+            }
+        }
+        else
+        {
+            int index = enemies.FindIndex(e => e.instance == this.gameObject);
+            if (index != -1)
+            {
+                SINGLETON.SelectEnemy(allies.Count + index);
+            }
         }
     }
 

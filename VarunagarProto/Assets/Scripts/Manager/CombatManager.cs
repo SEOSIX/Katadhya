@@ -414,11 +414,20 @@ public class CombatManager : MonoBehaviour
         GlobalVars.currentSelectedCapacity = capacity;
         if (capacity.MultipleHeal)
         {
-            foreach (var ally in entityHandler.players)
+            List<DataEntity> pool = null;
+            if (entityHandler.players.Contains(currentPlayer))
             {
-                if (ally.UnitLife > 0)
+                pool = entityHandler.ennemies;
+            }
+            else
+            {
+                pool = entityHandler.players;
+            }
+            foreach (var target in pool)
+            {
+                if (target.UnitLife > 0)
                 {
-                    ApplyCapacityToTarget(capacity, ally);
+                    ApplyCapacityToTarget(capacity, target);
                 }
             }
             DecrementBuffDurations(caster);
@@ -735,8 +744,6 @@ public class CombatManager : MonoBehaviour
         {
             int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.secondaryHeal) / 2) * modifier);
             target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
-        
-            //effet de soins
         }
 
         if (capacity.Shield > 0)
@@ -792,7 +799,6 @@ public class CombatManager : MonoBehaviour
         float calculatedDamage = ((capacity.atk + UltPriso) * (caster.UnitAtk + 20) / (target.UnitDef + 20)) * modifier + BonusRageDamage;
         if (caster.RageTick >= 12) caster.RageTick = 0;
         EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
-        Debug.Log($"UnitAtk : {caster.UnitAtk + 1}, capacity.atk : {capacity.atk}, modifier : {modifier}, BonusRageDamage : {BonusRageDamage}, Défense ennemie : {(2 + caster.UnitAtk + target.UnitDef)} ");
         int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
         DamageDone += icalculatedDamage;
 
@@ -1171,7 +1177,7 @@ public class CombatManager : MonoBehaviour
                 activeIndex++;
             }
         }
-        else if (capacity.heal > 0 && !capacity.MultipleHeal)
+        else if (capacity.heal > 0 && !capacity.MultipleHeal || capacity.Provocation == true)
         {
             for (int i = 0; i < entityHandler.players.Count && i < circlesPlayer.Count; i++)
             {
