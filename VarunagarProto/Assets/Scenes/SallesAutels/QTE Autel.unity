@@ -1268,6 +1268,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1570314257}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: SpawnObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &411159856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2395,7 +2407,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 72
+  m_SortingOrder: 230
   m_TargetDisplay: 0
 --- !u!224 &930390621
 RectTransform:
@@ -3231,7 +3243,7 @@ Transform:
   m_GameObject: {fileID: 1294628583}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.09, y: -2.1599998, z: 0}
+  m_LocalPosition: {x: -7.09, y: -3.4069998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4071,7 +4083,6 @@ GameObject:
   - component: {fileID: 1570314258}
   - component: {fileID: 1570314257}
   - component: {fileID: 1570314259}
-  - component: {fileID: 1570314261}
   - component: {fileID: 1570314260}
   - component: {fileID: 1570314262}
   m_Layer: 0
@@ -4094,11 +4105,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCombatEnabled: 0
+  salleSpeciale: 1
   playerSpawnPoints:
   - {fileID: 1294628584}
   - {fileID: 2071373516}
   - {fileID: 1847113226}
   enemySpawnPoints: []
+  objectsToSpawn:
+  - {fileID: 269160488}
   entityHandler: {fileID: 11400000, guid: 779db6a0d8027e04a8c21117fb5fdb15, type: 2}
   playerPrefabs:
   - playerName: Moine
@@ -4116,7 +4130,10 @@ MonoBehaviour:
     - 
   allEnemiesEncountered: []
   sizeChara: 0.21
+  ispressed: 0
   circleOffset: {x: 0, y: 0, z: 0}
+  offsetX: 1000
+  uiCamera: {fileID: 1526578814}
 --- !u!4 &1570314258
 Transform:
   m_ObjectHideFlags: 0
@@ -4198,20 +4215,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeImagePrefab: {fileID: 1962146410827420882, guid: fef769cb8581e0240873ecb78a2e37fd, type: 3}
   fadeDuration: 1
---- !u!114 &1570314261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1570314256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99f8c8beb3190dc4897dc3c8f08e373b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  globalGameData: {fileID: 11400000, guid: eb8a6445f0a85ba4d83d9e8a0c494e12, type: 2}
-  BackgroundParent: {fileID: 930390621}
 --- !u!114 &1570314262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4997,7 +5000,7 @@ Transform:
   m_GameObject: {fileID: 1847113225}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.98, y: -2.22, z: 0}
+  m_LocalPosition: {x: -1.98, y: -3.467, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5903,7 +5906,7 @@ Transform:
   m_GameObject: {fileID: 2071373515}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.59, y: -3.2, z: 0}
+  m_LocalPosition: {x: -4.59, y: -4.447, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

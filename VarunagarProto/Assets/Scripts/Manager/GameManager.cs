@@ -289,64 +289,68 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private float offsetX = 10f;
+    [SerializeField] private float offsetX = 400f;
 
-    public void SpawnObjectFinal()
+    public void SpawnObject()
     {
         if (objectsToSpawn == null || objectsToSpawn.Count == 0)
         {
+            Debug.LogWarning("Aucun élément UI à déplacer");
             return;
         }
 
         if (!ispressed)
-        {
             MoveUIFromRight();
-            ispressed = true;
-        }
         else
-        {
-            MoveUIBackToStart();
-            ispressed = false;
-        }
+            MoveUIToRight();
+
+        ispressed = !ispressed;
     }
-    
+
     private void MoveUIFromRight()
     {
         foreach (RectTransform rt in objectsToSpawn)
         {
             if (rt == null) continue;
 
-            Vector3 targetPosition = rt.anchoredPosition3D;
-
             if (!originalPositions.ContainsKey(rt))
-            {
-                originalPositions[rt] = targetPosition;
-            }
+                originalPositions[rt] = rt.anchoredPosition3D;
 
-            Vector3 startPosition = targetPosition + new Vector3(offsetX, 0, 0);
-            rt.anchoredPosition3D = startPosition;
+            Vector3 targetPosition = originalPositions[rt];
+            Vector3 offscreenStartPos = targetPosition + new Vector3(offsetX, 0f, 0f);
 
-            StartCoroutine(AnimateUIElement(rt, startPosition, targetPosition));
+            rt.anchoredPosition3D = offscreenStartPos;
+
+            StartCoroutine(AnimateUIElement(rt, offscreenStartPos, targetPosition, 0.5f, false));
         }
     }
 
-    private void MoveUIBackToStart()
+    private void MoveUIToRight()
     {
         foreach (RectTransform rt in objectsToSpawn)
         {
-            if (rt == null || !originalPositions.ContainsKey(rt)) continue;
+            if (rt == null) continue;
 
-            Vector3 startPosition = rt.anchoredPosition3D;
-            Vector3 targetPosition = originalPositions[rt];
+            if (!originalPositions.ContainsKey(rt))
+            {
+                continue;
+            }
 
-            StartCoroutine(AnimateUIElement(rt, startPosition, targetPosition));
+            Vector3 startPos = rt.anchoredPosition3D;
+            Vector3 offscreenTarget = startPos  + new Vector3(offsetX, 0f, 0f);
+            
+            
+
+            StartCoroutine(AnimateUIElement(rt, startPos, offscreenTarget, 0.5f, true));
         }
     }
     
+    [SerializeField] private Camera uiCamera;
     private System.Collections.IEnumerator AnimateUIElement(RectTransform element, 
         Vector3 startPos, 
         Vector3 targetPos, 
-        float duration = 0.5f)
+        float duration = 0.5f,
+        bool disableAtEnd = false)
     {
         float elapsed = 0f;
 
@@ -359,6 +363,11 @@ public class GameManager : MonoBehaviour
         }
 
         element.anchoredPosition3D = targetPos;
+        
+        if (disableAtEnd)
+        {
+            element.gameObject.SetActive(false);
+        }
     }
 
 

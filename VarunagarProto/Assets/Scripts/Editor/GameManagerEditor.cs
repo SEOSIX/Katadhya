@@ -29,6 +29,7 @@ public class GameManagerEditor : Editor
         {
             EditorGUILayout.PropertyField(serializedObject.FindProperty("objectsToSpawn"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("ispressed"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("uiCamera"));
         }
         serializedObject.ApplyModifiedProperties();
     }
