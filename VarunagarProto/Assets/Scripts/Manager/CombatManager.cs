@@ -594,11 +594,11 @@ public class CombatManager : MonoBehaviour
             t = 0;
             while (t < 1f)
             {
-         t += Time.deltaTime * speed;
-        casterTransform.position = Vector3.Lerp(end, start, t);
-        yield return null;
+                 t += Time.deltaTime * speed;
+                casterTransform.position = Vector3.Lerp(end, start, t);
+                yield return null;
+            }
     }
-}
 
 
 
@@ -867,6 +867,56 @@ public class CombatManager : MonoBehaviour
         }
 
         return DamageDone;
+    }
+
+    public void ChargePower(DataEntity player,int amount)
+    {
+        player.ChargePower = Mathf.Clamp(player.ChargePower + amount, 0, 10); ;
+    }
+    public string CycleCapacityName(string currentName, int maxLevel = 2)
+    {
+        if (string.IsNullOrEmpty(currentName) || currentName.Length == 0)
+            return currentName;
+
+        char lastChar = currentName[^1];
+
+        int level = lastChar - '0';
+        int nextLevel = (level + 1) % (maxLevel + 1);
+
+        return currentName.Substring(0, currentName.Length - 1) + nextLevel;
+    }
+    public CapacityData GetCycledCapacity(CapacityData currentCapacity, int maxLevel = 2)
+    {
+        string currentName = currentCapacity.name;
+        if (currentName.Length < 8)
+        {
+            Debug.LogWarning($"Nom de capacité inattendu : {currentName}");
+            return currentCapacity;
+        }
+
+        char playerId = currentName[3];
+        char affinityId = currentName[5];
+        char levelChar = currentName[6];
+
+        if (!char.IsDigit(levelChar)) return currentCapacity;
+        int level = levelChar - '0';
+        int nextLevel = (level + 1) % (maxLevel + 1);
+        string newName = currentName.Substring(0, currentName.Length - 1) + nextLevel;
+
+        string path = $"Data/Entity/Capacity/Players/Players{playerId}/Affinity{affinityId}/Niveau {nextLevel}/{newName}";
+
+        CapacityData newCapacity = Resources.Load<CapacityData>(path);
+        if (newCapacity == null)
+        {
+            Debug.LogWarning($"Capacité introuvable à : {path}");
+            return currentCapacity;
+        }
+
+        return newCapacity;
+    }
+    public void SwapLevelCapacity(CapacityData capacity)
+    {
+
     }
 
     private void SetupCapacityButtons(DataEntity player)
