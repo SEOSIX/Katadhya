@@ -5105,13 +5105,625 @@ ScriptedImporter:
     characterGroups: []
     pivot: {x: 0.5, y: 0.5}
     boneReadOnly: 0
-  sharedRigSpriteImportData: []
+  sharedRigSpriteImportData:
+  - name: Tete
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 204
+      height: 258
+    spriteID: 8ec1a95ff04eaa343bc6668e21fe5bd4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+    spritePosition: {x: 84, y: 180}
+  - name: Criniere
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 270
+      width: 202
+      height: 258
+    spriteID: bce5bb8d2aab13e4a8adbb02f382e6bd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 270}
+    spritePosition: {x: 86, y: 180}
+  - name: Plaque_Haut
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 100
+      y: 873
+      width: 91
+      height: 108
+    spriteID: 0292d77d956f5a3458c8ca59b9ada8fb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 100, y: 873}
+    spritePosition: {x: 239, y: 254}
+  - name: Plaque_Bas
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 216
+      y: 4
+      width: 256
+      height: 136
+    spriteID: 4479e41c745ffdd4cb372238cd815d84
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 216, y: 4}
+    spritePosition: {x: 119, y: 258}
+  - name: R_avBas
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 309
+      y: 148
+      width: 88
+      height: 86
+    spriteID: b65fd6fb7ec39104e8c60f551589b1be
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 309, y: 148}
+    spritePosition: {x: 198, y: 91}
+  - name: R_avHaut
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 873
+      width: 88
+      height: 140
+    spriteID: 185fd9e276e219d41bd9cd5cca581d68
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 873}
+    spritePosition: {x: 204, y: 161}
+  - name: R_arrBas
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 216
+      y: 255
+      width: 80
+      height: 84
+    spriteID: 5ab74e180a6682e419bfab11220b0c24
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 216, y: 255}
+    spritePosition: {x: 318, y: 94}
+  - name: R_arrHaut
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 405
+      y: 148
+      width: 90
+      height: 83
+    spriteID: e8982d76da97c0c4bacecb32accdaf86
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 405, y: 148}
+    spritePosition: {x: 294, y: 163}
+  - name: Corps
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 536
+      width: 195
+      height: 176
+    spriteID: 455ff70d218479c4395c7589ab6fe966
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 536}
+    spritePosition: {x: 186, y: 184}
+  - name: L_avBas
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 216
+      y: 148
+      width: 85
+      height: 99
+    spriteID: dfc85fe3a9a8fbc4487516c823e24e09
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 216, y: 148}
+    spritePosition: {x: 141, y: 101}
+  - name: L_avHaut
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 216
+      y: 347
+      width: 83
+      height: 58
+    spriteID: c8cf7148672d9ca4486b826b942f23e2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 216, y: 347}
+    spritePosition: {x: 152, y: 186}
+  - name: L_arrBas
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 216
+      y: 413
+      width: 61
+      height: 65
+    spriteID: ded754de26a5292498d588d54c2ad072
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 216, y: 413}
+    spritePosition: {x: 267, y: 108}
+  - name: L_arrHaut
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 216
+      y: 486
+      width: 54
+      height: 41
+    spriteID: 1452d779722c95b4785f308c4f25b53b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 216, y: 486}
+    spritePosition: {x: 273, y: 158}
+  - name: plummet
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 127
+      y: 720
+      width: 72
+      height: 109
+    spriteID: 59243a8168f87014faaa0b4f18a65a51
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 127, y: 720}
+    spritePosition: {x: 410, y: 199}
+  - name: queue
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 720
+      width: 115
+      height: 145
+    spriteID: 58dfdad3f66ba814c9052b9750e89066
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 720}
+    spritePosition: {x: 353, y: 105}
   sharedRigCharacterData:
-    bones: []
-    parts: []
+    bones:
+    - name: Corps
+      guid: b817099af7471454abdff70e45cbc62b
+      position: {x: 113.99147, y: 128.76727, z: 0}
+      rotation: {x: 0, y: 0, z: 0.28300482, w: -0.9591185}
+      length: 111.02274
+      parentId: 17
+      color:
+        serializedVersion: 2
+        rgba: 4278190335
+    - name: Criniere
+      guid: 516efeee6e6879c40bae653bd517219f
+      position: {x: 143.21964, y: -22.1946, z: 0}
+      rotation: {x: 0, y: -0, z: 0.8285584, w: 0.5599028}
+      length: 113.804955
+      parentId: 0
+      color:
+        serializedVersion: 2
+        rgba: 4278255615
+    - name: Tete
+      guid: a5c88ccef772bce46b21d031975191cd
+      position: {x: -38.07171, y: -67.48902, z: 0}
+      rotation: {x: 0, y: 0, z: 0.02408655, w: 0.9997099}
+      length: 121.01942
+      parentId: 1
+      color:
+        serializedVersion: 2
+        rgba: 4278255360
+    - name: Plaque_H
+      guid: 8786d468030f3744a8b11c66126a3ec8
+      position: {x: 120.512955, y: -65.34249, z: 0}
+      rotation: {x: 0, y: -0, z: 0.9975823, w: 0.06949501}
+      length: 72.62868
+      parentId: 0
+      color:
+        serializedVersion: 2
+        rgba: 4294967040
+    - name: Plaque_B
+      guid: 1ea6c21beeaf6b54aab0fcec2acc686b
+      position: {x: 42.81537, y: -47.56806, z: 0}
+      rotation: {x: 0, y: -0, z: 0.99998784, w: 0.0049374662}
+      length: 54.598087
+      parentId: 0
+      color:
+        serializedVersion: 2
+        rgba: 4294901760
+    - name: R_avHaut
+      guid: 8491aeff38b72fb47b213e2c8841ce7d
+      position: {x: 199.81796, y: 107.63711, z: 0}
+      rotation: {x: 0, y: -0, z: 0.81442887, w: 0.58026344}
+      length: 79.9436
+      parentId: 17
+      color:
+        serializedVersion: 2
+        rgba: 4294902015
+    - name: R_avBas
+      guid: bb96655fc4f310a418081c080615603d
+      position: {x: 79.9436, y: -0.0000037090922, z: 0}
+      rotation: {x: 0, y: 0, z: 0.38726413, w: -0.9219688}
+      length: 78.03214
+      parentId: 5
+      color:
+        serializedVersion: 2
+        rgba: 4278223103
+    - name: L_avHaut
+      guid: 11c905ae452b8be409a31c17b9f1c151
+      position: {x: 256.28333, y: 135.07332, z: 0}
+      rotation: {x: 0, y: -0, z: 0.83737564, w: 0.5466279}
+      length: 30.187063
+      parentId: 17
+      color:
+        serializedVersion: 2
+        rgba: 4278255488
+    - name: L_avBas
+      guid: 50fe93c3ae1df6948a0de81187828cef
+      position: {x: 30.187063, y: 0.0000008196603, z: 0}
+      rotation: {x: 0, y: 0, z: 0.3371983, w: -0.94143367}
+      length: 90.1111
+      parentId: 7
+      color:
+        serializedVersion: 2
+        rgba: 4286643968
+    - name: R_arrHaut
+      guid: c18817c22f2b45f419715b94194ae463
+      position: {x: 118.748505, y: 140.80379, z: 0}
+      rotation: {x: 0, y: -0, z: 0.8954985, w: 0.44506454}
+      length: 70.976425
+      parentId: 17
+      color:
+        serializedVersion: 2
+        rgba: 4294934528
+    - name: R_arrBas
+      guid: 093df9888e56ebf4198f48f2e7df9188
+      position: {x: 70.97641, y: -0.0000023390994, z: 0}
+      rotation: {x: 0, y: 0, z: 0.4364573, w: -0.899725}
+      length: 65.25784
+      parentId: 9
+      color:
+        serializedVersion: 2
+        rgba: 4294901888
+    - name: L_arrHaut
+      guid: dc42933dbb8ae7e4d92cf3cafedb34a0
+      position: {x: 150.69833, y: 154.36702, z: 0}
+      rotation: {x: 0, y: -0, z: 0.82958716, w: 0.55837727}
+      length: 46.14115
+      parentId: 17
+      color:
+        serializedVersion: 2
+        rgba: 4286578943
+    - name: L_arrBas
+      guid: 936df27a9670496419bdf86bccbca109
+      position: {x: 46.141155, y: -0.0000004417161, z: 0}
+      rotation: {x: 0, y: 0, z: 0.35138115, w: -0.9362325}
+      length: 53.80855
+      parentId: 11
+      color:
+        serializedVersion: 2
+        rgba: 4278255615
+    - name: Queue_1
+      guid: e96839cb65540a2408a32306d1c347f9
+      position: {x: -52.839832, y: -7.6786704, z: 0}
+      rotation: {x: 0, y: -0, z: 0.96038413, w: 0.27867967}
+      length: 117.66084
+      parentId: 0
+      color:
+        serializedVersion: 2
+        rgba: 4278255360
+    - name: Queue_2
+      guid: f51c14aad3ebba449a89d0a565b2c3a4
+      position: {x: 117.66083, y: -0.000011650158, z: 0}
+      rotation: {x: 0, y: 0, z: 0.65297705, w: 0.7573777}
+      length: 39.832928
+      parentId: 13
+      color:
+        serializedVersion: 2
+        rgba: 4294967040
+    - name: Queue_3
+      guid: 2974cf94de8ae6b40bbb4310693498c6
+      position: {x: 39.83292, y: -0.0000025625868, z: 0}
+      rotation: {x: 0, y: 0, z: 0.6828105, w: 0.7305956}
+      length: 76.96235
+      parentId: 14
+      color:
+        serializedVersion: 2
+        rgba: 4294901760
+    - name: Plummet
+      guid: ad60fac9dfd217342b427de2fbf7eb40
+      position: {x: 91.632515, y: 7.667184, z: 0}
+      rotation: {x: 0, y: 0, z: -0.23194306, w: 0.9727294}
+      length: 84.2262
+      parentId: 15
+      color:
+        serializedVersion: 2
+        rgba: 4294902015
+    - name: Horizontal
+      guid: 1eb5121969aa00e438d25a0d1fad463a
+      position: {x: 430.65863, y: 369.2619, z: 0}
+      rotation: {x: 0, y: 0, z: -0.9997833, w: 0.020819308}
+      length: 22.382805
+      parentId: -1
+      color:
+        serializedVersion: 2
+        rgba: 4278190335
+    parts:
+    - spritePosition:
+        x: 84
+        y: 180
+        width: 204
+        height: 258
+      spriteId: 8ec1a95ff04eaa343bc6668e21fe5bd4
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 86
+        y: 180
+        width: 202
+        height: 258
+      spriteId: bce5bb8d2aab13e4a8adbb02f382e6bd
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 239
+        y: 254
+        width: 91
+        height: 108
+      spriteId: 0292d77d956f5a3458c8ca59b9ada8fb
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 119
+        y: 258
+        width: 256
+        height: 136
+      spriteId: 4479e41c745ffdd4cb372238cd815d84
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 198
+        y: 91
+        width: 88
+        height: 86
+      spriteId: b65fd6fb7ec39104e8c60f551589b1be
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 204
+        y: 161
+        width: 88
+        height: 140
+      spriteId: 185fd9e276e219d41bd9cd5cca581d68
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 318
+        y: 94
+        width: 80
+        height: 84
+      spriteId: 5ab74e180a6682e419bfab11220b0c24
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 294
+        y: 163
+        width: 90
+        height: 83
+      spriteId: e8982d76da97c0c4bacecb32accdaf86
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 186
+        y: 184
+        width: 195
+        height: 176
+      spriteId: 455ff70d218479c4395c7589ab6fe966
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 141
+        y: 101
+        width: 85
+        height: 99
+      spriteId: dfc85fe3a9a8fbc4487516c823e24e09
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 152
+        y: 186
+        width: 83
+        height: 58
+      spriteId: c8cf7148672d9ca4486b826b942f23e2
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 267
+        y: 108
+        width: 61
+        height: 65
+      spriteId: ded754de26a5292498d588d54c2ad072
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 273
+        y: 158
+        width: 54
+        height: 41
+      spriteId: 1452d779722c95b4785f308c4f25b53b
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 410
+        y: 199
+        width: 72
+        height: 109
+      spriteId: 59243a8168f87014faaa0b4f18a65a51
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 353
+        y: 105
+        width: 115
+        height: 145
+      spriteId: 58dfdad3f66ba814c9052b9750e89066
+      bones: 
+      parentGroup: 0
+      order: 0
     dimension: {x: 0, y: 0}
     characterGroups: []
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     boneReadOnly: 0
   platformSettings:
   - name: DefaultTexturePlatform
@@ -5147,7 +5759,7 @@ ScriptedImporter:
   generatePhysicsShape: 0
   paperDollMode: 0
   keepDupilcateSpriteName: 1
-  skeletonAssetReferenceID: 
+  skeletonAssetReferenceID: c2963343ed489d046bd0ff404a4d1a89
   pipeline: {instanceID: 0}
   pipelineVersion: 
   padding: 4
@@ -5308,7 +5920,157 @@ ScriptedImporter:
     flatten: 0
     isImported: 1
     isVisible: 1
-  sharedRigPSDLayers: []
+  sharedRigPSDLayers:
+  - name: Tete
+    spriteName: Tete
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 8ec1a95ff04eaa343bc6668e21fe5bd4
+    layerID: 66
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Criniere
+    spriteName: Criniere
+    isGroup: 0
+    parentIndex: -1
+    spriteID: bce5bb8d2aab13e4a8adbb02f382e6bd
+    layerID: 69
+    mosaicPosition: {x: 4, y: 270}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Plaque_Haut
+    spriteName: Plaque_Haut
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 0292d77d956f5a3458c8ca59b9ada8fb
+    layerID: 61
+    mosaicPosition: {x: 100, y: 873}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Plaque_Bas
+    spriteName: Plaque_Bas
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 4479e41c745ffdd4cb372238cd815d84
+    layerID: 58
+    mosaicPosition: {x: 216, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: R_avBas
+    spriteName: R_avBas
+    isGroup: 0
+    parentIndex: -1
+    spriteID: b65fd6fb7ec39104e8c60f551589b1be
+    layerID: 54
+    mosaicPosition: {x: 309, y: 148}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: R_avHaut
+    spriteName: R_avHaut
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 185fd9e276e219d41bd9cd5cca581d68
+    layerID: 47
+    mosaicPosition: {x: 4, y: 873}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: R_arrBas
+    spriteName: R_arrBas
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 5ab74e180a6682e419bfab11220b0c24
+    layerID: 43
+    mosaicPosition: {x: 216, y: 255}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: R_arrHaut
+    spriteName: R_arrHaut
+    isGroup: 0
+    parentIndex: -1
+    spriteID: e8982d76da97c0c4bacecb32accdaf86
+    layerID: 39
+    mosaicPosition: {x: 405, y: 148}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Corps
+    spriteName: Corps
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 455ff70d218479c4395c7589ab6fe966
+    layerID: 78
+    mosaicPosition: {x: 4, y: 536}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: L_avBas
+    spriteName: L_avBas
+    isGroup: 0
+    parentIndex: -1
+    spriteID: dfc85fe3a9a8fbc4487516c823e24e09
+    layerID: 31
+    mosaicPosition: {x: 216, y: 148}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: L_avHaut
+    spriteName: L_avHaut
+    isGroup: 0
+    parentIndex: -1
+    spriteID: c8cf7148672d9ca4486b826b942f23e2
+    layerID: 24
+    mosaicPosition: {x: 216, y: 347}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: L_arrBas
+    spriteName: L_arrBas
+    isGroup: 0
+    parentIndex: -1
+    spriteID: ded754de26a5292498d588d54c2ad072
+    layerID: 20
+    mosaicPosition: {x: 216, y: 413}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: L_arrHaut
+    spriteName: L_arrHaut
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 1452d779722c95b4785f308c4f25b53b
+    layerID: 16
+    mosaicPosition: {x: 216, y: 486}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: plummet
+    spriteName: plummet
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 59243a8168f87014faaa0b4f18a65a51
+    layerID: 12
+    mosaicPosition: {x: 127, y: 720}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: queue
+    spriteName: queue
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 58dfdad3f66ba814c9052b9750e89066
+    layerID: 8
+    mosaicPosition: {x: 4, y: 720}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   pSDLayerImportSetting: []
   importFileNodeState: 1
   platformSettingsDirtyTick: 0
