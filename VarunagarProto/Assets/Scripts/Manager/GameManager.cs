@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public List<Transform> enemySpawnPoints;
 
     [Header("Entity Handler")]
-    [SerializeField] private EntityHandler entityHandler;
+    public EntityHandler entityHandler;
 
     [Header("Player Prefabs")]
     public List<PlayerPrefabData> playerPrefabs;
@@ -72,9 +72,9 @@ public class GameManager : MonoBehaviour
 
         if (isCombatEnabled)
         {
-            CombatManager.SINGLETON.ResetPlayersBeforeCombat();
+            ReseterData.ResetPlayersBeforeCombat(entityHandler,CombatManager.SINGLETON.entiityManager);
             SpawnEnemies();
-            CombatManager.SINGLETON.ResetEnemies();
+            ReseterData.ResetEnemies(entityHandler);
             CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
             CombatManager.SINGLETON.InitializeStaticUI();
             CombatManager.SINGLETON.StartUnitTurn();
