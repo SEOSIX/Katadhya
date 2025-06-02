@@ -922,9 +922,9 @@ public class CombatManager : MonoBehaviour
 
         return newCapacity;
     }
-    public void SwapLevelCapacity(CapacityData capacity)
+    public void UpgradeCpt()
     {
-
+        
     }
 
     private void SetupCapacityButtons(DataEntity player)
