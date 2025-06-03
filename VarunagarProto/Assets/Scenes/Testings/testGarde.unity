@@ -18092,6 +18092,7 @@ MonoBehaviour:
   playerTarget1: {fileID: 1213612031}
   playerTarget2: {fileID: 1232718539}
   playerTarget3: {fileID: 712382127}
+  choosenSpell: {fileID: 0}
 --- !u!114 &1329118466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18275,6 +18276,7 @@ MonoBehaviour:
   PlayerCharge: {fileID: 490790676}
   ennemyTurn: {fileID: 1163544507}
   TurnUI: {fileID: 498016538}
+  attackEnnemy: {fileID: 0}
   canvasGroup: {fileID: 498016542}
   circleParentUI: {fileID: 1685626445}
   playerTurnIndicators:
@@ -18286,8 +18288,8 @@ MonoBehaviour:
   originalCircleEnemysPositions: []
   circlesPlayer: []
   originalCirclePlayersPositions: []
-  hoverMaterial: {fileID: 0}
-  defaultMaterial: {fileID: 0}
+  hoverSprite: {fileID: 0}
+  defaultSprite: {fileID: 0}
   ultimateScript: {fileID: 711964558}
   currentTurnOrder: []
   unitPlayedThisTurn: []
@@ -18774,63 +18776,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4744367200715779000, guid: aeea05e002b2c3e438d820a99ac0b2d5, type: 3}
   m_PrefabInstance: {fileID: 1827913219}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1424550412
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4001160359597700120, guid: 97d6dcaac64c4a94aaf68325fd57ec2e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 4001160359597700120, guid: 97d6dcaac64c4a94aaf68325fd57ec2e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4001160359597700120, guid: 97d6dcaac64c4a94aaf68325fd57ec2e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4001160359597700120, guid: 97d6dcaac64c4a94aaf68325fd57ec2e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4001160359597700120, guid: 97d6dcaac64c4a94aaf68325fd57ec2e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4001160359597700120, guid: 97d6dcaac64c4a94aaf68325fd57ec2e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4001160359597700120, guid: 97d6dcaac64c4a94aaf68325fd57ec2e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4001160359597700120, guid: 97d6dcaac64c4a94aaf68325fd57ec2e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4001160359597700120, guid: 97d6dcaac64c4a94aaf68325fd57ec2e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4001160359597700120, guid: 97d6dcaac64c4a94aaf68325fd57ec2e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8091763265229311911, guid: 97d6dcaac64c4a94aaf68325fd57ec2e, type: 3}
-      propertyPath: m_Name
-      value: Poison
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 97d6dcaac64c4a94aaf68325fd57ec2e, type: 3}
 --- !u!1 &1433821493
 GameObject:
   m_ObjectHideFlags: 0
@@ -26455,5 +26400,4 @@ SceneRoots:
   - {fileID: 1940115195}
   - {fileID: 1317918625}
   - {fileID: 1741139255451212648}
-  - {fileID: 1424550412}
   - {fileID: 1997581104}
