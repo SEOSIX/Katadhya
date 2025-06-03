@@ -912,7 +912,7 @@ public class CombatManager : MonoBehaviour
             case 2: CData = player._CapacityData3; break;
             case 3: CData = player._CapacityDataUltimate; break;
         }
-        if(currentSelectedButton == button && currentSelectedButton!= null && IsCapacityOnCooldown(player,CData))
+        if(currentSelectedButton == button && currentSelectedButton!= null && !IsCapacityOnCooldown(player,CData))
         {
             UseCapacity(CData);
         }
@@ -1051,6 +1051,7 @@ public class CombatManager : MonoBehaviour
 
     private void UpdatePage(DataEntity player)
     {
+        currentSelectedButton = null;
         List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
         Transform EncartAffinity = null;
 
