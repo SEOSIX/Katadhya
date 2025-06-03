@@ -23,6 +23,7 @@ MonoBehaviour:
   MultipleBuff: 1
   TargetingAlly: 0
   Provocation: 0
+  ProvocationDuration: 0
   BuffFromAffinity: 0
   buffType: 2
   buffValue: 1.2
@@ -39,7 +40,7 @@ MonoBehaviour:
   specialType: 4
   specialDelay: 1
   Name: Protection
-  Description: "augmente la d\xE9fence et l'attaque des alli\xE9s"
+  Description: "augmente la d\xE9fence et l'attaque des alli\xE9s pour 1 tour"
   AffinityDescription: 
   PictoType: 0
   TargetType: 3
