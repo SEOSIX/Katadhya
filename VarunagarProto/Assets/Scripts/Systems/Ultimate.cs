@@ -84,8 +84,7 @@ public class Ultimate : MonoBehaviour
     {
         UltButton.interactable = false;
         StartCoroutine(CheckEntityChange());
-        StartCoroutine(SyncSliderWithEntity());
-        GainUltimateCharge(100); // DEBUG TODELETE
+        SyncSliderWithEntity();
     }
 
     private void LoadZonesFromChildren()
@@ -174,16 +173,12 @@ public class Ultimate : MonoBehaviour
         fill.sprite = CurrentEntity.UltimateEmpty;
     }
 
-    private IEnumerator SyncSliderWithEntity()
+    public void SyncSliderWithEntity()
     {
-        while (true)
-        {
             if (CurrentEntity != null && (int)sliderUltimate.value != CurrentEntity.UltimateSlider)
             {
                 sliderUltimate.value = CurrentEntity.UltimateSlider;
             }
-            yield return new WaitForSeconds(0.1f);
-        }
     }
     public void GainUltimateCharge(int chargeAmount)
     {
@@ -194,6 +189,7 @@ public class Ultimate : MonoBehaviour
             CurrentEntity.UltimateSlider = 100;
         }
         sliderUltimate.value = CurrentEntity.UltimateSlider;
+        SyncSliderWithEntity();
     }
 
     public void SliderManager()
@@ -226,7 +222,7 @@ public class Ultimate : MonoBehaviour
         PickAndAssignZones(player);
         qteCoroutine = StartCoroutine(CheckQTEInput());
         player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
-        if (player.CptUltlvl == 0) StartCoroutine(QTEStop());
+        if (player.CptUltlvl == 0) StartCoroutine(QTEStop(0f));
     }
 
     IEnumerator CheckQTEInput()
@@ -259,7 +255,6 @@ public class Ultimate : MonoBehaviour
 
             if (inZone && zone.gameObject.activeSelf && !zone.gameObject.GetComponent<QTEZoneMarker>().Hit)
             {
-                Debug.Log($"🎯 Le pointeur est dans la zone '{zone.zoneName}' ({(zone.successZone ? "réussite" : "échec")})");
                 
                 if (zone.successZone)
                     hitSuccess = true;
@@ -294,7 +289,7 @@ public class Ultimate : MonoBehaviour
         
     }
 
-    private IEnumerator QTEStop()
+    private IEnumerator QTEStop(float time = 1f)
     {
         if (qteCoroutine != null)
         {
@@ -312,7 +307,7 @@ public class Ultimate : MonoBehaviour
         CurrentEntity.UltIsReady = false;
         animator.SetTrigger("QTEStop");
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(time);
         qteUI.SetActive(false);
         CombatManager.SINGLETON.SetUltimate();
         CombatManager.SINGLETON.UseCapacity(GlobalVars.currentSelectedCapacity);

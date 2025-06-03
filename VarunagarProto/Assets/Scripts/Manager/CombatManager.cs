@@ -260,6 +260,7 @@ public class CombatManager : MonoBehaviour
 
         if (current.skipNextTurn)
         {
+            yield return new WaitForSeconds(0.5f);
             current.skipNextTurn = false;
             ExecuteDelayedActions(current);
             EndUnitTurn();
@@ -988,7 +989,8 @@ public class CombatManager : MonoBehaviour
 
     private void SetupCapacityButtons(DataEntity player)
     {
-        entiityManager.UpdateSpellData(player);  // <-- ici, en premier
+        entiityManager.UpdateSpellData(player);
+        UpdatePage(player);
 
         for (int i = 0; i < Banderoles.Count(); i++)
         {
@@ -1030,17 +1032,18 @@ public class CombatManager : MonoBehaviour
         {
             capacityButtons[3].gameObject.SetActive(true);
             capacityButtons[3].GetComponent<Image>().sprite = player.Ultimate;
+            ultimateScript.SyncSliderWithEntity();
             capacityAnimButtons[3].GetComponent<Button>().interactable = false;
             if (player.UltimateSlider <= 0)
             {
                 capacityAnimButtons[3].GetComponent<Button>().interactable = true;
+                Debug.Log("FDP");
                 capacityAnimButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start(player, capacityAnimButtons[3]));
             }
         }
         else
             Debug.LogWarning("CapacityDataUltimate is null!");
 
-        UpdatePage(player);
     }
 
     public void SetUltimate()
@@ -1078,7 +1081,6 @@ public class CombatManager : MonoBehaviour
         }
         else
         {
-            // Si la capacité n'est pas dans ActiveCooldowns, c'est qu'elle est prête à être utilisée
             capacityButtons[i].gameObject.SetActive(true);
             capacityButtons[i].GetComponent<Image>().sprite = CSprite;
             capacityButtons[i].GetComponent<Image>().material = null;
@@ -1086,7 +1088,6 @@ public class CombatManager : MonoBehaviour
             capacityAnimButtons[i].GetComponent<Animator>().SetTrigger("Normal");
 
 
-            // Masquer le cooldown restant
             CoolDownTexts[i].SetText("");
         }
     }
