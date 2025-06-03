@@ -103,12 +103,23 @@ public class AI : MonoBehaviour
             yield break;
         }
 
-        DataEntity target = possibleTargets.OrderBy(e => e.UnitLife).First();
+        DataEntity target = possibleTargets[Random.Range(0, possibleTargets.Count)];
 
         yield return new WaitForSeconds(0.5f);
-        CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, target);
+        if (chosenSpell.MultipleAttack)
+        {
+            Debug.Log("[AI] Attaque multiple déclenchée !");
+            foreach (var t in possibleTargets)
+            {
+                CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, t);
+            }
+        }
+        else
+        {
+            CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, target);
+        }
 
-        PostAttackProcessing(attacker);
+        PostAttackProcessing(attacker); 
 
         yield return new WaitForSeconds(0.5f);
         CombatManager.SINGLETON.EndUnitTurn();
