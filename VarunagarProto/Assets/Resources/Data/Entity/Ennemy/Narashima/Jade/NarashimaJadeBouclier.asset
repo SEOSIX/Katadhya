@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c8f182d232039848a3b32d7886df91f, type: 3}
+  m_Name: NarashimaJadeBouclier
+  m_EditorClassIdentifier: 
+  instance: {fileID: 0}
+  UnitAtk: 5
+  UnitSpeed: 43
+  UnitDef: 10
+  UnitAim: 100
+  ActiveBuffs: []
+  ActiveCooldowns: []
+  Affinity: 1
+  BaseLife: 80
+  BaseAtk: 10
+  BaseSpeed: 43
+  BaseDef: 15
+  BaseAim: 100
+  UnitShield: 0
+  ShockMark: 0
+  RageTick: 0
+  LastRageTick: 0
+  necrosis: []
+  beenHurtThisTurn: 1
+  provoking: 0
+  portrait: {fileID: 21300000, guid: d61d6230909ac0041bb0ad1c29abd41d, type: 3}
+  portraitUI: {fileID: 21300000, guid: 3bb5ebb973ab82e48ae36171738c2ad6, type: 3}
+  bandeauUI: {fileID: 0}
+  Animator: {fileID: 0}
+  capacityData1Source: {fileID: 11400000, guid: 94524177128cf6748ad4d86e39c5396c, type: 2}
+  capacity1: {fileID: 0}
+  Cpt1lvl: 0
+  capacityData2Source: {fileID: 11400000, guid: 6a560361518f05d46a735d639d655eba, type: 2}
+  capacity2: {fileID: 0}
+  Cpt2lvl: 0
+  capacityData3Source: {fileID: 11400000, guid: ae3c508d298b16b4990d652cc866ca0d, type: 2}
+  capacity3: {fileID: 0}
+  Cpt3lvl: 0
+  capacityDataUltimateSource: {fileID: 11400000, guid: cc7e76ddf1daf9c46a86030d324c84d9, type: 2}
+  Ultimate: {fileID: 0}
+  UltimateEmpty: {fileID: 0}
+  CptUltlvl: 0
+  UltimateSlider: 0
+  UltIsReady: 1
+  UltLvl_1: 0
+  UltLvl_2: 0
+  UltLvl_3: 0
+  UltLvl_4: 0
+  UltLvlHit: 0
+  namE: NarashimaPierreBouclier
+  size: 0
+  index: 3
+  ID: 6
+  RageAtkBonus: 0
+  skipNextTurn: 0
+  delayedActions: []
