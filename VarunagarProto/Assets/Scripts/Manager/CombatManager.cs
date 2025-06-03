@@ -72,8 +72,8 @@ public class CombatManager : MonoBehaviour
     public List<GameObject> circlesPlayer;
     [HideInInspector]public List<Vector3> originalCirclePlayersPositions = new List<Vector3>();
     
-    public Material hoverMaterial;
-    public Material defaultMaterial;
+    public Sprite hoverSprite;
+    public Sprite defaultSprite;
 
 
     [Header("Ultimate")]
