@@ -35,7 +35,6 @@ public class CombatManager : MonoBehaviour
     public TextMeshProUGUI lifeText;
     public Image playerPortrait;
     public Image[] ImagePortrait;
-
     public Button[] capacityButtons;
     public Button[] capacityAnimButtons;
     public GameObject[] capacityPage;
@@ -71,6 +70,10 @@ public class CombatManager : MonoBehaviour
     [HideInInspector]public List<Vector3> originalCircleEnemysPositions = new List<Vector3>();
     public List<GameObject> circlesPlayer;
     [HideInInspector]public List<Vector3> originalCirclePlayersPositions = new List<Vector3>();
+    
+    public Material hoverMaterial;
+    public Material defaultMaterial;
+
 
     [Header("Ultimate")]
     public Ultimate ultimateScript;

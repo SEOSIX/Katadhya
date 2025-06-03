@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using JetBrains.Annotations;
 using System.Linq;
 using static CombatManager;
 using System.IO.IsolatedStorage;
+using Object = UnityEngine.Object;
 
 
 public class EntiityManager : MonoBehaviour
@@ -249,5 +251,54 @@ public class EntiityManager : MonoBehaviour
 
         player._CapacityDataUltimate = allData.FirstOrDefault(data =>
             data.name == $"Cpt{player.ID}d{player.Affinity}{player.UltLvlHit}");
+    }
+    
+    private void OnMouseEnter()
+    {
+        if (!Clickable || GlobalVars.currentSelectedCapacity == null)
+            return;
+
+        DataEntity caster = CombatManager.SINGLETON.currentTurnOrder[0];
+        List<DataEntity> allies = entityHandler.players.Contains(caster) ? entityHandler.players : entityHandler.ennemies;
+        List<DataEntity> enemies = entityHandler.players.Contains(caster) ? entityHandler.ennemies : entityHandler.players;
+
+        if (GlobalVars.currentSelectedCapacity.TargetingAlly)
+        {
+            return;
+        }
+        else
+        {
+            int index = enemies.FindIndex(e => e.instance == this.gameObject);
+            if (index != -1)
+            {
+                if (index < CombatManager.SINGLETON.circlesEnnemy.Count)
+                {
+                    Image img = CombatManager.SINGLETON.circlesEnnemy[index].GetComponent<Image>();
+                    if (img != null && SINGLETON.hoverMaterial != null)
+                    {
+                        img.material = CombatManager.SINGLETON.hoverMaterial;
+                    }
+                }
+            }
+        }
+    }
+    
+    private void OnMouseExit()
+    {
+        for (int i = 0; i < entityHandler.ennemies.Count; i++)
+        {
+            if (entityHandler.ennemies[i]?.instance == this.gameObject)
+            {
+                if (i < CombatManager.SINGLETON.circlesEnnemy.Count)
+                {
+                    Image img = CombatManager.SINGLETON.circlesEnnemy[i].GetComponent<Image>();
+                    if (img != null && SINGLETON.defaultMaterial != null)
+                    {
+                        img.material = SINGLETON.defaultMaterial;
+                    }
+                }
+                break;
+            }
+        }
     }
 }
