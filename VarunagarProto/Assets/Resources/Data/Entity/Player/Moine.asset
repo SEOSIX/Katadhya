@@ -19,9 +19,10 @@ MonoBehaviour:
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns:
-  - capacity: {fileID: 11400000, guid: abdbbbf2787ee054eb88f455f3bf56fa, type: 2}
+  - capacity: {fileID: 11400000, guid: 70dd0b3adc5127c439dc05f54c11c0d7, type: 2}
     remainingCooldown: 1
-  Affinity: 1
+  Affinity: 0
+  ChargePower: 0
   BaseLife: 180
   BaseAtk: 5
   BaseSpeed: 40
@@ -52,7 +53,7 @@ MonoBehaviour:
   Ultimate: {fileID: 21300000, guid: 47156ee7c606bda4db4e0c7d377a295c, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: ce4265b8a8608f148b8c0bdfbd50f510, type: 3}
   CptUltlvl: 0
-  UltimateSlider: -9
+  UltimateSlider: 75
   UltIsReady: 0
   UltLvl_1: 0
   UltLvl_2: 0
