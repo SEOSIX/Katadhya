@@ -546,7 +546,7 @@ public class CombatManager : MonoBehaviour
         int visualIndex = entityHandler.players.Contains(target)
             ? entityHandler.players.IndexOf(target)
             : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
-        int globalAim = Mathf.RoundToInt(capacity.précision * caster.UnitAim);
+        float globalAim = Mathf.RoundToInt(capacity.précision * (caster.UnitAim/100));
         float réussite = lancer(globalAim, 2f, 1f);
 
         if (entityHandler.players.Contains(caster))
@@ -684,7 +684,7 @@ public class CombatManager : MonoBehaviour
         int visualIndex = entityHandler.players.Contains(target)
         ? entityHandler.players.IndexOf(target)
         : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
-        int globalAim = Mathf.RoundToInt(capacity.précision * caster.UnitAim);
+        float globalAim = Mathf.RoundToInt(capacity.précision * (caster.UnitAim / 100));
         float réussite = lancer(globalAim, 2f, 1f);
 
         if (réussite == 2)
@@ -1451,9 +1451,9 @@ public class CombatManager : MonoBehaviour
     #endregion
 
     #region Miscellaneous
-    public float lancer(int valeur, float above, float under)
+    public float lancer(float valeur, float above, float under)
     {
-        int lancer = UnityEngine.Random.Range(0, 101);
+        int lancer = UnityEngine.Random.Range(0, 100);
         if (lancer > valeur)
         {
             return above;
