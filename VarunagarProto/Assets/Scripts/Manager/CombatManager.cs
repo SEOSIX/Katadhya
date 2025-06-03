@@ -387,11 +387,11 @@ public class CombatManager : MonoBehaviour
             List<DataEntity> pool = null;
             if (entityHandler.players.Contains(currentPlayer))
             {
-                pool = entityHandler.ennemies;
+                pool = entityHandler.players;
             }
             else
             {
-                pool = entityHandler.players;
+                pool = entityHandler.ennemies;
             }
             foreach (var target in pool)
             {
