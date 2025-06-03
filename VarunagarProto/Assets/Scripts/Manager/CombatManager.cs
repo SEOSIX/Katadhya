@@ -1040,7 +1040,6 @@ public class CombatManager : MonoBehaviour
             if (player.UltimateSlider <= 0)
             {
                 capacityAnimButtons[3].GetComponent<Button>().interactable = true;
-                Debug.Log("FDP");
                 capacityAnimButtons[3].onClick.AddListener(() => ultimateScript.QTE_Start(player, capacityAnimButtons[3]));
             }
         }
