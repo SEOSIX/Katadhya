@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
+
 public class EnemyPack
 {
     [Header("Wave : ")]
@@ -90,6 +91,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    
     public void SpawnPlayers()
     {
         if (entityHandler.players == null || entityHandler.players.Count == 0)
@@ -293,6 +295,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private float offsetX = 400f;
 
+    
     public void SpawnObject()
     {
         if (objectsToSpawn == null || objectsToSpawn.Count == 0)
@@ -349,6 +352,8 @@ public class GameManager : MonoBehaviour
             StartCoroutine(AnimateUIElement(rt, startPos, offscreenTarget, 0.5f, true));
         }
     }
+
+    
     
     [SerializeField] private Camera uiCamera;
     private System.Collections.IEnumerator AnimateUIElement(RectTransform element, 
