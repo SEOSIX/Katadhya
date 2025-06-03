@@ -16,6 +16,7 @@ public class DataEntity : ScriptableObject
     public List<CooldownData> ActiveCooldowns = new List<CooldownData>();
     public int Affinity;
     public int ChargePower;
+    public int UltChargePowerCost;
 
     [Header("Unit Base Stat")]
     public int BaseLife;

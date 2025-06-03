@@ -3833,7 +3833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5423,9 +5423,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 1
+  m_MaxValue: 10
+  m_WholeNumbers: 1
+  m_Value: 10
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -18184,10 +18184,10 @@ MonoBehaviour:
     WaveList: []
     NextCombatIndex: 0
     CaurisDor: 0
-    "CaurisSp\xE91": 0
-    "CaurisSp\xE92": 0
-    "CaurisSp\xE93": 0
-    "CaurisSp\xE94": 0
+    CaurisSpe1: 0
+    CaurisSpe2: 0
+    CaurisSpe3: 0
+    CaurisSpe4: 0
     RoomOptions:
     - 
     - 
@@ -18272,7 +18272,7 @@ MonoBehaviour:
   currentInterractingButton: {fileID: 0}
   currentSelectedButton: {fileID: 0}
   endTurnButton: {fileID: 0}
-  LifePlayers: {fileID: 490790676}
+  PlayerCharge: {fileID: 490790676}
   ennemyTurn: {fileID: 1163544507}
   TurnUI: {fileID: 498016538}
   canvasGroup: {fileID: 498016542}
@@ -18286,6 +18286,8 @@ MonoBehaviour:
   originalCircleEnemysPositions: []
   circlesPlayer: []
   originalCirclePlayersPositions: []
+  hoverMaterial: {fileID: 0}
+  defaultMaterial: {fileID: 0}
   ultimateScript: {fileID: 711964558}
   currentTurnOrder: []
   unitPlayedThisTurn: []
@@ -20404,7 +20406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.0489275, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -61,6 +61,7 @@ public static class ReseterData
         entity.beenHurtThisTurn = false;
         entity.provoking = false;
         entity.provokingDuration = 0;
+        entity.ChargePower = 0;
     }
 }
 

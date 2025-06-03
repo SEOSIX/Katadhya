@@ -54,7 +54,7 @@ public class CombatManager : MonoBehaviour
 
     [Header("Turn Management")]
     public Button endTurnButton;
-    public Slider LifePlayers;
+    public Slider PlayerCharge;
 
     [Header("TurnObject")]
     public GameObject ennemyTurn;
@@ -115,6 +115,7 @@ public class CombatManager : MonoBehaviour
         ReseterData.ResetEnemies(entityHandler);
         ReseterData.ResetPlayersBeforeCombat(entityHandler, entiityManager);
         currentTurnOrder = GetUnitTurn();
+        StartUnitTurn();
     }
 
     void Update()
@@ -134,8 +135,7 @@ public class CombatManager : MonoBehaviour
         atck.text = "ATQ :" + currentEntity.UnitAtk;
         lifeText.text = currentEntity.UnitLife + "/" + currentEntity.BaseLife;
         playerPortrait.sprite = currentEntity.bandeauUI;
-        LifePlayers.maxValue = currentEntity.BaseLife;
-        LifePlayers.value = currentEntity.UnitLife;
+        PlayerCharge.value = currentEntity.ChargePower;
 
         List<DataEntity> initialTurnOrder = GetUnitTurn();
         for (int i = 0; i < ImagePortrait.Length; i++)
@@ -219,6 +219,7 @@ public class CombatManager : MonoBehaviour
     public void StartUnitTurn()
     {
         DataEntity caster = currentTurnOrder[0];
+        ChargePower(caster, 2);
         if (caster.beenHurtThisTurn == false && caster.RageTick > 0)
         {
             caster.RageTick -= 1;
@@ -335,7 +336,41 @@ public class CombatManager : MonoBehaviour
     }
     public void UseCapacity(CapacityData cpt)
     {
-        StartTargetSelectionMode(cpt);
+        DataEntity player = currentTurnOrder[0];
+        char CptType = cpt.name[4];
+        if(CptType == 'd')
+        {
+            int CptChargeCost = player.UltChargePowerCost;
+            if (player.ChargePower >= CptChargeCost)
+            {
+                player.ChargePower -= CptChargeCost;
+
+                StartTargetSelectionMode(cpt);
+            }
+            else
+            {
+                Debug.Log("Pas assez de charge pour Ult");
+            }
+        }
+        else
+        {
+            int CptLevel = cpt.name[6] - '0';
+            int CptChargeCost = 0;
+            switch (CptLevel)
+            {
+                case 0: CptChargeCost = 0; break;
+                case 1: CptChargeCost = 2; break;
+                case 2: CptChargeCost = 3; break;
+            }
+            if (player.ChargePower >= CptChargeCost)
+            {
+                player.ChargePower -= CptChargeCost;
+
+                StartTargetSelectionMode(cpt);
+            }
+            else Debug.Log("pas assez charge");
+        }
+
     }
     #region Selection
     public void StartTargetSelectionMode(CapacityData capacity)
@@ -474,6 +509,7 @@ public class CombatManager : MonoBehaviour
     {
 
         DataEntity caster = currentTurnOrder[0];
+
         Animator anim = caster.instance?.GetComponent<Animator>();
         if (anim != null && anim.runtimeAnimatorController != null)
         {
@@ -506,10 +542,10 @@ public class CombatManager : MonoBehaviour
                 caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown));
             }
         }
-        if (Ultimate.SINGLETON != null)
+        /*if (Ultimate.SINGLETON != null)
         {
             Ultimate.SINGLETON.GainUltimateCharge(capacity.chargeUlti);
-        }
+        }*/
         InitializeStaticUI();
 
     }
@@ -848,7 +884,6 @@ public class CombatManager : MonoBehaviour
         CapacityData newCapacity = CptArray.FirstOrDefault(d => d.name == $"{newName}");
 
         //string path = $"Data/Entity/Capacity/Players/Players{playerId}/Affinity{affinityId}/Niveau {nextLevel}/{newName}";
-        Debug.Log(newName);
 
         if (newCapacity == null)
         {
@@ -1057,6 +1092,11 @@ public class CombatManager : MonoBehaviour
         currentSelectedButton = null;
         List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
         Transform EncartAffinity = null;
+        if (player.ChargePower >= player.UltChargePowerCost)
+        {
+            Ultimate.SINGLETON.GainUltimateCharge(100);
+            Ultimate.SINGLETON.SliderManager();
+        }
 
         for (int i = 0; i<4; i++)
 
