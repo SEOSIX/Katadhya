@@ -213,7 +213,7 @@ public class Ultimate : MonoBehaviour
 
         player = Player;
         player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
-        if (player.CptUltlvl == 0) QTEStop();
+        if (player.CptUltlvl == 0) StartCoroutine(QTEStop());
         player.UltLvlHit = 1;
         UltButton.interactable = false; 
         if (qteAnimator == null || qteUI == null)
@@ -287,7 +287,7 @@ public class Ultimate : MonoBehaviour
         }
         else
         {
-            QTEStop();
+            StartCoroutine(QTEStop());
             // Logique d'échec
         }
         
@@ -311,7 +311,7 @@ public class Ultimate : MonoBehaviour
         CurrentEntity.UltIsReady = false;
         animator.SetTrigger("QTEStop");
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         qteUI.SetActive(false);
         CombatManager.SINGLETON.SetUltimate();
         CombatManager.SINGLETON.UseCapacity(GlobalVars.currentSelectedCapacity);

@@ -19,7 +19,7 @@ MonoBehaviour:
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns: []
-  Affinity: 0
+  Affinity: 4
   ChargePower: 0
   BaseLife: 200
   BaseAtk: 10
@@ -50,13 +50,13 @@ MonoBehaviour:
   capacityDataUltimateSource: {fileID: 11400000, guid: daec32e88b3cc724699e3aa97648eadf, type: 2}
   Ultimate: {fileID: 21300000, guid: b9dfd3aed188eda4e925aa347812de99, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: 32f764f830a8d39449df9ac27bfb030e, type: 3}
-  CptUltlvl: 0
-  UltimateSlider: -63
+  CptUltlvl: 4
+  UltimateSlider: -1
   UltIsReady: 0
-  UltLvl_1: 0
-  UltLvl_2: 0
-  UltLvl_3: 0
-  UltLvl_4: 0
+  UltLvl_1: 1
+  UltLvl_2: 1
+  UltLvl_3: 1
+  UltLvl_4: 1
   UltLvlHit: 1
   namE: "Prisonni\xE8re"
   size: 0.21

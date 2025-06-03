@@ -5,25 +5,6 @@ using Unity.VisualScripting;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-[System.Serializable]
-public class Combat
-{
-    public List<EnemyPack> WaveList = new List<EnemyPack>();
-    public int NextCombatIndex;
-    public int CaurisDor;
-    public int CaurisSpé1;
-    public int CaurisSpé2;
-    public int CaurisSpé3;
-    public int CaurisSpé4;
-
-    public string[] RoomOptions = new string[2];
-}
-
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObject/LevelDesign", order = 6)]
-public class LevelDesign : ScriptableObject
-{
-    public Combat[] CombatList;
-}
 
 public class ExplorationManager : MonoBehaviour
 {
@@ -96,3 +77,24 @@ public class ExplorationManager : MonoBehaviour
     }
 
 }
+
+[System.Serializable]
+public class Combat
+{
+    public List<EnemyPack> WaveList = new List<EnemyPack>();
+    public int NextCombatIndex;
+    public int CaurisDor;
+    public int CaurisSpé1;
+    public int CaurisSpé2;
+    public int CaurisSpé3;
+    public int CaurisSpé4;
+
+    public string[] RoomOptions = new string[2];
+}
+
+[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObject/LevelDesign", order = 6)]
+public class LevelDesign : ScriptableObject
+{
+    public Combat[] CombatList;
+}
+
