@@ -223,13 +223,16 @@ public class CombatManager : MonoBehaviour
         {
             TickNecrosisEffect(caster);
         }
-        if (caster.provoking == true)
+        if (caster.provokingCaracter != null)
         {
-            caster.provokingDuration -= 1;
-            if (caster.provokingDuration <= 0)
+            if (caster.provokingCaracter.provoking == true)
             {
-                caster.provoking = false;
-            }
+                caster.provokingCaracter.provokingDuration -= 1;
+                if (caster.provokingCaracter.provokingDuration <= 0)
+                {
+                    caster.provokingCaracter.provoking = false;
+                }
+            } 
         }
         caster.beenHurtThisTurn = false;
         RecalculateStats(caster);
@@ -615,6 +618,7 @@ public class CombatManager : MonoBehaviour
         {
             target.provoking = true;
             target.provokingDuration = capacity.ProvocationDuration;
+            caster.provokingCaracter = target;
         }
         if (capacity.buffType > 0)
         {
