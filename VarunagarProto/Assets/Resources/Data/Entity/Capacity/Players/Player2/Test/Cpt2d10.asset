@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
   m_Name: Cpt2d10
   m_EditorClassIdentifier: 
-  atk: 4000
+  atk: 0
   heal: 0
   critique: 0
   "pr\xE9cision": 100
@@ -23,6 +23,7 @@ MonoBehaviour:
   MultipleBuff: 1
   TargetingAlly: 0
   Provocation: 0
+  ProvocationDuration: 0
   BuffFromAffinity: 0
   buffType: 2
   buffValue: 1.2
@@ -38,8 +39,8 @@ MonoBehaviour:
   secondaryBuffDuration: 0
   specialType: 4
   specialDelay: 1
-  Name: 
-  Description: 
+  Name: Protection
+  Description: "augmente la d\xE9fence des alli\xE9s pour 1 tour"
   AffinityDescription: 
   PictoType: 0
   TargetType: 0

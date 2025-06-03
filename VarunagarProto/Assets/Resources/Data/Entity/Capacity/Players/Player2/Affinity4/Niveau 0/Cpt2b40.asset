@@ -23,6 +23,7 @@ MonoBehaviour:
   MultipleBuff: 0
   TargetingAlly: 0
   Provocation: 0
+  ProvocationDuration: 0
   BuffFromAffinity: 0
   buffType: 1
   buffValue: 0.8
@@ -38,8 +39,8 @@ MonoBehaviour:
   secondaryBuffDuration: 0
   specialType: 0
   specialDelay: 1
-  Name: 'Intimidation '
-  Description: "Inflige des d\xE9g\xE2ts et baisse l'attaque de la cible "
+  Name: Charge
+  Description: "Inflige des d\xE9g\xE2ts et baisse l'attaque de la cible pour 1 tour"
   AffinityDescription: "Augmente les d\xE9g\xE2ts de la capacit\xE9 en fonction de
     la rage"
   PictoType: 0
