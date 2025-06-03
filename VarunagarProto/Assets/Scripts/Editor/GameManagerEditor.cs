@@ -9,28 +9,45 @@ public class GameManagerEditor : Editor
         serializedObject.Update();
 
         GameManager gm = (GameManager)target;
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("isCombatEnabled"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("salleSpeciale"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("playerSpawnPoints"), true);
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("entityHandler"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("playerPrefabs"), true);
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("sizeChara"));
+
+        DrawSafeProperty("isCombatEnabled");
+        DrawSafeProperty("salleSpeciale");
+        DrawSafeProperty("playerSpawnPoints", true);
+        DrawSafeProperty("entityHandler");
+        DrawSafeProperty("playerPrefabs", true);
+        DrawSafeProperty("sizeChara");
+
         if (gm.isCombatEnabled)
         {
             EditorGUILayout.Space(10);
             EditorGUILayout.LabelField("Enemy Section", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("enemySpawnPoints"), true);
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("EnemyPackIndex"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("enemyPacks"), true);
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("allEnemiesEncountered"), true);
+            DrawSafeProperty("enemySpawnPoints", true);
+            DrawSafeProperty("EnemyPackIndex");
+            DrawSafeProperty("enemyPacks", true);
+            DrawSafeProperty("allEnemiesEncountered", true);
         }
 
         if (gm.salleSpeciale)
         {
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("objectsToSpawn"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("ispressed"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("uiCamera"));
+            DrawSafeProperty("objectsToSpawn");
+            DrawSafeProperty("ispressed");
+            DrawSafeProperty("uiCamera");
         }
+
         serializedObject.ApplyModifiedProperties();
     }
+
+    private void DrawSafeProperty(string propertyName, bool includeChildren = false)
+    {
+        SerializedProperty prop = serializedObject.FindProperty(propertyName);
+        if (prop != null)
+        {
+            EditorGUILayout.PropertyField(prop, includeChildren);
+        }
+        else
+        {
+            Debug.LogWarning($"Property '{propertyName}' not found on GameManager.");
+        }
+    }
+
 }

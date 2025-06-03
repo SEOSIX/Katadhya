@@ -269,20 +269,17 @@ public class EntiityManager : MonoBehaviour
         else
         {
             int index = enemies.FindIndex(e => e.instance == this.gameObject);
-            if (index != -1)
+            if (index != -1 && index < CombatManager.SINGLETON.circlesEnnemy.Count)
             {
-                if (index < CombatManager.SINGLETON.circlesEnnemy.Count)
+                Image img = CombatManager.SINGLETON.circlesEnnemy[index].GetComponent<Image>();
+                if (img != null && CombatManager.SINGLETON.hoverSprite != null)
                 {
-                    Image img = CombatManager.SINGLETON.circlesEnnemy[index].GetComponent<Image>();
-                    if (img != null && SINGLETON.hoverMaterial != null)
-                    {
-                        img.material = CombatManager.SINGLETON.hoverMaterial;
-                    }
+                    img.sprite = CombatManager.SINGLETON.hoverSprite;
                 }
             }
         }
     }
-    
+
     private void OnMouseExit()
     {
         for (int i = 0; i < entityHandler.ennemies.Count; i++)
@@ -292,9 +289,9 @@ public class EntiityManager : MonoBehaviour
                 if (i < CombatManager.SINGLETON.circlesEnnemy.Count)
                 {
                     Image img = CombatManager.SINGLETON.circlesEnnemy[i].GetComponent<Image>();
-                    if (img != null && SINGLETON.defaultMaterial != null)
+                    if (img != null && CombatManager.SINGLETON.defaultSprite != null)
                     {
-                        img.material = SINGLETON.defaultMaterial;
+                        img.sprite = CombatManager.SINGLETON.defaultSprite;
                     }
                 }
                 break;
