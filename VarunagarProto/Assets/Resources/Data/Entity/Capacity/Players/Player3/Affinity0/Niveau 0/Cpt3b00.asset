@@ -15,14 +15,15 @@ MonoBehaviour:
   atk: 18
   heal: 0
   critique: 5
-  "pr\xE9cision": 50
-  cooldown: 1
+  "pr\xE9cision": 1
+  cooldown: 0
   chargeUlti: 17
   MultipleHeal: 0
   MultipleAttack: 0
   MultipleBuff: 0
   TargetingAlly: 0
   Provocation: 0
+  ProvocationDuration: 0
   BuffFromAffinity: 0
   buffType: 4
   buffValue: 0
@@ -39,7 +40,8 @@ MonoBehaviour:
   specialType: 0
   specialDelay: 1
   Name: Eblouissement
-  Description: "Inflige des d\xE9gats et r\xE9duit la pr\xE9cision de l'ennemi"
+  Description: "Inflige des d\xE9gats et a 1/2 de faire rater la prochaine attaque
+    de l'ennemi"
   AffinityDescription: 
   PictoType: 0
   TargetType: 0
