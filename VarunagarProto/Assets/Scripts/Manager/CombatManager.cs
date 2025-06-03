@@ -547,6 +547,7 @@ public class CombatManager : MonoBehaviour
             if (!alreadyInCooldown)
             {
                 caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown));
+                Debug.Log($"[Cooldown] Ajouté à {caster.name} pour capacité {capacity.name}, durée {capacity.cooldown}");
             }
         }
         /*if (Ultimate.SINGLETON != null)
@@ -958,7 +959,7 @@ public class CombatManager : MonoBehaviour
             case 2: CData = player._CapacityData3; break;
             case 3: CData = player._CapacityDataUltimate; break;
         }
-        if(currentSelectedButton == button && currentSelectedButton!= null && !IsCapacityOnCooldown(player,CData))
+        if (currentSelectedButton == button && currentSelectedButton != null && !IsCapacityOnCooldown(player, CData))
         {
             UseCapacity(CData);
         }
@@ -1012,21 +1013,21 @@ public class CombatManager : MonoBehaviour
 
         if (player._CapacityData1 != null)
         {
-            SetupButtonFunction(0, player._CapacityData1, player.capacity1);
+            SetupButtonFunction(player, 0, player._CapacityData1, player.capacity1);
         }
         else
             Debug.LogWarning("CapacityData1 is null!");
 
         if (player._CapacityData2 != null)
         {
-            SetupButtonFunction(1, player._CapacityData2, player.capacity2);
+            SetupButtonFunction(player, 1, player._CapacityData2, player.capacity2);
         }
         else
             Debug.LogWarning("CapacityData2 is null!");
 
         if (player._CapacityData3 != null)
         {
-            SetupButtonFunction(2, player._CapacityData3, player.capacity3);
+            SetupButtonFunction(player, 2, player._CapacityData3, player.capacity3);
         }
         else
             Debug.LogWarning("CapacityData3 is null!");
@@ -1053,15 +1054,16 @@ public class CombatManager : MonoBehaviour
         entiityManager.UpdateSpellData(currentPlayer);
         GlobalVars.currentSelectedCapacity = currentPlayer._CapacityDataUltimate;
     }
-    private void SetupButtonFunction(int i, CapacityData CData, Sprite CSprite)
+    private void SetupButtonFunction(DataEntity player, int i, CapacityData CData, Sprite CSprite)
     {
-        DataEntity caster = currentTurnOrder[0];
-        DataEntity.CooldownData? cooldownData = caster.ActiveCooldowns.Find(cd => cd.capacity == CData);
+        DataEntity caster = player;
+        DataEntity.CooldownData? cooldownData = caster.ActiveCooldowns.Find(cd => cd.capacity.name == CData.name);
         if (cooldownData.HasValue)
         {
-            int remainingCooldown = cooldownData.Value.remainingCooldown;
-            if (remainingCooldown > 0)
+            if (cooldownData.HasValue && cooldownData.Value.remainingCooldown > 0)
             {
+                int remainingCooldown = cooldownData.Value.remainingCooldown;
+    
                 CoolDownTexts[i].SetText($"{remainingCooldown}");
                 capacityButtons[i].gameObject.SetActive(true);
                 capacityButtons[i].GetComponent<Image>().sprite = CSprite;
@@ -1071,14 +1073,13 @@ public class CombatManager : MonoBehaviour
             }
             else
             {
+                CoolDownTexts[i].SetText("");  // rien à afficher
                 capacityButtons[i].gameObject.SetActive(true);
                 capacityButtons[i].GetComponent<Image>().sprite = CSprite;
                 capacityButtons[i].GetComponent<Image>().material = null;
                 capacityAnimButtons[i].GetComponent<Button>().interactable = true;
                 capacityAnimButtons[i].GetComponent<Animator>().SetTrigger("Normal");
                 capacityAnimButtons[i].onClick.AddListener(() => UseCapacity(CData));
-
-                CoolDownTexts[i].SetText("");
             }
         }
         else
@@ -1088,8 +1089,6 @@ public class CombatManager : MonoBehaviour
             capacityButtons[i].GetComponent<Image>().material = null;
             capacityAnimButtons[i].GetComponent<Button>().interactable = true;
             capacityAnimButtons[i].GetComponent<Animator>().SetTrigger("Normal");
-
-
             CoolDownTexts[i].SetText("");
         }
     }
@@ -1560,7 +1559,7 @@ public class CombatManager : MonoBehaviour
     {
         foreach (var cd in caster.ActiveCooldowns)
         {
-            if (cd.capacity == capacity)
+            if (cd.capacity.name == capacity.name)
                 return true; // en cooldown
         }
         return false; // disponible
