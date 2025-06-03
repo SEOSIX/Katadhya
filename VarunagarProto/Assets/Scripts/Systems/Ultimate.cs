@@ -212,8 +212,7 @@ public class Ultimate : MonoBehaviour
         ResetAllZones();
 
         player = Player;
-        player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
-        if (player.CptUltlvl == 0) StartCoroutine(QTEStop());
+       
         player.UltLvlHit = 1;
         UltButton.interactable = false; 
         if (qteAnimator == null || qteUI == null)
@@ -226,6 +225,8 @@ public class Ultimate : MonoBehaviour
         qteAnimator.speed = 1f;
         PickAndAssignZones(player);
         qteCoroutine = StartCoroutine(CheckQTEInput());
+        player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
+        if (player.CptUltlvl == 0) StartCoroutine(QTEStop());
     }
 
     IEnumerator CheckQTEInput()

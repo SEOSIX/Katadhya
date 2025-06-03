@@ -15,7 +15,7 @@ public class RightClickDetector : MonoBehaviour, IPointerEnterHandler, IPointerE
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        CombatManager.SINGLETON.ResetListener(CptIndex);
+        CombatManager.SINGLETON.ResetListener(CptIndex,Button);
         MouseIsOver = false;
     }
     public void OnPointerDown(PointerEventData eventData)
@@ -25,6 +25,13 @@ public class RightClickDetector : MonoBehaviour, IPointerEnterHandler, IPointerE
             Button = eventData.pointerEnter;
             CombatManager CM = CombatManager.SINGLETON;
             CM.UpgradeCpt(CptIndex, Button);
+        }
+        else
+        {
+            Button = eventData.pointerEnter;
+
+            CombatManager CM = CombatManager.SINGLETON;
+            CM.currentSelectedButton = Button;
         }
     }
 

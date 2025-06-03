@@ -49,6 +49,7 @@ public class CombatManager : MonoBehaviour
     public Material GreyScale;
     private DataEntity currentPlayer;
     public GameObject currentInterractingButton;
+    public GameObject currentSelectedButton;
 
 
 
@@ -844,6 +845,7 @@ public class CombatManager : MonoBehaviour
         CapacityData newCapacity = CptArray.FirstOrDefault(d => d.name == $"{newName}");
 
         //string path = $"Data/Entity/Capacity/Players/Players{playerId}/Affinity{affinityId}/Niveau {nextLevel}/{newName}";
+        Debug.Log(newName);
 
         if (newCapacity == null)
         {
@@ -899,7 +901,7 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public void ResetListener(int index)
+    public void ResetListener(int index, GameObject button = null)
     {
         DataEntity player = currentTurnOrder[0];
         CapacityData CData = null;
@@ -910,7 +912,10 @@ public class CombatManager : MonoBehaviour
             case 2: CData = player._CapacityData3; break;
             case 3: CData = player._CapacityDataUltimate; break;
         }
-        UseCapacity(CData);
+        if(currentSelectedButton == button && currentSelectedButton!= null && IsCapacityOnCooldown(player,CData))
+        {
+            UseCapacity(CData);
+        }
     }
     public void UpgradeCpt(int i, GameObject button = null)
     {
@@ -1047,10 +1052,15 @@ public class CombatManager : MonoBehaviour
     private void UpdatePage(DataEntity player)
     {
         List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
+        Transform EncartAffinity = null;
 
         for (int i = 0; i<4; i++)
+
         {
             UpdateSlot(player, i, PCapacities[i]);
+            EncartAffinity = capacityPageAffinity[i].GetComponent<Transform>();
+            EncartAffinity.gameObject.SetActive(false);
+            EncartAffinity.GetChild(1).GameObject().SetActive(false);
         }
     }
     private void UpdateSlot(DataEntity player, int i, CapacityData CData)
@@ -1058,13 +1068,7 @@ public class CombatManager : MonoBehaviour
         List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
         //Reset de tout
         Transform EncartCpt = capacityPage[i].GetComponent<Transform>();
-        Transform EncartAffinity = null;
-        if (i < 4)
-        {
-            EncartAffinity = capacityPageAffinity[i].GetComponent<Transform>();
-            EncartAffinity.gameObject.SetActive(false);
-            EncartAffinity.GetChild(1).GameObject().SetActive(false);
-        }
+        Transform EncartAffinity = capacityPageAffinity[i].GetComponent<Transform>();
         Transform Text = EncartCpt.GetChild(4);
         Sprite Target = TargetType[CData.TargetType];
         Sprite PictoType = Pictos[CData.PictoType];
@@ -1078,6 +1082,7 @@ public class CombatManager : MonoBehaviour
         Description.SetText(CData.Description);
         EncartCpt.GetChild(2).GetComponent<Image>().sprite = Target;
         EncartCpt.GetChild(3).GetChild(1).GetComponent<Image>().sprite = PictoType;
+
 
         //MAJ de la data si affinity
         if (player.Affinity != 0 && EncartAffinity!= null)
