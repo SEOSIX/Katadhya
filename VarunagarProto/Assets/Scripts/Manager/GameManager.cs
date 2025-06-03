@@ -273,7 +273,7 @@ public class GameManager : MonoBehaviour
             else
                 worldPos = CombatManager.SINGLETON.originalCircleEnemysPositions[i];
 
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(healthSliders[i].transform.position);
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 CombatManager.SINGLETON.circleParentUI,
                 screenPos,
@@ -308,6 +308,9 @@ public class GameManager : MonoBehaviour
 
         ispressed = !ispressed;
     }
+
+
+    #region moveingObject
 
     private void MoveUIFromRight()
     {
@@ -371,6 +374,8 @@ public class GameManager : MonoBehaviour
             element.gameObject.SetActive(false);
         }
     }
+
+    #endregion
 
 
     private void AddEnemyToEncountered(DataEntity data)
