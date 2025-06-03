@@ -972,7 +972,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1000, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &297699964
@@ -4123,8 +4123,13 @@ MonoBehaviour:
     prefab: {fileID: 7033778814545610870, guid: 1313d386f1219944381b560ad4453fbe, type: 3}
   EnemyPackIndex: 0
   currentCombat:
-    Combat: []
-    NexCombatIndex: 0
+    WaveList: []
+    NextCombatIndex: 0
+    CaurisDor: 0
+    CaurisSpe1: 0
+    CaurisSpe2: 0
+    CaurisSpe3: 0
+    CaurisSpe4: 0
     RoomOptions:
     - 
     - 

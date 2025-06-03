@@ -59,6 +59,7 @@ public class CombatManager : MonoBehaviour
     [Header("TurnObject")]
     public GameObject ennemyTurn;
     public GameObject TurnUI;
+    public TextMeshProUGUI attackEnnemy;
     public CanvasGroup canvasGroup;
     public RectTransform circleParentUI;
 
@@ -109,6 +110,8 @@ public class CombatManager : MonoBehaviour
         SINGLETON = this;
     }
 
+    
+    [ContextMenu("pipi")]
     void Start()
     {
         ReseterData.ResetPlayersComplete(entityHandler, entiityManager);  //a retirer avant de build

@@ -14,6 +14,9 @@ public class AI : MonoBehaviour
     public GameObject playerTarget3;
     
     private int enemyTurnCounter = 0;
+    
+    [HideInInspector]
+    public CapacityData choosenSpell;
 
     private void Awake()
     {
@@ -57,29 +60,24 @@ public class AI : MonoBehaviour
 
         bool playerIsProvoking = entityHandler.players.Any(p => p.provoking);
 
-        // Récupère toutes les capacités disponibles de l'attaquant
         List<CapacityData> allSpells = new List<CapacityData>();
         if (attacker._CapacityData1 != null) allSpells.Add(attacker._CapacityData1);
         if (attacker._CapacityData2 != null) allSpells.Add(attacker._CapacityData2);
 
-        // Filtre selon provocation : si provocation, on enlève les sorts ciblant alliés (soins)
         List<CapacityData> validSpells = playerIsProvoking
             ? allSpells.Where(s => !s.TargetingAlly).ToList()
             : allSpells;
 
         if (validSpells.Count == 0)
         {
-            Debug.Log("Aucune capacité valide pour ce tour (provocation). Fin du tour.");
             CombatManager.SINGLETON.EndUnitTurn();
             yield break;
         }
-
-        // Choix aléatoire pondéré parmi les capacités valides
-        CapacityData chosenSpell = SelectSpellFromList(validSpells);
-
+        choosenSpell = SelectSpellFromList(validSpells);
+        CombatManager.SINGLETON.attackEnnemy.text = $"{attacker.namE} lance {choosenSpell.Description}";
         List<DataEntity> possibleTargets;
 
-        if (chosenSpell.TargetingAlly)
+        if (choosenSpell.TargetingAlly)
         {
             possibleTargets = entityHandler.ennemies
                 .Where(e => e.UnitLife > 0 && e.UnitLife < e.BaseLife)
@@ -98,7 +96,7 @@ public class AI : MonoBehaviour
 
         if (possibleTargets.Count == 0)
         {
-            Debug.Log("Aucune cible valide trouvée.");
+            Debug.Log("Aucune cible valide trouvee.");
             CombatManager.SINGLETON.EndUnitTurn();
             yield break;
         }
@@ -106,17 +104,17 @@ public class AI : MonoBehaviour
         DataEntity target = possibleTargets[Random.Range(0, possibleTargets.Count)];
 
         yield return new WaitForSeconds(0.5f);
-        if (chosenSpell.MultipleAttack)
+        if (choosenSpell.MultipleAttack)
         {
-            Debug.Log("[AI] Attaque multiple déclenchée !");
+            Debug.Log("[AI] Attaque multiple dï¿½clenchï¿½e !");
             foreach (var t in possibleTargets)
             {
-                CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, t);
+                CombatManager.SINGLETON.ApplyCapacityToTarget(choosenSpell, t);
             }
         }
         else
         {
-            CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, target);
+            CombatManager.SINGLETON.ApplyCapacityToTarget(choosenSpell, target);
         }
 
         PostAttackProcessing(attacker); 
@@ -203,7 +201,7 @@ public class AI : MonoBehaviour
         else
             chosen = Random.Range(0, total) < value1 ? enemy._CapacityData1 : enemy._CapacityData2;
 
-        Debug.Log($"[AI] Choix de la capacité : {chosen.name}, TargetingAlly = {chosen.TargetingAlly}");
+        Debug.Log($"[AI] Choix de la capacitï¿½ : {chosen.name}, TargetingAlly = {chosen.TargetingAlly}");
 
         return chosen;
     }

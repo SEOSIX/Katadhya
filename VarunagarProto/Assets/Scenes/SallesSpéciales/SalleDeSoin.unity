@@ -479,11 +479,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCombatEnabled: 0
+  salleSpeciale: 0
   playerSpawnPoints:
   - {fileID: 1771093544}
   - {fileID: 362555811}
   - {fileID: 350521202}
   enemySpawnPoints: []
+  objectsToSpawn: []
   entityHandler: {fileID: 11400000, guid: 779db6a0d8027e04a8c21117fb5fdb15, type: 2}
   playerPrefabs:
   - playerName: Moine
@@ -494,14 +496,22 @@ MonoBehaviour:
     prefab: {fileID: 7033778814545610870, guid: 1313d386f1219944381b560ad4453fbe, type: 3}
   EnemyPackIndex: 0
   currentCombat:
-    Combat: []
-    NexCombatIndex: 0
+    WaveList: []
+    NextCombatIndex: 0
+    CaurisDor: 0
+    CaurisSpe1: 0
+    CaurisSpe2: 0
+    CaurisSpe3: 0
+    CaurisSpe4: 0
     RoomOptions:
     - 
     - 
   allEnemiesEncountered: []
   sizeChara: 0.21
+  ispressed: 0
   circleOffset: {x: 0, y: 0, z: 0}
+  offsetX: 400
+  uiCamera: {fileID: 0}
 --- !u!114 &325274646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1418,7 +1428,7 @@ Transform:
   m_GameObject: {fileID: 850288412}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.9846988, y: 1.0600001, z: 0}
+  m_LocalPosition: {x: 3.85, y: 1.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1872,7 +1882,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9c47bc4a0ef6c35418531f26bbba1233, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
