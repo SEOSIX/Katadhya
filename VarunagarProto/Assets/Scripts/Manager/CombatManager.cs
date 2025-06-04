@@ -1303,7 +1303,7 @@ public class CombatManager : MonoBehaviour
         Text.GetChild(3).GetComponent<TextMeshProUGUI>().SetText($"{CData.critique}%");
         if (CData.MultipleAttack)
         {
-            EncartCpt.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"{CData.cooldown-1} tour");
+            EncartCpt.GetChild(5).GetComponent<TextMeshProUGUI>().SetText($"{CData.cooldown} tour");
 
         }
         else

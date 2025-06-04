@@ -36,60 +36,76 @@ public class VictoryDefeatUI : MonoBehaviour
     
     
 
-   public void DisplayEndCombat(bool playerWon, List<DataEntity> allEnemies)
-{
-    if (combatEnded) return;
-    combatEnded = true;
-    StartCoroutine(DelayedDisplay(playerWon, allEnemies));
-}
-
-private IEnumerator DelayedDisplay(bool playerWon, List<DataEntity> allEnemies)
-{
-    yield return new WaitForSeconds(1f);
-
-    CombatManager.SINGLETON.canvasGroup.alpha = 0f;
-    CombatManager.SINGLETON.canvasGroup.interactable = false;
-    CombatManager.SINGLETON.canvasGroup.blocksRaycasts = false;
-
-    CombatManager.SINGLETON.enabled = false;
-    foreach (var btn in CombatManager.SINGLETON.capacityAnimButtons)
-        btn.interactable = false;
-
-    resultText.text = playerWon ? "VICTOIRE" : "DÉFAITE";
-    resultText.color = playerWon ? Color.yellow : Color.red;
-        if (!IsTheEnd)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                CaurisCountsSpé[i].text = $"{Playtest_Version_Manager.SINGLETON.CaurisSpe[Playtest_Version_Manager.SINGLETON.BigData.Combat].values[i]}";
-            }
-
-            int maxDisplay = Mathf.Min(enemyPortraits.Count, allEnemies.Count);
-        }
-    endCombatPanel.SetActive(true);
-    ExplorationManager.SINGLETON.combatUI.SetActive(false);
-    Combat currentCombat = GameManager.SINGLETON.currentCombat;
-    StartCoroutine(AnimateCaurisCounter(ExplorationManager.SINGLETON.caurisBasic, currentCombat.CaurisDor));
-    StartCoroutine(AnimateCaurisCounter(ExplorationManager.SINGLETON.cauris1, currentCombat.CaurisSpe1));
-    StartCoroutine(AnimateCaurisCounter(ExplorationManager.SINGLETON.cauris2, currentCombat.CaurisSpe2));
-    StartCoroutine(AnimateCaurisCounter(ExplorationManager.SINGLETON.cauris3, currentCombat.CaurisSpe3));
-    StartCoroutine(AnimateCaurisCounter(ExplorationManager.SINGLETON.cauris4, currentCombat.CaurisSpe4));
-
-}
-
-private IEnumerator AnimateCaurisCounter(TextMeshProUGUI textUI, int targetValue, float duration = 1f)
-{
-    float timer = 0f;
-    int currentValue = 0;
-    while (timer < duration)
+       public void DisplayEndCombat(bool playerWon, List<DataEntity> allEnemies)
     {
-        timer += Time.deltaTime;
-        float progress = Mathf.Clamp01(timer / duration);
-        currentValue = Mathf.RoundToInt(Mathf.Lerp(0, targetValue, progress));
-        textUI.text = currentValue.ToString();
-        yield return null;
+        if (combatEnded) return;
+        combatEnded = true;
+        StartCoroutine(DelayedDisplay(playerWon, allEnemies));
     }
-    textUI.text = targetValue.ToString();
-}
+
+    private IEnumerator DelayedDisplay(bool playerWon, List<DataEntity> allEnemies)
+    {
+        yield return new WaitForSeconds(1f);
+
+        CombatManager.SINGLETON.canvasGroup.alpha = 0f;
+        CombatManager.SINGLETON.canvasGroup.interactable = false;
+        CombatManager.SINGLETON.canvasGroup.blocksRaycasts = false;
+
+        CombatManager.SINGLETON.enabled = false;
+        foreach (var btn in CombatManager.SINGLETON.capacityAnimButtons)
+            btn.interactable = false;
+
+        resultText.text = playerWon ? "VICTOIRE" : "DÉFAITE";
+        resultText.color = playerWon ? Color.yellow : Color.red;
+            if (!IsTheEnd)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    CaurisCountsSpé[i].text = $"{Playtest_Version_Manager.SINGLETON.CaurisSpe[Playtest_Version_Manager.SINGLETON.BigData.Combat].values[i]}";
+                }
+
+                int maxDisplay = Mathf.Min(enemyPortraits.Count, allEnemies.Count);
+            }
+        endCombatPanel.SetActive(true);
+        combatUI.SetActive(false);
+        Combat currentCombat = GameManager.SINGLETON.currentCombat;
+        StartCoroutine(AnimateCaurisCounter(caurisBasic, currentCombat.CaurisDor));
+        StartCoroutine(AnimateCaurisCounter(cauris1, currentCombat.CaurisSpe1));
+        StartCoroutine(AnimateCaurisCounter(cauris2, currentCombat.CaurisSpe2));
+        StartCoroutine(AnimateCaurisCounter(cauris3, currentCombat.CaurisSpe3));
+        StartCoroutine(AnimateCaurisCounter(cauris4, currentCombat.CaurisSpe4));
+
+    }
+
+    private IEnumerator AnimateCaurisCounter(TextMeshProUGUI textUI, int targetValue, float duration = 1f)
+    {
+        float timer = 0f;
+        int currentValue = 0;
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float progress = Mathf.Clamp01(timer / duration);
+            currentValue = Mathf.RoundToInt(Mathf.Lerp(0, targetValue, progress));
+            textUI.text = currentValue.ToString();
+            yield return null;
+        }
+        textUI.text = targetValue.ToString();
+    }
+
+    [Header("Cauris amount text")]
+    public TextMeshProUGUI caurisBasic;
+    public TextMeshProUGUI cauris1;
+    public TextMeshProUGUI cauris2;
+    public TextMeshProUGUI cauris3;
+    public TextMeshProUGUI cauris4;
+
+    [Header("UI"), Space(30)]
+    public GameObject combatUI;
+
+    [Header("Buttons")]
+    public GameObject CombatSceneButton;
+    public GameObject QTESceneButton;
+    public GameObject StatSceneButton;
+    public GameObject HealingSceneButton;
 
 }

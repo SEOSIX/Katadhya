@@ -36,31 +36,18 @@ public class ExplorationManager : MonoBehaviour
     public string EntranceScene;
     public string ExitScene;
 
-    [Header("Cauris amount text")]
-    public TextMeshProUGUI caurisBasic;
-    public TextMeshProUGUI cauris1;
-    public TextMeshProUGUI cauris2;
-    public TextMeshProUGUI cauris3;
-    public TextMeshProUGUI cauris4;
-
-    [Header("UI"), Space(30)] 
-    public GameObject combatUI;
-
-    [Header("Buttons")]
-    public GameObject CombatSceneButton;
-    public GameObject QTESceneButton;
-    public GameObject StatSceneButton;
-    public GameObject HealingSceneButton;
 
     [Header("Values")]
     public int CombatIndex = 0;
+
+    VictoryDefeatUI V = VictoryDefeatUI.SINGLETON;
 
     public void LoadNextCombatScene()
     {
         SceneManager.LoadScene(CombatScene);
         GameManager.SINGLETON.currentCombat = LD.CombatList[CombatIndex];
         CombatIndex += 1;
-        combatUI.SetActive(true);
+        V.combatUI.SetActive(true);
     }
 
     public void LoadChoicesAfterCombat()
@@ -73,10 +60,10 @@ public class ExplorationManager : MonoBehaviour
         }
         foreach (string option in combat.RoomOptions)
         {
-            if (option == CombatScene) CombatSceneButton.SetActive(true);
-            if (option == AutelQTEScene) QTESceneButton.SetActive(true);
-            if (option == AutelStatScene) StatSceneButton.SetActive(true);
-            if (option == HealingScene) HealingSceneButton.SetActive(true);
+            if (option == CombatScene) V.CombatSceneButton.SetActive(true);
+            if (option == AutelQTEScene) V.QTESceneButton.SetActive(true);
+            if (option == AutelStatScene) V.StatSceneButton.SetActive(true);
+            if (option == HealingScene) V.HealingSceneButton.SetActive(true);
         }
     }
     public void StartLoadScene(string name)

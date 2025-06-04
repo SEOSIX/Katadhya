@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4451091791506078170}
-  - component: {fileID: 6916859353838748642}
+  - component: {fileID: -3494264557948280066}
   m_Layer: 0
   m_Name: Exploration_Manager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6916859353838748642
+--- !u!114 &-3494264557948280066
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,15 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fa98beb25ebe24c83299b4f52d9545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LD: {fileID: 11400000, guid: 8f7aebfe95465f64e8563358912ba17e, type: 2}
-  CombatScene: testGarde
-  AutelQTEScene: QTE Autel
-  AutelStatScene: Stat Autel
-  HealingScene: SalleDeSoin
-  EntranceScene: 0
-  ExitScene: 0
-  CombatSceneButton: {fileID: 0}
-  QTESceneButton: {fileID: 0}
-  StatSceneButton: {fileID: 0}
-  HealingSceneButton: {fileID: 0}
+  LD: {fileID: 0}
+  BigData: {fileID: 0}
+  CombatScene: 
+  AutelQTEScene: 
+  AutelStatScene: 
+  HealingScene: 
+  EntranceScene: 
+  ExitScene: 
   CombatIndex: 0
