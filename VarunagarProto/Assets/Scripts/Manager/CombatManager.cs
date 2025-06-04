@@ -610,8 +610,6 @@ public class CombatManager : MonoBehaviour
             }
     }
 
-
-
     public void ApplyNormalCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float UltMoine = 0, float UltPriso = 0, float UltGarde = 0)
     {
         int DamageDone = 0;
@@ -666,18 +664,11 @@ public class CombatManager : MonoBehaviour
         // ATTAQUE
         if (capacity.atk > 0)
         {
-            DamageDone = ApplyDamage(capacity, caster, target, modifier);
+            DamageDone = ApplyDamage(capacity, caster, target, modifier,0,UltPriso);
         }
         if (capacity.heal > 0)
         {
-            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(8));
-
-            float BonusRageHeal = 0;
-            if (caster.Affinity == 4) BonusRageHeal = GetBonusRageDamage(caster);
-            int healAmount = Mathf.RoundToInt((Mathf.Sqrt (2*caster.UnitAtk) + capacity.heal+ UltMoine) * modifier + BonusRageHeal);
-            target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
-
-            EffectsManager.SINGLETON.AfficherHeal(target, healAmount);
+            ApplyHeal(capacity, caster, target, modifier,UltMoine);
         }
         if (capacity.Shield > 0)
         {
@@ -734,14 +725,17 @@ public class CombatManager : MonoBehaviour
             case SpecialCapacityType.UltMoine:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
                 ApplyNormalCapacity(capacity, caster, target, 2 * caster.CptUltlvl);
+                Debug.Log($"skibidi ult{caster.CptUltlvl}");
                 break;
             case SpecialCapacityType.UltPriso:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
                 ApplyNormalCapacity(capacity, caster, target, 0, 2*caster.CptUltlvl);
+                Debug.Log($"skibidi ult{caster.CptUltlvl}");
                 break;
             case SpecialCapacityType.UltGarde:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
                 ApplyNormalCapacity(capacity, caster, target, 0, 0, 0.05f*caster.CptUltlvl);
+                Debug.Log($"skibidi ult{caster.CptUltlvl}");
                 break;
 
             default:
@@ -778,8 +772,7 @@ public class CombatManager : MonoBehaviour
 
         if (capacity.secondaryHeal > 0)
         {
-            int healAmount = Mathf.RoundToInt((((caster.UnitAtk) + capacity.secondaryHeal) / 2) * modifier);
-            target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
+            ApplyHeal(capacity, caster, target, modifier);
         }
 
         if (capacity.Shield > 0)
@@ -873,6 +866,18 @@ public class CombatManager : MonoBehaviour
         }
 
         return DamageDone;
+    }
+    
+    public void ApplyHeal(CapacityData capacity, DataEntity caster, DataEntity target, float modifier, float UltMoine = 0, float UltPriso = 0, float UltGarde = 0)
+    {
+        StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(8));
+
+        float BonusRageHeal = 0;
+        if (caster.Affinity == 4) BonusRageHeal = GetBonusRageDamage(caster);
+        int healAmount = Mathf.RoundToInt((capacity.heal + UltMoine + (caster.UnitAtk/3)) * modifier + BonusRageHeal);
+        target.UnitLife = Mathf.Min(target.UnitLife + healAmount, target.BaseLife);
+
+        EffectsManager.SINGLETON.AfficherHeal(target, healAmount);
     }
 
     #endregion
@@ -1276,12 +1281,12 @@ public class CombatManager : MonoBehaviour
         if (CData.specialType == SpecialCapacityType.UltMoine)
         {
             player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
-            Value += Mathf.RoundToInt(0.05f * player.CptUltlvl);
+            Value += Mathf.RoundToInt(2 * player.CptUltlvl);
         }
         if (CData.specialType == SpecialCapacityType.UltPriso)
         {
             player.CptUltlvl = player.UltLvl_1 + player.UltLvl_2 + player.UltLvl_3 + player.UltLvl_4;
-            Value +=Mathf.RoundToInt(2*player.CptUltlvl);
+            Value +=Mathf.RoundToInt(2 * player.CptUltlvl);
         }
         Text.GetChild(1).GetComponent<TextMeshProUGUI>().SetText($"{Value}");
         Text.GetChild(2).GetComponent<TextMeshProUGUI>().SetText($"{CData.précision}%");
