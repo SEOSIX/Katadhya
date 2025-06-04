@@ -19,14 +19,15 @@ MonoBehaviour:
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns: []
-  Affinity: 0
-  ChargePower: 0
+  Affinity: 1
+  ChargePower: 10
+  UltChargePowerCost: 0
   BaseLife: 180
   BaseAtk: 5
   BaseSpeed: 40
   BaseDef: 5
   BaseAim: 100
-  UnitShield: 0
+  UnitShield: 10
   ShockMark: 0
   RageTick: 0
   LastRageTick: 0
@@ -34,6 +35,7 @@ MonoBehaviour:
   beenHurtThisTurn: 0
   provoking: 0
   provokingDuration: 0
+  provokingCaracter: {fileID: 0}
   portrait: {fileID: 21300000, guid: 720a7ef09d762164291f08f84ceca96b, type: 3}
   portraitUI: {fileID: 21300000, guid: c7c7f85af6d269a4681482747a4a8408, type: 3}
   bandeauUI: {fileID: 21300000, guid: 6c06cf1fd04d2c44b829c9f002d658bf, type: 3}
@@ -53,11 +55,11 @@ MonoBehaviour:
   CptUltlvl: 1
   UltimateSlider: 100
   UltIsReady: 0
-  UltLvl_1: 1
+  UltLvl_1: 0
   UltLvl_2: 0
   UltLvl_3: 0
   UltLvl_4: 0
-  UltLvlHit: 0
+  UltLvlHit: 1
   namE: Moine
   size: 1.25
   index: 0
