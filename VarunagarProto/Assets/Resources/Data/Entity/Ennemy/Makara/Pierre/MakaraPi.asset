@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: MakaraPi
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  UnitAtk: 15
+  UnitAtk: 20
   UnitSpeed: 44
   UnitDef: 10
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns: []
   Affinity: 0
-  ChargePower: 0
+  ChargePower: 6
   UltChargePowerCost: 0
   BaseLife: 70
-  BaseAtk: 15
+  BaseAtk: 20
   BaseSpeed: 44
   BaseDef: 10
   BaseAim: 100
@@ -32,7 +32,7 @@ MonoBehaviour:
   RageTick: 0
   LastRageTick: 0
   necrosis: []
-  beenHurtThisTurn: 0
+  beenHurtThisTurn: 1
   provoking: 0
   provokingDuration: 0
   provokingCaracter: {fileID: 0}

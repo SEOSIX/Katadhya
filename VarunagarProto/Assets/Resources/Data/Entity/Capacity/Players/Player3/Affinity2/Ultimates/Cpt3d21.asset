@@ -14,15 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atk: 0
   heal: 20
-  critique: 10
+  critique: 0
   "pr\xE9cision": 100
   cooldown: 1
   chargeUlti: 0
   MultipleHeal: 1
   MultipleAttack: 0
   MultipleBuff: 0
-  TargetingAlly: 0
+  TargetingAlly: 1
   Provocation: 0
+  ProvocationDuration: 0
   BuffFromAffinity: 0
   buffType: 3
   buffValue: 1.15

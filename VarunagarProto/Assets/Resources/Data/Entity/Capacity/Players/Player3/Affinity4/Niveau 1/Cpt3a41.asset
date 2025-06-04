@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cpt3a41
   m_EditorClassIdentifier: 
   atk: 0
-  heal: 24
+  heal: 20
   critique: 5
   "pr\xE9cision": 98
   cooldown: 1
@@ -23,6 +23,7 @@ MonoBehaviour:
   MultipleBuff: 0
   TargetingAlly: 1
   Provocation: 0
+  ProvocationDuration: 0
   BuffFromAffinity: 1
   buffType: 1
   buffValue: 1.3

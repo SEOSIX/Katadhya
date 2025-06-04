@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NagaPierreFoudre
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  UnitAtk: 8
+  UnitAtk: 20
   UnitSpeed: 51
   UnitDef: 5
   UnitAim: 100
@@ -23,7 +23,7 @@ MonoBehaviour:
   ChargePower: 0
   UltChargePowerCost: 0
   BaseLife: 65
-  BaseAtk: 20
+  BaseAtk: 30
   BaseSpeed: 51
   BaseDef: 5
   BaseAim: 100
