@@ -17,7 +17,7 @@ MonoBehaviour:
     - enemyPrefab1: {fileID: 3739328305999535302, guid: 240e2ea84cbd39c4ea7aa9dac3ace2e1, type: 3}
       enemyPrefab2: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
     - enemyPrefab1: {fileID: 3739328305999535302, guid: 240e2ea84cbd39c4ea7aa9dac3ace2e1, type: 3}
-      enemyPrefab2: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
+      enemyPrefab2: {fileID: 4951434115971887546, guid: c838876ec0f9d7446863beb8fd8b369d, type: 3}
     NextCombatIndex: 0
     CaurisDor: 400
     CaurisSpe1: 0
@@ -30,7 +30,7 @@ MonoBehaviour:
     - enemyPrefab1: {fileID: 3739328305999535302, guid: 240e2ea84cbd39c4ea7aa9dac3ace2e1, type: 3}
       enemyPrefab2: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
     - enemyPrefab1: {fileID: 6938047018459641208, guid: 9d27db757ed603d429915904e8f47b09, type: 3}
-      enemyPrefab2: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
+      enemyPrefab2: {fileID: 4951434115971887546, guid: c838876ec0f9d7446863beb8fd8b369d, type: 3}
     NextCombatIndex: 0
     CaurisDor: 300
     CaurisSpe1: 10
@@ -43,7 +43,7 @@ MonoBehaviour:
     - enemyPrefab1: {fileID: 3739328305999535302, guid: 240e2ea84cbd39c4ea7aa9dac3ace2e1, type: 3}
       enemyPrefab2: {fileID: 3739328305999535302, guid: 40f02ebafd4499d4d87b421d0d10a380, type: 3}
     - enemyPrefab1: {fileID: 3739328305999535302, guid: 240e2ea84cbd39c4ea7aa9dac3ace2e1, type: 3}
-      enemyPrefab2: {fileID: 3739328305999535302, guid: 7813a3b2c930bd244874a9377c6304ea, type: 3}
+      enemyPrefab2: {fileID: 6738875173329926840, guid: 49a76499236de1b4f91f7e41ef1f1080, type: 3}
     - enemyPrefab1: {fileID: 5133236681666948725, guid: 3b8cd6ea653952c4a942996d4e3134eb, type: 3}
       enemyPrefab2: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
     NextCombatIndex: 0
@@ -55,10 +55,10 @@ MonoBehaviour:
     RoomOptions:
     - SalleDeSoin
   - WaveList:
-    - enemyPrefab1: {fileID: 9061989563688303963, guid: 5f3bad04545fc724e92a167d1160aaa2, type: 3}
+    - enemyPrefab1: {fileID: 6460546652352324216, guid: 0d2cb3a0e3d533f48871b7e38375ca9d, type: 3}
       enemyPrefab2: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
     - enemyPrefab1: {fileID: 3739328305999535302, guid: 40f02ebafd4499d4d87b421d0d10a380, type: 3}
-      enemyPrefab2: {fileID: 5212970207602641905, guid: f79c2943fb7a863428be77f50e45a8ed, type: 3}
+      enemyPrefab2: {fileID: 4818978143353986945, guid: afa28b24309443942bbf16c2295ecc67, type: 3}
     - enemyPrefab1: {fileID: 3606779365312333612, guid: b4e02c6b5719a064da335e50028c1681, type: 3}
       enemyPrefab2: {fileID: 4493399983760142657, guid: b705acfbb7b78cd4c8b6cfc5ff0038eb, type: 3}
     NextCombatIndex: 0
@@ -72,7 +72,7 @@ MonoBehaviour:
     - SalleDeSoin
   - WaveList:
     - enemyPrefab1: {fileID: 3739328305999535302, guid: 40f02ebafd4499d4d87b421d0d10a380, type: 3}
-      enemyPrefab2: {fileID: 5212970207602641905, guid: f79c2943fb7a863428be77f50e45a8ed, type: 3}
+      enemyPrefab2: {fileID: 4818978143353986945, guid: afa28b24309443942bbf16c2295ecc67, type: 3}
     - enemyPrefab1: {fileID: 5133236681666948725, guid: 3b8cd6ea653952c4a942996d4e3134eb, type: 3}
       enemyPrefab2: {fileID: 4493399983760142657, guid: b705acfbb7b78cd4c8b6cfc5ff0038eb, type: 3}
     NextCombatIndex: 0
@@ -85,11 +85,11 @@ MonoBehaviour:
     - QTE Autel
   - WaveList:
     - enemyPrefab1: {fileID: 3739328305999535302, guid: 240e2ea84cbd39c4ea7aa9dac3ace2e1, type: 3}
-      enemyPrefab2: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
+      enemyPrefab2: {fileID: 4951434115971887546, guid: c838876ec0f9d7446863beb8fd8b369d, type: 3}
     - enemyPrefab1: {fileID: 3606779365312333612, guid: b4e02c6b5719a064da335e50028c1681, type: 3}
       enemyPrefab2: {fileID: 5212970207602641905, guid: f79c2943fb7a863428be77f50e45a8ed, type: 3}
     - enemyPrefab1: {fileID: 5133236681666948725, guid: 3b8cd6ea653952c4a942996d4e3134eb, type: 3}
-      enemyPrefab2: {fileID: 3739328305999535302, guid: 7813a3b2c930bd244874a9377c6304ea, type: 3}
+      enemyPrefab2: {fileID: 6738875173329926840, guid: 49a76499236de1b4f91f7e41ef1f1080, type: 3}
     NextCombatIndex: 0
     CaurisDor: 500
     CaurisSpe1: 6
@@ -101,7 +101,7 @@ MonoBehaviour:
     - Stat Autel
   - WaveList:
     - enemyPrefab1: {fileID: 6938047018459641208, guid: 9d27db757ed603d429915904e8f47b09, type: 3}
-      enemyPrefab2: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
+      enemyPrefab2: {fileID: 4951434115971887546, guid: c838876ec0f9d7446863beb8fd8b369d, type: 3}
     - enemyPrefab1: {fileID: 5133236681666948725, guid: 3b8cd6ea653952c4a942996d4e3134eb, type: 3}
       enemyPrefab2: {fileID: 3739328305999535302, guid: 7813a3b2c930bd244874a9377c6304ea, type: 3}
     - enemyPrefab1: {fileID: 9061989563688303963, guid: 5f3bad04545fc724e92a167d1160aaa2, type: 3}
@@ -121,7 +121,7 @@ MonoBehaviour:
       enemyPrefab2: {fileID: 5212970207602641905, guid: f79c2943fb7a863428be77f50e45a8ed, type: 3}
     - enemyPrefab1: {fileID: 3739328305999535302, guid: 7813a3b2c930bd244874a9377c6304ea, type: 3}
       enemyPrefab2: {fileID: 7974569899628021459, guid: 79ce8e409bfe49a4f87c9c217ebe984f, type: 3}
-    - enemyPrefab1: {fileID: 7475588758634168079, guid: 75ff5a4ebf5c0084a969ea7ae4b36766, type: 3}
+    - enemyPrefab1: {fileID: 2971633836938225145, guid: 62e4589a462c7474387bb4ef3a2d39e2, type: 3}
       enemyPrefab2: {fileID: 5212970207602641905, guid: f79c2943fb7a863428be77f50e45a8ed, type: 3}
     NextCombatIndex: 0
     CaurisDor: 600
@@ -135,7 +135,7 @@ MonoBehaviour:
   - WaveList:
     - enemyPrefab1: {fileID: 6938047018459641208, guid: 9d27db757ed603d429915904e8f47b09, type: 3}
       enemyPrefab2: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
-    - enemyPrefab1: {fileID: 3739328305999535302, guid: 40f02ebafd4499d4d87b421d0d10a380, type: 3}
+    - enemyPrefab1: {fileID: 8483852927188996029, guid: 54e958e4317b0b344a42e14405885e84, type: 3}
       enemyPrefab2: {fileID: 5133236681666948725, guid: 3b8cd6ea653952c4a942996d4e3134eb, type: 3}
     - enemyPrefab1: {fileID: 8478896071491068854, guid: a32e4757125e7c44fa7b471a52eb60be, type: 3}
       enemyPrefab2: {fileID: 5212970207602641905, guid: f79c2943fb7a863428be77f50e45a8ed, type: 3}
@@ -150,11 +150,11 @@ MonoBehaviour:
     - Stat Autel
   - WaveList:
     - enemyPrefab1: {fileID: 3739328305999535302, guid: 240e2ea84cbd39c4ea7aa9dac3ace2e1, type: 3}
-      enemyPrefab2: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
+      enemyPrefab2: {fileID: 4951434115971887546, guid: c838876ec0f9d7446863beb8fd8b369d, type: 3}
     - enemyPrefab1: {fileID: 3739328305999535302, guid: 240e2ea84cbd39c4ea7aa9dac3ace2e1, type: 3}
       enemyPrefab2: {fileID: 4493399983760142657, guid: b705acfbb7b78cd4c8b6cfc5ff0038eb, type: 3}
     - enemyPrefab1: {fileID: 7475588758634168079, guid: 75ff5a4ebf5c0084a969ea7ae4b36766, type: 3}
-      enemyPrefab2: {fileID: 3739328305999535302, guid: 7813a3b2c930bd244874a9377c6304ea, type: 3}
+      enemyPrefab2: {fileID: 6738875173329926840, guid: 49a76499236de1b4f91f7e41ef1f1080, type: 3}
     - enemyPrefab1: {fileID: 5133236681666948725, guid: 3b8cd6ea653952c4a942996d4e3134eb, type: 3}
       enemyPrefab2: {fileID: 4437532415828202419, guid: 746198674fe50514c9946ea8e49f3b80, type: 3}
     NextCombatIndex: 0
@@ -170,10 +170,10 @@ MonoBehaviour:
     - enemyPrefab1: {fileID: 3739328305999535302, guid: 240e2ea84cbd39c4ea7aa9dac3ace2e1, type: 3}
       enemyPrefab2: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
     - enemyPrefab1: {fileID: 3739328305999535302, guid: 40f02ebafd4499d4d87b421d0d10a380, type: 3}
-      enemyPrefab2: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
+      enemyPrefab2: {fileID: 4951434115971887546, guid: c838876ec0f9d7446863beb8fd8b369d, type: 3}
     - enemyPrefab1: {fileID: 8605999127470874899, guid: 9fb0ecb6459bb3245b06e7d4b6cf4bc0, type: 3}
       enemyPrefab2: {fileID: 4493399983760142657, guid: b705acfbb7b78cd4c8b6cfc5ff0038eb, type: 3}
-    - enemyPrefab1: {fileID: 8478896071491068854, guid: a32e4757125e7c44fa7b471a52eb60be, type: 3}
+    - enemyPrefab1: {fileID: 5809721040548529814, guid: a86dcfcbf85ff8d4796d98b6eaf586c3, type: 3}
       enemyPrefab2: {fileID: 7974569899628021459, guid: 79ce8e409bfe49a4f87c9c217ebe984f, type: 3}
     NextCombatIndex: 0
     CaurisDor: 1000
@@ -187,11 +187,11 @@ MonoBehaviour:
     - SalleDeSoin
   - WaveList:
     - enemyPrefab1: {fileID: 3606779365312333612, guid: b4e02c6b5719a064da335e50028c1681, type: 3}
-      enemyPrefab2: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
+      enemyPrefab2: {fileID: 4951434115971887546, guid: c838876ec0f9d7446863beb8fd8b369d, type: 3}
     - enemyPrefab1: {fileID: 2962219787028281002, guid: c7944b1df90a18b4c809757aaf2fe9f0, type: 3}
-      enemyPrefab2: {fileID: 3739328305999535302, guid: 7813a3b2c930bd244874a9377c6304ea, type: 3}
+      enemyPrefab2: {fileID: 6738875173329926840, guid: 49a76499236de1b4f91f7e41ef1f1080, type: 3}
     - enemyPrefab1: {fileID: 6938047018459641208, guid: 9d27db757ed603d429915904e8f47b09, type: 3}
-      enemyPrefab2: {fileID: 2089746155996912209, guid: c7c466d2c273af44ebb39d56e594582a, type: 3}
+      enemyPrefab2: {fileID: 3387936825564613640, guid: 24f6b626489991f4698f539052dba855, type: 3}
     - enemyPrefab1: {fileID: 6650424179341839513, guid: d294421069d4ef7459c0a29232b3951f, type: 3}
       enemyPrefab2: {fileID: 4376366373458974349, guid: 4cccc8d26af447a46aaced615d71cafc, type: 3}
     NextCombatIndex: 0
