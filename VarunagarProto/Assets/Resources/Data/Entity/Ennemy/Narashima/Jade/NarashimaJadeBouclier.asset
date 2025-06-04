@@ -20,10 +20,12 @@ MonoBehaviour:
   ActiveBuffs: []
   ActiveCooldowns: []
   Affinity: 1
-  BaseLife: 80
-  BaseAtk: 10
-  BaseSpeed: 43
-  BaseDef: 15
+  ChargePower: 0
+  UltChargePowerCost: 0
+  BaseLife: 120
+  BaseAtk: 20
+  BaseSpeed: 53
+  BaseDef: 25
   BaseAim: 100
   UnitShield: 0
   ShockMark: 0
@@ -32,6 +34,8 @@ MonoBehaviour:
   necrosis: []
   beenHurtThisTurn: 1
   provoking: 0
+  provokingDuration: 0
+  provokingCaracter: {fileID: 0}
   portrait: {fileID: 21300000, guid: d61d6230909ac0041bb0ad1c29abd41d, type: 3}
   portraitUI: {fileID: 21300000, guid: 3bb5ebb973ab82e48ae36171738c2ad6, type: 3}
   bandeauUI: {fileID: 0}

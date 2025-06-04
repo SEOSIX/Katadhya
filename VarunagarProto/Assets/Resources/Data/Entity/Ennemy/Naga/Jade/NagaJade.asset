@@ -21,7 +21,8 @@ MonoBehaviour:
   ActiveCooldowns: []
   Affinity: 0
   ChargePower: 0
-  BaseLife: 120
+  UltChargePowerCost: 0
+  BaseLife: 90
   BaseAtk: 40
   BaseSpeed: 58
   BaseDef: 15
@@ -34,6 +35,7 @@ MonoBehaviour:
   beenHurtThisTurn: 1
   provoking: 0
   provokingDuration: 0
+  provokingCaracter: {fileID: 0}
   portrait: {fileID: 21300000, guid: 38143f535456992438e985b58e4bbfe4, type: 3}
   portraitUI: {fileID: 21300000, guid: 549dfa4a703f9ba4eb85218af8b55e0a, type: 3}
   bandeauUI: {fileID: 0}
