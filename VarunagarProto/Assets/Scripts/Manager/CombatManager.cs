@@ -227,14 +227,13 @@ public class CombatManager : MonoBehaviour
     {
         DataEntity caster = currentTurnOrder[0];
         ChargePower(caster, 2);
-        if (caster.necrosis != null && caster.necrosis.Count > 0)
-        {
-            TickNecrosisEffect(caster);
-            caster.beenHurtThisTurn = true;
-        }
         if (caster.beenHurtThisTurn == false && caster.RageTick > 0)
         {
             caster.RageTick -= 1;
+        }
+        if (caster.necrosis != null && caster.necrosis.Count > 0)
+        {
+            TickNecrosisEffect(caster);
         }
         if (caster.provokingCaracter != null)
         {
@@ -426,8 +425,7 @@ public class CombatManager : MonoBehaviour
             EndUnitTurn();
             yield return null;
         }
-
-        if (capacity.MultipleAttack)
+        else if (capacity.MultipleAttack)
         {
             ShowTargetIndicators(capacity);
             List<DataEntity> pool = null;
@@ -458,7 +456,7 @@ public class CombatManager : MonoBehaviour
             EndUnitTurn();
             yield return null;
         }
-        if (capacity.MultipleBuff)
+        else if (capacity.MultipleBuff)
         {
             ShowTargetIndicators(capacity);
             List<DataEntity> pool = null;
@@ -489,9 +487,12 @@ public class CombatManager : MonoBehaviour
             EndUnitTurn();
             yield return null;
         }
-        ShowTargetIndicators(capacity);
-        DecrementBuffDurations(caster);
-        DecrementCooldowns(caster);
+        else
+        {
+            ShowTargetIndicators(capacity);
+            DecrementBuffDurations(caster);
+            DecrementCooldowns(caster);
+        }
         
         RecalculateStats(caster);
     }
@@ -1307,7 +1308,6 @@ public class CombatManager : MonoBehaviour
     void ShowTargetIndicators(CapacityData capacity)
     {
         HideTargetIndicators();
-        Debug.Log("SKIBIDI");
 
         if (capacity.atk > 0)
         {
@@ -1368,22 +1368,17 @@ public class CombatManager : MonoBehaviour
     public void GiveBuff(CapacityData capacity, DataEntity target, float ultGarde = 0)
     {
         // buffType; 1 = Atk, 2 = Def, 3 = Speed, 4 = Précision
-        int DurationBoost = 0;
-        if (target == currentTurnOrder[0])
-        {
-            DurationBoost = 1;
-        }
         if (capacity.buffType > 0 && capacity.DoubleEffect == false)
         {
             ActiveBuff existingBuff = target.ActiveBuffs.Find(b => b.type == capacity.buffType);
             if (existingBuff != null)
             {
                 existingBuff.value *= capacity.buffValue+ultGarde;
-                existingBuff.duration = Mathf.Max(existingBuff.duration, capacity.buffDuration + DurationBoost);
+                existingBuff.duration = Mathf.Max(existingBuff.duration, capacity.buffDuration);
             }
             else
             {
-                target.ActiveBuffs.Add(new ActiveBuff(capacity.buffType, capacity.buffValue+ultGarde, capacity.buffDuration + DurationBoost));
+                target.ActiveBuffs.Add(new ActiveBuff(capacity.buffType, capacity.buffValue+ultGarde, capacity.buffDuration));
             }
 
             RecalculateStats(target);
@@ -1394,11 +1389,11 @@ public class CombatManager : MonoBehaviour
             if (existingBuff != null)
             {
                 existingBuff.value *= capacity.buffValue+ultGarde;
-                existingBuff.duration = Mathf.Max(existingBuff.duration, capacity.secondaryBuffDuration + DurationBoost);
+                existingBuff.duration = Mathf.Max(existingBuff.duration, capacity.secondaryBuffDuration);
             }
             else
             {
-                target.ActiveBuffs.Add(new ActiveBuff(capacity.secondaryBuffType, capacity.secondaryBuffValue+ultGarde, capacity.secondaryBuffDuration + DurationBoost));
+                target.ActiveBuffs.Add(new ActiveBuff(capacity.secondaryBuffType, capacity.secondaryBuffValue+ultGarde, capacity.secondaryBuffDuration));
             }
 
             RecalculateStats(target);
@@ -1533,10 +1528,6 @@ public class CombatManager : MonoBehaviour
             int damage = baseDamage[level] + speedDamage;
 
             target.UnitLife -= damage;
-            if (target.Affinity == 4)
-            {
-                target.RageTick += 1;
-            }
 
             Debug.Log($"{target.namE} subit {damage} dégâts de nécrose (niveau {necrosisEffect.level})");
 
