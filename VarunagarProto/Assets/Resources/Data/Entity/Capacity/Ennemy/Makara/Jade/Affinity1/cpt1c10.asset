@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
+  m_Name: cpt1c10
+  m_EditorClassIdentifier: 
+  atk: 0
+  heal: 0
+  critique: 5
+  "pr\xE9cision": 100
+  cooldown: 0
+  chargeUlti: 0
+  MultipleHeal: 0
+  MultipleAttack: 0
+  MultipleBuff: 1
+  TargetingAlly: 1
+  Provocation: 0
+  ProvocationDuration: 0
+  BuffFromAffinity: 0
+  buffType: 1
+  buffValue: 1.2
+  buffDuration: 1
+  Shield: 10
+  ShieldRatioAtk: 0
+  Shock: 0
+  Necrosis: 0
+  secondaryAtk: 0
+  secondaryHeal: 0
+  secondaryBuffType: 0
+  secondaryBuffValue: 0
+  secondaryBuffDuration: 0
+  specialType: 0
+  specialDelay: 0
+  Name: "Pi\xE9tinement"
+  Description: 
+  AffinityDescription: 
+  PictoType: 0
+  TargetType: 0
+  ValueAI: 15
+  DoubleEffect: 0

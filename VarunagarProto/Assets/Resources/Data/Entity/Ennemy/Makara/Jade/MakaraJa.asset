@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c8f182d232039848a3b32d7886df91f, type: 3}
+  m_Name: MakaraJa
+  m_EditorClassIdentifier: 
+  instance: {fileID: 0}
+  UnitAtk: 20
+  UnitSpeed: 48
+  UnitDef: 5
+  UnitAim: 100
+  ActiveBuffs: []
+  ActiveCooldowns: []
+  Affinity: 0
+  ChargePower: 0
+  UltChargePowerCost: 0
+  BaseLife: 100
+  BaseAtk: 30
+  BaseSpeed: 54
+  BaseDef: 20
+  BaseAim: 100
+  UnitShield: 0
+  ShockMark: 0
+  RageTick: 0
+  LastRageTick: 0
+  necrosis: []
+  beenHurtThisTurn: 1
+  provoking: 0
+  provokingDuration: 0
+  provokingCaracter: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 38143f535456992438e985b58e4bbfe4, type: 3}
+  portraitUI: {fileID: 21300000, guid: 549dfa4a703f9ba4eb85218af8b55e0a, type: 3}
+  bandeauUI: {fileID: 0}
+  Animator: {fileID: 0}
+  capacityData1Source: {fileID: 11400000, guid: 32287c74579c3904e91dbe29fea63903, type: 2}
+  capacity1: {fileID: 0}
+  Cpt1lvl: 0
+  capacityData2Source: {fileID: 11400000, guid: f9854c85bf339a24e8756749cd9eaaac, type: 2}
+  capacity2: {fileID: 0}
+  Cpt2lvl: 0
+  capacityData3Source: {fileID: 11400000, guid: 83a7fe8d4623cb34ea936761be1afc2b, type: 2}
+  capacity3: {fileID: 0}
+  Cpt3lvl: 0
+  capacityDataUltimateSource: {fileID: 11400000, guid: 0dce4f00902c7664087b92eb65ac541c, type: 2}
+  Ultimate: {fileID: 0}
+  UltimateEmpty: {fileID: 0}
+  CptUltlvl: 0
+  UltimateSlider: 100
+  UltIsReady: 0
+  UltLvl_1: 0
+  UltLvl_2: 0
+  UltLvl_3: 0
+  UltLvl_4: 0
+  UltLvlHit: 0
+  namE: MakaraJa
+  size: 0
+  index: 3
+  ID: 7
+  RageAtkBonus: 0
+  skipNextTurn: 0
+  delayedActions: []
