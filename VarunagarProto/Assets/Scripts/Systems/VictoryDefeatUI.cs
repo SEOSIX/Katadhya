@@ -69,10 +69,27 @@ private IEnumerator DelayedDisplay(bool playerWon, List<DataEntity> allEnemies)
     endCombatPanel.SetActive(true);
     ExplorationManager.SINGLETON.combatUI.SetActive(false);
     Combat currentCombat = GameManager.SINGLETON.currentCombat;
-    ExplorationManager.SINGLETON.caurisBasic.text = currentCombat.CaurisDor.ToString();
-    ExplorationManager.SINGLETON.cauris1.text = currentCombat.CaurisSpe1.ToString();
-    ExplorationManager.SINGLETON.cauris2.text = currentCombat.CaurisSpe2.ToString();
-    ExplorationManager.SINGLETON.cauris3.text = currentCombat.CaurisSpe3.ToString();
-    ExplorationManager.SINGLETON.cauris4.text = currentCombat.CaurisSpe4.ToString();
+    StartCoroutine(AnimateCaurisCounter(ExplorationManager.SINGLETON.caurisBasic, currentCombat.CaurisDor));
+    StartCoroutine(AnimateCaurisCounter(ExplorationManager.SINGLETON.cauris1, currentCombat.CaurisSpe1));
+    StartCoroutine(AnimateCaurisCounter(ExplorationManager.SINGLETON.cauris2, currentCombat.CaurisSpe2));
+    StartCoroutine(AnimateCaurisCounter(ExplorationManager.SINGLETON.cauris3, currentCombat.CaurisSpe3));
+    StartCoroutine(AnimateCaurisCounter(ExplorationManager.SINGLETON.cauris4, currentCombat.CaurisSpe4));
+
 }
+
+private IEnumerator AnimateCaurisCounter(TextMeshProUGUI textUI, int targetValue, float duration = 1f)
+{
+    float timer = 0f;
+    int currentValue = 0;
+    while (timer < duration)
+    {
+        timer += Time.deltaTime;
+        float progress = Mathf.Clamp01(timer / duration);
+        currentValue = Mathf.RoundToInt(Mathf.Lerp(0, targetValue, progress));
+        textUI.text = currentValue.ToString();
+        yield return null;
+    }
+    textUI.text = targetValue.ToString();
+}
+
 }
