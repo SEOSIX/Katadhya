@@ -34,13 +34,7 @@ public class VictoryDefeatUI : MonoBehaviour
         SINGLETON = this;
     }
     
-    public List<DataEntity> allEnemiesEncountered = new List<DataEntity>();
-
-    public void RegisterEnemy(DataEntity enemy)
-    {
-        if (!allEnemiesEncountered.Contains(enemy))
-            allEnemiesEncountered.Add(enemy);
-    }
+    
 
    public void DisplayEndCombat(bool playerWon, List<DataEntity> allEnemies)
 {
@@ -72,28 +66,13 @@ private IEnumerator DelayedDisplay(bool playerWon, List<DataEntity> allEnemies)
 
             int maxDisplay = Mathf.Min(enemyPortraits.Count, allEnemies.Count);
         }
-
-
-    /*for (int i = 0; i < maxDisplay; i++)
-    {
-        DataEntity enemy = allEnemies[i];
-
-        enemyPortraits[i].gameObject.SetActive(true);
-        enemyNames[i].gameObject.SetActive(true);
-
-        enemyPortraits[i].sprite = enemy.portraitUI;
-        enemyPortraits[i].color = (enemy.UnitLife > 0) ? Color.white : Color.gray;
-        enemyNames[i].text = enemy.namE;
-    }
-
-    // Hide unused slots
-    for (int i = maxDisplay; i < enemyPortraits.Count; i++)
-    {
-        enemyPortraits[i].gameObject.SetActive(false);
-        enemyNames[i].gameObject.SetActive(false);
-    }*/
-
     endCombatPanel.SetActive(true);
+    ExplorationManager.SINGLETON.combatUI.SetActive(false);
+    Combat currentCombat = GameManager.SINGLETON.currentCombat;
+    ExplorationManager.SINGLETON.caurisBasic.text = currentCombat.CaurisDor.ToString();
+    ExplorationManager.SINGLETON.cauris1.text = currentCombat.CaurisSpe1.ToString();
+    ExplorationManager.SINGLETON.cauris2.text = currentCombat.CaurisSpe2.ToString();
+    ExplorationManager.SINGLETON.cauris3.text = currentCombat.CaurisSpe3.ToString();
+    ExplorationManager.SINGLETON.cauris4.text = currentCombat.CaurisSpe4.ToString();
 }
-
 }

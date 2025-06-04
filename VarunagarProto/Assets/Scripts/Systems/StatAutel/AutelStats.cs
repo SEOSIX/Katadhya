@@ -192,7 +192,6 @@ public class AutelStats : MonoBehaviour
                 levelText[i].color = isMax ? goldColor : Color.black;
             }
         }
-        
     }
 
 

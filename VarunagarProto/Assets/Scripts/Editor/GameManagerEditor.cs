@@ -12,7 +12,6 @@ public class GameManagerEditor : Editor
     private SerializedProperty sizeChara;
     private SerializedProperty enemySpawnPoints;
     private SerializedProperty enemyPackIndex;
-    private SerializedProperty enemyPacks;
     private SerializedProperty allEnemiesEncountered;
     private SerializedProperty objectsToSpawn;
     private SerializedProperty ispressed;
@@ -29,7 +28,6 @@ public class GameManagerEditor : Editor
 
         enemySpawnPoints = serializedObject.FindProperty("enemySpawnPoints");
         enemyPackIndex = serializedObject.FindProperty("EnemyPackIndex");
-        enemyPacks = serializedObject.FindProperty("enemyPacks");
         allEnemiesEncountered = serializedObject.FindProperty("allEnemiesEncountered");
 
         objectsToSpawn = serializedObject.FindProperty("objectsToSpawn");
@@ -54,7 +52,6 @@ public class GameManagerEditor : Editor
             EditorGUILayout.LabelField("Enemy Section", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(enemySpawnPoints, true);
             EditorGUILayout.PropertyField(enemyPackIndex);
-            EditorGUILayout.PropertyField(enemyPacks, true);
             EditorGUILayout.PropertyField(allEnemiesEncountered, true);
         }
 

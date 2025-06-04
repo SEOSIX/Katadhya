@@ -1,11 +1,33 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.SearchService;
 using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+
+[System.Serializable]
+public class Combat
+{
+    public List<EnemyPack> WaveList = new List<EnemyPack>();
+    public int NextCombatIndex;
+    public int CaurisDor;
+    public int CaurisSpe1;
+    public int CaurisSpe2;
+    public int CaurisSpe3;
+    public int CaurisSpe4;
+
+    public string[] RoomOptions = new string[2];
+}
+
+[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObject/LevelDesign", order = 6)]
+public class LevelDesign : ScriptableObject
+{
+    public Combat[] CombatList;
+}
 
 public class ExplorationManager : MonoBehaviour
 {
@@ -35,6 +57,16 @@ public class ExplorationManager : MonoBehaviour
     public string EntranceScene;
     public string ExitScene;
 
+    [Header("Cauris amount text")]
+    public TextMeshProUGUI caurisBasic;
+    public TextMeshProUGUI cauris1;
+    public TextMeshProUGUI cauris2;
+    public TextMeshProUGUI cauris3;
+    public TextMeshProUGUI cauris4;
+
+    [Header("UI"), Space(30)] 
+    public GameObject combatUI;
+
     [Header("Buttons")]
     public GameObject CombatSceneButton;
     public GameObject QTESceneButton;
@@ -49,6 +81,7 @@ public class ExplorationManager : MonoBehaviour
         SceneManager.LoadScene(CombatScene);
         GameManager.SINGLETON.currentCombat = LD.CombatList[CombatIndex];
         CombatIndex += 1;
+        combatUI.SetActive(true);
     }
 
     public void LoadChoicesAfterCombat()
@@ -82,32 +115,16 @@ public class ExplorationManager : MonoBehaviour
     {
         GameManager.SINGLETON.isCombatEnabled = false;
         Combat C = LD.CombatList[CombatIndex];
-        List<int> CauriSpé = new List<int>() {C.CaurisSpe1,C.CaurisSpe2,C.CaurisSpe3,C.CaurisSpe4};
+        List<int> CauriSpe = new List<int>() 
+            {C.CaurisSpe1,
+                C.CaurisSpe2,
+                C.CaurisSpe3,
+                C.CaurisSpe4};
         for (int i = 0; i < 4; i++)
         {
-            BigData.AddCauris(CauriSpé[i], i);
+            BigData.AddCauris(CauriSpe[i], i);
         }
         BigData.baseCaurisCount+=C.CaurisDor;
-
     }
-}
-[System.Serializable]
-public class Combat
-{
-    public List<EnemyPack> WaveList = new List<EnemyPack>();
-    public int NextCombatIndex;
-    public int CaurisDor;
-    public int CaurisSpe1;
-    public int CaurisSpe2;
-    public int CaurisSpe3;
-    public int CaurisSpe4;
-
-    public string[] RoomOptions = new string[2];
-}
-
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObject/LevelDesign", order = 6)]
-public class LevelDesign : ScriptableObject
-{
-    public Combat[] CombatList;
 }
 

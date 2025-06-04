@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField] private float sizeChara = 1f;
+    public GameObject combatUI;
     
     
     public bool ispressed;
@@ -220,8 +221,6 @@ public class GameManager : MonoBehaviour
             GameObject enemyObj = Instantiate(prefab, enemySpawnPoints[i].position, Quaternion.identity);
             enemyObj.name = data.namE;
             data.instance = enemyObj;
-
-            VictoryDefeatUI.SINGLETON.RegisterEnemy(data);
 
             SpriteRenderer renderer = enemyObj.GetComponent<SpriteRenderer>();
             if (renderer != null)
