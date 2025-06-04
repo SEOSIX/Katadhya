@@ -223,13 +223,14 @@ public class CombatManager : MonoBehaviour
     {
         DataEntity caster = currentTurnOrder[0];
         ChargePower(caster, 2);
-        if (caster.beenHurtThisTurn == false && caster.RageTick > 0)
-        {
-            caster.RageTick -= 1;
-        }
         if (caster.necrosis != null && caster.necrosis.Count > 0)
         {
             TickNecrosisEffect(caster);
+            caster.beenHurtThisTurn = true;
+        }
+        if (caster.beenHurtThisTurn == false && caster.RageTick > 0)
+        {
+            caster.RageTick -= 1;
         }
         if (caster.provokingCaracter != null)
         {
