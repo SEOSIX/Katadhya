@@ -33,7 +33,7 @@ public class AudioManager : MonoBehaviour
     public IEnumerator PlayCombatClip(int index, float delay = 0.2f)
     {
         AudioSource source = AudioSources.AddComponent<AudioSource>();
-        if (combatClips[index])
+        if (combatClips[index] != null)
         {
             yield return new WaitForSeconds(delay);
             AudioClip clip = combatClips[index]; 

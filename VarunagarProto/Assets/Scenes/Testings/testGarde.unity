@@ -23587,6 +23587,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Choices
       objectReference: {fileID: 0}
+    - target: {fileID: 5741413452574382534, guid: f9f807a1bacfdc7439824d19fb9cba57, type: 3}
+      propertyPath: m_text
+      value: QTE
+      objectReference: {fileID: 0}
     - target: {fileID: 7742196970393950581, guid: f9f807a1bacfdc7439824d19fb9cba57, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -23671,6 +23675,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1997581103}
+    - target: {fileID: 8517810976515725004, guid: f9f807a1bacfdc7439824d19fb9cba57, type: 3}
+      propertyPath: m_text
+      value: Stat
+      objectReference: {fileID: 0}
     - target: {fileID: 8539999552800831122, guid: f9f807a1bacfdc7439824d19fb9cba57, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
