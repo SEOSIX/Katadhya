@@ -369,7 +369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &176333825
 Transform:
   m_ObjectHideFlags: 0
@@ -822,7 +822,7 @@ MonoBehaviour:
   blackScreen: {fileID: 1695600198}
   introPanel: {fileID: 176333824}
   menuPanel: {fileID: 1340698621}
-  blackScreenDuration: 3
+  blackScreenDuration: 2.8
   delayBeforeMenu: 4
   fadeDuration: 4
 --- !u!4 &595764363
@@ -1814,7 +1814,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1340698622
 RectTransform:
   m_ObjectHideFlags: 0
