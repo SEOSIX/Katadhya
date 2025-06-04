@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1716287585779292821}
   - component: {fileID: 8452212794215686939}
   - component: {fileID: 3576462877264519066}
+  - component: {fileID: 591907726445679877}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -96,7 +97,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -121,10 +122,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ExplorationManager, Assembly-CSharp
-        m_MethodName: StartLoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 591907726445679877}
+        m_TargetAssemblyTypeName: ChoiceButtonsLink, Assembly-CSharp
+        m_MethodName: OnCombatButtonPress
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -133,18 +134,19 @@ MonoBehaviour:
           m_StringArgument: testGarde
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+--- !u!114 &591907726445679877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615739339006566335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77893d6aa0d885f47b5b62f521258467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Scene: 
 --- !u!1 &1266706011205827833
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,6 +159,7 @@ GameObject:
   - component: {fileID: 2064592281475510628}
   - component: {fileID: 1132892934743765305}
   - component: {fileID: 307124887023036104}
+  - component: {fileID: 7666133958155503299}
   m_Layer: 5
   m_Name: Button (2)
   m_TagString: Untagged
@@ -241,7 +244,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -266,10 +269,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ExplorationManager, Assembly-CSharp
-        m_MethodName: StartLoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 7666133958155503299}
+        m_TargetAssemblyTypeName: ChoiceButtonsLink, Assembly-CSharp
+        m_MethodName: OnButtonPress
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -278,6 +281,19 @@ MonoBehaviour:
           m_StringArgument: Stat Autel
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7666133958155503299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266706011205827833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77893d6aa0d885f47b5b62f521258467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Scene: Stat Autel
 --- !u!1 &1559722817271864104
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,6 +306,7 @@ GameObject:
   - component: {fileID: 2064040710242925680}
   - component: {fileID: 8287284592619690583}
   - component: {fileID: 7828803161747064295}
+  - component: {fileID: 2252127232546807844}
   m_Layer: 5
   m_Name: Button (3)
   m_TagString: Untagged
@@ -374,7 +391,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -399,10 +416,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ExplorationManager, Assembly-CSharp
-        m_MethodName: StartLoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 2252127232546807844}
+        m_TargetAssemblyTypeName: ChoiceButtonsLink, Assembly-CSharp
+        m_MethodName: OnButtonPress
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -411,6 +428,19 @@ MonoBehaviour:
           m_StringArgument: SalleDeSoin
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2252127232546807844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559722817271864104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77893d6aa0d885f47b5b62f521258467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Scene: SalleDeSoin
 --- !u!1 &1612717933316187166
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,6 +719,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7742196970393950581}
   - component: {fileID: 1757123385938651182}
+  - component: {fileID: 6042365148821942343}
   m_Layer: 5
   m_Name: Choices
   m_TagString: Untagged
@@ -745,6 +776,28 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &6042365148821942343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3875495389781831071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ff934316da6fb4cab7c02683ed5703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  caurisBasic: {fileID: 0}
+  cauris1: {fileID: 0}
+  cauris2: {fileID: 0}
+  cauris3: {fileID: 0}
+  cauris4: {fileID: 0}
+  combatUI: {fileID: 0}
+  CombatSceneButton: {fileID: 615739339006566335}
+  QTESceneButton: {fileID: 5652988838004360329}
+  StatSceneButton: {fileID: 1266706011205827833}
+  HealingSceneButton: {fileID: 1559722817271864104}
 --- !u!1 &5652988838004360329
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,6 +810,7 @@ GameObject:
   - component: {fileID: 4878638445971106018}
   - component: {fileID: 5660704645248338859}
   - component: {fileID: 8539999552800831122}
+  - component: {fileID: 6098833594458689306}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -841,7 +895,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -866,10 +920,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ExplorationManager, Assembly-CSharp
-        m_MethodName: StartLoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 6098833594458689306}
+        m_TargetAssemblyTypeName: ChoiceButtonsLink, Assembly-CSharp
+        m_MethodName: OnButtonPress
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -878,6 +932,19 @@ MonoBehaviour:
           m_StringArgument: QTE Autel
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6098833594458689306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5652988838004360329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77893d6aa0d885f47b5b62f521258467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Scene: QTE Autel
 --- !u!1 &5857911767689378667
 GameObject:
   m_ObjectHideFlags: 0

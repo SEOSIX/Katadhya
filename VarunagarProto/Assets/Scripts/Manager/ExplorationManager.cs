@@ -12,6 +12,10 @@ public class ExplorationManager : MonoBehaviour
 {
     public static ExplorationManager SINGLETON;
 
+    private void Start()
+    {
+        if (this.enabled == false) this.enabled = true;
+    }
     private void Awake()
     {
         if (SINGLETON != null && SINGLETON != this)
@@ -40,10 +44,11 @@ public class ExplorationManager : MonoBehaviour
     [Header("Values")]
     public int CombatIndex = 0;
 
-    VictoryDefeatUI V = VictoryDefeatUI.SINGLETON;
 
     public void LoadNextCombatScene()
     {
+        ChoicesHolder V = null;
+        if (ChoicesHolder.SINGLETON != null) V = ChoicesHolder.SINGLETON;
         SceneManager.LoadScene(CombatScene);
         GameManager.SINGLETON.currentCombat = LD.CombatList[CombatIndex];
         CombatIndex += 1;
@@ -52,6 +57,9 @@ public class ExplorationManager : MonoBehaviour
 
     public void LoadChoicesAfterCombat()
     {
+        ChoicesHolder V = null;
+        if (ChoicesHolder.SINGLETON != null) V = ChoicesHolder.SINGLETON;
+
         Combat combat = GameManager.SINGLETON.currentCombat;
         if (combat.RoomOptions.Length == 0 || combat.WaveList.Count == 0)
         {
@@ -72,9 +80,10 @@ public class ExplorationManager : MonoBehaviour
     }
     public IEnumerator LoadScene(string SceneName)
     {
-        FadeManager.Instance.FadeOut();
+        //FadeManager.Instance.FadeOut();
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(SceneName);
+        LoadChoicesAfterCombat();
     }
 
     public void Recompenses()

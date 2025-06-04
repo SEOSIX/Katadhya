@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fa98beb25ebe24c83299b4f52d9545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LD: {fileID: 0}
-  BigData: {fileID: 0}
-  CombatScene: 
-  AutelQTEScene: 
-  AutelStatScene: 
-  HealingScene: 
+  LD: {fileID: 11400000, guid: 54ce8f7a81240cd48967746b505b7121, type: 2}
+  BigData: {fileID: 11400000, guid: 4fb73a1ffcd886e4fb39374b68c0afad, type: 2}
+  CombatScene: testGarde
+  AutelQTEScene: QTE Autel
+  AutelStatScene: Stat Autel
+  HealingScene: SalleDeSoin
   EntranceScene: 
   ExitScene: 
   CombatIndex: 0

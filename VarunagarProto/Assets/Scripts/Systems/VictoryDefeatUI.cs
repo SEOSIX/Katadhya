@@ -46,7 +46,7 @@ public class VictoryDefeatUI : MonoBehaviour
     private IEnumerator DelayedDisplay(bool playerWon, List<DataEntity> allEnemies)
     {
         yield return new WaitForSeconds(1f);
-
+        ChoicesHolder C = ChoicesHolder.SINGLETON;
         CombatManager.SINGLETON.canvasGroup.alpha = 0f;
         CombatManager.SINGLETON.canvasGroup.interactable = false;
         CombatManager.SINGLETON.canvasGroup.blocksRaycasts = false;
@@ -67,13 +67,13 @@ public class VictoryDefeatUI : MonoBehaviour
                 int maxDisplay = Mathf.Min(enemyPortraits.Count, allEnemies.Count);
             }
         endCombatPanel.SetActive(true);
-        combatUI.SetActive(false);
+        C.combatUI.SetActive(false);
         Combat currentCombat = GameManager.SINGLETON.currentCombat;
-        StartCoroutine(AnimateCaurisCounter(caurisBasic, currentCombat.CaurisDor));
-        StartCoroutine(AnimateCaurisCounter(cauris1, currentCombat.CaurisSpe1));
-        StartCoroutine(AnimateCaurisCounter(cauris2, currentCombat.CaurisSpe2));
-        StartCoroutine(AnimateCaurisCounter(cauris3, currentCombat.CaurisSpe3));
-        StartCoroutine(AnimateCaurisCounter(cauris4, currentCombat.CaurisSpe4));
+        StartCoroutine(AnimateCaurisCounter(C.caurisBasic, currentCombat.CaurisDor));
+        StartCoroutine(AnimateCaurisCounter(C.cauris1, currentCombat.CaurisSpe1));
+        StartCoroutine(AnimateCaurisCounter(C.cauris2, currentCombat.CaurisSpe2));
+        StartCoroutine(AnimateCaurisCounter(C.cauris3, currentCombat.CaurisSpe3));
+        StartCoroutine(AnimateCaurisCounter(C.cauris4, currentCombat.CaurisSpe4));
 
     }
 
@@ -92,20 +92,5 @@ public class VictoryDefeatUI : MonoBehaviour
         textUI.text = targetValue.ToString();
     }
 
-    [Header("Cauris amount text")]
-    public TextMeshProUGUI caurisBasic;
-    public TextMeshProUGUI cauris1;
-    public TextMeshProUGUI cauris2;
-    public TextMeshProUGUI cauris3;
-    public TextMeshProUGUI cauris4;
-
-    [Header("UI"), Space(30)]
-    public GameObject combatUI;
-
-    [Header("Buttons")]
-    public GameObject CombatSceneButton;
-    public GameObject QTESceneButton;
-    public GameObject StatSceneButton;
-    public GameObject HealingSceneButton;
 
 }

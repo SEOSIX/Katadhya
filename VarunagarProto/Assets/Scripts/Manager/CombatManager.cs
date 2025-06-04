@@ -121,6 +121,8 @@ public class CombatManager : MonoBehaviour
         ReseterData.ResetEnemies(entityHandler);
         ReseterData.ResetPlayersBeforeCombat(entityHandler, entiityManager);
         currentTurnOrder = GetUnitTurn();
+        Time.timeScale = 10f;
+
         //StartUnitTurn();
     }
 
