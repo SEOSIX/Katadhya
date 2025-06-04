@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     [Header("Spawn Positions")]
     public List<Transform> playerSpawnPoints;
     public List<Transform> enemySpawnPoints;
-    public List<RectTransform> objectsToSpawn;
+    [SerializeField] private List<RectTransform> objectsToSpawn;
 
     [Header("Entity Handler")]
     public EntityHandler entityHandler;
@@ -293,9 +293,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private float offsetX = 400f;
-
-    
+    [SerializeField] private float offsetX = 2000f;
     public void SpawnObject()
     {
         if (objectsToSpawn == null || objectsToSpawn.Count == 0)
@@ -321,11 +319,13 @@ public class GameManager : MonoBehaviour
         {
             if (rt == null) continue;
 
+            rt.gameObject.SetActive(true);
+
             if (!originalPositions.ContainsKey(rt))
                 originalPositions[rt] = rt.anchoredPosition3D;
 
             Vector3 targetPosition = originalPositions[rt];
-            Vector3 offscreenStartPos = targetPosition + new Vector3(offsetX, 0f, 0f);
+            Vector3 offscreenStartPos = targetPosition + new Vector3(rt.rect.width + 100f, 0f, 0f);
 
             rt.anchoredPosition3D = offscreenStartPos;
 
@@ -335,6 +335,11 @@ public class GameManager : MonoBehaviour
 
     private void MoveUIToRight()
     {
+        foreach (RectTransform rt in objectsToSpawn)
+        {
+            if (rt != null && !originalPositions.ContainsKey(rt))
+                originalPositions[rt] = rt.anchoredPosition3D;
+        }
         foreach (RectTransform rt in objectsToSpawn)
         {
             if (rt == null) continue;
@@ -347,8 +352,6 @@ public class GameManager : MonoBehaviour
             Vector3 startPos = rt.anchoredPosition3D;
             Vector3 offscreenTarget = startPos  + new Vector3(offsetX, 0f, 0f);
             
-            
-
             StartCoroutine(AnimateUIElement(rt, startPos, offscreenTarget, 0.5f, true));
         }
     }
