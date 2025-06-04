@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c8f182d232039848a3b32d7886df91f, type: 3}
-  m_Name: NarashimaJade
+  m_Name: NaraJadeFoudre
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  UnitAtk: 10
+  UnitAtk: 5
   UnitSpeed: 43
-  UnitDef: 30
+  UnitDef: 10
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns: []
-  Affinity: 0
+  Affinity: 2
   ChargePower: 0
   UltChargePowerCost: 0
-  BaseLife: 110
+  BaseLife: 120
   BaseAtk: 20
-  BaseSpeed: 52
+  BaseSpeed: 56
   BaseDef: 25
   BaseAim: 100
   UnitShield: 0
@@ -32,18 +32,18 @@ MonoBehaviour:
   RageTick: 0
   LastRageTick: 0
   necrosis: []
-  beenHurtThisTurn: 1
-  provoking: 1
+  beenHurtThisTurn: 0
+  provoking: 0
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
-  portrait: {fileID: 21300000, guid: 7f257d4dc90d23a4d88873463175f492, type: 3}
-  portraitUI: {fileID: 21300000, guid: 63c3646b56cfab5498cf586a988cff42, type: 3}
+  portrait: {fileID: 21300000, guid: 86e10a75cebe44c4986357953984f52e, type: 3}
+  portraitUI: {fileID: 21300000, guid: 13273dbd6a9492c4d8ca1b26df5742ba, type: 3}
   bandeauUI: {fileID: 0}
   Animator: {fileID: 0}
-  capacityData1Source: {fileID: 11400000, guid: ae3c508d298b16b4990d652cc866ca0d, type: 2}
+  capacityData1Source: {fileID: 11400000, guid: 4065c5544b5e8ba45be44c0b12602dc1, type: 2}
   capacity1: {fileID: 0}
   Cpt1lvl: 0
-  capacityData2Source: {fileID: 11400000, guid: cc7e76ddf1daf9c46a86030d324c84d9, type: 2}
+  capacityData2Source: {fileID: 11400000, guid: d285493f07d44944794d15fb84fc5cb4, type: 2}
   capacity2: {fileID: 0}
   Cpt2lvl: 0
   capacityData3Source: {fileID: 11400000, guid: ae3c508d298b16b4990d652cc866ca0d, type: 2}
@@ -60,9 +60,9 @@ MonoBehaviour:
   UltLvl_3: 0
   UltLvl_4: 0
   UltLvlHit: 0
-  namE: NarashimaPierre
+  namE: NaraJadeFoudre
   size: 0
-  index: 4
+  index: 3
   ID: 6
   RageAtkBonus: 0
   skipNextTurn: 0
