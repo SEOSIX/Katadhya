@@ -27,6 +27,10 @@ public class AutelStats : MonoBehaviour
     public TextMeshProUGUI statCurrentText;
     public TextMeshProUGUI statNextText;
     
+    [Header("UI - Affichage des Niveau")]
+    public TextMeshProUGUI[] levelText;
+    
+    
     [Header("Prix par Stat")]
     public int atkPrice = 5;
     public int defPrice = 10;
@@ -181,7 +185,14 @@ public class AutelStats : MonoBehaviour
             statTexts[i].color = isMax ? goldColor : (cauris >= prices[i] ? Color.black : Color.red);
 
             statButtons[i].interactable = !isMax;
+            
+            if (levelText != null && levelText.Length > i && currentEntity != null)
+            {
+                levelText[i].text = "Niveau " + GetCurrentLevel(i);
+                levelText[i].color = isMax ? goldColor : Color.black;
+            }
         }
+        
     }
 
 
