@@ -106,7 +106,7 @@ public class AI : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         if (choosenSpell.MultipleAttack)
         {
-            Debug.Log("[AI] Attaque multiple d�clench�e !");
+            Debug.Log("[AI] Attaque multiple déclenchée !");
             foreach (var t in possibleTargets)
             {
                 CombatManager.SINGLETON.ApplyCapacityToTarget(choosenSpell, t);

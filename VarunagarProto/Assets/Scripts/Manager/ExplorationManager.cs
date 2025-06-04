@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.SearchService;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,6 +24,7 @@ public class ExplorationManager : MonoBehaviour
     }
 
     public LevelDesign LD;
+    public GlobalPlayerData BigData;
 
     [Header("Scenes")]
     public string CombatScene;
@@ -74,6 +76,19 @@ public class ExplorationManager : MonoBehaviour
         FadeManager.Instance.FadeOut();
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(SceneName);
+    }
+
+    public void Recompenses()
+    {
+        GameManager.SINGLETON.isCombatEnabled = false;
+        Combat C = LD.CombatList[CombatIndex];
+        List<int> CauriSpé = new List<int>() {C.CaurisSpe1,C.CaurisSpe2,C.CaurisSpe3,C.CaurisSpe4};
+        for (int i = 0; i < 4; i++)
+        {
+            BigData.AddCauris(CauriSpé[i], i);
+        }
+        BigData.baseCaurisCount+=C.CaurisDor;
+
     }
 }
 [System.Serializable]

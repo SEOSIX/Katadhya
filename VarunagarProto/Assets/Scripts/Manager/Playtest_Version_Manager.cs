@@ -53,7 +53,7 @@ public class Playtest_Version_Manager : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             BigData.AddCauris(CaurisSpe[index].values[i], i);
-            Debug.Log($"R�comp {index}");
+            Debug.Log($"Récomp {index}");
         }
         BigData.baseCaurisCount += CaurisDeBase;
 
