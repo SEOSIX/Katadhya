@@ -121,7 +121,7 @@ public class CombatManager : MonoBehaviour
         ReseterData.ResetEnemies(entityHandler);
         ReseterData.ResetPlayersBeforeCombat(entityHandler, entiityManager);
         currentTurnOrder = GetUnitTurn();
-        StartUnitTurn();
+        //StartUnitTurn();
     }
 
     void Update()
@@ -192,6 +192,7 @@ public class CombatManager : MonoBehaviour
         if (currentTurnOrder.Count == 0) return;
 
         HideTargetIndicators();
+
         DataEntity currentCombatData = currentTurnOrder[0];
         currentTurnOrder.RemoveAt(0);
         unitPlayedThisTurn.Add(currentCombatData);
@@ -227,6 +228,8 @@ public class CombatManager : MonoBehaviour
     {
         DataEntity caster = currentTurnOrder[0];
         ChargePower(caster, 2);
+        DecrementBuffDurations(caster);
+        DecrementCooldowns(caster);
         if (caster.beenHurtThisTurn == false && caster.RageTick > 0)
         {
             caster.RageTick -= 1;
@@ -418,8 +421,6 @@ public class CombatManager : MonoBehaviour
                     ApplyCapacityToTarget(capacity, target);
                 }
             }
-            DecrementBuffDurations(caster);
-            DecrementCooldowns(caster);
             GlobalVars.currentSelectedCapacity = null;
             Debug.Log("Capacité de soin appliquée à tous les alliés !");
             EndUnitTurn();
@@ -449,8 +450,6 @@ public class CombatManager : MonoBehaviour
                     ApplyCapacityToTarget(capacity, target);
                 }
             }
-            DecrementBuffDurations(currentTurnOrder[0]);
-            DecrementCooldowns(currentTurnOrder[0]);
             GlobalVars.currentSelectedCapacity = null;
             Debug.Log("Capacité de zone appliquée à tous les ennemis !");
             EndUnitTurn();
@@ -480,8 +479,6 @@ public class CombatManager : MonoBehaviour
                     ApplyCapacityToTarget(capacity, target);
                 }
             }
-            DecrementBuffDurations(currentTurnOrder[0]);
-            DecrementCooldowns(currentTurnOrder[0]);
             GlobalVars.currentSelectedCapacity = null;
             Debug.Log("Buff de zone appliquée à tous les alliés !");
             EndUnitTurn();
@@ -490,8 +487,6 @@ public class CombatManager : MonoBehaviour
         else
         {
             ShowTargetIndicators(capacity);
-            DecrementBuffDurations(caster);
-            DecrementCooldowns(caster);
         }
         
         RecalculateStats(caster);
@@ -575,7 +570,7 @@ public class CombatManager : MonoBehaviour
 
             if (!alreadyInCooldown)
             {
-                caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown));
+                caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown+1));
                 Debug.Log($"[Cooldown] Ajouté à {caster.name} pour capacité {capacity.name}, durée {capacity.cooldown}");
             }
         }
@@ -729,8 +724,6 @@ public class CombatManager : MonoBehaviour
                     caster.skipNextTurn = true;
                     caster.delayedActions.Add(new DelayedAction(capacity, target));
                     Debug.Log($"{caster.namE} prépare une attaque différée !");
-                    DecrementBuffDurations(caster);
-                    DecrementCooldowns(caster);
                 }
                 else
                 {
@@ -1583,8 +1576,6 @@ public class CombatManager : MonoBehaviour
             if (target.ActiveBuffs[i].duration <= 0)
                 target.ActiveBuffs.RemoveAt(i);
         }
-
-        RecalculateStats(target);
     }
     public void SetupNewAffinity(int NewAffinity)
     {
@@ -1618,6 +1609,7 @@ public class CombatManager : MonoBehaviour
                 caster.ActiveCooldowns[i] = data;
             }
         }
+        Debug.Log($"Feur {caster.namE}");
     }
     private void RefreshButtonState(DataEntity caster, CapacityData capacity)
     {
