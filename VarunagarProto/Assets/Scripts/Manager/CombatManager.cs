@@ -344,6 +344,7 @@ public class CombatManager : MonoBehaviour
     public void UseCapacity(CapacityData cpt)
     {
         DataEntity player = currentTurnOrder[0];
+        Debug.Log(cpt);
         char CptType = cpt.name[4];
         if(CptType == 'd')
         {
@@ -952,6 +953,7 @@ public class CombatManager : MonoBehaviour
     {
         DataEntity player = currentTurnOrder[0];
         CapacityData CData = null;
+
         switch (index)
         {
             case 0: CData = player._CapacityData1; break;
@@ -959,7 +961,13 @@ public class CombatManager : MonoBehaviour
             case 2: CData = player._CapacityData3; break;
             case 3: CData = player._CapacityDataUltimate; break;
         }
-        if (currentSelectedButton == button && currentSelectedButton != null && !IsCapacityOnCooldown(player, CData))
+        List<CapacityData> AllCDataLevels = new List<CapacityData>() { CData, GetCycledCapacity(CData), GetCycledCapacity(GetCycledCapacity(CData)) };
+        bool CoolDown = false;
+        foreach (CapacityData C in AllCDataLevels)
+        {
+            if (IsCapacityOnCooldown(player, C)) CoolDown = true;
+        }
+        if (currentSelectedButton == button && currentSelectedButton != null && !CoolDown)
         {
             UseCapacity(CData);
         }

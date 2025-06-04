@@ -20,10 +20,10 @@ MonoBehaviour:
       enemyPrefab2: {fileID: 3739328305999535302, guid: 9f028de5e78e524419dfa7fc842664e0, type: 3}
     NextCombatIndex: 0
     CaurisDor: 300
-    "CaurisSp\xE91": 10
-    "CaurisSp\xE92": 7
-    "CaurisSp\xE93": 5
-    "CaurisSp\xE94": 0
+    CaurisSpe1: 100
+    CaurisSpe2: 10
+    CaurisSpe3: 20
+    CaurisSpe4: 30
     RoomOptions:
     - QTE Autel
   - WaveList:
@@ -35,10 +35,10 @@ MonoBehaviour:
       enemyPrefab2: {fileID: 4493399983760142657, guid: b705acfbb7b78cd4c8b6cfc5ff0038eb, type: 3}
     NextCombatIndex: 0
     CaurisDor: 300
-    "CaurisSp\xE91": 7
-    "CaurisSp\xE92": 10
-    "CaurisSp\xE93": 0
-    "CaurisSp\xE94": 5
+    CaurisSpe1: 0
+    CaurisSpe2: 0
+    CaurisSpe3: 0
+    CaurisSpe4: 0
     RoomOptions:
     - Stat Autel
   - WaveList:
@@ -50,10 +50,10 @@ MonoBehaviour:
       enemyPrefab2: {fileID: 4493399983760142657, guid: b705acfbb7b78cd4c8b6cfc5ff0038eb, type: 3}
     NextCombatIndex: 0
     CaurisDor: 300
-    "CaurisSp\xE91": 7
-    "CaurisSp\xE92": 10
-    "CaurisSp\xE93": 0
-    "CaurisSp\xE94": 5
+    CaurisSpe1: 0
+    CaurisSpe2: 0
+    CaurisSpe3: 0
+    CaurisSpe4: 0
     RoomOptions:
     - QTE Autel
     - SalleDeSoin
@@ -68,10 +68,10 @@ MonoBehaviour:
       enemyPrefab2: {fileID: 4493399983760142657, guid: b705acfbb7b78cd4c8b6cfc5ff0038eb, type: 3}
     NextCombatIndex: 0
     CaurisDor: 500
-    "CaurisSp\xE91": 6
-    "CaurisSp\xE92": 6
-    "CaurisSp\xE93": 6
-    "CaurisSp\xE94": 6
+    CaurisSpe1: 0
+    CaurisSpe2: 0
+    CaurisSpe3: 0
+    CaurisSpe4: 0
     RoomOptions:
     - QTE Autel
     - SalleDeSoin
