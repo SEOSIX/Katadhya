@@ -90,6 +90,9 @@ public class CombatManager : MonoBehaviour
     private System.Random r = new System.Random();
     [HideInInspector] public bool PlayerClickable;
     [HideInInspector] public bool EnemyClickable;
+    public bool ClickedAnEnemy;
+    public bool ClickedAPlayer;
+    
 
     public static class GlobalVars
     {
@@ -188,6 +191,7 @@ public class CombatManager : MonoBehaviour
     {
         if (currentTurnOrder.Count == 0) return;
 
+        HideTargetIndicators();
         DataEntity currentCombatData = currentTurnOrder[0];
         currentTurnOrder.RemoveAt(0);
         unitPlayedThisTurn.Add(currentCombatData);
@@ -353,7 +357,7 @@ public class CombatManager : MonoBehaviour
             {
                 player.ChargePower -= CptChargeCost;
 
-                StartTargetSelectionMode(cpt);
+                StartCoroutine(StartTargetSelectionMode(cpt));
             }
             else
             {
@@ -374,21 +378,30 @@ public class CombatManager : MonoBehaviour
             {
                 player.ChargePower -= CptChargeCost;
 
-                StartTargetSelectionMode(cpt);
+                StartCoroutine(StartTargetSelectionMode(cpt));
             }
             else Debug.Log("pas assez charge");
         }
 
     }
     #region Selection
-    public void StartTargetSelectionMode(CapacityData capacity)
+    public IEnumerator StartTargetSelectionMode(CapacityData capacity)
     {
+        ClickedAnEnemy = false;
+        ClickedAPlayer = false;
+        List<SpecialCapacityType> TypesExclude = new List<SpecialCapacityType> () { SpecialCapacityType.UltMoine, SpecialCapacityType.UltPriso, SpecialCapacityType.UltGarde };
         DataEntity caster = currentTurnOrder[0]; 
         HideTargetIndicators();
         GlobalVars.currentSelectedCapacity = capacity;
         if (capacity.MultipleHeal)
         {
+            ShowTargetIndicators(capacity);
             List<DataEntity> pool = null;
+            while (!ClickedAPlayer && !TypesExclude.Contains(capacity.specialType))
+            {
+                yield return null;
+
+            }
             if (entityHandler.players.Contains(currentPlayer))
             {
                 pool = entityHandler.players;
@@ -397,6 +410,7 @@ public class CombatManager : MonoBehaviour
             {
                 pool = entityHandler.ennemies;
             }
+
             foreach (var target in pool)
             {
                 if (target.UnitLife > 0)
@@ -409,12 +423,18 @@ public class CombatManager : MonoBehaviour
             GlobalVars.currentSelectedCapacity = null;
             Debug.Log("Capacité de soin appliquée à tous les alliés !");
             EndUnitTurn();
-            return;
+            yield return null;
         }
 
         if (capacity.MultipleAttack)
         {
+            ShowTargetIndicators(capacity);
             List<DataEntity> pool = null;
+            while (!ClickedAnEnemy && !TypesExclude.Contains(capacity.specialType))
+            {
+                yield return null;
+
+            }
             if (entityHandler.players.Contains(currentPlayer))
             {
                 pool = entityHandler.ennemies;
@@ -435,11 +455,17 @@ public class CombatManager : MonoBehaviour
             GlobalVars.currentSelectedCapacity = null;
             Debug.Log("Capacité de zone appliquée à tous les ennemis !");
             EndUnitTurn();
-            return;
+            yield return null;
         }
         if (capacity.MultipleBuff)
         {
+            ShowTargetIndicators(capacity);
             List<DataEntity> pool = null;
+            while (!ClickedAPlayer && !TypesExclude.Contains(capacity.specialType))
+            {
+                yield return null;
+
+            }
             if (entityHandler.players.Contains(currentPlayer))
             {
                 pool = entityHandler.players;
@@ -460,7 +486,7 @@ public class CombatManager : MonoBehaviour
             GlobalVars.currentSelectedCapacity = null;
             Debug.Log("Buff de zone appliquée à tous les alliés !");
             EndUnitTurn();
-            return;
+            yield return null;
         }
         ShowTargetIndicators(capacity);
         DecrementBuffDurations(caster);
@@ -969,6 +995,7 @@ public class CombatManager : MonoBehaviour
         }
         if (currentSelectedButton == button && currentSelectedButton != null && !CoolDown)
         {
+            StopAllCoroutines();
             UseCapacity(CData);
         }
     }
@@ -1279,8 +1306,9 @@ public class CombatManager : MonoBehaviour
     void ShowTargetIndicators(CapacityData capacity)
     {
         HideTargetIndicators();
+        Debug.Log("SKIBIDI");
 
-        if (capacity.atk > 0 && !capacity.MultipleAttack)
+        if (capacity.atk > 0)
         {
             int activeIndex = 0;
 
@@ -1308,7 +1336,7 @@ public class CombatManager : MonoBehaviour
                 activeIndex++;
             }
         }
-        else if (capacity.heal > 0 && !capacity.MultipleHeal || capacity.Provocation == true)
+        else if (capacity.heal > 0 || capacity.Provocation == true)
         {
             for (int i = 0; i < entityHandler.players.Count && i < circlesPlayer.Count; i++)
             {

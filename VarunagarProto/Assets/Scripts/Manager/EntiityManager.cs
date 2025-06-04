@@ -224,7 +224,10 @@ public class EntiityManager : MonoBehaviour
             int index = allies.FindIndex(p => p.instance == this.gameObject);
             if (index != -1)
             {
-                SINGLETON.SelectAlly(index);
+                CombatManager.SINGLETON.ClickedAPlayer = true;
+                CapacityData Cpt = GlobalVars.currentSelectedCapacity;
+                if(!Cpt.MultipleHeal || !Cpt.MultipleBuff) SINGLETON.SelectAlly(index);
+
             }
         }
         else
@@ -232,7 +235,9 @@ public class EntiityManager : MonoBehaviour
             int index = enemies.FindIndex(e => e.instance == this.gameObject);
             if (index != -1)
             {
-                SINGLETON.SelectEnemy(allies.Count + index);
+                CombatManager.SINGLETON.ClickedAnEnemy = true;
+                CapacityData Cpt = GlobalVars.currentSelectedCapacity;
+                if (!Cpt.MultipleAttack) SINGLETON.SelectEnemy(allies.Count + index);
             }
         }
     }
