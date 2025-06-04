@@ -20,7 +20,8 @@ MonoBehaviour:
   ActiveBuffs: []
   ActiveCooldowns: []
   Affinity: 0
-  ChargePower: 0
+  ChargePower: 2
+  UltChargePowerCost: 5
   BaseLife: 240
   BaseAtk: 5
   BaseSpeed: 45
@@ -34,6 +35,7 @@ MonoBehaviour:
   beenHurtThisTurn: 0
   provoking: 0
   provokingDuration: 0
+  provokingCaracter: {fileID: 11400000}
   portrait: {fileID: 21300000, guid: 8a37cff721508cf4db97e71718893af4, type: 3}
   portraitUI: {fileID: 21300000, guid: 136d23904e9af024ca629de861fce00f, type: 3}
   bandeauUI: {fileID: 21300000, guid: 45ce174521594fb488b34e7f1d741497, type: 3}
@@ -51,8 +53,8 @@ MonoBehaviour:
   Ultimate: {fileID: 21300000, guid: f0f3d14119d252b4595754ed73d77782, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: 6a68f6d10d7cb754dbbcb47f8340e7e1, type: 3}
   CptUltlvl: 0
-  UltimateSlider: 20
-  UltIsReady: 0
+  UltimateSlider: 100
+  UltIsReady: 1
   UltLvl_1: 0
   UltLvl_2: 0
   UltLvl_3: 0

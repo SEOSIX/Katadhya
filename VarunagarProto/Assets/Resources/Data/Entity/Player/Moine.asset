@@ -19,15 +19,15 @@ MonoBehaviour:
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns: []
-  Affinity: 1
-  ChargePower: 10
-  UltChargePowerCost: 0
+  Affinity: 0
+  ChargePower: 0
+  UltChargePowerCost: 8
   BaseLife: 180
   BaseAtk: 5
   BaseSpeed: 40
   BaseDef: 5
   BaseAim: 100
-  UnitShield: 10
+  UnitShield: 0
   ShockMark: 0
   RageTick: 0
   LastRageTick: 0
@@ -52,14 +52,14 @@ MonoBehaviour:
   capacityDataUltimateSource: {fileID: 11400000, guid: b500928d3256d974a861842354ea55e6, type: 2}
   Ultimate: {fileID: 21300000, guid: 47156ee7c606bda4db4e0c7d377a295c, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: ce4265b8a8608f148b8c0bdfbd50f510, type: 3}
-  CptUltlvl: 1
+  CptUltlvl: 0
   UltimateSlider: 100
-  UltIsReady: 0
+  UltIsReady: 1
   UltLvl_1: 0
   UltLvl_2: 0
   UltLvl_3: 0
   UltLvl_4: 0
-  UltLvlHit: 1
+  UltLvlHit: 0
   namE: Moine
   size: 1.25
   index: 0
