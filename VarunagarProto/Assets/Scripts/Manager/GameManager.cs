@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
             targetPositions.Add(playerSpawnPoints[i].position);
         }
 
-        StartingScene.MoveFromLeft(playerObjects.ToArray(), targetPositions.ToArray());
+        //StartingScene.MoveFromLeft(playerObjects.ToArray(), targetPositions.ToArray());
 
         if (CombatManager.SINGLETON == null || 
             CombatManager.SINGLETON.circleParentUI == null || 
@@ -242,7 +242,7 @@ public class GameManager : MonoBehaviour
             enemyTargetPositions.Add(enemySpawnPoints[i].position);
         }
 
-        StartingScene.MoveFromRight(enemyObjects.ToArray(), enemyTargetPositions.ToArray());
+        //StartingScene.MoveFromRight(enemyObjects.ToArray(), enemyTargetPositions.ToArray());
 
         if (CombatManager.SINGLETON.circlesEnnemy != null)
         {
