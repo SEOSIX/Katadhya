@@ -4,50 +4,69 @@ using UnityEngine;
 [CustomEditor(typeof(GameManager))]
 public class GameManagerEditor : Editor
 {
+    private SerializedProperty isCombatEnabled;
+    private SerializedProperty salleSpeciale;
+    private SerializedProperty playerSpawnPoints;
+    private SerializedProperty entityHandler;
+    private SerializedProperty playerPrefabs;
+    private SerializedProperty sizeChara;
+    private SerializedProperty enemySpawnPoints;
+    private SerializedProperty enemyPackIndex;
+    private SerializedProperty enemyPacks;
+    private SerializedProperty allEnemiesEncountered;
+    private SerializedProperty objectsToSpawn;
+    private SerializedProperty ispressed;
+    private SerializedProperty uiCamera;
+
+    private void OnEnable()
+    {
+        isCombatEnabled = serializedObject.FindProperty("isCombatEnabled");
+        salleSpeciale = serializedObject.FindProperty("salleSpeciale");
+        playerSpawnPoints = serializedObject.FindProperty("playerSpawnPoints");
+        entityHandler = serializedObject.FindProperty("entityHandler");
+        playerPrefabs = serializedObject.FindProperty("playerPrefabs");
+        sizeChara = serializedObject.FindProperty("sizeChara");
+
+        enemySpawnPoints = serializedObject.FindProperty("enemySpawnPoints");
+        enemyPackIndex = serializedObject.FindProperty("EnemyPackIndex");
+        enemyPacks = serializedObject.FindProperty("enemyPacks");
+        allEnemiesEncountered = serializedObject.FindProperty("allEnemiesEncountered");
+
+        objectsToSpawn = serializedObject.FindProperty("objectsToSpawn");
+        ispressed = serializedObject.FindProperty("ispressed");
+        uiCamera = serializedObject.FindProperty("uiCamera");
+    }
+
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
 
-        GameManager gm = (GameManager)target;
+        EditorGUILayout.PropertyField(isCombatEnabled);
+        EditorGUILayout.PropertyField(salleSpeciale);
+        EditorGUILayout.PropertyField(playerSpawnPoints, true);
+        EditorGUILayout.PropertyField(entityHandler);
+        EditorGUILayout.PropertyField(playerPrefabs, true);
+        EditorGUILayout.PropertyField(sizeChara);
 
-        DrawSafeProperty("isCombatEnabled");
-        DrawSafeProperty("salleSpeciale");
-        DrawSafeProperty("playerSpawnPoints", true);
-        DrawSafeProperty("entityHandler");
-        DrawSafeProperty("playerPrefabs", true);
-        DrawSafeProperty("sizeChara");
-
-        if (gm.isCombatEnabled)
+        if (isCombatEnabled.boolValue)
         {
             EditorGUILayout.Space(10);
             EditorGUILayout.LabelField("Enemy Section", EditorStyles.boldLabel);
-            DrawSafeProperty("enemySpawnPoints", true);
-            DrawSafeProperty("EnemyPackIndex");
-            DrawSafeProperty("enemyPacks", true);
-            DrawSafeProperty("allEnemiesEncountered", true);
+            EditorGUILayout.PropertyField(enemySpawnPoints, true);
+            EditorGUILayout.PropertyField(enemyPackIndex);
+            EditorGUILayout.PropertyField(enemyPacks, true);
+            EditorGUILayout.PropertyField(allEnemiesEncountered, true);
         }
 
-        if (gm.salleSpeciale)
+        if (salleSpeciale.boolValue)
         {
-            DrawSafeProperty("objectsToSpawn");
-            DrawSafeProperty("ispressed");
-            DrawSafeProperty("uiCamera");
+            EditorGUILayout.Space(10);
+            EditorGUILayout.LabelField("Special Room Section", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(objectsToSpawn, true);
+            EditorGUILayout.PropertyField(ispressed);
+            EditorGUILayout.PropertyField(uiCamera);
         }
 
         serializedObject.ApplyModifiedProperties();
     }
-
-    private void DrawSafeProperty(string propertyName, bool includeChildren = false)
-    {
-        SerializedProperty prop = serializedObject.FindProperty(propertyName);
-        if (prop != null)
-        {
-            EditorGUILayout.PropertyField(prop, includeChildren);
-        }
-        else
-        {
-            Debug.LogWarning($"Property '{propertyName}' not found on GameManager.");
-        }
-    }
-
 }

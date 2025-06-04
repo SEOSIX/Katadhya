@@ -785,11 +785,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCombatEnabled: 0
+  salleSpeciale: 1
   playerSpawnPoints:
   - {fileID: 1626126960}
   - {fileID: 848180736}
   - {fileID: 1268529225}
   enemySpawnPoints: []
+  objectsToSpawn:
+  - {fileID: 1655322385}
   entityHandler: {fileID: 11400000, guid: 779db6a0d8027e04a8c21117fb5fdb15, type: 2}
   playerPrefabs:
   - playerName: Moine
@@ -799,10 +802,23 @@ MonoBehaviour:
   - playerName: Garde
     prefab: {fileID: 7033778814545610870, guid: 1313d386f1219944381b560ad4453fbe, type: 3}
   EnemyPackIndex: 0
-  enemyPacks: []
+  currentCombat:
+    WaveList: []
+    NextCombatIndex: 0
+    CaurisDor: 0
+    CaurisSpe1: 0
+    CaurisSpe2: 0
+    CaurisSpe3: 0
+    CaurisSpe4: 0
+    RoomOptions:
+    - 
+    - 
   allEnemiesEncountered: []
   sizeChara: 0.21
+  ispressed: 0
   circleOffset: {x: 0, y: 0, z: 0}
+  offsetX: 400
+  uiCamera: {fileID: 1891770594}
 --- !u!1 &387067905
 GameObject:
   m_ObjectHideFlags: 0
@@ -2437,7 +2453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: f5ad12d4c6eb2034e92c4493df8d269a, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -2915,6 +2931,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 275826894}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: SpawnObject
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4570,7 +4598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: f6c7ec3ca829c9f4bbe12eb3b5b26624, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -4739,7 +4767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: c6301a077d20b4b4f846d695097e2895, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
