@@ -10,7 +10,7 @@ public class MusicSwitcher : MonoBehaviour
 
     void Start()
     {
-        PlayMenuMusic(); 
+        //PlayMenuMusic(); 
     }
 
     public void PlayCreditsMusic()

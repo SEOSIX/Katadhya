@@ -14,6 +14,7 @@ public class MenuMusicManager : MonoBehaviour
 
     void Start()
     {
+        introAlreadyPlayed = false;
         if (!introAlreadyPlayed)
         {
             PlayIntroThenLoopWithCrossfade();
@@ -59,7 +60,6 @@ public class MenuMusicManager : MonoBehaviour
 
             yield return null;
         }
-
         audioLoop.volume = 1f;
         audioIntro.Stop();
     }
