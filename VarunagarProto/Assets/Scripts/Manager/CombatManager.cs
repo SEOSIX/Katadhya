@@ -653,13 +653,19 @@ public class CombatManager : MonoBehaviour
         if (réussite == 2)
         {
             Debug.Log("Échec de la compétence");
+            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(12, 0.5f));
+            Animator anim = target.instance?.GetComponent<Animator>();
+            if (anim != null && anim.runtimeAnimatorController != null)
+            {
+                anim.SetTrigger("Dodge");
+            }
             return;
         }
         float modifier = lancer(capacity.critique, 1f, 1.5f);
-        if (capacity.atk > 0 && caster.instance != null && target.instance != null)
+        /*if (capacity.atk > 0 && caster.instance != null && target.instance != null)
         {
             //StartCoroutine(MoveTowardsTarget(caster, target, 0.5f, 5f)); 
-        }
+        }*/
 
         // ATTAQUE
         if (capacity.atk > 0)
@@ -672,6 +678,7 @@ public class CombatManager : MonoBehaviour
         }
         if (capacity.Shield > 0)
         {
+            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(1));
             target.UnitShield += Mathf.RoundToInt(capacity.Shield * modifier);
         }
         if (capacity.Provocation == true)
@@ -693,13 +700,13 @@ public class CombatManager : MonoBehaviour
         }
         if (target.Affinity == 4 && capacity.atk > 0)
         {
-            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(5));
+            //StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(5));
             ApplyRage(target);
         }
 
         if (capacity.Necrosis > 0)
         {
-            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(4));
+            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(6));
             ApplyNecrosis(target, capacity.Necrosis);
         }
     }
@@ -799,13 +806,13 @@ public class CombatManager : MonoBehaviour
 
         if (target.Affinity == 4 && capacity.atk > 0)
         {
-            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(5));
+            //StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(5));
             ApplyRage(target);
         }
 
         if (capacity.Necrosis > 0)
         {
-            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(4));
+            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(7));
             ApplyNecrosis(target, capacity.Necrosis);
         }
     }
@@ -837,11 +844,13 @@ public class CombatManager : MonoBehaviour
         {
             if (target.UnitShield < icalculatedDamage)
             {
+                StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(2));
                 icalculatedDamage -= target.UnitShield;
                 target.UnitShield = 0;
             }
             else
             {
+                StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(3));
                 target.UnitShield -= icalculatedDamage;
                 icalculatedDamage = 0;
             }
@@ -862,6 +871,7 @@ public class CombatManager : MonoBehaviour
         EffectsManager.SINGLETON.AfficherAttaqueSimple(target, icalculatedDamage, modifier);
         if (capacity.Shock > 0)
         {
+            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(4));
             ShockProc(capacity, target, enemyHasShield);
         }
 
@@ -870,7 +880,7 @@ public class CombatManager : MonoBehaviour
     
     public void ApplyHeal(CapacityData capacity, DataEntity caster, DataEntity target, float modifier, float UltMoine = 0, float UltPriso = 0, float UltGarde = 0)
     {
-        StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(8));
+        StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(16));
 
         float BonusRageHeal = 0;
         if (caster.Affinity == 4) BonusRageHeal = GetBonusRageDamage(caster);
@@ -1439,6 +1449,8 @@ public class CombatManager : MonoBehaviour
                     Debug.Log($"{caster.namE} inflige {icalculatedDamage} dégâts à {target.namE} grâce au choc");
                 }
                 target.ShockMark = 0;
+                StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(5));
+
             }
         }
     }
@@ -1524,6 +1536,8 @@ public class CombatManager : MonoBehaviour
             int level = necrosisEffect.level;
             int speedDamage = Mathf.RoundToInt(target.UnitSpeed * speedPercents[level]);
             int damage = baseDamage[level] + speedDamage;
+
+            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(7));
 
             target.UnitLife -= damage;
 
@@ -1614,7 +1628,6 @@ public class CombatManager : MonoBehaviour
                 caster.ActiveCooldowns[i] = data;
             }
         }
-        Debug.Log($"Feur {caster.namE}");
     }
     private void RefreshButtonState(DataEntity caster, CapacityData capacity)
     {

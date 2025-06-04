@@ -206,7 +206,7 @@ public class Ultimate : MonoBehaviour
     {
 
         ResetAllZones();
-
+        StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(13));
         player = Player;
        
         player.UltLvlHit = 1;
@@ -265,6 +265,7 @@ public class Ultimate : MonoBehaviour
 
                 // Jeanne et Tonin qui ont setup les feedbacks oeoe
                 Debug.Log("Successful click");
+                StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(15));
                 var main = feedBackVFX.main;
                 main.startColor = AffinityColors[zone.Affinity-1];
                 feedBackVFX.Play();
@@ -283,6 +284,7 @@ public class Ultimate : MonoBehaviour
         }
         else
         {
+            if(player.UltLvlHit == 0) StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(14));
             StartCoroutine(QTEStop());
             // Logique d'échec
         }

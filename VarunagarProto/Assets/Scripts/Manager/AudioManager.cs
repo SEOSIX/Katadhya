@@ -15,11 +15,12 @@ public class AudioManager : MonoBehaviour
             return;
         }
         SINGLETON = this;
+        DontDestroyOnLoad(gameObject);
     }
-    //CombatClips : 0: Damage ,1: Damage to shield, 2: Chock, 3: Chock prock, 4 : Nécrose, 5 : Rage, 6: Buff, 7 : Débuff, 8 : Heal, 9: Ult Chargé
-    //GameClips : 0 : Click, 1 : Click Cpt, 2 : play, 3 : Nouvelle Vague, 
-    public AudioClip[] combatClips = new AudioClip[10];
-    public AudioClip[] gameClips = new AudioClip[4];
+    //CombatClips : 0: Damage ,1: shield , 2: dégâts sur shield, 3: shield brisé , 4: Chock , 5 : Chock prock,  6 : Nécrose, 7 : nécrose damage, 8 : Rage, 9 : Rage Damage, 10: Buff, 11 : Débuff, 13 : Dodge, 14 : QTE Roll, 15 : QTE flop, 16 : QTE Success
+    //GameClips : 0 : Click, 1 : Click Cpt, 2 : play, 3 : Nouvelle Vague, 4 : Mort joueur, 5 : Mort ennemi, 6 : Ult Charged
+    public AudioClip[] combatClips = new AudioClip[20];
+    public AudioClip[] gameClips = new AudioClip[10];
     public GameObject AudioSources;
     public IEnumerator PlayClip(AudioClip clip)
     {
@@ -29,25 +30,25 @@ public class AudioManager : MonoBehaviour
         Destroy(source);
     }
 
-    public IEnumerator PlayCombatClip(int index)
+    public IEnumerator PlayCombatClip(int index, float delay = 0.2f)
     {
         AudioSource source = AudioSources.AddComponent<AudioSource>();
-
-        if (combatClips[index] != null)
+        if (combatClips[index])
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(delay);
             AudioClip clip = combatClips[index]; 
             source.PlayOneShot(clip, 0.1f);
             yield return new WaitForSeconds(clip.length);
         }
         Destroy(source);
     }
-    public IEnumerator PlayGameClip(int index)
+    public IEnumerator PlayGameClip(int index, float delay = 0.2f)
     {
         AudioSource source = AudioSources.AddComponent<AudioSource>();
 
         if (gameClips[index] != null)
         {
+            yield return new WaitForSeconds(delay);
             AudioClip clip = gameClips[index];
             source.PlayOneShot(clip, 0.1f);
             yield return new WaitForSeconds(clip.length);

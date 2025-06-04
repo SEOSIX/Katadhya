@@ -230,14 +230,14 @@ public class EffectsManager : MonoBehaviour
             string arrow;
             if (CData.buffValue > 1)
             {
-                StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(6));
+                StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(10));
                 particleIndex = 4;
                 instance.GetComponent<TextMeshProUGUI>().color = new Color32(0, 39, 11, 255);
                 arrow = "▲";
             }
             else
             {
-                StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(7));
+                StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(11));
                 particleIndex = 3;
                 particlePosition = new Vector3(AllRenderers.center.x, AllRenderers.max.y, AllRenderers.center.z);
                 instance.GetComponent<TextMeshProUGUI>().color = new Color32(155, 0, 0, 255);
