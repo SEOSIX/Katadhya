@@ -143,8 +143,8 @@ public class EntiityManager : MonoBehaviour
 
         LifeEntity.SINGLETON.LifeManage();
 
-        bool anyPlayerAlive = entityHandler.players.Any(p => p != null && p.UnitLife > 0 && p.instance.activeSelf);
-        bool anyEnemyAlive = entityHandler.ennemies.Any(e => e != null && e.UnitLife > 0 && e.instance.activeSelf);
+        bool anyPlayerAlive = entityHandler.players.Any(p => p != null && p.UnitLife > 0);
+        bool anyEnemyAlive = entityHandler.ennemies.Any(e => e != null && e.UnitLife > 0 );
         bool isLastWave = GameManager.SINGLETON.EnemyPackIndex >= GameManager.SINGLETON.currentCombat.WaveList.Count - 1;
 
         if (!anyPlayerAlive)
@@ -153,12 +153,12 @@ public class EntiityManager : MonoBehaviour
         }
         else if (!anyEnemyAlive)
         {
+            entityHandler.ennemies.RemoveAll(e => e == null || e.UnitLife <= 0);
             if (GameManager.SINGLETON.EnemyPackIndex+1 < GameManager.SINGLETON.currentCombat.WaveList.Count)
             {
                 GameManager.SINGLETON.EnemyPackIndex += 1;
                 CombatManager.SINGLETON.entityHandler.ennemies.Clear();
                 GameManager.SINGLETON.SpawnEnemies();
-                entityHandler.ennemies.RemoveAll(e => e == null || e.UnitLife <= 0);
                 ReseterData.ResetEnemies(entityHandler);
                 CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
                 CombatManager.SINGLETON.unitPlayedThisTurn.Clear();
