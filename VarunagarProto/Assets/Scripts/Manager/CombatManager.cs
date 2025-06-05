@@ -359,7 +359,8 @@ public class CombatManager : MonoBehaviour
     public void UseCapacity(CapacityData cpt)
     {
         DataEntity player = currentTurnOrder[0];
-        Debug.Log(cpt.name);
+        cpt.name = cpt.name.Replace("(Clone)", "").Trim();
+        Debug.Log( cpt.name);
         char CptType = cpt.name[4];
         if(CptType == 'd')
         {
@@ -577,29 +578,10 @@ public class CombatManager : MonoBehaviour
 
             if (!alreadyInCooldown)
             {
-                string originalName = capacity.name;
-                string cleanName = originalName.Replace("(Clone)", "");
-
-                if (cleanName.Length > 0)
-                {
-                    cleanName = cleanName.Substring(0, cleanName.Length - 1) + "0";
-                }
-                CapacityData[] allCapacities = Resources.LoadAll<CapacityData>("Data/Entity/Capacity");
-                CapacityData correctedCapacity = allCapacities.FirstOrDefault(c => c.name == cleanName);
-
-                if (correctedCapacity != null)
-                {
-                    caster.ActiveCooldowns.Add(new CooldownData(correctedCapacity, correctedCapacity.cooldown + 1));
-                    Debug.Log($"[Cooldown] Ajouté à {caster.name} pour capacité {correctedCapacity.name}, durée {correctedCapacity.cooldown}");
-                }
-                else
-                {
-                    Debug.LogWarning($"[Cooldown] Capacité '{cleanName}' introuvable dans Resources/Data/Entity/Capacity");
-                }
+                caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown+1));
+                Debug.Log($"[Cooldown] Ajouté à {caster.name} pour capacité {capacity.name}, durée {capacity.cooldown}");
             }
         }
-
-
         /*if (Ultimate.SINGLETON != null)
         {
             Ultimate.SINGLETON.GainUltimateCharge(capacity.chargeUlti);
@@ -645,7 +627,7 @@ public class CombatManager : MonoBehaviour
 
         if (entityHandler.players.Contains(caster))
         {
-            int PlayerIndex = caster.ID-2;
+            int PlayerIndex = caster.ID -3;
             int CapacityIndex = -1;
             switch (capacity.ToString()[4])
             {
@@ -733,10 +715,6 @@ public class CombatManager : MonoBehaviour
             StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(6));
             ApplyNecrosis(target, capacity.Necrosis);
         }
-        if (capacity.ChargePowerGiven > 0)
-        {
-            target.ChargePower = Mathf.Min(capacity.ChargePowerGiven + target.ChargePower, 10);
-        }
     }
 
 
@@ -760,15 +738,19 @@ public class CombatManager : MonoBehaviour
             case SpecialCapacityType.UltMoine:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
                 ApplyNormalCapacity(capacity, caster, target, 2 * caster.CptUltlvl);
+                Debug.Log($"skibidi ult{caster.CptUltlvl}");
                 break;
             case SpecialCapacityType.UltPriso:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
                 ApplyNormalCapacity(capacity, caster, target, 0, 2*caster.CptUltlvl);
+                Debug.Log($"skibidi ult{caster.CptUltlvl}");
                 break;
             case SpecialCapacityType.UltGarde:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
                 ApplyNormalCapacity(capacity, caster, target, 0, 0, 0.05f*caster.CptUltlvl);
+                Debug.Log($"skibidi ult{caster.CptUltlvl}");
                 break;
+
             default:
                 Debug.LogWarning("Special capacity type not handled.");
                 break;
@@ -838,10 +820,6 @@ public class CombatManager : MonoBehaviour
         {
             StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(7));
             ApplyNecrosis(target, capacity.Necrosis);
-        }
-        if (capacity.ChargePowerGiven > 0)
-        {
-            target.ChargePower = Mathf.Min(capacity.ChargePowerGiven + target.ChargePower, 10);
         }
     }
     public int ApplyDamage(CapacityData capacity, DataEntity caster, DataEntity target, float modifier, float UltMoine = 0, float UltPriso = 0, float UltGarde = 0, int DamageDone = 0)
@@ -969,7 +947,7 @@ public class CombatManager : MonoBehaviour
     }
     public CapacityData GetBaseCapacity(CapacityData currentCapacity)
     {
-        string currentName = currentCapacity.name.Replace("(Clone)", ""); ;
+        string currentName = currentCapacity.name;
         if (currentName.Length > 7)
         {
             currentName = currentName.Remove(7);
@@ -1025,12 +1003,25 @@ public class CombatManager : MonoBehaviour
             case 2: CData = player._CapacityData3; break;
             case 3: CData = player._CapacityDataUltimate; break;
         }
-        List<CapacityData> AllCDataLevels = new List<CapacityData>() { CData, GetCycledCapacity(CData), GetCycledCapacity(GetCycledCapacity(CData)) };
+
+        if (CData == null)
+        {
+            Debug.LogWarning($"ResetListener: CData est null pour index {index}");
+            return;
+        }
+
+        List<CapacityData> AllCDataLevels = new List<CapacityData>() {
+            CData,
+            GetCycledCapacity(CData),
+            GetCycledCapacity(GetCycledCapacity(CData))
+        };
+
         bool CoolDown = false;
         foreach (CapacityData C in AllCDataLevels)
         {
             if (IsCapacityOnCooldown(player, C)) CoolDown = true;
         }
+
         if (currentSelectedButton == button && currentSelectedButton != null && !CoolDown)
         {
             StopAllCoroutines();
@@ -1068,6 +1059,7 @@ public class CombatManager : MonoBehaviour
     {
         entiityManager.UpdateSpellData(player);
         UpdatePage(player);
+        
 
         for (int i = 0; i < Banderoles.Count(); i++)
         {
@@ -1169,7 +1161,6 @@ public class CombatManager : MonoBehaviour
     private void UpdatePage(DataEntity player)
     {
         currentSelectedButton = null;
-        
         List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
         Transform EncartAffinity = null;
         if (player.ChargePower >= player.UltChargePowerCost)
@@ -1311,7 +1302,7 @@ public class CombatManager : MonoBehaviour
         Value = Math.Max(CData.atk, CData.heal);
         if (CData.heal > 0)
         {
-            Value = Mathf.RoundToInt(CData.heal + (player.UnitAtk / 3));
+            Value = Mathf.RoundToInt((Mathf.Sqrt(2 * player.UnitAtk) + CData.heal));
         }
         if (CData.atk > 0)
         {
