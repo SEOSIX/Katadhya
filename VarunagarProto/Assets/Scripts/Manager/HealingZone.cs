@@ -33,7 +33,7 @@ public class HealingZone : MonoBehaviour
         SelectedItem = ItemType;
         switch (ItemType)
         {
-            case "Orange": LifeEntity.SINGLETON.HealAllPlayer();
+            case "Orange": LifeEntity.SINGLETON.HealAllPlayer(); break;
         }
     }
 
