@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Cpt3a32
   m_EditorClassIdentifier: 
   atk: 0
-  heal: 33
-  critique: 7
+  heal: 29
+  critique: 5
   "pr\xE9cision": 100
   cooldown: 1
   chargeUlti: 25
@@ -23,6 +23,7 @@ MonoBehaviour:
   MultipleBuff: 0
   TargetingAlly: 1
   Provocation: 0
+  ProvocationDuration: 0
   BuffFromAffinity: 0
   buffType: 0
   buffValue: 0
