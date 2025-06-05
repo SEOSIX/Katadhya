@@ -23,10 +23,12 @@ MonoBehaviour:
   MultipleBuff: 0
   TargetingAlly: 0
   Provocation: 0
+  ProvocationDuration: 0
   BuffFromAffinity: 0
   buffType: 0
   buffValue: 0
   buffDuration: 0
+  ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 0
   Shock: 1
@@ -42,6 +44,6 @@ MonoBehaviour:
   Description: "Inflige des d\xE9gats \xE0 un ennemi."
   AffinityDescription: Applique du choc
   PictoType: 0
-  TargetType: 1
+  TargetType: 0
   ValueAI: 0
   DoubleEffect: 0

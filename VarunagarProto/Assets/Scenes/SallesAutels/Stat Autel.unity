@@ -850,7 +850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 4fb73a1ffcd886e4fb39374b68c0afad, type: 2}
-  maxLevel: 9
+  maxLevel: 6
   statTexts:
   - {fileID: 1946851270}
   - {fileID: 1309477411}
@@ -871,14 +871,14 @@ MonoBehaviour:
   - {fileID: 340157763}
   - {fileID: 1173107737}
   - {fileID: 276480521}
-  atkPriceIncrement: 3
-  defPriceIncrement: 5
-  speedPriceIncrement: 5
-  lifePriceIncrement: 5
-  atkUpgradeValue: 14
-  defUpgradeValue: 3
-  speedUpgradeValue: 3
-  lifeUpgradeValue: 22
+  atkPriceIncrement: 50
+  defPriceIncrement: 50
+  speedPriceIncrement: 50
+  lifePriceIncrement: 50
+  atkUpgradeValue: 5
+  defUpgradeValue: 5
+  speedUpgradeValue: 5
+  lifeUpgradeValue: 10
 --- !u!4 &275826892
 Transform:
   m_ObjectHideFlags: 0
