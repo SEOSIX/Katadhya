@@ -38,6 +38,7 @@ public class CapacityData : ScriptableObject
     [SerializeField] public int buffType;
     [SerializeField] public float buffValue;
     [SerializeField] public int buffDuration;
+    [SerializeField] public int ChargePowerGiven;
 
     [Header("Affinity Effect")]
     [SerializeField] public int Shield;
