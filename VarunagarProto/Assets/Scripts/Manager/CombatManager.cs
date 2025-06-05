@@ -731,6 +731,10 @@ public class CombatManager : MonoBehaviour
             StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(6));
             ApplyNecrosis(target, capacity.Necrosis);
         }
+        if (capacity.ChargePowerGiven > 0)
+        {
+            target.ChargePower = Mathf.Min(capacity.ChargePowerGiven + target.ChargePower, 10);
+        }
     }
 
 
@@ -836,6 +840,10 @@ public class CombatManager : MonoBehaviour
         {
             StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(7));
             ApplyNecrosis(target, capacity.Necrosis);
+        }
+        if (capacity.ChargePowerGiven > 0)
+        {
+            target.ChargePower = Mathf.Min(capacity.ChargePowerGiven + target.ChargePower, 10);
         }
     }
     public int ApplyDamage(CapacityData capacity, DataEntity caster, DataEntity target, float modifier, float UltMoine = 0, float UltPriso = 0, float UltGarde = 0, int DamageDone = 0)
