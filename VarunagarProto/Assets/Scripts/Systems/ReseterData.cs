@@ -20,6 +20,11 @@ public static class ReseterData
             player.Affinity = 0;
             player.UltLvlHit = 0;
             entiityManager.UpdateSpellData(player);
+            player.AtkLevel = 0;
+            player.DefLevel = 0;
+            player.SpeedLevel = 0;
+            player.LifeLevel = 0;
+
         }
     }
 

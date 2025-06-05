@@ -17,7 +17,7 @@ public class AudioManager : MonoBehaviour
         SINGLETON = this;
         DontDestroyOnLoad(gameObject);
     }
-    //CombatClips : 0: Damage ,1: shield , 2: dégâts sur shield, 3: shield brisé , 4: Chock , 5 : Chock prock,  6 : Nécrose, 7 : nécrose damage, 8 : Rage, 9 : Rage Damage, 10: Buff, 11 : Débuff, 13 : Dodge, 14 : QTE Roll, 15 : QTE flop, 16 : QTE Success
+    //CombatClips : 0: Damage ,1: shield , 2: dégâts sur shield, 3: shield brisé , 4: Chock , 5 : Chock prock,  6 : Nécrose, 7 : nécrose damage, 8 : Rage, 9 : Rage Damage, 10: Buff, 11 : Débuff, 12 : Dodge, 13 : QTE Roll, 14 : QTE flop, 15 : QTE Success, 16 : Heal, 17 : Crit
     //GameClips : 0 : Click, 1 : Click Cpt, 2 : play, 3 : Nouvelle Vague, 4 : Mort joueur, 5 : Mort ennemi, 6 : Ult Charged
     public AudioClip[] combatClips = new AudioClip[20];
     public AudioClip[] gameClips = new AudioClip[10];

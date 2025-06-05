@@ -13,31 +13,31 @@ MonoBehaviour:
   m_Name: Garde
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  UnitAtk: 5
-  UnitSpeed: 45
-  UnitDef: 10
+  UnitAtk: 10
+  UnitSpeed: 50
+  UnitDef: 15
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns: []
-  Affinity: 0
-  ChargePower: 0
+  Affinity: 4
+  ChargePower: 4
   UltChargePowerCost: 0
   BaseLife: 240
-  BaseAtk: 5
-  BaseSpeed: 45
-  BaseDef: 10
+  BaseAtk: 10
+  BaseSpeed: 50
+  BaseDef: 15
   BaseAim: 100
   UnitShield: 0
   ShockMark: 0
-  RageTick: 0
+  RageTick: 2
   LastRageTick: 0
   necrosis: []
   beenHurtThisTurn: 0
   provoking: 0
   provokingDuration: 0
-  provokingCaracter: {fileID: 11400000, guid: b3a9dc3142da51d4bad44a5388ab35cf, type: 2}
+  provokingCaracter: {fileID: 11400000}
   portrait: {fileID: 21300000, guid: 8a37cff721508cf4db97e71718893af4, type: 3}
-  portraitUI: {fileID: 21300000, guid: 136d23904e9af024ca629de861fce00f, type: 3}
+  portraitUI: {fileID: 21300000, guid: ee0340e760c0e644f99adb42bd87ca27, type: 3}
   bandeauUI: {fileID: 21300000, guid: 45ce174521594fb488b34e7f1d741497, type: 3}
   Animator: {fileID: 0}
   capacityData1Source: {fileID: 11400000, guid: 090787d629367114789beeeee97d4c19, type: 2}
@@ -53,7 +53,7 @@ MonoBehaviour:
   Ultimate: {fileID: 21300000, guid: f0f3d14119d252b4595754ed73d77782, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: 6a68f6d10d7cb754dbbcb47f8340e7e1, type: 3}
   CptUltlvl: 2
-  UltimateSlider: 100
+  UltimateSlider: 0
   UltIsReady: 1
   UltLvl_1: 2
   UltLvl_2: 0

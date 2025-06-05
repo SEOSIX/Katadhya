@@ -36,6 +36,7 @@ public class CombatManager : MonoBehaviour
     public Button[] capacityAnimButtons;
     public GameObject[] capacityPage;
     public GameObject[] capacityPageAffinity;
+    public Color[] AffinityPageColors;
     public GameObject[] Banderoles;
     public TextMeshProUGUI[] CoolDownTexts;
     public Sprite[] Pictos;
@@ -627,7 +628,7 @@ public class CombatManager : MonoBehaviour
 
         if (entityHandler.players.Contains(caster))
         {
-            int PlayerIndex = caster.ID -3;
+            int PlayerIndex = caster.ID -2;
             int CapacityIndex = -1;
             switch (capacity.ToString()[4])
             {
@@ -865,7 +866,8 @@ public class CombatManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(0));
+            if(modifier == 1)StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(0));
+            else StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(17));
         }
 
         if (icalculatedDamage > 0)
@@ -1202,6 +1204,7 @@ public class CombatManager : MonoBehaviour
         //MAJ de la data si affinity
         if (player.Affinity != 0 && EncartAffinity!= null)
         {
+            EncartAffinity.GetComponent<Image>().color = AffinityPageColors[player.Affinity - 1];
             Sprite Picto = null;
             String EffectValue = "";
             if (CData.Shield > 0)

@@ -6709,18 +6709,18 @@ MonoBehaviour:
   - {fileID: 4986334438692495275, guid: a9eab130b6a389540828f8811975d130, type: 3}
   ParticleParent: {fileID: 433323616}
   PlayerCptSounds:
+  - Cpt1: {fileID: 8300000, guid: 69e3a5756f43cfe4fa05635b6e8bf463, type: 3}
+    Cpt2: {fileID: 8300000, guid: 57ed9c870b9d17a41abd649a5c00520b, type: 3}
+    Cpt3: {fileID: 8300000, guid: 69e3a5756f43cfe4fa05635b6e8bf463, type: 3}
+    Cpt4: {fileID: 8300000, guid: 69e3a5756f43cfe4fa05635b6e8bf463, type: 3}
   - Cpt1: {fileID: 8300000, guid: 7fdec3c8ff5c4254ebb85456bd1c3535, type: 3}
     Cpt2: {fileID: 8300000, guid: 48b34dad0856a4544bc02b93351cf4c4, type: 3}
     Cpt3: {fileID: 8300000, guid: 2c42734e680cc7f4d9daab86738287ef, type: 3}
-    Cpt4: {fileID: 0}
+    Cpt4: {fileID: 8300000, guid: 7fdec3c8ff5c4254ebb85456bd1c3535, type: 3}
   - Cpt1: {fileID: 8300000, guid: 934b29840fb26e84badb38fd619abe4d, type: 3}
     Cpt2: {fileID: 8300000, guid: b99e36e5d922f8945a9337c4536aaeb3, type: 3}
-    Cpt3: {fileID: 0}
-    Cpt4: {fileID: 0}
-  - Cpt1: {fileID: 8300000, guid: 69e3a5756f43cfe4fa05635b6e8bf463, type: 3}
-    Cpt2: {fileID: 8300000, guid: 57ed9c870b9d17a41abd649a5c00520b, type: 3}
-    Cpt3: {fileID: 0}
-    Cpt4: {fileID: 0}
+    Cpt3: {fileID: 8300000, guid: 934b29840fb26e84badb38fd619abe4d, type: 3}
+    Cpt4: {fileID: 8300000, guid: 934b29840fb26e84badb38fd619abe4d, type: 3}
   DamagePosition:
   - {fileID: 1918882185}
   - {fileID: 289581611}
@@ -9804,7 +9804,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 222, y: 40}
+  m_AnchoredPosition: {x: 222, y: 3.199997}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1116786796
@@ -10148,8 +10148,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -887.69, y: -253}
-  m_SizeDelta: {x: 1304, y: 342}
+  m_AnchoredPosition: {x: -889.67, y: -213}
+  m_SizeDelta: {x: 1341, y: 371}
   m_Pivot: {x: -0.053443156, y: 0.713288}
 --- !u!114 &1163544509
 MonoBehaviour:
@@ -10171,7 +10171,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9c6049f6c2cf61b448c8705c5584b137, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6c6a9f5a2e68684a9b4674c053caad4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -16510,6 +16510,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioSource
       objectReference: {fileID: 0}
+    - target: {fileID: 5738535562952405756, guid: dbe1637285bfaf840b1b544fb03f490d, type: 3}
+      propertyPath: combatClips.Array.size
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5738535562952405756, guid: dbe1637285bfaf840b1b544fb03f490d, type: 3}
+      propertyPath: combatClips.Array.data[9]
+      value: 
+      objectReference: {fileID: 8300000, guid: 00397c1711bb4e04ab98fad6a41e3934, type: 3}
+    - target: {fileID: 5738535562952405756, guid: dbe1637285bfaf840b1b544fb03f490d, type: 3}
+      propertyPath: combatClips.Array.data[16]
+      value: 
+      objectReference: {fileID: 8300000, guid: 265f7fca687baf2488762eeeadf8f74f, type: 3}
+    - target: {fileID: 5738535562952405756, guid: dbe1637285bfaf840b1b544fb03f490d, type: 3}
+      propertyPath: combatClips.Array.data[17]
+      value: 
+      objectReference: {fileID: 8300000, guid: 93f10ccf1ec442846918b65f3f19951b, type: 3}
     - target: {fileID: 7204249956069138977, guid: dbe1637285bfaf840b1b544fb03f490d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.1
@@ -17176,6 +17192,11 @@ MonoBehaviour:
   - {fileID: 416021736}
   - {fileID: 120662980}
   - {fileID: 480589941}
+  AffinityPageColors:
+  - {r: 0.66967785, g: 0.87659687, b: 0.9528302, a: 0.6509804}
+  - {r: 0.8773585, g: 0.87026936, b: 0.68284976, a: 0.6509804}
+  - {r: 0.78059393, g: 0.63576895, b: 0.8584906, a: 0.6509804}
+  - {r: 0.9433962, g: 0.53844786, b: 0.53844786, a: 0.6509804}
   Banderoles:
   - {fileID: 1049003952}
   - {fileID: 1998365467}
@@ -23609,6 +23630,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 642715972}
     m_Modifications:
+    - target: {fileID: 4545506566806401993, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: m_Name
+      value: Exploration_Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916859353838748642, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: BigData
+      value: 
+      objectReference: {fileID: 11400000, guid: 4fb73a1ffcd886e4fb39374b68c0afad, type: 2}
+    - target: {fileID: 6916859353838748642, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: QTESceneButton
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916859353838748642, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: StatSceneButton
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916859353838748642, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: CombatSceneButton
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916859353838748642, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: HealingSceneButton
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3875495389781831071, guid: f9f807a1bacfdc7439824d19fb9cba57, type: 3}
       propertyPath: m_Name
       value: Choices
@@ -23716,30 +23761,6 @@ PrefabInstance:
     - target: {fileID: 7742196970393950581, guid: f9f807a1bacfdc7439824d19fb9cba57, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4545506566806401993, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: m_Name
-      value: Exploration_Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 6916859353838748642, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: BigData
-      value: 
-      objectReference: {fileID: 11400000, guid: 4fb73a1ffcd886e4fb39374b68c0afad, type: 2}
-    - target: {fileID: 6916859353838748642, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: QTESceneButton
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6916859353838748642, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: StatSceneButton
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6916859353838748642, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: CombatSceneButton
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6916859353838748642, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: HealingSceneButton
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
