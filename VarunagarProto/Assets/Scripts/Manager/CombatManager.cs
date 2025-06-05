@@ -49,6 +49,7 @@ public class CombatManager : MonoBehaviour
     private DataEntity currentPlayer;
     public GameObject currentInterractingButton;
     public GameObject currentSelectedButton;
+    public GameObject PlayerPanelBlocker;
 
 
 
@@ -117,11 +118,11 @@ public class CombatManager : MonoBehaviour
     [ContextMenu("pipi")]
     void Start()
     {
-        ReseterData.ResetPlayersComplete(entityHandler, entiityManager);  //a retirer avant de build
+        //ReseterData.ResetPlayersComplete(entityHandler, entiityManager);  //a retirer avant de build
         ReseterData.ResetEnemies(entityHandler);
         ReseterData.ResetPlayersBeforeCombat(entityHandler, entiityManager);
         currentTurnOrder = GetUnitTurn();
-        //StartUnitTurn();
+        StartCoroutine(StartUnitTurnRoutine(0f));
     }
 
     void Update()
@@ -129,7 +130,7 @@ public class CombatManager : MonoBehaviour
         InitializeStaticUI();
         
     }
-    public void InitializeStaticUI()
+    public void Resetpage()
     {
         if (currentTurnOrder == null || currentTurnOrder.Count == 0) return;
 
@@ -142,6 +143,12 @@ public class CombatManager : MonoBehaviour
         lifeText.text = currentEntity.UnitLife + "/" + currentEntity.BaseLife;
         playerPortrait.sprite = currentEntity.bandeauUI;
         PlayerCharge.value = currentEntity.ChargePower;
+    }
+    public void InitializeStaticUI()
+    {
+        DataEntity currentEntity = currentTurnOrder[0];
+
+        if (currentTurnOrder == null || currentTurnOrder.Count == 0) return;
 
         List<DataEntity> initialTurnOrder = GetUnitTurn();
         for (int i = 0; i < ImagePortrait.Length; i++)
@@ -254,8 +261,11 @@ public class CombatManager : MonoBehaviour
         StartCoroutine(StartUnitTurnRoutine());
     }
     
-    private IEnumerator StartUnitTurnRoutine()
+    private IEnumerator StartUnitTurnRoutine(float delay = 2f)
     {
+        PlayerPanelBlocker.SetActive(true);
+        yield return new WaitForSeconds(delay);
+        PlayerPanelBlocker.SetActive(false);
         while (currentTurnOrder.Count > 0 && currentTurnOrder[0].UnitLife <= 0)
         {
             currentTurnOrder.RemoveAt(0);
@@ -287,6 +297,7 @@ public class CombatManager : MonoBehaviour
 
         currentPlayer = current;
         InitializeStaticUI();
+        Resetpage();
         SetupCapacityButtons(currentPlayer);
 
         foreach (var indicator in playerTurnIndicators)
@@ -334,7 +345,7 @@ public class CombatManager : MonoBehaviour
 
     private IEnumerator DelayedEnemyTurn(DataEntity currentEntity)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         AI.SINGLETON.Attack(currentEntity, 50);
     }
 
@@ -351,7 +362,6 @@ public class CombatManager : MonoBehaviour
     public void UseCapacity(CapacityData cpt)
     {
         DataEntity player = currentTurnOrder[0];
-
         Debug.Log(cpt.name);
         char CptType = cpt.name[4];
         if(CptType == 'd')
@@ -419,7 +429,7 @@ public class CombatManager : MonoBehaviour
             {
                 if (target.UnitLife > 0)
                 {
-                    ApplyCapacityToTarget(capacity, target);
+                    StartCoroutine(ApplyCapacityToTarget(capacity, target));
                 }
             }
             GlobalVars.currentSelectedCapacity = null;
@@ -448,7 +458,7 @@ public class CombatManager : MonoBehaviour
             {
                 if (target.UnitLife > 0)
                 {
-                    ApplyCapacityToTarget(capacity, target);
+                    StartCoroutine(ApplyCapacityToTarget(capacity, target));
                 }
             }
             GlobalVars.currentSelectedCapacity = null;
@@ -477,7 +487,7 @@ public class CombatManager : MonoBehaviour
             {
                 if (target.UnitLife > 0)
                 {
-                    ApplyCapacityToTarget(capacity, target);
+                    StartCoroutine(ApplyCapacityToTarget(capacity, target));
                 }
             }
             GlobalVars.currentSelectedCapacity = null;
@@ -515,7 +525,7 @@ public class CombatManager : MonoBehaviour
             Debug.LogError("Cible invalide ou morte.");
             return;
         }
-        ApplyCapacityToTarget(GlobalVars.currentSelectedCapacity, target);
+        StartCoroutine(ApplyCapacityToTarget(GlobalVars.currentSelectedCapacity, target));
         GlobalVars.currentSelectedCapacity = null;
         HideTargetIndicators();
         EndUnitTurn();
@@ -529,7 +539,7 @@ public class CombatManager : MonoBehaviour
             return;
         }
         DataEntity target = entityHandler.players[allyIndex];
-        ApplyCapacityToTarget(GlobalVars.currentSelectedCapacity, target);
+        StartCoroutine(ApplyCapacityToTarget(GlobalVars.currentSelectedCapacity, target));
         GlobalVars.currentSelectedCapacity = null;
         EndUnitTurn();
         HideTargetIndicators();
@@ -537,15 +547,14 @@ public class CombatManager : MonoBehaviour
     #endregion
 
     #region ApplyCapacity
-    public void ApplyCapacityToTarget(CapacityData capacity, DataEntity target)
+    public IEnumerator ApplyCapacityToTarget(CapacityData capacity, DataEntity target)
     {
 
         DataEntity caster = currentTurnOrder[0];
-
         Animator anim = caster.instance?.GetComponent<Animator>();
         if (anim != null && anim.runtimeAnimatorController != null)
         {
-
+            yield return new WaitForSeconds(1f);
             anim.SetTrigger("Attack");
         }
 
@@ -598,8 +607,6 @@ public class CombatManager : MonoBehaviour
         {
             Ultimate.SINGLETON.GainUltimateCharge(capacity.chargeUlti);
         }*/
-        InitializeStaticUI();
-
     }
 
     private IEnumerator MoveTowardsTarget(DataEntity caster, DataEntity target, float distance = 1.0f, float speed = 5f)

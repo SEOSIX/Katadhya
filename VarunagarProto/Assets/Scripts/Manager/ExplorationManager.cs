@@ -119,7 +119,7 @@ public class ExplorationManager : MonoBehaviour
         {
             BigData.AddCauris(CauriSpe[i], i);
         }
-        BigData.baseCaurisCount+=C.CaurisDor;
+        BigData.AddGlobalCauris(C.CaurisDor);
     }
 
 

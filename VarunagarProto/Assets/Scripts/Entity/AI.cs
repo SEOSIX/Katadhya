@@ -109,17 +109,17 @@ public class AI : MonoBehaviour
             Debug.Log("[AI] Attaque multiple déclenchée !");
             foreach (var t in possibleTargets)
             {
-                CombatManager.SINGLETON.ApplyCapacityToTarget(choosenSpell, t);
+                StartCoroutine(CombatManager.SINGLETON.ApplyCapacityToTarget(choosenSpell, t));
             }
         }
         else
         {
-            CombatManager.SINGLETON.ApplyCapacityToTarget(choosenSpell, target);
+            StartCoroutine(CombatManager.SINGLETON.ApplyCapacityToTarget(choosenSpell, target));
         }
 
         PostAttackProcessing(attacker); 
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.2f);
         CombatManager.SINGLETON.EndUnitTurn();
 
         DisableTargetIndicators();
@@ -130,6 +130,7 @@ public class AI : MonoBehaviour
     {
         var targets = CombatManager.SINGLETON.entityHandler.players.Where(p => p.UnitLife > 0).ToList();
         int count = Random.Range(1, targets.Count + 1);
+        yield return new WaitForSeconds(1.5f);
 
         for (int i = 0; i < count; i++)
         {
@@ -142,14 +143,13 @@ public class AI : MonoBehaviour
             //ToggleTargetIndicator(target);
 
             CapacityData chosenSpell = SelectSpell(attacker);
-            CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, target);
+            StartCoroutine(CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, target));
 
-            yield return new WaitForSeconds(1.5f);
         }
 
         PostAttackProcessing(attacker);
 
-        yield return new WaitForSeconds(25f);
+        yield return new WaitForSeconds(0.2f);
         CombatManager.SINGLETON.EndUnitTurn();
 
         DisableTargetIndicators();

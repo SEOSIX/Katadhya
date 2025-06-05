@@ -149,7 +149,7 @@ public class AutelStats : MonoBehaviour
         }
         if (!entityPrices.ContainsKey(entity))
         {
-            entityPrices[entity] = new EntityUpgradeData(10, 10, 10, 10);
+            entityPrices[entity] = new EntityUpgradeData(50, 50, 50, 50);
         }
 
         if (currentAnimator != null)
