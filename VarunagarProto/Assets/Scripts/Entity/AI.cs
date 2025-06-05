@@ -103,7 +103,7 @@ public class AI : MonoBehaviour
 
         DataEntity target = possibleTargets[Random.Range(0, possibleTargets.Count)];
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.2f);
         if (choosenSpell.MultipleAttack)
         {
             Debug.Log("[AI] Attaque multiple déclenchée !");
@@ -130,7 +130,7 @@ public class AI : MonoBehaviour
     {
         var targets = CombatManager.SINGLETON.entityHandler.players.Where(p => p.UnitLife > 0).ToList();
         int count = Random.Range(1, targets.Count + 1);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.2f);
 
         for (int i = 0; i < count; i++)
         {
