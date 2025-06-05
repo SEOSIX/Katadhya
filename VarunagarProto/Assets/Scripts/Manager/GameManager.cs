@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -293,18 +294,23 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField] private float offsetX = 2000f;
+    private bool isAnimating = false; 
+
     public void SpawnObject()
     {
+        if (isAnimating) return; 
         if (objectsToSpawn == null || objectsToSpawn.Count == 0)
         {
             Debug.LogWarning("Aucun élément UI à déplacer");
             return;
         }
 
+        isAnimating = true; 
+
         if (!ispressed)
-            MoveUIFromRight();
+            StartCoroutine(MoveUIFromRight());
         else
-            MoveUIToRight();
+            StartCoroutine(MoveUIToRight());
 
         ispressed = !ispressed;
     }
@@ -312,8 +318,10 @@ public class GameManager : MonoBehaviour
 
     #region moveingObject
 
-    private void MoveUIFromRight()
+    private IEnumerator MoveUIFromRight()
     {
+        List<Coroutine> coroutines = new List<Coroutine>();
+
         foreach (RectTransform rt in objectsToSpawn)
         {
             if (rt == null) continue;
@@ -328,59 +336,77 @@ public class GameManager : MonoBehaviour
 
             rt.anchoredPosition3D = offscreenStartPos;
 
-            StartCoroutine(AnimateUIElement(rt, offscreenStartPos, targetPosition, 0.5f, false));
+            coroutines.Add(StartCoroutine(AnimateUIElement(rt, offscreenStartPos, targetPosition, 0.5f, false)));
         }
+        yield return new WaitForSeconds(0.5f);
+        isAnimating = false;
     }
 
-    private void MoveUIToRight()
+    private IEnumerator MoveUIToRight()
     {
         foreach (RectTransform rt in objectsToSpawn)
         {
             if (rt != null && !originalPositions.ContainsKey(rt))
                 originalPositions[rt] = rt.anchoredPosition3D;
         }
+
         foreach (RectTransform rt in objectsToSpawn)
         {
-            if (rt == null) continue;
-
-            if (!originalPositions.ContainsKey(rt))
-            {
-                continue;
-            }
+            if (rt == null || !originalPositions.ContainsKey(rt)) continue;
 
             Vector3 startPos = rt.anchoredPosition3D;
-            Vector3 offscreenTarget = startPos  + new Vector3(offsetX, 0f, 0f);
-            
+            Vector3 offscreenTarget = startPos + new Vector3(offsetX, 0f, 0f);
+
             StartCoroutine(AnimateUIElement(rt, startPos, offscreenTarget, 0.5f, true));
         }
+
+        yield return new WaitForSeconds(0.5f);
+        isAnimating = false;
     }
 
     
     
     [SerializeField] private Camera uiCamera;
-    private System.Collections.IEnumerator AnimateUIElement(RectTransform element, 
+    private IEnumerator AnimateUIElement(
+        RectTransform element, 
         Vector3 startPos, 
         Vector3 targetPos, 
-        float duration = 0.5f,
+        float duration = 0.5f, 
         bool disableAtEnd = false)
     {
         float elapsed = 0f;
+        CanvasGroup canvasGroup = element.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = element.gameObject.AddComponent<CanvasGroup>();
+        }
+
+        float startAlpha = disableAtEnd ? 1f : 0f;
+        float endAlpha = disableAtEnd ? 0f : 1f;
+
+        canvasGroup.alpha = startAlpha;
+        element.gameObject.SetActive(true);
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
             float t = Mathf.SmoothStep(0f, 1f, elapsed / duration);
+
             element.anchoredPosition3D = Vector3.Lerp(startPos, targetPos, t);
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, t);
+
             yield return null;
         }
 
         element.anchoredPosition3D = targetPos;
-        
+        canvasGroup.alpha = endAlpha;
+
         if (disableAtEnd)
         {
             element.gameObject.SetActive(false);
         }
     }
+
 
     #endregion
 
