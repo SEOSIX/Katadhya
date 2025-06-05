@@ -135,6 +135,16 @@ public class EntiityManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            foreach (var enemy in entityHandler.ennemies)
+            {
+                if (enemy != null)
+                    enemy.UnitLife = 0;
+            }
+        }
+        
+        
         if (entityHandler.ennemies.Any(e => e != null && e.UnitLife <= 0))
             DestroyDeadEnemies();
 
@@ -153,12 +163,13 @@ public class EntiityManager : MonoBehaviour
         }
         else if (!anyEnemyAlive)
         {
-            entityHandler.ennemies.RemoveAll(e => e == null || e.UnitLife <= 0);
             if (GameManager.SINGLETON.EnemyPackIndex+1 < GameManager.SINGLETON.currentCombat.WaveList.Count)
             {
+                entityHandler.ennemies.RemoveAll(e => e == null || e.UnitLife <= 0);
                 GameManager.SINGLETON.EnemyPackIndex += 1;
                 CombatManager.SINGLETON.entityHandler.ennemies.Clear();
                 GameManager.SINGLETON.SpawnEnemies();
+                LifeEntity.SINGLETON.LifeManage();
                 ReseterData.ResetEnemies(entityHandler);
                 CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
                 CombatManager.SINGLETON.unitPlayedThisTurn.Clear();
