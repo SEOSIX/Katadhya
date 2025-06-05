@@ -1175,7 +1175,7 @@ public class CombatManager : MonoBehaviour
         EncartCpt.GetChild(3).GetChild(0).GameObject().SetActive(false);
 
         //MAJ de la data de base
-        EncartCpt.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(CData.Name);
+        EncartCpt.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(CData.Name.Replace("(Clone)", "").Trim());
         Description.SetText(CData.Description);
         EncartCpt.GetChild(2).GetComponent<Image>().sprite = Target;
         EncartCpt.GetChild(3).GetChild(1).GetComponent<Image>().sprite = PictoType;
