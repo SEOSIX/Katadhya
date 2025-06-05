@@ -4525,11 +4525,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 466781901}
   m_CullTransparentMesh: 1
+--- !u!1 &467023362
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 467023364}
+  m_Layer: 5
+  m_Name: Choices
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!224 &467023363 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7742196970393950581, guid: f9f807a1bacfdc7439824d19fb9cba57, type: 3}
   m_PrefabInstance: {fileID: 8377111341170728835}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &467023364
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467023362}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &480589941
 GameObject:
   m_ObjectHideFlags: 0
@@ -5079,7 +5110,6 @@ RectTransform:
   - {fileID: 466781902}
   - {fileID: 220791308}
   - {fileID: 319070403}
-  - {fileID: 1324958779}
   - {fileID: 94779477}
   - {fileID: 324184175}
   - {fileID: 418373032}
@@ -6188,7 +6218,7 @@ GameObject:
   - component: {fileID: 677894588}
   - component: {fileID: 677894587}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11036,7 +11066,7 @@ GameObject:
   - component: {fileID: 1245195792}
   - component: {fileID: 1245195791}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16792,15 +16822,15 @@ RectTransform:
   m_GameObject: {fileID: 1324958778}
   m_LocalRotation: {x: -0, y: -0, z: -0.006398913, w: 0.99997956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.69394284, y: 0.726476, z: 0.81478894}
+  m_LocalScale: {x: 0.91871053, y: 0.95884347, z: 0.9588437}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1004969261}
-  m_Father: {fileID: 498016539}
+  m_Father: {fileID: 1828092753}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.733}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -375.1, y: -34.800003}
+  m_AnchoredPosition: {x: -478.83966, y: -395.20715}
   m_SizeDelta: {x: 200.74, y: 42.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1324958780
@@ -17898,7 +17928,7 @@ GameObject:
   - component: {fileID: 1481645604}
   - component: {fileID: 1481645603}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18107,7 +18137,7 @@ GameObject:
   - component: {fileID: 1494628784}
   - component: {fileID: 1494628783}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: or
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21067,6 +21097,7 @@ RectTransform:
   m_LocalScale: {x: 0.0075402814, y: 0.0075402814, z: 0.0075402814}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1324958779}
   - {fileID: 498016539}
   - {fileID: 1163544508}
   - {fileID: 1685626445}
@@ -23204,7 +23235,7 @@ GameObject:
   - component: {fileID: 2121477262}
   - component: {fileID: 2121477261}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23444,6 +23475,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 642715972}
     m_Modifications:
+    - target: {fileID: 4545506566806401993, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: m_Name
+      value: Exploration_Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916859353838748642, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: BigData
+      value: 
+      objectReference: {fileID: 11400000, guid: 4fb73a1ffcd886e4fb39374b68c0afad, type: 2}
+    - target: {fileID: 6916859353838748642, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: QTESceneButton
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916859353838748642, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: StatSceneButton
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916859353838748642, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: CombatSceneButton
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916859353838748642, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: HealingSceneButton
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3875495389781831071, guid: f9f807a1bacfdc7439824d19fb9cba57, type: 3}
       propertyPath: m_Name
       value: Choices
@@ -23561,6 +23616,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 467023364}
   - {fileID: 1173274094}
   - {fileID: 433323616}
   - {fileID: 221121161}

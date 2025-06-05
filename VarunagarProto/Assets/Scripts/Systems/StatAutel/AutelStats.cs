@@ -1,11 +1,29 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
 public class AutelStats : MonoBehaviour
 {
+    
+    [System.Serializable]
+    public class EntityUpgradeData
+    {
+        public int atkPrice;
+        public int defPrice;
+        public int speedPrice;
+        public int lifePrice;
+
+        public EntityUpgradeData(int atk, int def, int speed, int life)
+        {
+            atkPrice = atk;
+            defPrice = def;
+            speedPrice = speed;
+            lifePrice = life;
+        }
+    }
     public static AutelStats Instance { get; private set; }
 
     [Header("Référence aux Données Globales")]
@@ -30,13 +48,6 @@ public class AutelStats : MonoBehaviour
     [Header("UI - Affichage des Niveau")]
     public TextMeshProUGUI[] levelText;
     
-    
-    [Header("Prix par Stat")]
-    public int atkPrice = 5;
-    public int defPrice = 10;
-    public int speedPrice = 7;
-    public int lifePrice = 15;
-    
     [Header("Incréments de Prix")]
     public int atkPriceIncrement = 2;
     public int defPriceIncrement = 3;
@@ -59,6 +70,7 @@ public class AutelStats : MonoBehaviour
     private Coroutine blinkCoroutine;
     
     private readonly Color goldColor = new Color(1f, 0.84f, 0f);
+    private Dictionary<DataEntity, EntityUpgradeData> entityPrices = new Dictionary<DataEntity, EntityUpgradeData>();
 
     private void Awake()
     {
@@ -75,11 +87,6 @@ public class AutelStats : MonoBehaviour
             int index = i;
             statButtons[i].onClick.AddListener(() => OnStatButtonClicked(index));
         }
-
-        currentAtkPrice = atkPrice;
-        currentDefPrice = defPrice;
-        currentSpeedPrice = speedPrice;
-        currentLifePrice = lifePrice;
         
         UpdateStatDisplay();
         CaurisManage.Instance.UpdateCaurisDisplay();
@@ -143,6 +150,10 @@ public class AutelStats : MonoBehaviour
             animator.SetTrigger("Normal");
             ResetSelection();
             return;
+        }
+        if (!entityPrices.ContainsKey(entity))
+        {
+            entityPrices[entity] = new EntityUpgradeData(atkPrice, defPrice, speedPrice, lifePrice);
         }
 
         if (currentAnimator != null)
@@ -214,27 +225,29 @@ public class AutelStats : MonoBehaviour
             return;
         }
 
+        EntityUpgradeData prices = entityPrices[currentEntity];
+
         switch (index)
         {
             case 0:
                 currentEntity.BaseAtk += atkUpgradeValue;
                 currentEntity.AtkLevel++;
-                currentAtkPrice += atkPriceIncrement;
+                prices.atkPrice += atkPriceIncrement;
                 break;
             case 1:
                 currentEntity.BaseDef += defUpgradeValue;
                 currentEntity.DefLevel++;
-                currentDefPrice += defPriceIncrement;
+                prices.defPrice += defPriceIncrement;
                 break;
             case 2:
                 currentEntity.BaseSpeed += speedUpgradeValue;
                 currentEntity.SpeedLevel++;
-                currentSpeedPrice += speedPriceIncrement;
+                prices.speedPrice += speedPriceIncrement;
                 break;
             case 3:
                 currentEntity.BaseLife += lifeUpgradeValue;
                 currentEntity.LifeLevel++;
-                currentLifePrice += lifePriceIncrement;
+                prices.lifePrice += lifePriceIncrement;
                 break;
         }
 
@@ -322,14 +335,18 @@ public class AutelStats : MonoBehaviour
 
     private int GetCurrentPrice(int index)
     {
-        switch (index)
+        if (!entityPrices.ContainsKey(currentEntity)) return 0;
+
+        EntityUpgradeData prices = entityPrices[currentEntity];
+
+        return index switch
         {
-            case 0: return currentAtkPrice;
-            case 1: return currentDefPrice;
-            case 2: return currentSpeedPrice;
-            case 3: return currentLifePrice;
-            default: return 0;
-        }
+            0 => prices.atkPrice,
+            1 => prices.defPrice,
+            2 => prices.speedPrice,
+            3 => prices.lifePrice,
+            _ => 0
+        };
     }
 
     private string GetStatName(int index)
