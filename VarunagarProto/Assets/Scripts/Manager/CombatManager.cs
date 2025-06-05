@@ -641,7 +641,7 @@ public class CombatManager : MonoBehaviour
 
         if (entityHandler.players.Contains(caster))
         {
-            int PlayerIndex = caster.ID -3;
+            int PlayerIndex = caster.ID-2;
             int CapacityIndex = -1;
             switch (capacity.ToString()[4])
             {
@@ -756,19 +756,15 @@ public class CombatManager : MonoBehaviour
             case SpecialCapacityType.UltMoine:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
                 ApplyNormalCapacity(capacity, caster, target, 2 * caster.CptUltlvl);
-                Debug.Log($"skibidi ult{caster.CptUltlvl}");
                 break;
             case SpecialCapacityType.UltPriso:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
                 ApplyNormalCapacity(capacity, caster, target, 0, 2*caster.CptUltlvl);
-                Debug.Log($"skibidi ult{caster.CptUltlvl}");
                 break;
             case SpecialCapacityType.UltGarde:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
                 ApplyNormalCapacity(capacity, caster, target, 0, 0, 0.05f*caster.CptUltlvl);
-                Debug.Log($"skibidi ult{caster.CptUltlvl}");
                 break;
-
             default:
                 Debug.LogWarning("Special capacity type not handled.");
                 break;
@@ -1169,6 +1165,7 @@ public class CombatManager : MonoBehaviour
     private void UpdatePage(DataEntity player)
     {
         currentSelectedButton = null;
+        
         List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
         Transform EncartAffinity = null;
         if (player.ChargePower >= player.UltChargePowerCost)
@@ -1201,7 +1198,7 @@ public class CombatManager : MonoBehaviour
         EncartCpt.GetChild(3).GetChild(0).GameObject().SetActive(false);
 
         //MAJ de la data de base
-        EncartCpt.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(CData.Name.Replace("(Clone)", "").Trim());
+        EncartCpt.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(CData.Name);
         Description.SetText(CData.Description);
         EncartCpt.GetChild(2).GetComponent<Image>().sprite = Target;
         EncartCpt.GetChild(3).GetChild(1).GetComponent<Image>().sprite = PictoType;
@@ -1310,7 +1307,7 @@ public class CombatManager : MonoBehaviour
         Value = Math.Max(CData.atk, CData.heal);
         if (CData.heal > 0)
         {
-            Value = Mathf.RoundToInt((Mathf.Sqrt(2 * player.UnitAtk) + CData.heal));
+            Value = Mathf.RoundToInt(CData.heal + (player.UnitAtk / 3));
         }
         if (CData.atk > 0)
         {
