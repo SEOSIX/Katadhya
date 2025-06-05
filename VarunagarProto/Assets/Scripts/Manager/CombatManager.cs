@@ -353,7 +353,8 @@ public class CombatManager : MonoBehaviour
     public void UseCapacity(CapacityData cpt)
     {
         DataEntity player = currentTurnOrder[0];
-        Debug.Log(cpt);
+
+        Debug.Log(cpt.name);
         char CptType = cpt.name[4];
         if(CptType == 'd')
         {
@@ -572,10 +573,29 @@ public class CombatManager : MonoBehaviour
 
             if (!alreadyInCooldown)
             {
-                caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown+1));
-                Debug.Log($"[Cooldown] Ajouté à {caster.name} pour capacité {capacity.name}, durée {capacity.cooldown}");
+                string originalName = capacity.name;
+                string cleanName = originalName.Replace("(Clone)", "");
+
+                if (cleanName.Length > 0)
+                {
+                    cleanName = cleanName.Substring(0, cleanName.Length - 1) + "0";
+                }
+                CapacityData[] allCapacities = Resources.LoadAll<CapacityData>("Data/Entity/Capacity");
+                CapacityData correctedCapacity = allCapacities.FirstOrDefault(c => c.name == cleanName);
+
+                if (correctedCapacity != null)
+                {
+                    caster.ActiveCooldowns.Add(new CooldownData(correctedCapacity, correctedCapacity.cooldown + 1));
+                    Debug.Log($"[Cooldown] Ajouté à {caster.name} pour capacité {correctedCapacity.name}, durée {correctedCapacity.cooldown}");
+                }
+                else
+                {
+                    Debug.LogWarning($"[Cooldown] Capacité '{cleanName}' introuvable dans Resources/Data/Entity/Capacity");
+                }
             }
         }
+
+
         /*if (Ultimate.SINGLETON != null)
         {
             Ultimate.SINGLETON.GainUltimateCharge(capacity.chargeUlti);
@@ -943,7 +963,7 @@ public class CombatManager : MonoBehaviour
     }
     public CapacityData GetBaseCapacity(CapacityData currentCapacity)
     {
-        string currentName = currentCapacity.name;
+        string currentName = currentCapacity.name.Replace("(Clone)", ""); ;
         if (currentName.Length > 7)
         {
             currentName = currentName.Remove(7);

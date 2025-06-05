@@ -77,7 +77,7 @@ public class DataEntity : ScriptableObject
         get
         {
             if (_capacityData1Instance == null && capacityData1Source != null)
-                _capacityData1Instance = Instantiate(capacityData1Source);
+                _capacityData1Instance = capacityData1Source;
             return _capacityData1Instance;
         }
         set
@@ -91,7 +91,7 @@ public class DataEntity : ScriptableObject
         get
         {
             if (_capacityData2Instance == null && capacityData2Source != null)
-                _capacityData2Instance = Instantiate(capacityData2Source);
+                _capacityData2Instance = capacityData2Source;
             return _capacityData2Instance;
         }
         set
@@ -105,7 +105,7 @@ public class DataEntity : ScriptableObject
         get
         {
             if (_capacityData3Instance == null && capacityData3Source != null)
-                _capacityData3Instance = Instantiate(capacityData3Source);
+                _capacityData3Instance = capacityData3Source;
             return _capacityData3Instance;
         }
         set
@@ -119,7 +119,7 @@ public class DataEntity : ScriptableObject
         get
         {
             if (_capacityDataUltimateInstance == null && capacityDataUltimateSource != null)
-                _capacityDataUltimateInstance = Instantiate(capacityDataUltimateSource);
+                _capacityDataUltimateInstance = capacityDataUltimateSource;
             return _capacityDataUltimateInstance;
         }
         set
