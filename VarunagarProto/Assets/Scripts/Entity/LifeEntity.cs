@@ -76,31 +76,64 @@ public class LifeEntity : MonoBehaviour
 
     public void LifeManage()
     {
-        for (int i = 0; i < entityHandler.ennemies.Count && i < enemySliders.Length && i < enemyShieldSliders.Length; i++)
+        int sliderIndex = 0;
+
+        for (int i = 0; i < entityHandler.ennemies.Count && sliderIndex < enemySliders.Length; i++)
         {
             var enemy = entityHandler.ennemies[i];
             if (enemy != null && enemy.instance != null)
             {
-                enemySliders[i].maxValue = enemy.BaseLife;
-                enemySliders[i].value = Mathf.Max(0, enemy.UnitLife);
-                enemyShieldSliders[i].maxValue = enemy.BaseLife/2;
-                enemyShieldSliders[i].value = Mathf.Max(0, enemy.UnitShield);
-                enemyPVTexts[i].text = $"{Mathf.Max(0, enemy.UnitLife)} / {enemy.BaseLife}";
+                enemySliders[sliderIndex].gameObject.SetActive(true);
+                enemyShieldSliders[sliderIndex].gameObject.SetActive(true);
+                enemyPVTexts[sliderIndex].gameObject.SetActive(true);
+
+                enemySliders[sliderIndex].maxValue = enemy.BaseLife;
+                enemySliders[sliderIndex].value = Mathf.Max(0, enemy.UnitLife);
+
+                enemyShieldSliders[sliderIndex].maxValue = enemy.BaseLife / 2;
+                enemyShieldSliders[sliderIndex].value = Mathf.Max(0, enemy.UnitShield);
+
+                enemyPVTexts[sliderIndex].text = $"{Mathf.Max(0, enemy.UnitLife)} / {enemy.BaseLife}";
+
+                sliderIndex++;
             }
         }
 
-        for (int i = 0; i < entityHandler.players.Count && i < PlayerSliders.Length && i < PlayerShieldSliders.Length; i++)
+        for (int i = sliderIndex; i < enemySliders.Length; i++)
+        {
+            enemySliders[i].gameObject.SetActive(false);
+            enemyShieldSliders[i].gameObject.SetActive(false);
+            enemyPVTexts[i].gameObject.SetActive(false);
+        }
+
+        int playerSliderIndex = 0;
+
+        for (int i = 0; i < entityHandler.players.Count && playerSliderIndex < PlayerSliders.Length; i++)
         {
             var player = entityHandler.players[i];
             if (player != null && player.instance != null)
             {
-                PlayerSliders[i].maxValue = player.BaseLife;
-                PlayerSliders[i].value = Mathf.Max(0, player.UnitLife);
-                PlayerShieldSliders[i].maxValue = player.BaseLife/2;
-                PlayerShieldSliders[i].value = Mathf.Max(0, player.UnitShield);
-                PlayerPVTexts[i].text = $"{Mathf.Max(0, player.UnitLife)} / {player.BaseLife}";
+                PlayerSliders[playerSliderIndex].gameObject.SetActive(true);
+                PlayerShieldSliders[playerSliderIndex].gameObject.SetActive(true);
+                PlayerPVTexts[playerSliderIndex].gameObject.SetActive(true);
 
+                PlayerSliders[playerSliderIndex].maxValue = player.BaseLife;
+                PlayerSliders[playerSliderIndex].value = Mathf.Max(0, player.UnitLife);
+
+                PlayerShieldSliders[playerSliderIndex].maxValue = player.BaseLife / 2;
+                PlayerShieldSliders[playerSliderIndex].value = Mathf.Max(0, player.UnitShield);
+
+                PlayerPVTexts[playerSliderIndex].text = $"{Mathf.Max(0, player.UnitLife)} / {player.BaseLife}";
+
+                playerSliderIndex++;
             }
+        }
+
+        for (int i = playerSliderIndex; i < PlayerSliders.Length; i++)
+        {
+            PlayerSliders[i].gameObject.SetActive(false);
+            PlayerShieldSliders[i].gameObject.SetActive(false);
+            PlayerPVTexts[i].gameObject.SetActive(false);
         }
     }
     public void SetAllPlayersToOnePercentLife()

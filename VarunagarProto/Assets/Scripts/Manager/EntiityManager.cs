@@ -27,11 +27,8 @@ public class EntiityManager : MonoBehaviour
             var enemy = entityHandler.ennemies[i];
             if (enemy == null || enemy.UnitLife > 0)
                 continue;
-
             int visualIndex = enemy.index;
             EffectsManager.SINGLETON.ClearEffectsForEntity(visualIndex);
-
-            Debug.Log($"L'ennemi {enemy.namE} est mort et va être désactivé.");
             CombatManager.SINGLETON.RemoveUnitFromList(enemy);
             if (i < CombatManager.SINGLETON.circlesEnnemy.Count)
             {
@@ -43,21 +40,17 @@ public class EntiityManager : MonoBehaviour
                 }
             }
 
-            if (i < LifeEntity.SINGLETON.enemySliders.Length)
-            {
-                LifeEntity.SINGLETON.enemySliders[i].gameObject.SetActive(false);
-                LifeEntity.SINGLETON.enemyShieldSliders[i].gameObject.SetActive(false);
-                LifeEntity.SINGLETON.enemyPVTexts[i].gameObject.SetActive(false);
-
-            }
-
             if (enemy.instance != null)
             {
                 enemy.instance.SetActive(false);
                 enemy.UnitLife = -1;
             }
-            entityHandler.ennemies.RemoveAt(i);
-
+            for (int j = 0; i < LifeEntity.SINGLETON.enemySliders.Length; i++)
+            {
+                LifeEntity.SINGLETON.enemySliders[j].gameObject.SetActive(false);
+                LifeEntity.SINGLETON.enemyShieldSliders[j].gameObject.SetActive(false);
+                LifeEntity.SINGLETON.enemyPVTexts[j].gameObject.SetActive(false);
+            }
         }
     }
     public void DestroyDeadPlayers()
@@ -141,10 +134,10 @@ public class EntiityManager : MonoBehaviour
 
     void Update()
     {
-        if (entityHandler.ennemies.Any(e => e != null && e.UnitLife <= 0))
+        if (entityHandler.ennemies.Any(e => e != null && e.UnitLife <= 0 && e.instance.activeSelf))
             DestroyDeadEnemies();
 
-        if (entityHandler.players.Any(p => p != null && p.UnitLife <= 0))
+        if (entityHandler.players.Any(p => p != null && p.UnitLife <= 0 && p.instance.activeSelf))
             DestroyDeadPlayers();
 
         LifeEntity.SINGLETON.LifeManage();
