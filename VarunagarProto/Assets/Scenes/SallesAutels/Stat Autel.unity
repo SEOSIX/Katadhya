@@ -871,10 +871,6 @@ MonoBehaviour:
   - {fileID: 340157763}
   - {fileID: 1173107737}
   - {fileID: 276480521}
-  atkPrice: 5
-  defPrice: 4
-  speedPrice: 7
-  lifePrice: 3
   atkPriceIncrement: 3
   defPriceIncrement: 5
   speedPriceIncrement: 5
@@ -2911,9 +2907,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1356909577}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 78, y: -147.5}
   m_SizeDelta: {x: 156, y: 347}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1281997160
@@ -2974,9 +2970,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1957162228}
-        m_TargetAssemblyTypeName: Systems.StatAutel.EntitySelector, Assembly-CSharp
-        m_MethodName: SelectThisEntity
+      - m_Target: {fileID: 1281997161}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: Select
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3345,7 +3341,7 @@ RectTransform:
   - {fileID: 1281997159}
   - {fileID: 1957162227}
   - {fileID: 1981016352}
-  m_Father: {fileID: 1481194985}
+  m_Father: {fileID: 1655322385}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3848,7 +3844,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1655322385}
-  - {fileID: 1356909577}
   - {fileID: 1523755091}
   - {fileID: 1371364384}
   - {fileID: 219561489}
@@ -4502,6 +4497,7 @@ RectTransform:
   - {fileID: 475475894}
   - {fileID: 111509780}
   - {fileID: 1644274754}
+  - {fileID: 1356909577}
   m_Father: {fileID: 1481194985}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5160,9 +5156,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1356909577}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 280.4, y: -147.5}
   m_SizeDelta: {x: 156, y: 347}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1957162228
@@ -5223,9 +5219,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1957162228}
-        m_TargetAssemblyTypeName: Systems.StatAutel.EntitySelector, Assembly-CSharp
-        m_MethodName: SelectThisEntity
+      - m_Target: {fileID: 1957162229}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: Select
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5329,9 +5325,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1356909577}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 482.8, y: -144.3}
   m_SizeDelta: {x: 156, y: 340.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1981016353
@@ -5392,9 +5388,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1957162228}
-        m_TargetAssemblyTypeName: Systems.StatAutel.EntitySelector, Assembly-CSharp
-        m_MethodName: SelectThisEntity
+      - m_Target: {fileID: 1981016354}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: Select
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
