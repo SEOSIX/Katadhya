@@ -27,11 +27,10 @@ public class EntiityManager : MonoBehaviour
             var enemy = entityHandler.ennemies[i];
             if (enemy == null || enemy.UnitLife > 0)
                 continue;
-            int enemyIndex = i;
 
-            EffectsManager.SINGLETON.ClearEffectsForEntity(enemyIndex);
+            int visualIndex = enemy.index;
+            EffectsManager.SINGLETON.ClearEffectsForEntity(visualIndex);
             CombatManager.SINGLETON.RemoveUnitFromList(enemy);
-
             if (i < CombatManager.SINGLETON.circlesEnnemy.Count)
             {
                 GameObject deadCircle = CombatManager.SINGLETON.circlesEnnemy[i];
@@ -42,27 +41,21 @@ public class EntiityManager : MonoBehaviour
                 }
             }
 
+            if (i < LifeEntity.SINGLETON.enemySliders.Length)
+            {
+                LifeEntity.SINGLETON.enemySliders[i].gameObject.SetActive(false);
+                LifeEntity.SINGLETON.enemyShieldSliders[i].gameObject.SetActive(false);
+                LifeEntity.SINGLETON.enemyPVTexts[i].gameObject.SetActive(false);
+
+            }
+
             if (enemy.instance != null)
             {
                 enemy.instance.SetActive(false);
                 enemy.UnitLife = -1;
             }
-            if (enemyIndex >= 0 && 
-                enemyIndex < LifeEntity.SINGLETON.enemySliders.Length && 
-                LifeEntity.SINGLETON.enemySliders[enemyIndex] != null)
-            {
-                Debug.Log($"Désactivation des sliders de l'ennemi à l'index {enemyIndex}");
-                LifeEntity.SINGLETON.enemySliders[enemyIndex].gameObject.SetActive(false);
-                LifeEntity.SINGLETON.enemyShieldSliders[enemyIndex].gameObject.SetActive(false);
-                LifeEntity.SINGLETON.enemyPVTexts[enemyIndex].gameObject.SetActive(false);
-            }
-            else
-            {
-                Debug.LogWarning($"Index {enemyIndex} hors limites ou sliders nuls.");
-            }
         }
     }
-
     public void DestroyDeadPlayers()
     {
         for (int i = entityHandler.players.Count - 1; i >= 0; i--)
@@ -100,8 +93,6 @@ public class EntiityManager : MonoBehaviour
                 player.instance.SetActive(false);
                 player.UnitLife = -1;
             }
-
-            entityHandler.players.RemoveAt(i);
         }
     }
 
@@ -144,16 +135,16 @@ public class EntiityManager : MonoBehaviour
 
     void Update()
     {
-        if (entityHandler.ennemies.Any(e => e != null && e.UnitLife <= 0 && e.instance.activeSelf))
+        if (entityHandler.ennemies.Any(e => e != null && e.UnitLife <= 0))
             DestroyDeadEnemies();
 
-        if (entityHandler.players.Any(p => p != null && p.UnitLife <= 0 && p.instance.activeSelf))
+        if (entityHandler.players.Any(p => p != null && p.UnitLife <= 0))
             DestroyDeadPlayers();
 
         LifeEntity.SINGLETON.LifeManage();
 
-        bool anyPlayerAlive = entityHandler.players.Any(p => p != null);
-        bool anyEnemyAlive = entityHandler.ennemies.Any(e => e != null);
+        bool anyPlayerAlive = entityHandler.players.Any(p => p != null && p.UnitLife > 0);
+        bool anyEnemyAlive = entityHandler.ennemies.Any(e => e != null && e.UnitLife > 0 );
         bool isLastWave = GameManager.SINGLETON.EnemyPackIndex >= GameManager.SINGLETON.currentCombat.WaveList.Count - 1;
 
         if (!anyPlayerAlive)
@@ -162,6 +153,7 @@ public class EntiityManager : MonoBehaviour
         }
         else if (!anyEnemyAlive)
         {
+            entityHandler.ennemies.RemoveAll(e => e == null || e.UnitLife <= 0);
             if (GameManager.SINGLETON.EnemyPackIndex+1 < GameManager.SINGLETON.currentCombat.WaveList.Count)
             {
                 GameManager.SINGLETON.EnemyPackIndex += 1;
