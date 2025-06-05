@@ -249,7 +249,7 @@ MonoBehaviour:
   - {fileID: 715494643}
   - {fileID: 1921591913}
   - {fileID: 1014713888}
-  fadeDuration: 3
+  fadeDuration: 2
   nextSceneName: Level1
 --- !u!1 &169084107
 GameObject:
@@ -413,7 +413,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -41, y: 47}
+  m_AnchoredPosition: {x: -41, y: -278}
   m_SizeDelta: {x: 1072.2645, y: 162.5522}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &443263124
@@ -440,8 +440,8 @@ MonoBehaviour:
     d\xE9cim\xE9s par les entit\xE9s mal\xE9fiques de chaos. Sans rien pour l'arreter,
     ce dernier r\xE9pandit malheur et d\xE9solation sur son passage."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: de5e89d9793a4904cb054fdca548e9de, type: 2}
-  m_sharedMaterial: {fileID: 3393590054227173175, guid: de5e89d9793a4904cb054fdca548e9de, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c214cad729eeb6e45b8a6c6adc8b6fe7, type: 2}
+  m_sharedMaterial: {fileID: -1955422408995387526, guid: c214cad729eeb6e45b8a6c6adc8b6fe7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -682,7 +682,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10, y: 317}
+  m_AnchoredPosition: {x: -10, y: -288}
   m_SizeDelta: {x: 1190.6073, y: 185.2288}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &542915124
@@ -709,8 +709,8 @@ MonoBehaviour:
     des temps imm\xE9moriaux. Les mortels les v\xE9n\xE8rent car ils les prot\xE8gent
     des forces du terrible chaos, qui ne peut rivaliser face \xE0 leur puissance."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: de5e89d9793a4904cb054fdca548e9de, type: 2}
-  m_sharedMaterial: {fileID: 3393590054227173175, guid: de5e89d9793a4904cb054fdca548e9de, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c214cad729eeb6e45b8a6c6adc8b6fe7, type: 2}
+  m_sharedMaterial: {fileID: -1955422408995387526, guid: c214cad729eeb6e45b8a6c6adc8b6fe7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1096,8 +1096,8 @@ MonoBehaviour:
     T\xE9h\xE9ri la moine divine, XXX de la garde seigneuriale et Mundan la guerri\xE8re
     d\xE9chue entam\xE8rent leur ascension du si\xE8ge des dieux, la tour de Varunagar."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: de5e89d9793a4904cb054fdca548e9de, type: 2}
-  m_sharedMaterial: {fileID: 3393590054227173175, guid: de5e89d9793a4904cb054fdca548e9de, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c214cad729eeb6e45b8a6c6adc8b6fe7, type: 2}
+  m_sharedMaterial: {fileID: -1955422408995387526, guid: c214cad729eeb6e45b8a6c6adc8b6fe7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1210,7 +1210,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: de67c43b571e39841b3d37d4403b30d8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 80c8b67704c5bda4a8a5c8c289a68671, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1854,7 +1854,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: de67c43b571e39841b3d37d4403b30d8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5f4d5a6ef0a312941a55e466a7e61c63, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
