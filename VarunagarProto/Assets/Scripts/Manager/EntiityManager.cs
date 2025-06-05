@@ -27,9 +27,11 @@ public class EntiityManager : MonoBehaviour
             var enemy = entityHandler.ennemies[i];
             if (enemy == null || enemy.UnitLife > 0)
                 continue;
-            int visualIndex = enemy.index;
-            EffectsManager.SINGLETON.ClearEffectsForEntity(visualIndex);
+            int enemyIndex = i;
+
+            EffectsManager.SINGLETON.ClearEffectsForEntity(enemyIndex);
             CombatManager.SINGLETON.RemoveUnitFromList(enemy);
+
             if (i < CombatManager.SINGLETON.circlesEnnemy.Count)
             {
                 GameObject deadCircle = CombatManager.SINGLETON.circlesEnnemy[i];
@@ -45,14 +47,22 @@ public class EntiityManager : MonoBehaviour
                 enemy.instance.SetActive(false);
                 enemy.UnitLife = -1;
             }
-            for (int j = 0; i < LifeEntity.SINGLETON.enemySliders.Length; i++)
+            if (enemyIndex >= 0 && 
+                enemyIndex < LifeEntity.SINGLETON.enemySliders.Length && 
+                LifeEntity.SINGLETON.enemySliders[enemyIndex] != null)
             {
-                LifeEntity.SINGLETON.enemySliders[j].gameObject.SetActive(false);
-                LifeEntity.SINGLETON.enemyShieldSliders[j].gameObject.SetActive(false);
-                LifeEntity.SINGLETON.enemyPVTexts[j].gameObject.SetActive(false);
+                Debug.Log($"Désactivation des sliders de l'ennemi à l'index {enemyIndex}");
+                LifeEntity.SINGLETON.enemySliders[enemyIndex].gameObject.SetActive(false);
+                LifeEntity.SINGLETON.enemyShieldSliders[enemyIndex].gameObject.SetActive(false);
+                LifeEntity.SINGLETON.enemyPVTexts[enemyIndex].gameObject.SetActive(false);
+            }
+            else
+            {
+                Debug.LogWarning($"Index {enemyIndex} hors limites ou sliders nuls.");
             }
         }
     }
+
     public void DestroyDeadPlayers()
     {
         for (int i = entityHandler.players.Count - 1; i >= 0; i--)
