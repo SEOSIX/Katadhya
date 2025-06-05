@@ -127,6 +127,19 @@ public class DataEntity : ScriptableObject
             _capacityDataUltimateInstance = value;
         }
     }
+    public void SetCapacities(CapacityData newCap1, CapacityData newCap2, CapacityData newCap3, CapacityData newUlt)
+    {
+        capacityData1Source = newCap1;
+        capacityData2Source = newCap2;
+        capacityData3Source = newCap3;
+        capacityDataUltimateSource = newUlt;
+
+        _capacityData1Instance = null;
+        _capacityData2Instance = null;
+        _capacityData3Instance = null;
+        _capacityDataUltimateInstance = null;
+    }
+
 
 
     [Header("Ultimate")]
