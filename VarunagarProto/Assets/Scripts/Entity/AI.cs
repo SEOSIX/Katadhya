@@ -103,7 +103,7 @@ public class AI : MonoBehaviour
 
         DataEntity target = possibleTargets[Random.Range(0, possibleTargets.Count)];
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
         if (choosenSpell.MultipleAttack)
         {
             Debug.Log("[AI] Attaque multiple déclenchée !");
@@ -119,7 +119,7 @@ public class AI : MonoBehaviour
 
         PostAttackProcessing(attacker); 
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         CombatManager.SINGLETON.EndUnitTurn();
 
         DisableTargetIndicators();
@@ -144,12 +144,12 @@ public class AI : MonoBehaviour
             CapacityData chosenSpell = SelectSpell(attacker);
             CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, target);
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(1.5f);
         }
 
         PostAttackProcessing(attacker);
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(25f);
         CombatManager.SINGLETON.EndUnitTurn();
 
         DisableTargetIndicators();

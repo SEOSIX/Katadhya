@@ -10,6 +10,7 @@ public class HealingZone : MonoBehaviour
     public int PriceIndex;
     public int[] Prices = new int[3];
     public string SelectedItem;
+    public GameObject SelectedObj;
     
     public void LoadRandomBackground()
     {
@@ -31,10 +32,17 @@ public class HealingZone : MonoBehaviour
     public void SelectItem(string ItemType)
     {
         SelectedItem = ItemType;
-        switch (ItemType)
+
+    }
+    public void UseItem()
+    {
+        switch (SelectedItem)
         {
             case "Orange": LifeEntity.SINGLETON.HealAllPlayer(); break;
         }
+        SelectedObj.SetActive(false);
+
     }
+    public void GetSelectedObj(GameObject obj) { SelectedObj = obj; }
 
 }
