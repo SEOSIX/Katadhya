@@ -8435,78 +8435,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954830975}
   m_CullTransparentMesh: 1
---- !u!1001 &954853877
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -3494264557948280066, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: CombatIndex
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.05960828
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.047225192
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.042567212
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4545506566806401993, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-      propertyPath: m_Name
-      value: Exploration_Manager
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
---- !u!114 &954853879 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -3494264557948280066, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
-  m_PrefabInstance: {fileID: 954853877}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73fa98beb25ebe24c83299b4f52d9545, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &957882575
 GameObject:
   m_ObjectHideFlags: 0
@@ -10783,6 +10711,7 @@ GameObject:
   - component: {fileID: 1227277674}
   - component: {fileID: 1227277673}
   - component: {fileID: 1227277672}
+  - component: {fileID: 1227277675}
   m_Layer: 5
   m_Name: Next Button
   m_TagString: Untagged
@@ -10854,21 +10783,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 954853879}
-        m_TargetAssemblyTypeName: ExplorationManager, Assembly-CSharp
-        m_MethodName: Recompenses
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 954853879}
-        m_TargetAssemblyTypeName: ExplorationManager, Assembly-CSharp
-        m_MethodName: LoadChoicesAfterCombat
+      - m_Target: {fileID: 1227277675}
+        m_TargetAssemblyTypeName: EndButtonLink, Assembly-CSharp
+        m_MethodName: CombatEndPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10928,6 +10845,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1227277670}
   m_CullTransparentMesh: 1
+--- !u!114 &1227277675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227277670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abaedc0a2da1db7469ab361e2cab4b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1232718539
 GameObject:
   m_ObjectHideFlags: 0
@@ -23643,4 +23572,3 @@ SceneRoots:
   - {fileID: 1186386981}
   - {fileID: 1317918625}
   - {fileID: 1305942522}
-  - {fileID: 954853877}

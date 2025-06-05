@@ -44,16 +44,26 @@ public class ExplorationManager : MonoBehaviour
     [Header("Values")]
     public int CombatIndex = 0;
 
-
-    public void LoadNextCombatScene()
+    public void StartLoadNextCombatScene()
     {
+        StartCoroutine(LoadNextCombatScene());
+    }
+    public IEnumerator LoadNextCombatScene()
+    {
+        SceneManager.LoadScene(CombatScene);
+        CombatIndex += 1;
+        while (SceneManager.GetActiveScene().name != CombatScene)
+        {
+            yield return null;
+        }
         ChoicesHolder V = null;
         if (ChoicesHolder.SINGLETON != null) V = ChoicesHolder.SINGLETON;
-        SceneManager.LoadScene(CombatScene);
         GameManager.SINGLETON.currentCombat = LD.CombatList[CombatIndex];
-        CombatIndex += 1;
+        Debug.Log(V);
+        Debug.Log(V.combatUI);
         V.combatUI.SetActive(true);
     }
+
 
     public void LoadChoicesAfterCombat()
     {
@@ -63,7 +73,11 @@ public class ExplorationManager : MonoBehaviour
         Combat combat = GameManager.SINGLETON.currentCombat;
         if (combat.RoomOptions.Length == 0 || combat.WaveList.Count == 0)
         {
-            Debug.Log("pas de sorties");
+            Debug.Log(ChoicesHolder.SINGLETON);
+            Debug.Log(combat);
+            Debug.Log(combat.RoomOptions.Length);
+            Debug.Log(combat.WaveList.Count);
+            Debug.LogWarning("pas de sorties");
             return;
         }
         foreach (string option in combat.RoomOptions)
@@ -74,6 +88,13 @@ public class ExplorationManager : MonoBehaviour
             if (option == HealingScene) V.HealingSceneButton.SetActive(true);
         }
     }
+
+    public void LoadNextCombatChoice()
+    {
+        ChoicesHolder V = null;
+        if (ChoicesHolder.SINGLETON != null) V = ChoicesHolder.SINGLETON;
+        V.CombatSceneButton.SetActive(true);
+    }
     public void StartLoadScene(string name)
     {
         StartCoroutine(LoadScene(name));
@@ -83,7 +104,6 @@ public class ExplorationManager : MonoBehaviour
         //FadeManager.Instance.FadeOut();
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(SceneName);
-        LoadChoicesAfterCombat();
     }
 
     public void Recompenses()
@@ -101,6 +121,8 @@ public class ExplorationManager : MonoBehaviour
         }
         BigData.baseCaurisCount+=C.CaurisDor;
     }
+
+
 }
 
 

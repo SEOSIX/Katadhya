@@ -12,6 +12,6 @@ public class ChoiceButtonsLink : MonoBehaviour
     }
     public void OnCombatButtonPress()
     {
-        ExplorationManager.SINGLETON.LoadNextCombatScene();
+        ExplorationManager.SINGLETON.StartLoadNextCombatScene();
     }
 }

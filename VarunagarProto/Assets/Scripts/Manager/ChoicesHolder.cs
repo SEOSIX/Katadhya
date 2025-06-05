@@ -8,8 +8,6 @@ public class ChoicesHolder : MonoBehaviour
 {
     public static ChoicesHolder SINGLETON { get; private set; }
 
-
-
     private void Awake()
     {
         if (SINGLETON != null && SINGLETON != this)
@@ -18,7 +16,7 @@ public class ChoicesHolder : MonoBehaviour
             return;
         }
         SINGLETON = this;
-        StartCoroutine(waitforExplo());
+        //StartCoroutine(waitforExplo());
     }
 
     private IEnumerator waitforExplo()
