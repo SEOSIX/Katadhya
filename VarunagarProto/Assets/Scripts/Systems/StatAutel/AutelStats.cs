@@ -53,11 +53,7 @@ public class AutelStats : MonoBehaviour
     public int defPriceIncrement = 3;
     public int speedPriceIncrement = 2;
     public int lifePriceIncrement = 5;
-
-    private int currentAtkPrice;
-    private int currentDefPrice;
-    private int currentSpeedPrice;
-    private int currentLifePrice;
+    
 
     [Header("Valeurs d'Amélioration")]
     public int atkUpgradeValue = 1;
@@ -153,7 +149,7 @@ public class AutelStats : MonoBehaviour
         }
         if (!entityPrices.ContainsKey(entity))
         {
-            entityPrices[entity] = new EntityUpgradeData(atkPrice, defPrice, speedPrice, lifePrice);
+            entityPrices[entity] = new EntityUpgradeData(10, 10, 10, 10);
         }
 
         if (currentAnimator != null)
@@ -187,7 +183,13 @@ public class AutelStats : MonoBehaviour
         }
 
         int cauris = CaurisManage.Instance.playerData.caurisCount;
-        int[] prices = new int[] { currentAtkPrice, currentDefPrice, currentSpeedPrice, currentLifePrice };
+        int[] prices = new int[]
+        {
+            GetCurrentPrice(0),
+            GetCurrentPrice(1),
+            GetCurrentPrice(2),
+            GetCurrentPrice(3)
+        };
 
         for (int i = 0; i < 4; i++)
         {
