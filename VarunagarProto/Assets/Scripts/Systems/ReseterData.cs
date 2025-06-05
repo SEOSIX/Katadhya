@@ -45,7 +45,7 @@ public static class ReseterData
 
     private static void ResetEntity(DataEntity entity)
     {
-        entity.UnitLife = entity.BaseLife;
+        //entity.UnitLife = entity.BaseLife;
         entity.UnitAtk = entity.BaseAtk;
         entity.UnitDef = entity.BaseDef;
         entity.UnitSpeed = entity.BaseSpeed;
