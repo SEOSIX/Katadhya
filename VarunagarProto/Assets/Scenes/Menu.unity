@@ -822,7 +822,7 @@ MonoBehaviour:
   blackScreen: {fileID: 1695600198}
   introPanel: {fileID: 176333824}
   menuPanel: {fileID: 1340698621}
-  blackScreenDuration: 2.8
+  blackScreenDuration: 4.4
   delayBeforeMenu: 4
   fadeDuration: 4
 --- !u!4 &595764363
@@ -1412,7 +1412,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 820018346}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b058ece24d71bf14a8544a8ec171f0fc, type: 3}
   m_Name: 
@@ -2492,9 +2492,9 @@ MonoBehaviour:
   audioIntro: {fileID: 1901697188}
   audioLoop: {fileID: 1901697187}
   menuIntroClip: {fileID: 8300000, guid: f877f14af8933e04983a65880ce6cbb9, type: 3}
-  menuLoopClip: {fileID: 8300000, guid: 6198f242ef903d149b47e0e9bf8a3f38, type: 3}
+  menuLoopClip: {fileID: 0}
   crossfadeDuration: 3
-  startLoopBeforeEnd: 14
+  startLoopBeforeEnd: 5
 --- !u!82 &1901697185
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2613,7 +2613,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1901697183}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -2901,7 +2901,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1901697183}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b058ece24d71bf14a8544a8ec171f0fc, type: 3}
   m_Name: 
