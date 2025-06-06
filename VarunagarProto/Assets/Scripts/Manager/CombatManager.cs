@@ -196,23 +196,10 @@ public class CombatManager : MonoBehaviour
     #region TurnManagement
     public List<DataEntity> GetUnitTurn()
     {
-        List<DataEntity> speedValue = new List<DataEntity>();
-        foreach (var e in entityHandler.ennemies)
-        {
-            if (e != null)
-                speedValue.Add(e);
-        }
-
-        foreach (var p in entityHandler.players)
-        {
-            if (p != null)
-                speedValue.Add(p);
-        }
-        return speedValue.OrderByDescending(x =>
-        {
-            int lifeFactor = x.UnitLife > 0 ? 1 : 0;
-            return lifeFactor * 1000 + x.UnitSpeed;
-        }).ToList();
+        var speedValue = new List<DataEntity>();
+        speedValue.AddRange(entityHandler.ennemies.Where(e => e != null && e.UnitLife > 0));
+        speedValue.AddRange(entityHandler.players.Where(p => p != null && p.UnitLife > 0));
+        return speedValue.OrderByDescending(x => x.UnitSpeed).ToList();
     }
 
     public void EndUnitTurn()
