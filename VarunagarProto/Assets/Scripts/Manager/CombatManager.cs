@@ -688,6 +688,7 @@ public class CombatManager : MonoBehaviour
             if (anim != null && anim.runtimeAnimatorController != null)
             {
                 anim.SetTrigger("Dodge");
+                EffectsManager.SINGLETON.AfficherMiss(target,0f);
             }
             return;
         }
@@ -1469,13 +1470,16 @@ public class CombatManager : MonoBehaviour
                 int visualIndex = entityHandler.players.Contains(target)
                     ? entityHandler.players.IndexOf(target)
                     : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target);
-                EffectsManager.SINGLETON.AfficherAttaqueFoudre(target.ShockMark, visualIndex, target);
+                StartCoroutine(EffectsManager.SINGLETON.AfficherAttaqueFoudre(target.ShockMark, visualIndex, target));
             }
             if (target.ShockMark >= 4)
             {
-                float calculatedDamage = (caster.UnitSpeed - 20) / 2;
+                int visualIndex = entityHandler.players.Contains(target)
+                    ? entityHandler.players.IndexOf(target)
+                    : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target); float calculatedDamage = (caster.UnitSpeed - 20) / 2;
                 if (enemyHasShield) calculatedDamage = calculatedDamage * 150 / 100;
                 int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
+                StartCoroutine(EffectsManager.SINGLETON.AfficherAttaqueFoudre(target.ShockMark, visualIndex, target, icalculatedDamage));
                 if (target.UnitShield > 0)
                 {
                     if (target.UnitShield < icalculatedDamage)
@@ -1587,6 +1591,7 @@ public class CombatManager : MonoBehaviour
             int damage = baseDamage[level] + speedDamage;
 
             StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(7));
+            StartCoroutine(EffectsManager.SINGLETON.AfficherAttaqueNécrose(3, target.index, target, damage));
 
             target.UnitLife -= damage;
 

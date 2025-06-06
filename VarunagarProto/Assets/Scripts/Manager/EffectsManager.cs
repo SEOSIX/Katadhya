@@ -67,9 +67,12 @@ public class EffectsManager : MonoBehaviour
         }
     }
 
-    public void AfficherAttaqueFoudre(int typeFoudre, int index, DataEntity entity)
+    public IEnumerator AfficherAttaqueFoudre(int typeFoudre, int index, DataEntity entity, float damage = 0f)
     {
-        if (typeFoudre < 1 || typeFoudre > 4 || !IsValid(index)) return;
+        if (typeFoudre < 1 || typeFoudre > 4 || !IsValid(index))
+        {
+            CombatManager.SINGLETON.StopCoroutine(AfficherAttaqueFoudre(typeFoudre,index,entity)); 
+        }
 
         if (lastFoudreEffects.TryGetValue(index, out var lastEffect))
         {
@@ -83,13 +86,32 @@ public class EffectsManager : MonoBehaviour
             GameObject nouvelEffet = Instantiate(effet, Effects1Position[index].position, Quaternion.identity, Effects1Position[index]);
             lastFoudreEffects.Add(index, nouvelEffet);
         }
+        yield return new WaitForSeconds(0.7f);
+        if (damage != 0f) AfficherTexteDegats(index,Mathf.RoundToInt(damage),Color.yellow,entity);
         Renderer[] renderers = entity.instance.GetComponentsInChildren<Renderer>();
         Bounds AllRenderers = renderers[0].bounds;
         foreach (Renderer r in renderers) AllRenderers.Encapsulate(r.bounds);
         GameObject dmgVFX = Instantiate(ParticlePrefabs[4], new Vector3(AllRenderers.center.x, AllRenderers.min.y, AllRenderers.center.z), Quaternion.identity, ParticleParent);
 
+
     }
-    
+    public IEnumerator AfficherAttaqueNécrose(int typeNécrose, int index, DataEntity entity, float damage)
+    {
+        if (typeNécrose < 1 || typeNécrose > 4 || !IsValid(index))
+        {
+            CombatManager.SINGLETON.StopCoroutine(AfficherAttaqueNécrose(typeNécrose, index, entity, damage));
+        }
+        yield return new WaitForSeconds(0.3f);
+        if (damage != 0f) AfficherTexteDegats(index, Mathf.RoundToInt(damage), Color.magenta, entity);
+
+    }
+    public void AfficherMiss(DataEntity entity, float modifier)
+    {
+        int index = entity.index;
+        if (index == -1) return;
+        AfficherTexteDegats(index, 0, Color.white, entity, modifier, "Raté");
+    }
+
     public void AfficherRageSlider(int rageValue, int index)
     {
         if (!IsValid(index) || rageValue < 0 || rageSliders == null || rageSliders.Count <= index)
@@ -137,7 +159,7 @@ public class EffectsManager : MonoBehaviour
         
     }
 
-    private void AfficherTexteDegats(int index, int degats, Color couleur, DataEntity entity, float modifier = 1)
+    private void AfficherTexteDegats(int index, int degats, Color couleur, DataEntity entity, float modifier = 1, string Replace = "")
     {
         if (!IsValid(index) || damageTextPrefab == null || canvas == null) return;
 
@@ -148,6 +170,7 @@ public class EffectsManager : MonoBehaviour
         }
         var tmp = dmgText.GetComponent<TextMeshProUGUI>();
         tmp.text = "-" + degats;
+        if (Replace != "") tmp.text = Replace;
         tmp.color = couleur;
         Renderer[] renderers = entity.instance.GetComponentsInChildren<Renderer>();
         Bounds AllRenderers = renderers[0].bounds;

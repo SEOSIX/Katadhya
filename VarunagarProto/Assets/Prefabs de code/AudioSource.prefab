@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433229667682351369}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.1, y: 3.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -54,14 +54,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2bcd2e504402ac843bdf70bdaf0c3a35, type: 3}
   - {fileID: 8300000, guid: 18b0584ee9098644a9e0114e1b1aac1d, type: 3}
   - {fileID: 8300000, guid: cd464929ec291654d9a1858ce53c969c, type: 3}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 00397c1711bb4e04ab98fad6a41e3934, type: 3}
   - {fileID: 8300000, guid: 265f7fca687baf2488762eeeadf8f74f, type: 3}
   - {fileID: 8300000, guid: fe3b3131e1ea1894caa7fbe6e3361634, type: 3}
   - {fileID: 8300000, guid: 9fba7627fe62dff4b997e0fbcae0aaf3, type: 3}
   - {fileID: 8300000, guid: 8b00ed5af216bb547b4af67883f24d83, type: 3}
   - {fileID: 8300000, guid: 32f210f503537ac489ead21a83a1d1f8, type: 3}
   - {fileID: 8300000, guid: 119c8481652a55744ba898f8934d9389, type: 3}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 7fdec3c8ff5c4254ebb85456bd1c3535, type: 3}
+  - {fileID: 8300000, guid: 93f10ccf1ec442846918b65f3f19951b, type: 3}
   gameClips:
   - {fileID: 8300000, guid: 5c32713c12cedf046a173ed2664dec2d, type: 3}
   - {fileID: 8300000, guid: aaa998add69564b448313a0d364ce5a5, type: 3}
