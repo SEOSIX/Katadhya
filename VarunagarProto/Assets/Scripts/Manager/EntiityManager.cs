@@ -150,19 +150,6 @@ public class EntiityManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            foreach (var enemy in entityHandler.ennemies)
-            {
-                if (enemy != null)
-                    enemy.UnitLife = 0;
-            }
-      }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            if (entityHandler.ennemies[0] != null)
-                entityHandler.ennemies[0].UnitLife = 0;
-        }
         if (entityHandler.ennemies.Any(e => e != null && e.UnitLife <= 0))
             DestroyDeadEnemies();
 

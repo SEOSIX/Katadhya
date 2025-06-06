@@ -14,13 +14,9 @@ public class CheatConsole : MonoBehaviour
     void Start()
     {
         consolePanel.SetActive(false);
+        ResetCheats();
         inputField.onEndEdit.AddListener(HandleInput);
-
         commands = new Dictionary<string, System.Action<string[]>>();
-        RegisterCommand("god_mode", ToggleGodMode);
-        RegisterCommand("kill", KillEnemy);
-        RegisterCommand("skipfight", SkipFight);
-        RegisterCommand("caurisinfinite", SetInfiniteCauris);
     }
 
     void Update()
@@ -34,7 +30,7 @@ public class CheatConsole : MonoBehaviour
             }
         }
     }
-
+    
     void HandleInput(string input)
     {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
@@ -44,23 +40,41 @@ public class CheatConsole : MonoBehaviour
             inputField.ActivateInputField();
         }
     }
-
     void ExecuteCommand(string input)
     {
         AppendOutput($"> {input}");
+
+        if (string.IsNullOrWhiteSpace(input))
+            return;
 
         string[] parts = input.Split(' ');
         string command = parts[0].ToLower();
         string[] args = new string[parts.Length - 1];
         System.Array.Copy(parts, 1, args, 0, args.Length);
-
+        if (!commands.ContainsKey(command))
+        {
+            switch (command)
+            {
+                case "god_mode":
+                    RegisterCommand("god_mode", ToggleGodMode);
+                    break;
+                case "kill":
+                    RegisterCommand("kill", KillEnemy);
+                    break;
+                case "skipfight":
+                    RegisterCommand("skipfight", SkipFight);
+                    break;
+                case "caurisinfinite":
+                    RegisterCommand("caurisinfinite", SetInfiniteCauris);
+                    break;
+                default:
+                    AppendOutput("Commande inconnue.");
+                    return;
+            }
+        }
         if (commands.TryGetValue(command, out var action))
         {
             action.Invoke(args);
-        }
-        else
-        {
-            AppendOutput("Commande inconnue.");
         }
     }
 
@@ -101,7 +115,6 @@ public class CheatConsole : MonoBehaviour
 
             if (enable)
             {
-                // Ne sauvegarder qu’une seule fois
                 if (!godModeOriginalValues.ContainsKey(player))
                 {
                     godModeOriginalValues[player] = (player.BaseLife, player.UnitLife);
@@ -197,5 +210,30 @@ public class CheatConsole : MonoBehaviour
         {
             AppendOutput("GlobalPlayerData non trouvé.");
         }
+    }
+    
+    void ResetCheats()
+    {
+        var entityHandler = FindObjectOfType<EntiityManager>()?.entityHandler;
+        if (entityHandler == null || entityHandler.players == null)
+            return;
+
+        foreach (var player in entityHandler.players)
+        {
+            if (player == null) continue;
+            if (godModeOriginalValues.TryGetValue(player, out var originalValues))
+            {
+                player.BaseLife = originalValues.baseLife;
+                player.UnitLife = Mathf.Min(originalValues.unitLife, originalValues.baseLife);
+            }
+            else
+            {
+                player.BaseLife = 100;
+                player.UnitLife = 100;
+            }
+        }
+
+        godModeOriginalValues.Clear();
+        outputText.text = "";
     }
 }
