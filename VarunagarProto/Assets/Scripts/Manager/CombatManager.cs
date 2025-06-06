@@ -116,7 +116,7 @@ public class CombatManager : MonoBehaviour
     [ContextMenu("pipi")]
     void Start()
     {
-        //ReseterData.ResetPlayersComplete(entityHandler, entiityManager);  //a retirer avant de build
+        ReseterData.ResetPlayersComplete(entityHandler, entiityManager);  //a retirer avant de build
         ReseterData.ResetEnemies(entityHandler);
         foreach (var enemy in entityHandler.ennemies)
         {

@@ -18,6 +18,7 @@ public static class ReseterData
         foreach (var player in handler.players)
         {
             ResetEntity(player);
+            player.UnitLife = player.BaseLife;
             player.UltimateSlider = 100;
             player.Affinity = 0;
             player.UltLvlHit = 0;
