@@ -22,6 +22,8 @@ public class EntiityManager : MonoBehaviour
     
     public void DestroyDeadEnemies()
     {
+        
+        List<int> indicesToRemove = new List<int>();
         for (int i = entityHandler.ennemies.Count - 1; i >= 0; i--)
         {
             var enemy = entityHandler.ennemies[i];
@@ -31,15 +33,16 @@ public class EntiityManager : MonoBehaviour
             int visualIndex = enemy.index;
             EffectsManager.SINGLETON.ClearEffectsForEntity(visualIndex);
             CombatManager.SINGLETON.RemoveUnitFromList(enemy);
+            
             if (i < CombatManager.SINGLETON.circlesEnnemy.Count)
             {
                 GameObject deadCircle = CombatManager.SINGLETON.circlesEnnemy[i];
                 if (deadCircle != null)
                 {
-                    Object.Destroy(deadCircle);
-                    CombatManager.SINGLETON.circlesEnnemy.RemoveAt(i);
+                    indicesToRemove.Add(i);
                 }
             }
+            
 
             if (i < LifeEntity.SINGLETON.enemySliders.Length)
             {
@@ -53,6 +56,18 @@ public class EntiityManager : MonoBehaviour
             {
                 enemy.instance.SetActive(false);
                 enemy.UnitLife = -1;
+            }
+        }
+        foreach (int index in indicesToRemove.OrderByDescending(x => x))
+        {
+            if (index < CombatManager.SINGLETON.circlesEnnemy.Count)
+            {
+                GameObject deadCircle = CombatManager.SINGLETON.circlesEnnemy[index];
+                if (deadCircle != null)
+                {
+                    Object.Destroy(deadCircle);
+                }
+                CombatManager.SINGLETON.circlesEnnemy.RemoveAt(index);
             }
         }
     }
@@ -135,6 +150,20 @@ public class EntiityManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            foreach (var enemy in entityHandler.ennemies)
+            {
+                if (enemy != null)
+                    enemy.UnitLife = 0;
+            }
+      }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            if (entityHandler.ennemies[0] != null)
+                entityHandler.ennemies[0].UnitLife = 0;
+        }
         if (entityHandler.ennemies.Any(e => e != null && e.UnitLife <= 0))
             DestroyDeadEnemies();
 
@@ -153,12 +182,13 @@ public class EntiityManager : MonoBehaviour
         }
         else if (!anyEnemyAlive)
         {
-            entityHandler.ennemies.RemoveAll(e => e == null || e.UnitLife <= 0);
             if (GameManager.SINGLETON.EnemyPackIndex+1 < GameManager.SINGLETON.currentCombat.WaveList.Count)
             {
+                entityHandler.ennemies.RemoveAll(e => e == null || e.UnitLife <= 0);
                 GameManager.SINGLETON.EnemyPackIndex += 1;
                 CombatManager.SINGLETON.entityHandler.ennemies.Clear();
                 GameManager.SINGLETON.SpawnEnemies();
+                LifeEntity.SINGLETON.LifeManage();
                 ReseterData.ResetEnemies(entityHandler);
                 CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
                 CombatManager.SINGLETON.unitPlayedThisTurn.Clear();
