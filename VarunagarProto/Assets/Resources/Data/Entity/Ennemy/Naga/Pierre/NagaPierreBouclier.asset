@@ -13,29 +13,26 @@ MonoBehaviour:
   m_Name: NagaPierreBouclier
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  UnitAtk: 20
+  UnitAtk: 35
   UnitSpeed: 48
-  UnitDef: 4
+  UnitDef: 10
   UnitAim: 100
-  ActiveBuffs:
-  - type: 2
-    value: 0.8
-    duration: 1
+  ActiveBuffs: []
   ActiveCooldowns: []
   Affinity: 1
-  ChargePower: 4
+  ChargePower: 10
   UltChargePowerCost: 0
   BaseLife: 70
-  BaseAtk: 35
+  BaseAtk: 30
   BaseSpeed: 48
   BaseDef: 10
   BaseAim: 100
-  UnitShield: 0
+  UnitShield: 7
   ShockMark: 0
   RageTick: 0
   LastRageTick: 0
   necrosis: []
-  beenHurtThisTurn: 1
+  beenHurtThisTurn: 0
   provoking: 0
   provokingDuration: 0
   provokingCaracter: {fileID: 0}

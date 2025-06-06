@@ -15,15 +15,18 @@ MonoBehaviour:
   instance: {fileID: 0}
   UnitAtk: 15
   UnitSpeed: 42
-  UnitDef: 15
-  UnitAim: 100
-  ActiveBuffs: []
+  UnitDef: 20
+  UnitAim: 0
+  ActiveBuffs:
+  - type: 4
+    value: 0
+    duration: 1
   ActiveCooldowns: []
   Affinity: 0
-  ChargePower: 0
+  ChargePower: 8
   UltChargePowerCost: 0
   BaseLife: 80
-  BaseAtk: 15
+  BaseAtk: 10
   BaseSpeed: 42
   BaseDef: 20
   BaseAim: 100
@@ -32,7 +35,7 @@ MonoBehaviour:
   RageTick: 0
   LastRageTick: 0
   necrosis: []
-  beenHurtThisTurn: 0
+  beenHurtThisTurn: 1
   provoking: 0
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
