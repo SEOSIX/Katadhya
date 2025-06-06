@@ -20,10 +20,10 @@ MonoBehaviour:
   ActiveBuffs: []
   ActiveCooldowns: []
   Affinity: 0
-  ChargePower: 0
+  ChargePower: 6
   UltChargePowerCost: 0
   BaseLife: 60
-  BaseAtk: 30
+  BaseAtk: 25
   BaseSpeed: 48
   BaseDef: 5
   BaseAim: 100
@@ -32,7 +32,7 @@ MonoBehaviour:
   RageTick: 0
   LastRageTick: 0
   necrosis: []
-  beenHurtThisTurn: 0
+  beenHurtThisTurn: 1
   provoking: 0
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
