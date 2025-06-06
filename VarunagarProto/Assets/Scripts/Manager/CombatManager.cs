@@ -166,24 +166,37 @@ public class CombatManager : MonoBehaviour
     }
     public void InitializeStaticUI()
     {
-        if (currentTurnOrder == null || currentTurnOrder.Count == 0)
-            return;
+        DataEntity currentEntity = currentTurnOrder[0];
 
-        int displayCount = Mathf.Min(ImagePortrait.Length, currentTurnOrder.Count);
+        if (currentTurnOrder == null || currentTurnOrder.Count == 0) return;
 
+        List<DataEntity> initialTurnOrder = GetUnitTurn();
         for (int i = 0; i < ImagePortrait.Length; i++)
         {
-            if (i < displayCount)
+            if (i < initialTurnOrder.Count && initialTurnOrder[i].UnitLife > 0)
             {
-                DataEntity entity = currentTurnOrder[i];
-                Image img = ImagePortrait[i];
-
-                img.enabled = true;
-                img.sprite = entity.portraitUI;
-
-                bool isCurrent = (i == 0);
-                img.rectTransform.sizeDelta = isCurrent ? new Vector2(98.67f, 122.36f) : new Vector2(75f, 93f);
-                img.color = isCurrent ? Color.white : new Color(0.88f, 0.88f, 0.88f);
+                ImagePortrait[i].enabled = true;
+                ImagePortrait[i].sprite = initialTurnOrder[i].portraitUI;
+                targetSizes = new Vector2[ImagePortrait.Length];
+                Color PortraitColor = Color.white;
+                if (initialTurnOrder[i] == currentEntity)
+                {
+                    targetSizes[i] = new Vector2(98.67f, 122.36f);
+                }
+                else
+                {
+                    targetSizes[i] = new Vector2(75, 93);
+                    PortraitColor = new Color(225f/255f, 225f/255f, 225f/255f);
+                }
+                if (ImagePortrait[i] != null && ImagePortrait[i].enabled)
+                {
+                    ImagePortrait[i].rectTransform.sizeDelta = Vector2.Lerp(
+                        ImagePortrait[i].rectTransform.sizeDelta,
+                        targetSizes[i],
+                        Time.deltaTime * 10f
+                    );
+                    ImagePortrait[i].color = PortraitColor;
+                }
             }
             else
             {
