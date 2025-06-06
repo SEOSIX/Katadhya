@@ -158,7 +158,6 @@ public class EntiityManager : MonoBehaviour
                     enemy.UnitLife = 0;
             }
       }
-
         if (Input.GetKeyDown(KeyCode.O))
         {
             if (entityHandler.ennemies[0] != null)
@@ -179,6 +178,8 @@ public class EntiityManager : MonoBehaviour
         if (!anyPlayerAlive)
         {
             Debug.Log("Game Over");
+            CombatManager.SINGLETON.EndGlobalTurn();
+            CombatManager.SINGLETON.EndGameOver.SetActive(true);
         }
         else if (!anyEnemyAlive)
         {
