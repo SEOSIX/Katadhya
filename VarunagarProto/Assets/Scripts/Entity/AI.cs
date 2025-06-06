@@ -104,6 +104,7 @@ public class AI : MonoBehaviour
         DataEntity target = possibleTargets[Random.Range(0, possibleTargets.Count)];
 
         yield return new WaitForSeconds(0.2f);
+        Debug.Log($"skibidi {attacker.namE} attaque");
         if (choosenSpell.MultipleAttack)
         {
             Debug.Log("[AI] Attaque multiple déclenchée !");

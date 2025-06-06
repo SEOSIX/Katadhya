@@ -118,8 +118,20 @@ public class CombatManager : MonoBehaviour
     {
         //ReseterData.ResetPlayersComplete(entityHandler, entiityManager);  //a retirer avant de build
         ReseterData.ResetEnemies(entityHandler);
+        foreach (var enemy in entityHandler.ennemies)
+        {
+            if (enemy == null)
+            {
+                Debug.LogWarning("[Start] Ennemi null");
+            }
+            else
+            {
+                Debug.Log($"[Start] Ennemi '{enemy.namE}' - HP: {enemy.UnitLife} / {enemy.BaseLife}");
+            }
+        }
         ReseterData.ResetPlayersBeforeCombat(entityHandler, entiityManager);
         currentTurnOrder = GetUnitTurn();
+        Debug.Log($"[Start] Ordre de tour initial : {currentTurnOrder.Count} unités");
         StartCoroutine(StartUnitTurnRoutine(0f));
     }
 
@@ -232,6 +244,7 @@ public class CombatManager : MonoBehaviour
     public void StartUnitTurn()
     {
         DataEntity caster = currentTurnOrder[0];
+        Debug.Log($"[Tour] Début du tour pour {currentTurnOrder[0].namE} (HP: {currentTurnOrder[0].UnitLife})");
         ChargePower(caster, 2);
         DecrementBuffDurations(caster);
         DecrementCooldowns(caster);
@@ -256,11 +269,13 @@ public class CombatManager : MonoBehaviour
         }
         caster.beenHurtThisTurn = false;
         RecalculateStats(caster);
+        Debug.Log($"skibidi {caster.namE} turn");
         StartCoroutine(StartUnitTurnRoutine());
     }
     
-    private IEnumerator StartUnitTurnRoutine(float delay = 2f)
+    private IEnumerator StartUnitTurnRoutine(float delay = 0f)
     {
+        Debug.Log($"[Tour] Début du tour (Routine) pour {currentTurnOrder[0].namE} (HP: {currentTurnOrder[0].UnitLife})");
         PlayerPanelBlocker.SetActive(true);
         yield return new WaitForSeconds(delay);
         PlayerPanelBlocker.SetActive(false);
@@ -284,7 +299,7 @@ public class CombatManager : MonoBehaviour
             EndUnitTurn();
             yield break;
         }
-
+        Debug.Log($"skibidi enemy turn");
         DetectEnnemyTurn();
     
         if (entityHandler.ennemies.Contains(current))
@@ -360,7 +375,6 @@ public class CombatManager : MonoBehaviour
     public void UseCapacity(CapacityData cpt)
     {
         DataEntity player = currentTurnOrder[0];
-        cpt.name = cpt.name.Replace("(Clone)", "").Trim();
         Debug.Log( cpt.name);
         char CptType = cpt.name[4];
         if(CptType == 'd')
@@ -553,7 +567,7 @@ public class CombatManager : MonoBehaviour
         Animator anim = caster.instance?.GetComponent<Animator>();
         if (anim != null && anim.runtimeAnimatorController != null)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0f);
             anim.SetTrigger("Attack");
         }
 

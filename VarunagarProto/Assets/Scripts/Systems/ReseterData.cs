@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public static class ReseterData
 {
@@ -8,6 +9,7 @@ public static class ReseterData
         foreach (var enemy in handler.ennemies)
         {
             ResetEntity(enemy);
+            enemy.UnitLife = enemy.BaseLife;
         }
     }
 

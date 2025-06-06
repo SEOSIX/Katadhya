@@ -43,13 +43,13 @@ public class LifeEntity : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < entityHandler.players.Count; i++)
+        /*for (int i = 0; i < entityHandler.players.Count; i++)
         {
             if (entityHandler.players[i] != null && PlayerSliders[i] != null)
             {
                 entityHandler.players[i].UnitLife = entityHandler.players[i].BaseLife;
             }
-        }
+        }*/
     }
     private void Update()
     {
