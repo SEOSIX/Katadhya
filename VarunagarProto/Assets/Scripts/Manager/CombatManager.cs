@@ -904,8 +904,10 @@ public class CombatManager : MonoBehaviour
         bool enemyHasShield = false;
         if (target.UnitShield > 0) enemyHasShield = true;
         float BonusRageDamage = 0;
+        float BonusRageOnShield = 1f;
+        if (enemyHasShield) BonusRageOnShield = 0.7f;
         if (caster.Affinity == 4) BonusRageDamage = GetBonusRageDamage(caster);
-        float calculatedDamage = ((capacity.atk + UltPriso) * (caster.UnitAtk + 20) / (target.UnitDef + 20)) * modifier + BonusRageDamage;
+        float calculatedDamage = ((capacity.atk + UltPriso) * (caster.UnitAtk + 20) / (target.UnitDef + 20)) * modifier + BonusRageDamage * BonusRageOnShield;
         if (caster.RageTick >= 12) caster.RageTick = 0;
         EffectsManager.SINGLETON.AfficherRageSlider(target.RageTick, visualIndex);
         int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
@@ -1578,6 +1580,7 @@ public class CombatManager : MonoBehaviour
                 int visualIndex = entityHandler.players.Contains(target)
                     ? entityHandler.players.IndexOf(target)
                     : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target); float calculatedDamage = (caster.UnitSpeed - 20) / 2;
+                float calculatedDamage = (caster.UnitSpeed) / 1.5f;
                 if (enemyHasShield) calculatedDamage = calculatedDamage * 150 / 100;
                 int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
                 StartCoroutine(EffectsManager.SINGLETON.AfficherAttaqueFoudre(target.ShockMark, visualIndex, target, icalculatedDamage));
@@ -1622,9 +1625,9 @@ public class CombatManager : MonoBehaviour
 
         float[] baseDamages = level switch
         {
-            1 => new float[] { 1f, 1f, 1f, 3f },
-            2 => new float[] { 1f, 1f, 2f, 4f },
-            3 => new float[] { 1f, 2f, 3f, 5f },
+            1 => new float[] { 1f, 2f, 3f, 6f },
+            2 => new float[] { 2f, 3f, 4f, 8f },
+            3 => new float[] { 3f, 4f, 5f, 10f },
             _ => new float[4]
         };
 
@@ -1684,8 +1687,8 @@ public class CombatManager : MonoBehaviour
     {
         if (target.necrosis?.Count > 0)
         {
-            int[] baseDamage = { 0, 1, 2, 3, 4, 5 };
-            float[] speedPercents = { 0f, 0.05f, 0.010f, 0.15f, 0.20f, 0.25f };
+            int[] baseDamage = { 0, 5, 6, 7, 8, 10 };
+            float[] speedPercents = { 0f, 0.10f, 0.15f, 0.20f, 0.25f, 0.30f };
             var necrosisEffect = target.necrosis[0];
             int level = necrosisEffect.level;
             int speedDamage = Mathf.RoundToInt(target.UnitSpeed * speedPercents[level]);
@@ -1695,6 +1698,7 @@ public class CombatManager : MonoBehaviour
             StartCoroutine(EffectsManager.SINGLETON.AfficherAttaqueNécrose(3, target.index, target, damage));
 
             target.UnitLife -= damage;
+            if (target.Affinity == 4) target.RageTick += 2;
 
             Debug.Log($"{target.namE} subit {damage} dégâts de nécrose (niveau {necrosisEffect.level})");
 

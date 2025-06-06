@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: NaraJadeFoudre
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
+  BaseLife: 280
+  BaseAtk: 40
+  BaseSpeed: 56
+  BaseDef: 45
+  BaseAim: 100
+  UnitLife: 0
   UnitAtk: 5
   UnitSpeed: 43
   UnitDef: 10
@@ -22,11 +28,6 @@ MonoBehaviour:
   Affinity: 2
   ChargePower: 0
   UltChargePowerCost: 0
-  BaseLife: 140
-  BaseAtk: 40
-  BaseSpeed: 56
-  BaseDef: 45
-  BaseAim: 100
   UnitShield: 0
   ShockMark: 0
   RageTick: 0
@@ -36,6 +37,7 @@ MonoBehaviour:
   provoking: 0
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
+  hasBeenInitialized: 0
   portrait: {fileID: 21300000, guid: 86e10a75cebe44c4986357953984f52e, type: 3}
   portraitUI: {fileID: 21300000, guid: effd2a7e1288b384e8c8641f70807649, type: 3}
   bandeauUI: {fileID: 0}

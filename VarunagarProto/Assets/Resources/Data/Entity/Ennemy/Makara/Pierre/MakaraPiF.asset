@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: MakaraPiF
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
+  BaseLife: 160
+  BaseAtk: 25
+  BaseSpeed: 48
+  BaseDef: 15
+  BaseAim: 100
+  UnitLife: 0
   UnitAtk: 20
   UnitSpeed: 48
   UnitDef: 5
@@ -22,11 +28,6 @@ MonoBehaviour:
   Affinity: 2
   ChargePower: 0
   UltChargePowerCost: 0
-  BaseLife: 80
-  BaseAtk: 25
-  BaseSpeed: 48
-  BaseDef: 15
-  BaseAim: 100
   UnitShield: 0
   ShockMark: 0
   RageTick: 0
@@ -36,6 +37,7 @@ MonoBehaviour:
   provoking: 0
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
+  hasBeenInitialized: 0
   portrait: {fileID: 21300000, guid: 38143f535456992438e985b58e4bbfe4, type: 3}
   portraitUI: {fileID: 21300000, guid: 21269347a2ee7bd46b3c44ea3f8cd4eb, type: 3}
   bandeauUI: {fileID: 0}

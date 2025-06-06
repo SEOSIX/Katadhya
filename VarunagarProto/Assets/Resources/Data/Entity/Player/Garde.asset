@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Garde
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  BaseLife: 240
+  BaseLife: 360
   BaseAtk: 5
   BaseSpeed: 45
   BaseDef: 10
@@ -54,7 +54,7 @@ MonoBehaviour:
   capacityDataUltimateSource: {fileID: 11400000, guid: 98aae579e67c79a4db7bc8f044e974ba, type: 2}
   Ultimate: {fileID: 21300000, guid: f0f3d14119d252b4595754ed73d77782, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: 6a68f6d10d7cb754dbbcb47f8340e7e1, type: 3}
-  CptUltlvl: 0
+  CptUltlvl: 1
   UltimateSlider: 0
   UltIsReady: 1
   UltLvl_1: 0

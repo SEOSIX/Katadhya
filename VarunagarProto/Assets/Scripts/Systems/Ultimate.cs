@@ -299,9 +299,13 @@ public class Ultimate : MonoBehaviour
             StopCoroutine(qteCoroutine);
             qteCoroutine = null;
         }
-        if (CurrentEntity.Affinity==0)
+        if (CurrentEntity.Affinity == 0)
         {
             CurrentEntity.UltLvlHit = 0;
+        }
+        if (CurrentEntity.Affinity == 2)
+        {
+            CurrentEntity.UnitSpeed += 10;
         }
 
         qteAnimator.speed = 0f;
