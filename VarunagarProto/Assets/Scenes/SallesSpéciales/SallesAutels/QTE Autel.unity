@@ -1292,7 +1292,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 87.87, y: 253.84}
+  m_SizeDelta: {x: 156, y: 347}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &190857439
 Animator:
@@ -1427,7 +1427,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 45ce174521594fb488b34e7f1d741497, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 89ef86e8450d7e144b14504239c60e85, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1893,7 +1893,7 @@ RectTransform:
   m_GameObject: {fileID: 297699964}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1414, y: 1.1414, z: 1.1414}
+  m_LocalScale: {x: 0.9242746, y: 0.9242746, z: 0.9242746}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 459175413}
@@ -1903,7 +1903,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -751, y: 517.88}
+  m_AnchoredPosition: {x: -684.03, y: 525}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &297699966
@@ -2517,7 +2517,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 89.86, y: 253.84}
+  m_SizeDelta: {x: 156, y: 347}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &459175414
 Animator:
@@ -2652,7 +2652,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2fc0629991f1940478f0a5144f57aece, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 360d1b2bd7351184a9b367ba00cd4f67, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9394,7 +9394,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 87.87, y: 253.84}
+  m_SizeDelta: {x: 156, y: 347}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &2047943075
 Animator:
@@ -9529,7 +9529,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a1190957bbd435c4f9e9a705fcd03d98, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 32172c7caf0ae6e45ab753c9e0d27345, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
