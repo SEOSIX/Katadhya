@@ -36,6 +36,7 @@ public class CombatManager : MonoBehaviour
     public Button[] capacityAnimButtons;
     public GameObject[] capacityPage;
     public GameObject[] capacityPageAffinity;
+    public Transform[] capacityUpgradePoints;
     public Color[] AffinityPageColors;
     public GameObject[] Banderoles;
     public TextMeshProUGUI[] CoolDownTexts;
@@ -53,6 +54,7 @@ public class CombatManager : MonoBehaviour
 
     [Header("Turn Management")]
     public Slider PlayerCharge;
+    public Slider PlayerChargePreview;
 
     public GameObject EndGameOver;
 
@@ -1060,16 +1062,18 @@ public class CombatManager : MonoBehaviour
                 StopAllCoroutines();
                 UseCapacity(CData);
             }
+
         }
     }
     public void UpgradeCpt(int i, GameObject button = null)
     {
+        DataEntity player = currentTurnOrder[0];
         if (button != currentInterractingButton)
         {
             currentInterractingButton = button;
+            PlayerChargePreview.value = player.ChargePower;
             ResetAllCapacities();
         }
-        DataEntity player = currentTurnOrder[0];
         List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
         CapacityData CData = PCapacities[i];
         CData = GetCycledCapacity(CData);
@@ -1225,7 +1229,39 @@ public class CombatManager : MonoBehaviour
         String Sbuff = "";
         Text.GetChild(0).GameObject().SetActive(false);
         EncartCpt.GetChild(3).GetChild(0).GameObject().SetActive(false);
+        Color Ambergris = new Color32(140, 140, 140, 255);
+        if (i != 3)
+        {
+            switch (CData.name[6])
+            {
+                case '0':
+                    capacityUpgradePoints[i].GetChild(0).GetComponent<Image>().color = Ambergris;
+                    capacityUpgradePoints[i].GetChild(1).GetComponent<Image>().color = Ambergris;
+                    PlayerChargePreview.value = player.ChargePower;
+                    break;
+                case '1':
+                    capacityUpgradePoints[i].GetChild(0).GetComponent<Image>().color = Color.white;
+                    capacityUpgradePoints[i].GetChild(1).GetComponent<Image>().color = Ambergris;
+                    if(player.ChargePower-2<0)
+                    {
+                        PlayerChargePreview.value = 0;
+                    }
+                    else { PlayerChargePreview.value = player.ChargePower - 2; }
+                    break;
+                case '2':
+                    capacityUpgradePoints[i].GetChild(0).GetComponent<Image>().color = Color.white;
+                    capacityUpgradePoints[i].GetChild(1).GetComponent<Image>().color = Color.white;
+                    if (player.ChargePower - 3 < 0)
+                    {
+                        PlayerChargePreview.value = 0;
+                    }
+                    else { PlayerChargePreview.value = player.ChargePower - 3; }
 
+                    break;
+            }
+        }
+        
+        
         //MAJ de la data de base
         EncartCpt.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(CData.Name);
         Description.SetText(CData.Description);
