@@ -721,7 +721,11 @@ public class CombatManager : MonoBehaviour
         {
             GiveBuff(capacity, target, UltGarde);
             EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity, target);
-
+        }
+        if (capacity.buffType2 > 0)
+        {
+            GiveBuff(capacity, target, UltGarde);
+            EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex, capacity, target);
         }
         if (capacity.ShieldRatioAtk > 0)
         {
@@ -1436,6 +1440,21 @@ public class CombatManager : MonoBehaviour
             else
             {
                 target.ActiveBuffs.Add(new ActiveBuff(capacity.buffType, capacity.buffValue+ultGarde, capacity.buffDuration));
+            }
+
+            RecalculateStats(target);
+        }
+        if (capacity.buffType2 > 0 && capacity.DoubleEffect == false)
+        {
+            ActiveBuff existingBuff = target.ActiveBuffs.Find(b => b.type == capacity.buffType2);
+            if (existingBuff != null)
+            {
+                existingBuff.value *= capacity.buffValue2 + ultGarde;
+                existingBuff.duration = Mathf.Max(existingBuff.duration, capacity.buffDuration2);
+            }
+            else
+            {
+                target.ActiveBuffs.Add(new ActiveBuff(capacity.buffType2, capacity.buffValue2 + ultGarde, capacity.buffDuration2));
             }
 
             RecalculateStats(target);
