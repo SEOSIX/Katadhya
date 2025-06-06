@@ -334,19 +334,21 @@ public class AutelStats : MonoBehaviour
             default: return 0;
         }
     }
-
+    private int CalculatePrice(int basePrice, int increment, int level)
+    {
+        return basePrice + increment * level;
+    }
     private int GetCurrentPrice(int index)
     {
-        if (!entityPrices.ContainsKey(currentEntity)) return 0;
+        if (currentEntity == null) return 0;
 
-        EntityUpgradeData prices = entityPrices[currentEntity];
-
+        int level = GetCurrentLevel(index);
         return index switch
         {
-            0 => prices.atkPrice,
-            1 => prices.defPrice,
-            2 => prices.speedPrice,
-            3 => prices.lifePrice,
+            0 => CalculatePrice(50, atkPriceIncrement, level),
+            1 => CalculatePrice(50, defPriceIncrement, level),
+            2 => CalculatePrice(50, speedPriceIncrement, level),
+            3 => CalculatePrice(50, lifePriceIncrement, level),
             _ => 0
         };
     }
