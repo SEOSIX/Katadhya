@@ -52,8 +52,9 @@ public class CombatManager : MonoBehaviour
 
 
     [Header("Turn Management")]
-    public Button endTurnButton;
     public Slider PlayerCharge;
+
+    public GameObject EndGameOver;
 
     [Header("TurnObject")]
     public GameObject ennemyTurn;
@@ -131,8 +132,8 @@ public class CombatManager : MonoBehaviour
         }
         ReseterData.ResetPlayersBeforeCombat(entityHandler, entiityManager);
         currentTurnOrder = GetUnitTurn();
-        Debug.Log($"[Start] Ordre de tour initial : {currentTurnOrder.Count} unités");
         StartCoroutine(StartUnitTurnRoutine(0f));
+        CombatManager.SINGLETON.EndGameOver.SetActive(false);
     }
 
     void Update()
@@ -307,7 +308,6 @@ public class CombatManager : MonoBehaviour
             yield return StartCoroutine(DelayedEnemyTurn(current));
             yield break;
         }
-
         currentPlayer = current;
         InitializeStaticUI();
         Resetpage();
