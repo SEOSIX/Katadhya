@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: NagaJade
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
+  BaseLife: 200
+  BaseAtk: 50
+  BaseSpeed: 58
+  BaseDef: 15
+  BaseAim: 100
+  UnitLife: 0
   UnitAtk: 20
   UnitSpeed: 48
   UnitDef: 5
@@ -22,11 +28,6 @@ MonoBehaviour:
   Affinity: 0
   ChargePower: 0
   UltChargePowerCost: 0
-  BaseLife: 100
-  BaseAtk: 50
-  BaseSpeed: 58
-  BaseDef: 15
-  BaseAim: 100
   UnitShield: 0
   ShockMark: 0
   RageTick: 0
@@ -36,6 +37,7 @@ MonoBehaviour:
   provoking: 0
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
+  hasBeenInitialized: 0
   portrait: {fileID: 21300000, guid: 0a97a54743f0f95449bfb7e415ca45e9, type: 3}
   portraitUI: {fileID: 21300000, guid: 549dfa4a703f9ba4eb85218af8b55e0a, type: 3}
   bandeauUI: {fileID: 0}
@@ -62,7 +64,7 @@ MonoBehaviour:
   UltLvlHit: 0
   namE: NagaJade
   size: 0
-  index: 3
+  index: 4
   ID: 7
   RageAtkBonus: 0
   skipNextTurn: 0

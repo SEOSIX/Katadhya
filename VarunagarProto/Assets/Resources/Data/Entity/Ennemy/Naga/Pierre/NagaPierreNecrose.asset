@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: NagaPierreNecrose
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
+  BaseLife: 140
+  BaseAtk: 35
+  BaseSpeed: 48
+  BaseDef: 10
+  BaseAim: 100
+  UnitLife: 0
   UnitAtk: 20
   UnitSpeed: 48
   UnitDef: 4
@@ -22,11 +28,6 @@ MonoBehaviour:
   Affinity: 3
   ChargePower: 0
   UltChargePowerCost: 0
-  BaseLife: 70
-  BaseAtk: 35
-  BaseSpeed: 48
-  BaseDef: 10
-  BaseAim: 100
   UnitShield: 0
   ShockMark: 1
   RageTick: 0
@@ -36,6 +37,7 @@ MonoBehaviour:
   provoking: 0
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
+  hasBeenInitialized: 0
   portrait: {fileID: 21300000, guid: e7af767f4ebe2f8428096772caef3660, type: 3}
   portraitUI: {fileID: 21300000, guid: 7a815ff54f24c1d4fb99b912c7f83a0b, type: 3}
   bandeauUI: {fileID: 0}

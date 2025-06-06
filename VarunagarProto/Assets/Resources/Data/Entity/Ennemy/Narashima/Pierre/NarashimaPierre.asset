@@ -13,29 +13,34 @@ MonoBehaviour:
   m_Name: NarashimaPierre
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  UnitAtk: 15
-  UnitSpeed: 42
-  UnitDef: 15
-  UnitAim: 100
-  ActiveBuffs: []
-  ActiveCooldowns: []
-  Affinity: 0
-  ChargePower: 0
-  UltChargePowerCost: 0
-  BaseLife: 80
-  BaseAtk: 15
+  BaseLife: 160
+  BaseAtk: 10
   BaseSpeed: 42
   BaseDef: 20
   BaseAim: 100
+  UnitLife: 0
+  UnitAtk: 15
+  UnitSpeed: 42
+  UnitDef: 20
+  UnitAim: 0
+  ActiveBuffs:
+  - type: 4
+    value: 0
+    duration: 1
+  ActiveCooldowns: []
+  Affinity: 0
+  ChargePower: 8
+  UltChargePowerCost: 0
   UnitShield: 0
   ShockMark: 0
   RageTick: 0
   LastRageTick: 0
   necrosis: []
-  beenHurtThisTurn: 0
+  beenHurtThisTurn: 1
   provoking: 0
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
+  hasBeenInitialized: 0
   portrait: {fileID: 21300000, guid: 7f257d4dc90d23a4d88873463175f492, type: 3}
   portraitUI: {fileID: 21300000, guid: 63c3646b56cfab5498cf586a988cff42, type: 3}
   bandeauUI: {fileID: 0}

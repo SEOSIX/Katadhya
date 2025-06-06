@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: NarashimaPierreBouclier
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
+  BaseLife: 180
+  BaseAtk: 15
+  BaseSpeed: 42
+  BaseDef: 25
+  BaseAim: 100
+  UnitLife: 0
   UnitAtk: 5
   UnitSpeed: 43
   UnitDef: 10
@@ -22,11 +28,6 @@ MonoBehaviour:
   Affinity: 1
   ChargePower: 0
   UltChargePowerCost: 0
-  BaseLife: 90
-  BaseAtk: 20
-  BaseSpeed: 42
-  BaseDef: 25
-  BaseAim: 100
   UnitShield: 0
   ShockMark: 0
   RageTick: 0
@@ -36,6 +37,7 @@ MonoBehaviour:
   provoking: 0
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
+  hasBeenInitialized: 0
   portrait: {fileID: 21300000, guid: d61d6230909ac0041bb0ad1c29abd41d, type: 3}
   portraitUI: {fileID: 21300000, guid: 3bb5ebb973ab82e48ae36171738c2ad6, type: 3}
   bandeauUI: {fileID: 0}
