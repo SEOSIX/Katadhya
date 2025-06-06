@@ -7,7 +7,15 @@ public class DataEntity : ScriptableObject
 {
     public GameObject instance;
 
-    [SerializeField] public int UnitLife { get; set; }
+    [Header("Unit Base Stat")]
+    public int BaseLife;
+    public int BaseAtk;
+    public int BaseSpeed;
+    public int BaseDef;
+    public int BaseAim;
+
+    [Header("Unit Current Stat")]
+    public int UnitLife;
     public int UnitAtk;
     public int UnitSpeed;
     public int UnitDef;
@@ -17,13 +25,6 @@ public class DataEntity : ScriptableObject
     public int Affinity;
     public int ChargePower;
     public int UltChargePowerCost;
-
-    [Header("Unit Base Stat")]
-    public int BaseLife;
-    public int BaseAtk;
-    public int BaseSpeed;
-    public int BaseDef;
-    public int BaseAim;
     
     public int AtkLevel { get; set; } = 0;
     public int DefLevel { get; set; } = 0;
@@ -42,6 +43,7 @@ public class DataEntity : ScriptableObject
     public bool provoking;
     public int provokingDuration;
     [HideInInspector] public DataEntity provokingCaracter;
+    [HideInInspector] public bool hasBeenInitialized = false;
 
     [Header("Art")]
     public Sprite portrait;

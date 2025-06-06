@@ -116,7 +116,15 @@ public class CombatManager : MonoBehaviour
     [ContextMenu("pipi")]
     void Start()
     {
-        ReseterData.ResetPlayersComplete(entityHandler, entiityManager);  //a retirer avant de build
+        if (entityHandler.players[0].hasBeenInitialized == false)
+        {
+            ReseterData.ResetPlayersComplete(entityHandler, entiityManager);
+            foreach (var player in entityHandler.players)
+            {
+                player.hasBeenInitialized = true;
+            }
+        }
+        //ReseterData.ResetPlayersComplete(entityHandler, entiityManager);  //a retirer avant de build
         ReseterData.ResetEnemies(entityHandler);
         foreach (var enemy in entityHandler.ennemies)
         {
@@ -129,6 +137,7 @@ public class CombatManager : MonoBehaviour
                 Debug.Log($"[Start] Ennemi '{enemy.namE}' - HP: {enemy.UnitLife} / {enemy.BaseLife}");
             }
         }
+        Debug.LogWarning("Skibidi avant l'initialisation");
         ReseterData.ResetPlayersBeforeCombat(entityHandler, entiityManager);
         currentTurnOrder = GetUnitTurn();
         Debug.Log($"[Start] Ordre de tour initial : {currentTurnOrder.Count} unités");
@@ -1009,39 +1018,42 @@ public class CombatManager : MonoBehaviour
 
     public void ResetListener(int index, GameObject button = null)
     {
-        DataEntity player = currentTurnOrder[0];
-        CapacityData CData = null;
-
-        switch (index)
+        if (entityHandler.players.Contains(currentTurnOrder[0]))
         {
-            case 0: CData = player._CapacityData1; break;
-            case 1: CData = player._CapacityData2; break;
-            case 2: CData = player._CapacityData3; break;
-            case 3: CData = player._CapacityDataUltimate; break;
-        }
+            DataEntity player = currentTurnOrder[0];
+            CapacityData CData = null;
 
-        if (CData == null)
-        {
-            Debug.LogWarning($"ResetListener: CData est null pour index {index}");
-            return;
-        }
+            switch (index)
+            {
+                case 0: CData = player._CapacityData1; break;
+                case 1: CData = player._CapacityData2; break;
+                case 2: CData = player._CapacityData3; break;
+                case 3: CData = player._CapacityDataUltimate; break;
+            }
 
-        List<CapacityData> AllCDataLevels = new List<CapacityData>() {
+            if (CData == null)
+            {
+                Debug.LogWarning($"ResetListener: CData est null pour index {index}");
+                return;
+            }
+
+            List<CapacityData> AllCDataLevels = new List<CapacityData>() {
             CData,
             GetCycledCapacity(CData),
             GetCycledCapacity(GetCycledCapacity(CData))
         };
 
-        bool CoolDown = false;
-        foreach (CapacityData C in AllCDataLevels)
-        {
-            if (IsCapacityOnCooldown(player, C)) CoolDown = true;
-        }
+            bool CoolDown = false;
+            foreach (CapacityData C in AllCDataLevels)
+            {
+                if (IsCapacityOnCooldown(player, C)) CoolDown = true;
+            }
 
-        if (currentSelectedButton == button && currentSelectedButton != null && !CoolDown)
-        {
-            StopAllCoroutines();
-            UseCapacity(CData);
+            if (currentSelectedButton == button && currentSelectedButton != null && !CoolDown)
+            {
+                StopAllCoroutines();
+                UseCapacity(CData);
+            }
         }
     }
     public void UpgradeCpt(int i, GameObject button = null)
