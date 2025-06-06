@@ -726,11 +726,6 @@ public class CombatManager : MonoBehaviour
             GiveBuff(capacity, target, UltGarde);
             EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex,capacity, target);
         }
-        if (capacity.buffType2 > 0)
-        {
-            GiveBuff(capacity, target, UltGarde);
-            EffectsManager.SINGLETON.AfficherPictoBuff(visualIndex, capacity, target);
-        }
         if (capacity.ShieldRatioAtk > 0)
         {
             int Shielding = Mathf.RoundToInt(((float)capacity.ShieldRatioAtk / 100) * DamageDone);
