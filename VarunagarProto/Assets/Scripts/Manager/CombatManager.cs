@@ -1581,6 +1581,7 @@ public class CombatManager : MonoBehaviour
                     ? entityHandler.players.IndexOf(target)
                     : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target); float calculatedDamage = (caster.UnitSpeed - 20) / 2;
                 float calculatedDamage = (caster.UnitSpeed) / 1.5f;
+                float calculatedDamage = (caster.UnitSpeed) / 1.5f;
                 if (enemyHasShield) calculatedDamage = calculatedDamage * 150 / 100;
                 int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
                 StartCoroutine(EffectsManager.SINGLETON.AfficherAttaqueFoudre(target.ShockMark, visualIndex, target, icalculatedDamage));
