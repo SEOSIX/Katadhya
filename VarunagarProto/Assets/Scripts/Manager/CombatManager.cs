@@ -113,12 +113,6 @@ public class CombatManager : MonoBehaviour
             return;
         }
         SINGLETON = this;
-    }
-
-    
-    [ContextMenu("pipi")]
-    void Start()
-    {
         if (entityHandler.players[0].hasBeenInitialized == false)
         {
             ReseterData.ResetPlayersComplete(entityHandler, entiityManager);
@@ -142,6 +136,12 @@ public class CombatManager : MonoBehaviour
         }
         Debug.LogWarning("Skibidi avant l'initialisation");
         ReseterData.ResetPlayersBeforeCombat(entityHandler, entiityManager);
+    }
+
+    
+    [ContextMenu("pipi")]
+    void Start()
+    {
         currentTurnOrder = GetUnitTurn();
         StartCoroutine(StartUnitTurnRoutine(0f));
         CombatManager.SINGLETON.EndGameOver.SetActive(false);
@@ -282,14 +282,12 @@ public class CombatManager : MonoBehaviour
         }
         caster.beenHurtThisTurn = false;
         RecalculateStats(caster);
-        Debug.Log($"skibidi {caster.namE} turn");
         StartCoroutine(StartUnitTurnRoutine());
         RecalculateStats(caster);
     }
     
     private IEnumerator StartUnitTurnRoutine(float delay = 0f)
     {
-        Debug.Log($"[Tour] Début du tour (Routine) pour {currentTurnOrder[0].namE} (HP: {currentTurnOrder[0].UnitLife})");
         PlayerPanelBlocker.SetActive(true);
         yield return new WaitForSeconds(delay);
         PlayerPanelBlocker.SetActive(false);
@@ -313,7 +311,6 @@ public class CombatManager : MonoBehaviour
             EndUnitTurn();
             yield break;
         }
-        Debug.Log($"skibidi enemy turn");
         DetectEnnemyTurn();
     
         if (entityHandler.ennemies.Contains(current))
@@ -452,6 +449,7 @@ public class CombatManager : MonoBehaviour
             {
                 pool = entityHandler.ennemies;
             }
+            if (capacity.name[4] == 'd') caster.ChargePower -= caster.UltChargePowerCost;
             foreach (var target in pool)
             {
                 if (target.UnitLife > 0)
@@ -484,7 +482,7 @@ public class CombatManager : MonoBehaviour
             {
                 pool = entityHandler.players;
             }
-
+            if (capacity.name[4] == 'd') caster.ChargePower -= caster.UltChargePowerCost;
             foreach (var target in pool)
             {
                 if (target.UnitLife > 0)
@@ -517,7 +515,7 @@ public class CombatManager : MonoBehaviour
             {
                 pool = entityHandler.ennemies;
             }
-
+            if (capacity.name[4] == 'd') caster.ChargePower -= caster.UltChargePowerCost;
             foreach (var target in pool)
             {
                 if (target.UnitLife > 0)
@@ -621,7 +619,7 @@ public class CombatManager : MonoBehaviour
         if (capacity.specialType != SpecialCapacityType.None)
         {
             ApplySpecialCapacity(capacity, caster, target);
-            caster.ChargePower -= chargeCost;
+            if (capacity.name[4] != 'd') caster.ChargePower -= chargeCost;
         }
         else
         {
@@ -636,14 +634,13 @@ public class CombatManager : MonoBehaviour
                 caster.ChargePower -= chargeCost;
             }
         }
-
         if (capacity.cooldown > 0)
         {
             bool alreadyInCooldown = caster.ActiveCooldowns.Exists(cd => cd.capacity == capacity);
 
             if (!alreadyInCooldown)
             {
-                caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown+1));
+                caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown));
                 Debug.Log($"[Cooldown] Ajouté à {caster.name} pour capacité {capacity.name}, durée {capacity.cooldown}");
             }
         }
@@ -803,17 +800,17 @@ public class CombatManager : MonoBehaviour
             case SpecialCapacityType.UltMoine:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
                 ApplyNormalCapacity(capacity, caster, target, 2 * caster.CptUltlvl);
-                Debug.Log($"skibidi ult{caster.CptUltlvl}");
+                Debug.Log($"skibidi garde {caster.ChargePower}");
                 break;
             case SpecialCapacityType.UltPriso:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
                 ApplyNormalCapacity(capacity, caster, target, 0, 2*caster.CptUltlvl);
-                Debug.Log($"skibidi ult{caster.CptUltlvl}");
+                Debug.Log($"skibidi garde {caster.ChargePower}");
                 break;
             case SpecialCapacityType.UltGarde:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
                 ApplyNormalCapacity(capacity, caster, target, 0, 0, 0.05f*caster.CptUltlvl);
-                Debug.Log($"skibidi ult{caster.CptUltlvl}");
+                Debug.Log($"skibidi garde {caster.ChargePower}");
                 break;
 
             default:
@@ -967,7 +964,12 @@ public class CombatManager : MonoBehaviour
     #region PowerCharge
     public void ChargePower(DataEntity player,int amount)
     {
+        Debug.Log($"Player : {player.namE}");
+        Debug.Log($"Player ChargePower : {player.ChargePower}");
+        Debug.Log($"ChargePower : {amount}");
         player.ChargePower = Mathf.Clamp(player.ChargePower + amount, 0, 10);
+        Debug.Log($"ChargePower after : {player.ChargePower}");
+
     }
     public string CycleCapacityName(string currentName, int maxLevel = 2)
     {
