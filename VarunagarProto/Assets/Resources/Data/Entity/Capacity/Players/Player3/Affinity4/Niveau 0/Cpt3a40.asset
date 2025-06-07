@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Cpt3a40
   m_EditorClassIdentifier: 
   atk: 0
-  heal: 16
+  heal: 18
   critique: 5
-  "pr\xE9cision": 98
+  "pr\xE9cision": 100
   cooldown: 1
   chargeUlti: 25
   MultipleHeal: 0
@@ -28,6 +28,7 @@ MonoBehaviour:
   buffType: 1
   buffValue: 1.3
   buffDuration: 1
+  ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 0
   Shock: 0
@@ -41,7 +42,7 @@ MonoBehaviour:
   specialDelay: 1
   Name: Soin
   Description: "Soigne un alli\xE9."
-  AffinityDescription: Augmente l'attaque
+  AffinityDescription: Donne un bonus d'attaque
   PictoType: 1
   TargetType: 2
   ValueAI: 0
