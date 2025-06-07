@@ -1579,8 +1579,7 @@ public class CombatManager : MonoBehaviour
             {
                 int visualIndex = entityHandler.players.Contains(target)
                     ? entityHandler.players.IndexOf(target)
-                    : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target); float calculatedDamage = (caster.UnitSpeed - 20) / 2;
-                float calculatedDamage = (caster.UnitSpeed) / 1.5f;
+                    : entityHandler.players.Count + entityHandler.ennemies.IndexOf(target); 
                 float calculatedDamage = (caster.UnitSpeed) / 1.5f;
                 if (enemyHasShield) calculatedDamage = calculatedDamage * 150 / 100;
                 int icalculatedDamage = Mathf.RoundToInt(calculatedDamage);
