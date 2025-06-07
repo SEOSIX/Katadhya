@@ -32,7 +32,7 @@ public class AffinityPriceDisplay : MonoBehaviour
         else
         {
             priceTexts[index].text = cost.ToString();
-            priceTexts[index].color = (cauris >= cost) ? Color.white : Color.red;
+            priceTexts[index].color = (cauris >= cost) ? Color.black : Color.red;
         }
     }
 

@@ -31,7 +31,7 @@ public class AffinityButton : MonoBehaviour
         if (level >= 9)
         {
             priceText.text = "";
-            priceText.color = Color.yellow;
+            priceText.color = Color.grey;
         }
         else
         {

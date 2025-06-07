@@ -10,6 +10,7 @@ public class AutelQTEUpgrade : MonoBehaviour
 
     [Header("Data")]
     public GlobalPlayerData playerData;
+    public EntityHandler entityHandler;
 
     [Header("UI Elements")]
     public Image imageDisplay;
@@ -36,7 +37,7 @@ public class AutelQTEUpgrade : MonoBehaviour
     [HideInInspector]public DataEntity currentEntity;
     private Animator currentAnimator;
 
-    private Color caurisDefaultColor = Color.white;
+    private Color caurisDefaultColor = Color.black;
 
     void Awake()
     {
@@ -157,7 +158,7 @@ public class AutelQTEUpgrade : MonoBehaviour
             total += levels[i];
 
         bool reachedMaxTotal = total >= 10;
-        Color targetColor = reachedMaxTotal ? new Color(1f, 0.84f, 0f) : Color.white;
+        Color targetColor = reachedMaxTotal ? new Color(1f, 0.84f, 0f) : Color.black;
 
         for (int i = 0; i < affinityTexts.Length; i++)
         {
