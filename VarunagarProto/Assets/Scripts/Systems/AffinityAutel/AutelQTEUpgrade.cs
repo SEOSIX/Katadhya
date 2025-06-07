@@ -25,6 +25,8 @@ public class AutelQTEUpgrade : MonoBehaviour
     public TextMeshProUGUI[] DescriptionAfter = new TextMeshProUGUI[4];
     public List<ListOfDescriptions> DescriptionsBase = new List<ListOfDescriptions>(4);
     public List<ListOfDescriptions> DescriptionsUpgrade = new List<ListOfDescriptions>(4);
+    public TextMeshProUGUI bio;
+    public TextMeshProUGUI UltLvl;
 
 
 
@@ -94,6 +96,7 @@ public class AutelQTEUpgrade : MonoBehaviour
             UpdateAffText(i);
         }
         UpdateAffinityTexts(entity);
+        UpdateBottom();
     }
 
     private void ResetSelection()
@@ -129,6 +132,7 @@ public class AutelQTEUpgrade : MonoBehaviour
         IncrementAffinity(affinityIndex);
         UpdateAffinityTexts(currentEntity);
         UpdateAffText(affinityIndex);
+        UpdateBottom();
     }
     public void UpdateAffText(int i)
     {
@@ -230,6 +234,18 @@ public class AutelQTEUpgrade : MonoBehaviour
         }
     }
 
+    public void UpdateBottom()
+    {
+        currentEntity.CptUltlvl = currentEntity.UltLvl_1 + currentEntity.UltLvl_2 + currentEntity.UltLvl_3 + currentEntity.UltLvl_4;
+        UltLvl.text = $"Niv {currentEntity.CptUltlvl}";
+        if(isSelectedGard) bio.text = $"Buff de défense augmenté de {currentEntity.CptUltlvl *5}%";
+        if (isSelectedMonk) bio.text = $"Soin augmenté de {currentEntity.CptUltlvl * 2}";
+        if (isSelectedPriso) bio.text = $"Attaque augmentée de {currentEntity.CptUltlvl * 2}";
+
+
+
+    }
+
     private void UpdateZones()
     {
         if (currentEntity == null) return;
@@ -244,6 +260,7 @@ public class AutelQTEUpgrade : MonoBehaviour
             } 
         }
     }
+
 
     public void NotEnoughCaurisFeedback(int affinityIndex)
     {
