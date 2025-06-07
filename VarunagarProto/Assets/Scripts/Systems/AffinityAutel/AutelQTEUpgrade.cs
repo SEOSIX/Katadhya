@@ -146,7 +146,7 @@ public class AutelQTEUpgrade : MonoBehaviour
         };
         DescriptionBefore[i].text = descriptionBefore;
 
-        if (value + 1 < 5)
+        if (value + 1 < 4)
         {
             LevelAfter[i].text = $"{value+1}";
             string descriptionAfter = "";

@@ -64,6 +64,7 @@ public class AutelStats : MonoBehaviour
     private DataEntity currentEntity;
     private Animator currentAnimator;
     private Coroutine blinkCoroutine;
+    public GameObject VitessePanel;
     
     private readonly Color goldColor = new Color(1f, 0.84f, 0f);
     private Dictionary<DataEntity, EntityUpgradeData> entityPrices = new Dictionary<DataEntity, EntityUpgradeData>();
@@ -268,6 +269,15 @@ public class AutelStats : MonoBehaviour
         {
             tooltipPanel.SetActive(false);
             return;
+        }
+
+        if(index == 2)
+        {
+            VitessePanel.SetActive(true);
+        }
+        else
+        {
+            VitessePanel.SetActive(false);
         }
 
         string statName = GetStatName(index);
