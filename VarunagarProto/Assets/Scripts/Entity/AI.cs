@@ -158,7 +158,7 @@ public class AI : MonoBehaviour
 
     private void PostAttackProcessing(DataEntity attacker)
     {
-        CombatManager.SINGLETON.DecrementBuffDurations(attacker);
+        //CombatManager.SINGLETON.DecrementBuffDurations(attacker);
 
         if (!attacker.beenHurtThisTurn && attacker.RageTick > 0)
         {
@@ -172,7 +172,7 @@ public class AI : MonoBehaviour
             CombatManager.SINGLETON.TickNecrosisEffect(attacker);
         }
 
-        CombatManager.SINGLETON.RecalculateStats(attacker);
+        //CombatManager.SINGLETON.RecalculateStats(attacker);
     }
 
     private void ToggleTargetIndicator(DataEntity target)
