@@ -23,7 +23,6 @@ public class CapacityData : ScriptableObject
     [SerializeField] public int critique;
     [SerializeField] public int précision;
     [SerializeField] public int cooldown;
-    [SerializeField] public int chargeUlti;
 
     [Header("Cpt Effect")]
     [SerializeField] public bool MultipleHeal;

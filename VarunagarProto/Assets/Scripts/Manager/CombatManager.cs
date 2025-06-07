@@ -387,61 +387,63 @@ public class CombatManager : MonoBehaviour
     public void UseCapacity(CapacityData cpt)
     {
         DataEntity player = currentTurnOrder[0];
-        Debug.Log( cpt.name);
         char CptType = cpt.name[4];
-        if(CptType == 'd')
-        {
-            int CptChargeCost = player.UltChargePowerCost;
-            if (player.ChargePower >= CptChargeCost)
-            {
-                player.ChargePower -= CptChargeCost;
+        int CptChargeCost = (CptType == 'd') ? player.UltChargePowerCost : GetChargeCostFromLevel(cpt.name[6] - '0');
 
-                StartCoroutine(StartTargetSelectionMode(cpt));
-            }
-            else
-            {
-                Debug.Log("Pas assez de charge pour Ult");
-            }
+        if (player.ChargePower >= CptChargeCost)
+        {
+            StartCoroutine(StartTargetSelectionMode(cpt));
         }
         else
         {
-            int CptLevel = cpt.name[6] - '0';
-            int CptChargeCost = 0;
-            switch (CptLevel)
-            {
-                case 0: CptChargeCost = 0; break;
-                case 1: CptChargeCost = 2; break;
-                case 2: CptChargeCost = 3; break;
-            }
-            if (player.ChargePower >= CptChargeCost)
-            {
-                player.ChargePower -= CptChargeCost;
-
-                StartCoroutine(StartTargetSelectionMode(cpt));
-            }
-            else Debug.Log("pas assez charge");
+            Debug.Log("Pas assez de charge pour utiliser cette compétence.");
         }
-
     }
+
     #region Selection
     public IEnumerator StartTargetSelectionMode(CapacityData capacity)
     {
         ClickedAnEnemy = false;
         ClickedAPlayer = false;
-        List<SpecialCapacityType> TypesExclude = new List<SpecialCapacityType> () { SpecialCapacityType.UltMoine, SpecialCapacityType.UltPriso, SpecialCapacityType.UltGarde };
-        DataEntity caster = currentTurnOrder[0]; 
+        List<SpecialCapacityType> TypesExclude = new List<SpecialCapacityType>() { SpecialCapacityType.UltMoine, SpecialCapacityType.UltPriso, SpecialCapacityType.UltGarde };
+        DataEntity caster = currentTurnOrder[0];
         HideTargetIndicators();
         GlobalVars.currentSelectedCapacity = capacity;
+        int chargeCost = 0;
+
+        if (capacity.name[4] == 'd') // Ultime
+        {
+            chargeCost = caster.UltChargePowerCost;
+        }
+        else
+        {
+            int level = capacity.name[6] - '0';
+            switch (level)
+            {
+                case 1: chargeCost = 2; break;
+                case 2: chargeCost = 3; break;
+                default: chargeCost = 0; break;
+            }
+        }
+
+        if (caster.ChargePower < chargeCost)
+        {
+            Debug.Log("Pas assez de charge pour utiliser cette capacité.");
+            yield break;
+        }
         if (capacity.MultipleHeal)
         {
             ShowTargetIndicators(capacity);
             List<DataEntity> pool = null;
+
+            // Attendre un clic sur un allié ou si capacité exclue
             while (!ClickedAPlayer && !TypesExclude.Contains(capacity.specialType))
             {
                 yield return null;
-
             }
-            if (entityHandler.players.Contains(currentPlayer))
+
+            // Utiliser caster pour déterminer le pool allié
+            if (entityHandler.players.Contains(caster))
             {
                 pool = entityHandler.players;
             }
@@ -449,7 +451,6 @@ public class CombatManager : MonoBehaviour
             {
                 pool = entityHandler.ennemies;
             }
-
             foreach (var target in pool)
             {
                 if (target.UnitLife > 0)
@@ -466,12 +467,15 @@ public class CombatManager : MonoBehaviour
         {
             ShowTargetIndicators(capacity);
             List<DataEntity> pool = null;
+
+            // Attendre un clic sur un ennemi ou si capacité exclue
             while (!ClickedAnEnemy && !TypesExclude.Contains(capacity.specialType))
             {
                 yield return null;
-
             }
-            if (entityHandler.players.Contains(currentPlayer))
+
+            // Utiliser caster pour déterminer le pool ennemi
+            if (entityHandler.players.Contains(caster))
             {
                 pool = entityHandler.ennemies;
             }
@@ -479,6 +483,7 @@ public class CombatManager : MonoBehaviour
             {
                 pool = entityHandler.players;
             }
+
             foreach (var target in pool)
             {
                 if (target.UnitLife > 0)
@@ -495,12 +500,15 @@ public class CombatManager : MonoBehaviour
         {
             ShowTargetIndicators(capacity);
             List<DataEntity> pool = null;
+
+            // Attendre un clic sur un allié ou si capacité exclue
             while (!ClickedAPlayer && !TypesExclude.Contains(capacity.specialType))
             {
                 yield return null;
-
             }
-            if (entityHandler.players.Contains(currentPlayer))
+
+            // Utiliser caster pour déterminer le pool allié
+            if (entityHandler.players.Contains(caster))
             {
                 pool = entityHandler.players;
             }
@@ -508,6 +516,7 @@ public class CombatManager : MonoBehaviour
             {
                 pool = entityHandler.ennemies;
             }
+
             foreach (var target in pool)
             {
                 if (target.UnitLife > 0)
@@ -524,8 +533,18 @@ public class CombatManager : MonoBehaviour
         {
             ShowTargetIndicators(capacity);
         }
-        
+
         RecalculateStats(caster);
+    }
+
+    private List<DataEntity> GetTargetPool(CapacityData capacity)
+    {
+        bool targetingAllies = capacity.MultipleHeal || capacity.MultipleBuff;
+
+        if (targetingAllies)
+            return entityHandler.players.Contains(currentPlayer) ? entityHandler.players : entityHandler.ennemies;
+        else
+            return entityHandler.players.Contains(currentPlayer) ? entityHandler.ennemies : entityHandler.players;
     }
 
     public void SelectEnemy(int enemyIndex)
@@ -582,20 +601,38 @@ public class CombatManager : MonoBehaviour
             yield return new WaitForSeconds(0f);
             anim.SetTrigger("Attack");
         }
+        int chargeCost = 0;
 
+        if (capacity.name[4] == 'd') // Ultime
+        {
+            chargeCost = caster.UltChargePowerCost;
+        }
+        else
+        {
+            int level = capacity.name[6] - '0';
+            switch (level)
+            {
+                case 1: chargeCost = 2; break;
+                case 2: chargeCost = 3; break;
+                default: chargeCost = 0; break;
+            }
+        }
         if (capacity.specialType != SpecialCapacityType.None)
         {
             ApplySpecialCapacity(capacity, caster, target);
+            caster.ChargePower -= chargeCost;
         }
         else
         {
             if (capacity.DoubleEffect && entityHandler.ennemies.Contains(target))
             {
                 ApplySecondaryCapacity(capacity, caster, target);
+                caster.ChargePower -= chargeCost;
             }
             else
             {
                 ApplyNormalCapacity(capacity, caster, target);
+                caster.ChargePower -= chargeCost;
             }
         }
 
@@ -929,7 +966,7 @@ public class CombatManager : MonoBehaviour
     #region PowerCharge
     public void ChargePower(DataEntity player,int amount)
     {
-        player.ChargePower = Mathf.Clamp(player.ChargePower + amount, 0, 10); ;
+        player.ChargePower = Mathf.Clamp(player.ChargePower + amount, 0, 10);
     }
     public string CycleCapacityName(string currentName, int maxLevel = 2)
     {
@@ -998,7 +1035,18 @@ public class CombatManager : MonoBehaviour
 
         return newCapacity;
     }
-
+    private int GetChargeCostFromLevel(int level)
+    {
+        switch (level)
+        {
+            case 0: return 0;
+            case 1: return 2;
+            case 2: return 3;
+            default:
+                Debug.LogWarning($"[CombatManager] Niveau de capacité inconnu : {level}, retour de 0.");
+                return 0;
+        }
+    }
     public void ResetAllCapacities()
     {
         DataEntity player = currentTurnOrder[0];
@@ -1051,7 +1099,8 @@ public class CombatManager : MonoBehaviour
             {
                 if (IsCapacityOnCooldown(player, C)) CoolDown = true;
             }
-
+            Debug.Log($"[ResetListener] CData : {CData.name}, Button : {button}, CurrentSelected : {currentSelectedButton}");
+            Debug.Log($"[ResetListener] Cooldown status : {CoolDown}");
             if (currentSelectedButton == button && currentSelectedButton != null && !CoolDown)
             {
                 StopAllCoroutines();
