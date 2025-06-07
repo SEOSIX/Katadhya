@@ -15,7 +15,7 @@ MonoBehaviour:
   atk: 27
   heal: 0
   critique: 7
-  "pr\xE9cision": 97
+  "pr\xE9cision": 100
   cooldown: 0
   chargeUlti: 25
   MultipleHeal: 0
@@ -23,12 +23,14 @@ MonoBehaviour:
   MultipleBuff: 0
   TargetingAlly: 0
   Provocation: 0
+  ProvocationDuration: 0
   BuffFromAffinity: 0
   buffType: 0
   buffValue: 0
   buffDuration: 0
+  ChargePowerGiven: 0
   Shield: 0
-  ShieldRatioAtk: 30
+  ShieldRatioAtk: 50
   Shock: 0
   Necrosis: 0
   secondaryAtk: 0

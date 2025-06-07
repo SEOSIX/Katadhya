@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
   m_Name: cpt8c00
   m_EditorClassIdentifier: 
-  atk: 25
+  atk: 30
   heal: 0
   critique: 5
   "pr\xE9cision": 90
@@ -28,6 +28,7 @@ MonoBehaviour:
   buffType: 0
   buffValue: 0
   buffDuration: 0
+  ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 0
   Shock: 0
