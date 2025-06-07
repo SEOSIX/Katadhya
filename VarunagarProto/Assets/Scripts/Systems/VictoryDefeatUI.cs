@@ -56,7 +56,7 @@ public class VictoryDefeatUI : MonoBehaviour
             btn.interactable = false;
 
         resultText.text = playerWon ? "VICTOIRE" : "DÉFAITE";
-        resultText.color = playerWon ? Color.yellow : Color.red;
+        resultText.color = playerWon ? Color.white : Color.red;
             if (!IsTheEnd)
             {
                 for (int i = 0; i < 4; i++)

@@ -27,7 +27,7 @@ public class AffinityPriceDisplay : MonoBehaviour
         if (level >= 9)
         {
             priceTexts[index].text = "";
-            priceTexts[index].color = Color.yellow;
+            priceTexts[index].color = Color.grey;
         }
         else
         {
