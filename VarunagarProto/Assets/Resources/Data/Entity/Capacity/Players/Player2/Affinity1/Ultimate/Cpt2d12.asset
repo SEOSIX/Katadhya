@@ -28,7 +28,7 @@ MonoBehaviour:
   buffType: 2
   buffValue: 1.2
   buffDuration: 1
-  ChargePowerGiven: 0
+  ChargePowerGiven: 1
   Shield: 15
   ShieldRatioAtk: 0
   Shock: 0
@@ -41,7 +41,8 @@ MonoBehaviour:
   specialType: 4
   specialDelay: 1
   Name: Protection
-  Description: "augmente la d\xE9fence des alli\xE9s pour 1 tour"
+  Description: "Augmente la d\xE9fense de l'\xE9quipe. Donne 1 point de pouvoir \xE0
+    toute l'\xE9quipe"
   AffinityDescription: 
   PictoType: 0
   TargetType: 3

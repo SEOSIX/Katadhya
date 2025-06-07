@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cpt3a12
   m_EditorClassIdentifier: 
   atk: 0
-  heal: 19
+  heal: 21
   critique: 5
   "pr\xE9cision": 100
   cooldown: 1
@@ -28,7 +28,8 @@ MonoBehaviour:
   buffType: 0
   buffValue: 0
   buffDuration: 0
-  Shield: 8
+  ChargePowerGiven: 2
+  Shield: 20
   ShieldRatioAtk: 0
   Shock: 0
   Necrosis: 0
@@ -40,7 +41,7 @@ MonoBehaviour:
   specialType: 0
   specialDelay: 1
   Name: Soin
-  Description: "Soigne un alli\xE9."
+  Description: "Soigne un alli\xE9. Donne 2 points de pouvoir \xE0 la cible. "
   AffinityDescription: Ajoute du bouclier
   PictoType: 1
   TargetType: 2

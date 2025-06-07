@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atk: 30
   heal: 0
-  critique: 50
+  critique: 80
   "pr\xE9cision": 100
   cooldown: 2
   chargeUlti: 62
@@ -28,6 +28,7 @@ MonoBehaviour:
   buffType: 0
   buffValue: 0
   buffDuration: 0
+  ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 0
   Shock: 2

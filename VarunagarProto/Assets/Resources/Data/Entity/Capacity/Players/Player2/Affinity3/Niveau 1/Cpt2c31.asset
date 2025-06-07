@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cpt2c31
   m_EditorClassIdentifier: 
   atk: 0
-  heal: 0
+  heal: 15
   critique: 0
   "pr\xE9cision": 100
   cooldown: 2
@@ -28,6 +28,7 @@ MonoBehaviour:
   buffType: 0
   buffValue: 0
   buffDuration: 0
+  ChargePowerGiven: 2
   Shield: 0
   ShieldRatioAtk: 0
   Shock: 0
@@ -40,7 +41,8 @@ MonoBehaviour:
   specialType: 0
   specialDelay: 1
   Name: 'Provocation '
-  Description: "Force les ennemis \xE0 attaquer l'alli\xE9 cibl\xE9"
+  Description: "Force les ennemis \xE0 attaquer l'alli\xE9 cibl\xE9. Donne 2 points
+    de pouvoir \xE0 la cible"
   AffinityDescription: 'Soigne la cible '
   PictoType: 0
   TargetType: 2

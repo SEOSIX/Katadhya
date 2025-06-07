@@ -26,8 +26,9 @@ MonoBehaviour:
   ProvocationDuration: 2
   BuffFromAffinity: 1
   buffType: 3
-  buffValue: 1.2
+  buffValue: 1.3
   buffDuration: 1
+  ChargePowerGiven: 2
   Shield: 0
   ShieldRatioAtk: 0
   Shock: 0
@@ -40,7 +41,8 @@ MonoBehaviour:
   specialType: 0
   specialDelay: 1
   Name: 'Provocation '
-  Description: "Force les ennemis \xE0 attaquer l'alli\xE9 cibl\xE9"
+  Description: "Force les ennemis \xE0 attaquer l'alli\xE9 cibl\xE9. Donne 2 points
+    de pouvoir \xE0 la cible"
   AffinityDescription: Donne un bonus de vitesse
   PictoType: 0
   TargetType: 2

@@ -28,6 +28,7 @@ MonoBehaviour:
   buffType: 4
   buffValue: 0
   buffDuration: 1
+  ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 0
   Shock: 0
@@ -40,8 +41,7 @@ MonoBehaviour:
   specialType: 0
   specialDelay: 1
   Name: Eblouissement
-  Description: "Inflige des d\xE9gats et a 3/4 de faire rater la prochaine attaque
-    de l'ennemi"
+  Description: "Inflige des d\xE9gats.  A 3/4 de toucher l'ennemis."
   AffinityDescription: "Applique de la n\xE9crose"
   PictoType: 0
   TargetType: 0

@@ -15,7 +15,7 @@ MonoBehaviour:
   atk: 0
   heal: 21
   critique: 5
-  "pr\xE9cision": 98
+  "pr\xE9cision": 100
   cooldown: 1
   chargeUlti: 25
   MultipleHeal: 0
@@ -28,6 +28,7 @@ MonoBehaviour:
   buffType: 0
   buffValue: 0
   buffDuration: 0
+  ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 0
   Shock: 0
@@ -41,7 +42,7 @@ MonoBehaviour:
   specialDelay: 1
   Name: Soin
   Description: "Soigne un alli\xE9."
-  AffinityDescription: Soigne encore plus
+  AffinityDescription: 'Augmente le soin. '
   PictoType: 1
   TargetType: 2
   ValueAI: 0

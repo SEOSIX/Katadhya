@@ -15,7 +15,7 @@ MonoBehaviour:
   atk: 15
   heal: 0
   critique: 5
-  "pr\xE9cision": 100
+  "pr\xE9cision": 95
   cooldown: 1
   chargeUlti: 27
   MultipleHeal: 0
@@ -28,6 +28,7 @@ MonoBehaviour:
   buffType: 1
   buffValue: 0.8
   buffDuration: 1
+  ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 0
   Shock: 1

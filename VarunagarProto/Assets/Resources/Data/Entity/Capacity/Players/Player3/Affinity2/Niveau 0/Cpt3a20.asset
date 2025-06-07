@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Cpt3a20
   m_EditorClassIdentifier: 
   atk: 0
-  heal: 16
+  heal: 18
   critique: 5
-  "pr\xE9cision": 98
+  "pr\xE9cision": 100
   cooldown: 1
   chargeUlti: 25
   MultipleHeal: 0
@@ -28,6 +28,7 @@ MonoBehaviour:
   buffType: 3
   buffValue: 1.25
   buffDuration: 2
+  ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 0
   Shock: 0

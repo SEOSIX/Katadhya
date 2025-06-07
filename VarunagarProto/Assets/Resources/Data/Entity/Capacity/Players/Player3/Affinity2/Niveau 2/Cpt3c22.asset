@@ -15,7 +15,7 @@ MonoBehaviour:
   atk: 18
   heal: 0
   critique: 5
-  "pr\xE9cision": 90
+  "pr\xE9cision": 100
   cooldown: 1
   chargeUlti: 25
   MultipleHeal: 0
@@ -23,13 +23,15 @@ MonoBehaviour:
   MultipleBuff: 0
   TargetingAlly: 0
   Provocation: 0
+  ProvocationDuration: 0
   BuffFromAffinity: 0
   buffType: 2
   buffValue: 0.6
   buffDuration: 1
+  ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 0
-  Shock: 1
+  Shock: 2
   Necrosis: 0
   secondaryAtk: 0
   secondaryHeal: 0
@@ -41,7 +43,7 @@ MonoBehaviour:
   Name: "Mal\xE9diction"
   Description: "Inflige des d\xE9g\xE2ts et r\xE9duit la r\xE9sistance de l'ennemi
     pour 1 tour"
-  AffinityDescription: 
+  AffinityDescription: Applique du choc
   PictoType: 0
   TargetType: 0
   ValueAI: 0
