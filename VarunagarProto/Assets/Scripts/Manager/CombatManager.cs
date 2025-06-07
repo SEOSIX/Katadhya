@@ -224,6 +224,8 @@ public class CombatManager : MonoBehaviour
         HideTargetIndicators();
 
         DataEntity currentCombatData = currentTurnOrder[0];
+        DecrementBuffDurations(currentCombatData);
+        DecrementCooldowns(currentCombatData);
         currentTurnOrder.RemoveAt(0);
         unitPlayedThisTurn.Add(currentCombatData);
 
@@ -259,8 +261,6 @@ public class CombatManager : MonoBehaviour
         DataEntity caster = currentTurnOrder[0];
         Debug.Log($"[Tour] Début du tour pour {currentTurnOrder[0].namE} (HP: {currentTurnOrder[0].UnitLife})");
         ChargePower(caster, 2);
-        DecrementBuffDurations(caster);
-        DecrementCooldowns(caster);
         if (caster.beenHurtThisTurn == false && caster.RageTick > 0)
         {
             caster.RageTick -= 1;
@@ -284,6 +284,7 @@ public class CombatManager : MonoBehaviour
         RecalculateStats(caster);
         Debug.Log($"skibidi {caster.namE} turn");
         StartCoroutine(StartUnitTurnRoutine());
+        RecalculateStats(caster);
     }
     
     private IEnumerator StartUnitTurnRoutine(float delay = 0f)
