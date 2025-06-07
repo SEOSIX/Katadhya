@@ -140,11 +140,13 @@ public class AutelQTEUpgrade : MonoBehaviour
             0 => DescriptionsBase[i].Level1,
             1 => DescriptionsBase[i].Level2,
             2 => DescriptionsBase[i].Level3,
+            3 => DescriptionsBase[i].Level4,
+
             _ => ""
         };
         DescriptionBefore[i].text = descriptionBefore;
 
-        if (value + 1 < 4)
+        if (value + 1 < 5)
         {
             LevelAfter[i].text = $"{value+1}";
             string descriptionAfter = "";
@@ -153,6 +155,7 @@ public class AutelQTEUpgrade : MonoBehaviour
                 0 => DescriptionsUpgrade[i].Level1,
                 1 => DescriptionsUpgrade[i].Level2,
                 2 => DescriptionsUpgrade[i].Level3,
+                3 => DescriptionsUpgrade[i].Level4,
                 _ => ""
             };
             DescriptionAfter[i].text = descriptionAfter;
@@ -284,4 +287,5 @@ public class ListOfDescriptions
     public string Level1;
     public string Level2;
     public string Level3;
+    public string Level4;
 }

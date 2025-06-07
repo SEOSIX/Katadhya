@@ -2079,18 +2079,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1570314257}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: SpawnObject
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 411159858}
         m_TargetAssemblyTypeName: POI_Loader, Assembly-CSharp
         m_MethodName: OnButtonPress
@@ -6646,28 +6634,36 @@ MonoBehaviour:
   - Level1: 
     Level2: 
     Level3: 
+    Level4: 
   - Level1: 
     Level2: 
     Level3: 
+    Level4: 
   - Level1: 
     Level2: 
     Level3: 
-  - Level1: 
-    Level2: 
-    Level3: 
+    Level4: 
+  - Level1: 0
+    Level2: 1
+    Level3: 2
+    Level4: 3
   DescriptionsUpgrade:
   - Level1: 
     Level2: 
     Level3: 
+    Level4: 
   - Level1: 
     Level2: 
     Level3: 
+    Level4: 
   - Level1: 
     Level2: 
     Level3: 
-  - Level1: 
-    Level2: 
-    Level3: 
+    Level4: 
+  - Level1: 1
+    Level2: 2
+    Level3: 3
+    Level4: 4
   ZonesAff1:
   - {fileID: 1592543550}
   - {fileID: 762312743}
