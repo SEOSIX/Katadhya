@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +19,15 @@ public class AutelQTEUpgrade : MonoBehaviour
     public TextMeshProUGUI[] affinityTexts = new TextMeshProUGUI[4];
     public TextMeshProUGUI[] caurisTextsPerAffinity = new TextMeshProUGUI[4];
     public TextMeshProUGUI[] caurisCostTextsPerAffinity = new TextMeshProUGUI[4];
+    public TextMeshProUGUI[] LevelBefore= new TextMeshProUGUI[4];
+    public TextMeshProUGUI[] LevelAfter = new TextMeshProUGUI[4];
+    public TextMeshProUGUI[] DescriptionBefore = new TextMeshProUGUI[4];
+    public TextMeshProUGUI[] DescriptionAfter = new TextMeshProUGUI[4];
+    public List<ListOfDescriptions> DescriptionsBase = new List<ListOfDescriptions>(4);
+    public List<ListOfDescriptions> DescriptionsUpgrade = new List<ListOfDescriptions>(4);
+
+
+
     public GameObject[] ZonesAff1 =new GameObject[3];
     public GameObject[] ZonesAff2 = new GameObject[3];
     public GameObject[] ZonesAff3 = new GameObject[3];
@@ -43,6 +54,7 @@ public class AutelQTEUpgrade : MonoBehaviour
     {
         Instance = this;
         imageDisplay.enabled = false;
+
     }
 
     void Update()
@@ -77,6 +89,10 @@ public class AutelQTEUpgrade : MonoBehaviour
         imageDisplay.sprite = qte.imageToDisplay;
         imageDisplay.enabled = true;
 
+        for (int i = 0; i < 4; i++)
+        {
+            UpdateAffText(i);
+        }
         UpdateAffinityTexts(entity);
     }
 
@@ -112,6 +128,40 @@ public class AutelQTEUpgrade : MonoBehaviour
         }
         IncrementAffinity(affinityIndex);
         UpdateAffinityTexts(currentEntity);
+        UpdateAffText(affinityIndex);
+    }
+    public void UpdateAffText(int i)
+    {
+        int value = GetAffinityLevel(i);
+        LevelBefore[i].text = $"{value}";
+        string descriptionBefore = "";
+        descriptionBefore = value switch
+        {
+            0 => DescriptionsBase[i].Level1,
+            1 => DescriptionsBase[i].Level2,
+            2 => DescriptionsBase[i].Level3,
+            _ => ""
+        };
+        DescriptionBefore[i].text = descriptionBefore;
+
+        if (value + 1 < 4)
+        {
+            LevelAfter[i].text = $"{value+1}";
+            string descriptionAfter = "";
+            descriptionAfter = value switch
+            {
+                0 => DescriptionsUpgrade[i].Level1,
+                1 => DescriptionsUpgrade[i].Level2,
+                2 => DescriptionsUpgrade[i].Level3,
+                _ => ""
+            };
+            DescriptionAfter[i].text = descriptionAfter;
+        }
+        else
+        {
+            LevelAfter[i].text = $"{value}";
+            DescriptionAfter[i].text = "";
+        }
     }
 
     private int GetAffinityLevel(int index)
@@ -226,4 +276,12 @@ public class AutelQTEUpgrade : MonoBehaviour
 
         text.color = startColor;
     }
+}
+
+[System.Serializable]
+public class ListOfDescriptions
+{
+    public string Level1;
+    public string Level2;
+    public string Level3;
 }

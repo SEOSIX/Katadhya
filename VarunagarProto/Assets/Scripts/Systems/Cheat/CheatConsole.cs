@@ -228,8 +228,7 @@ public class CheatConsole : MonoBehaviour
             }
             else
             {
-                player.BaseLife = 100;
-                player.UnitLife = 100;
+                player.UnitLife = player.BaseLife;
             }
         }
 
