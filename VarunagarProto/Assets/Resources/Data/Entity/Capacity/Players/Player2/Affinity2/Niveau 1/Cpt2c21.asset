@@ -17,7 +17,6 @@ MonoBehaviour:
   critique: 0
   "pr\xE9cision": 100
   cooldown: 2
-  chargeUlti: 40
   MultipleHeal: 0
   MultipleAttack: 0
   MultipleBuff: 0
@@ -28,6 +27,9 @@ MonoBehaviour:
   buffType: 3
   buffValue: 1.2
   buffDuration: 1
+  buffType2: 0
+  buffValue2: 0
+  buffDuration2: 0
   ChargePowerGiven: 2
   Shield: 0
   ShieldRatioAtk: 0
@@ -41,8 +43,8 @@ MonoBehaviour:
   specialType: 0
   specialDelay: 1
   Name: 'Provocation '
-  Description: "Force les ennemis \xE0 attaquer l'alli\xE9 cibl\xE9. Donne 2 points
-    de pouvoir \xE0 la cible"
+  Description: "Force les ennemis \xE0 attaquer l'alli\xE9 cibl\xE9 pendant 1 tour.
+    Donne 2 points de pouvoir a la cible."
   AffinityDescription: Donne un bonus de vitesse
   PictoType: 0
   TargetType: 2
