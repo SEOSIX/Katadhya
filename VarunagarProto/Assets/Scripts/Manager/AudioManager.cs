@@ -23,7 +23,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] gameClips = new AudioClip[10];
     public GameObject AudioSources;
     public AudioSource QTERoll;
-    public IEnumerator PlayClip(AudioClip clip, float volume = 0.1f)
+    public IEnumerator PlayClip(AudioClip clip, float volume = 0.2f)
     {
         AudioSource source = AudioSources.AddComponent<AudioSource>();
         source.PlayOneShot(clip,volume);
@@ -58,7 +58,7 @@ public class AudioManager : MonoBehaviour
         {
             yield return new WaitForSeconds(delay);
             AudioClip clip = gameClips[index];
-            source.PlayOneShot(clip, 0.1f);
+            source.PlayOneShot(clip, 0.2f);
             yield return new WaitForSeconds(clip.length);
         }
         Destroy(source);

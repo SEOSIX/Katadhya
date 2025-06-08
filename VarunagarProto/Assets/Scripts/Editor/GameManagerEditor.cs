@@ -16,6 +16,9 @@ public class GameManagerEditor : Editor
     private SerializedProperty objectsToSpawn;
     private SerializedProperty ispressed;
     private SerializedProperty uiCamera;
+    private SerializedProperty NewWavePanel;
+    private SerializedProperty WaveText;
+
 
     private void OnEnable()
     {
@@ -25,6 +28,9 @@ public class GameManagerEditor : Editor
         entityHandler = serializedObject.FindProperty("entityHandler");
         playerPrefabs = serializedObject.FindProperty("playerPrefabs");
         sizeChara = serializedObject.FindProperty("sizeChara");
+        NewWavePanel = serializedObject.FindProperty("NewWavePanel");
+        WaveText = serializedObject.FindProperty("WaveText");
+
 
         enemySpawnPoints = serializedObject.FindProperty("enemySpawnPoints");
         enemyPackIndex = serializedObject.FindProperty("EnemyPackIndex");
@@ -46,6 +52,7 @@ public class GameManagerEditor : Editor
         EditorGUILayout.PropertyField(playerPrefabs, true);
         EditorGUILayout.PropertyField(sizeChara);
 
+
         if (isCombatEnabled.boolValue)
         {
             EditorGUILayout.Space(10);
@@ -53,6 +60,10 @@ public class GameManagerEditor : Editor
             EditorGUILayout.PropertyField(enemySpawnPoints, true);
             EditorGUILayout.PropertyField(enemyPackIndex);
             EditorGUILayout.PropertyField(allEnemiesEncountered, true);
+            EditorGUILayout.PropertyField(NewWavePanel);
+            EditorGUILayout.PropertyField(WaveText);
+
+
         }
 
         if (salleSpeciale.boolValue)

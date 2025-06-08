@@ -47,8 +47,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField] private float sizeChara = 1f;
-    public GameObject combatUI;
-    
+    [SerializeField] public GameObject combatUI;
+    [SerializeField] public GameObject NewWavePanel;
+    [SerializeField] public TextMeshProUGUI WaveText;
     
     public bool ispressed;
 
@@ -84,7 +85,7 @@ public class GameManager : MonoBehaviour
         if (isCombatEnabled)
         {
             ReseterData.ResetPlayersBeforeCombat(entityHandler,CombatManager.SINGLETON.entiityManager);
-            SpawnEnemies();
+            StartCoroutine(SpawnEnemies());
             ReseterData.ResetEnemies(entityHandler);
             CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
             CombatManager.SINGLETON.InitializeStaticUI();
@@ -175,21 +176,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SpawnEnemies()
+    public IEnumerator SpawnEnemies()
     {
         List<EnemyPack> enemyPacks = currentCombat.WaveList;
 
         if (enemyPacks == null || enemyPacks.Count <= EnemyPackIndex || enemyPacks[EnemyPackIndex] == null)
         {
             Debug.Log("Aucun EnemyPack valide à l'index " + EnemyPackIndex);
-            return;
+            yield break;
         }
 
         if (CombatManager.SINGLETON == null)
         {
             Debug.LogWarning("CombatManager.SINGLETON est null.");
-            return;
+            yield break;
         }
+        NewWavePanel.SetActive(true);
+        StartCoroutine(AudioManager.SINGLETON.PlayGameClip(3));
+        WaveText.text = $"{EnemyPackIndex+1}/{currentCombat.WaveList.Count}";
 
         entityHandler.ennemies.Clear();
         var pack = enemyPacks[EnemyPackIndex];
@@ -257,7 +261,7 @@ public class GameManager : MonoBehaviour
         if (CombatManager.SINGLETON.circleParentUI == null || CombatManager.SINGLETON.circlePrefab == null)
         {
             Debug.LogWarning("UI des cercles ennemis manquante.");
-            return;
+            yield break;
         }
 
         for (int i = 0; i < CombatManager.SINGLETON.entityHandler.ennemies.Count; i++)
@@ -292,6 +296,8 @@ public class GameManager : MonoBehaviour
                 enemy.TargetCircle = newCircle.gameObject;
             }
         }
+        yield return new WaitForSeconds(4f);
+        NewWavePanel.SetActive(false);
     }
 
     [SerializeField] private float offsetX = 2000f;

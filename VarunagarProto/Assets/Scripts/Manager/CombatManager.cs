@@ -55,6 +55,8 @@ public class CombatManager : MonoBehaviour
     [Header("Turn Management")]
     public Slider PlayerCharge;
     public Slider PlayerChargePreview;
+    public GameObject[] UltChargeMarkers;
+
 
     public GameObject EndGameOver;
 
@@ -727,10 +729,6 @@ public class CombatManager : MonoBehaviour
                 case 'c':
                     CapacityIndex = 2;
                     break;
-
-                case 'd':
-                    CapacityIndex = 3;
-                    break;
                     
             }
             SoundPackage pack = EffectsManager.SINGLETON.PlayerCptSounds[PlayerIndex];
@@ -1271,6 +1269,18 @@ public class CombatManager : MonoBehaviour
         currentSelectedButton = null;
         List<CapacityData> PCapacities = new List<CapacityData> { player._CapacityData1, player._CapacityData2, player._CapacityData3, player._CapacityDataUltimate };
         Transform EncartAffinity = null;
+        for (int i = 0; i< UltChargeMarkers.Count();i++)
+        {
+            if(i+5 == player.UltChargePowerCost)
+            {
+                UltChargeMarkers[i].SetActive(true);
+            }
+            else
+            {
+                Debug.Log(i + 5);
+                UltChargeMarkers[i].SetActive(false);
+            }
+        }
         if (player.ChargePower >= player.UltChargePowerCost)
         {
             Ultimate.SINGLETON.GainUltimateCharge(100);
