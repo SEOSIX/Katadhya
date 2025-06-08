@@ -1679,6 +1679,7 @@ public class CombatManager : MonoBehaviour
             effect.level = Mathf.Clamp(effect.level + levelToAdd, 1, 5);
             Debug.Log($"[NÉCROSE] Niveau cumulé de {oldLevel} à {effect.level}");
         }
+        StartCoroutine(EffectsManager.SINGLETON.AfficherParticleNécrose(target));
 
         var necrosis = target.necrosis[0];
         Debug.Log($"{target.namE} est maintenant affecté par la nécrose, {necrosis.level} ticks restants");

@@ -103,6 +103,10 @@ public class EffectsManager : MonoBehaviour
         }
         yield return new WaitForSeconds(0.3f);
         if (damage != 0f) AfficherTexteDegats(index, Mathf.RoundToInt(damage), new Color(0.5f,0f,1f), entity);
+    }
+
+    public IEnumerator AfficherParticleNécrose(DataEntity entity)
+    {
         if (entity.NecrosisParticles == null)
         {
             Renderer[] renderers = entity.instance.GetComponentsInChildren<Renderer>();
@@ -113,16 +117,15 @@ public class EffectsManager : MonoBehaviour
         else
         {
             var emission = entity.NecrosisParticles.GetComponent<ParticleSystem>().emission;
-            emission.rateOverTime = new ParticleSystem.MinMaxCurve(entity.necrosis.Count); 
+            emission.rateOverTime = new ParticleSystem.MinMaxCurve(entity.necrosis.Count);
         }
-       
-        while (entity.necrosis.Count > 0 && entity.UnitLife>0 )
+
+        while (entity.necrosis.Count > 0 && entity.UnitLife > 0)
         {
             yield return null;
         }
         Destroy(entity.NecrosisParticles);
         entity.NecrosisParticles = null;
-
     }
     public void AfficherMiss(DataEntity entity, float modifier)
     {
