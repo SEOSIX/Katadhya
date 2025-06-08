@@ -63,18 +63,19 @@ public class AI : MonoBehaviour
         List<CapacityData> allSpells = new List<CapacityData>();
         if (attacker._CapacityData1 != null) allSpells.Add(attacker._CapacityData1);
         if (attacker._CapacityData2 != null) allSpells.Add(attacker._CapacityData2);
+        
 
         List<CapacityData> validSpells = playerIsProvoking
             ? allSpells.Where(s => !s.TargetingAlly).ToList()
             : allSpells;
+        choosenSpell = SelectSpellFromList(validSpells);
+        CombatManager.SINGLETON.attackEnnemy.text = $"{choosenSpell.Description}";
 
         if (validSpells.Count == 0)
         {
             CombatManager.SINGLETON.EndUnitTurn();
             yield break;
         }
-        choosenSpell = SelectSpellFromList(validSpells);
-        CombatManager.SINGLETON.attackEnnemy.text = $"{attacker.namE} lance {choosenSpell.Description}";
         List<DataEntity> possibleTargets;
 
         if (choosenSpell.TargetingAlly)
