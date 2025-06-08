@@ -18,15 +18,15 @@ MonoBehaviour:
   BaseSpeed: 50
   BaseDef: 5
   BaseAim: 100
-  UnitLife: 55
+  UnitLife: 165
   UnitAtk: 10
   UnitSpeed: 50
-  UnitDef: 4
+  UnitDef: 5
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns: []
-  Affinity: 0
-  ChargePower: 10
+  Affinity: 2
+  ChargePower: 5
   UltChargePowerCost: 7
   UnitShield: 0
   ShockMark: 0
@@ -56,8 +56,8 @@ MonoBehaviour:
   Ultimate: {fileID: 21300000, guid: b9dfd3aed188eda4e925aa347812de99, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: 32f764f830a8d39449df9ac27bfb030e, type: 3}
   CptUltlvl: 0
-  UltimateSlider: 0
-  UltIsReady: 1
+  UltimateSlider: 100
+  UltIsReady: 0
   UltLvl_1: 0
   UltLvl_2: 0
   UltLvl_3: 0

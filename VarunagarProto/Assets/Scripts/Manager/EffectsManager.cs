@@ -88,11 +88,13 @@ public class EffectsManager : MonoBehaviour
         }
         yield return new WaitForSeconds(0.7f);
         if (damage != 0f) AfficherTexteDegats(index,Mathf.RoundToInt(damage),Color.yellow,entity);
-        Renderer[] renderers = entity.instance.GetComponentsInChildren<Renderer>();
-        Bounds AllRenderers = renderers[0].bounds;
-        foreach (Renderer r in renderers) AllRenderers.Encapsulate(r.bounds);
-        GameObject dmgVFX = Instantiate(ParticlePrefabs[6], new Vector3(AllRenderers.center.x, AllRenderers.min.y, AllRenderers.center.z), Quaternion.identity, ParticleParent);
-
+        if (typeFoudre == 4)
+        {
+            Renderer[] renderers = entity.instance.GetComponentsInChildren<Renderer>();
+            Bounds AllRenderers = renderers[0].bounds;
+            foreach (Renderer r in renderers) AllRenderers.Encapsulate(r.bounds);
+            GameObject dmgVFX = Instantiate(ParticlePrefabs[6], new Vector3(AllRenderers.center.x, AllRenderers.center.y, AllRenderers.center.z), Quaternion.identity, ParticleParent);
+        }
 
     }
     public IEnumerator AfficherAttaqueNécrose(int typeNécrose, int index, DataEntity entity, float damage)

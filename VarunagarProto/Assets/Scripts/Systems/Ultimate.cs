@@ -312,6 +312,7 @@ public class Ultimate : MonoBehaviour
         CurrentEntity.UltimateSlider = 100;
         CurrentEntity.UltIsReady = false;
         animator.SetTrigger("QTEStop");
+        AudioManager.SINGLETON.StopQTERoll();
 
         yield return new WaitForSeconds(time);
         qteUI.SetActive(false);
