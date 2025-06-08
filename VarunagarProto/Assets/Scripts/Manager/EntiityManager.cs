@@ -271,49 +271,75 @@ public class EntiityManager : MonoBehaviour
             data.name == $"Cpt{player.ID}d{player.Affinity}{player.UltLvlHit}");
     }
     
-    private void OnMouseEnter()
+   private void OnMouseEnter()
+{
+    if (!Clickable || GlobalVars.currentSelectedCapacity == null)
+        return;
+
+    DataEntity caster = CombatManager.SINGLETON.currentTurnOrder[0];
+    bool casterIsPlayer = entityHandler.players.Contains(caster);
+    List<DataEntity> allies = casterIsPlayer ? entityHandler.players : entityHandler.ennemies;
+    List<DataEntity> enemies = casterIsPlayer ? entityHandler.ennemies : entityHandler.players;
+
+    if (GlobalVars.currentSelectedCapacity.TargetingAlly)
     {
-        if (!Clickable || GlobalVars.currentSelectedCapacity == null)
-            return;
-
-        DataEntity caster = CombatManager.SINGLETON.currentTurnOrder[0];
-        List<DataEntity> allies = entityHandler.players.Contains(caster) ? entityHandler.players : entityHandler.ennemies;
-        List<DataEntity> enemies = entityHandler.players.Contains(caster) ? entityHandler.ennemies : entityHandler.players;
-
-        if (GlobalVars.currentSelectedCapacity.TargetingAlly)
+        int index = allies.FindIndex(e => e.instance == this.gameObject);
+        if (index != -1 && index < CombatManager.SINGLETON.circlesPlayer.Count)
         {
-            return;
-        }
-        else
-        {
-            int index = enemies.FindIndex(e => e.instance == this.gameObject);
-            if (index != -1 && index < CombatManager.SINGLETON.circlesEnnemy.Count)
+            Image img = CombatManager.SINGLETON.circlesPlayer[index].GetComponent<Image>();
+            if (img != null && CombatManager.SINGLETON.hoverSprite != null)
             {
-                Image img = CombatManager.SINGLETON.circlesEnnemy[index].GetComponent<Image>();
-                if (img != null && CombatManager.SINGLETON.hoverSprite != null)
-                {
-                    img.sprite = CombatManager.SINGLETON.hoverSprite;
-                }
+                img.sprite = CombatManager.SINGLETON.hoverSprite;
             }
         }
     }
-
-    private void OnMouseExit()
+    else
     {
-        for (int i = 0; i < entityHandler.ennemies.Count; i++)
+        int index = enemies.FindIndex(e => e.instance == this.gameObject);
+        if (index != -1 && index < CombatManager.SINGLETON.circlesEnnemy.Count)
         {
-            if (entityHandler.ennemies[i]?.instance == this.gameObject)
+            Image img = CombatManager.SINGLETON.circlesEnnemy[index].GetComponent<Image>();
+            if (img != null && CombatManager.SINGLETON.hoverSprite != null)
             {
-                if (i < CombatManager.SINGLETON.circlesEnnemy.Count)
-                {
-                    Image img = CombatManager.SINGLETON.circlesEnnemy[i].GetComponent<Image>();
-                    if (img != null && CombatManager.SINGLETON.defaultSprite != null)
-                    {
-                        img.sprite = CombatManager.SINGLETON.defaultSprite;
-                    }
-                }
-                break;
+                img.sprite = CombatManager.SINGLETON.hoverSprite;
             }
         }
     }
+}
+
+private void OnMouseExit()
+{
+    for (int i = 0; i < entityHandler.ennemies.Count; i++)
+    {
+        if (entityHandler.ennemies[i]?.instance == this.gameObject)
+        {
+            if (i < CombatManager.SINGLETON.circlesEnnemy.Count)
+            {
+                Image img = CombatManager.SINGLETON.circlesEnnemy[i].GetComponent<Image>();
+                if (img != null && CombatManager.SINGLETON.defaultSprite != null)
+                {
+                    img.sprite = CombatManager.SINGLETON.defaultSprite;
+                }
+            }
+            return;
+        }
+    }
+
+    for (int i = 0; i < entityHandler.players.Count; i++)
+    {
+        if (entityHandler.players[i]?.instance == this.gameObject)
+        {
+            if (i < CombatManager.SINGLETON.circlesPlayer.Count)
+            {
+                Image img = CombatManager.SINGLETON.circlesPlayer[i].GetComponent<Image>();
+                if (img != null && CombatManager.SINGLETON.defaultSprite != null)
+                {
+                    img.sprite = CombatManager.SINGLETON.defaultSprite;
+                }
+            }
+            return;
+        }
+    }
+}
+
 }
