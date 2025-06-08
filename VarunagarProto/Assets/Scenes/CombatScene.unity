@@ -516,6 +516,7 @@ GameObject:
   - component: {fileID: 39465774}
   - component: {fileID: 39465776}
   - component: {fileID: 39465775}
+  - component: {fileID: 39465777}
   m_Layer: 5
   m_Name: PlayerPanel_002
   m_TagString: Untagged
@@ -596,6 +597,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 39465773}
   m_CullTransparentMesh: 1
+--- !u!225 &39465777
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39465773}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &71675284
 GameObject:
   m_ObjectHideFlags: 0
@@ -19328,11 +19341,11 @@ MonoBehaviour:
   PlayerPanelBlocker: {fileID: 2082607357}
   PlayerCharge: {fileID: 490790676}
   PlayerChargePreview: {fileID: 2025740619}
-  EndGameOver: {fileID: 784159801}
+  EndGameOver: {fileID: 541903997}
   ennemyTurn: {fileID: 1163544507}
   TurnUI: {fileID: 39465773}
   attackEnnemy: {fileID: 1116786796}
-  canvasGroup: {fileID: 498016542}
+  canvasGroup: {fileID: 39465777}
   circleParentUI: {fileID: 1685626445}
   playerTurnIndicators:
   - {fileID: 1776964200}
