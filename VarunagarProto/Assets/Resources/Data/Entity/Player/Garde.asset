@@ -21,12 +21,12 @@ MonoBehaviour:
   UnitLife: 181
   UnitAtk: 63
   UnitSpeed: 45
-  UnitDef: 8
+  UnitDef: 10
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns: []
-  Affinity: 3
-  ChargePower: 4
+  Affinity: 0
+  ChargePower: 0
   UltChargePowerCost: 6
   UnitShield: 0
   ShockMark: 0
@@ -62,7 +62,7 @@ MonoBehaviour:
   UltLvl_2: 0
   UltLvl_3: 0
   UltLvl_4: 0
-  UltLvlHit: 1
+  UltLvlHit: 0
   namE: Garde
   size: 0.94
   index: 2

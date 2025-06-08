@@ -8079,6 +8079,7 @@ MonoBehaviour:
   - {fileID: 1844719095214369761, guid: c8a160d39ebe0e44b9d55a7c699d5e53, type: 3}
   - {fileID: 4986334438692495275, guid: a9eab130b6a389540828f8811975d130, type: 3}
   - {fileID: 1776268384207653101, guid: 0b8dde875111bd94dbe0a7edc1d0c5a7, type: 3}
+  - {fileID: 838566247304738673, guid: e9a54224b0ba33847a4deae1ece758ba, type: 3}
   ParticleParent: {fileID: 433323616}
   PlayerCptSounds:
   - Cpt1: {fileID: 8300000, guid: 69e3a5756f43cfe4fa05635b6e8bf463, type: 3}
@@ -20293,7 +20294,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -24161,7 +24162,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 20
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 20
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

@@ -91,7 +91,7 @@ public class EffectsManager : MonoBehaviour
         Renderer[] renderers = entity.instance.GetComponentsInChildren<Renderer>();
         Bounds AllRenderers = renderers[0].bounds;
         foreach (Renderer r in renderers) AllRenderers.Encapsulate(r.bounds);
-        GameObject dmgVFX = Instantiate(ParticlePrefabs[4], new Vector3(AllRenderers.center.x, AllRenderers.min.y, AllRenderers.center.z), Quaternion.identity, ParticleParent);
+        GameObject dmgVFX = Instantiate(ParticlePrefabs[6], new Vector3(AllRenderers.center.x, AllRenderers.min.y, AllRenderers.center.z), Quaternion.identity, ParticleParent);
 
 
     }
