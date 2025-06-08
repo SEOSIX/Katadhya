@@ -207,16 +207,14 @@ public class DataEntity : ScriptableObject
     public class Necrosis
     {
         public int level; // 1 à 5
-        public int remainingTurns;
 
         public Necrosis(int level)
         {
             this.level = Mathf.Clamp(level, 1, 5);
-            this.remainingTurns = 4;
-            Debug.Log($"[NÉCROSE] Nouveau statut appliqué : niveau {this.level}, {this.remainingTurns} tours");
+            Debug.Log($"[NÉCROSE] Nouveau statut appliqué : niveau {this.level}");
         }
 
-        public bool IsExpired => remainingTurns <= 0;
+        public bool IsExpired => level <= 0;
     }
 
     [Serializable]
