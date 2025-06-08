@@ -17,7 +17,6 @@ MonoBehaviour:
   critique: 0
   "pr\xE9cision": 100
   cooldown: 0
-  chargeUlti: 0
   MultipleHeal: 0
   MultipleAttack: 0
   MultipleBuff: 1
@@ -28,6 +27,9 @@ MonoBehaviour:
   buffType: 2
   buffValue: 1.2
   buffDuration: 1
+  buffType2: 0
+  buffValue2: 0
+  buffDuration2: 0
   ChargePowerGiven: 1
   Shield: 0
   ShieldRatioAtk: 0
@@ -47,4 +49,4 @@ MonoBehaviour:
   PictoType: 0
   TargetType: 3
   ValueAI: 0
-  DoubleEffect: 1
+  DoubleEffect: 0
