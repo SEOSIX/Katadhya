@@ -13,18 +13,20 @@ MonoBehaviour:
   m_Name: Garde
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  BaseLife: 340
+  BaseLife: 300
   BaseAtk: 63
   BaseSpeed: 45
   BaseDef: 10
   BaseAim: 100
-  UnitLife: 340
+  UnitLife: 300
   UnitAtk: 63
   UnitSpeed: 45
   UnitDef: 10
   UnitAim: 100
   ActiveBuffs: []
-  ActiveCooldowns: []
+  ActiveCooldowns:
+  - capacity: {fileID: 11400000, guid: 122efb8404a2b374b84fa7f550e1e198, type: 2}
+    remainingCooldown: 1
   Affinity: 0
   ChargePower: 4
   UltChargePowerCost: 6

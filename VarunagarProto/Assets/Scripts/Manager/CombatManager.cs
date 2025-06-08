@@ -393,22 +393,15 @@ public class CombatManager : MonoBehaviour
     {
         foreach (var circle in circlesEnnemy)
         {
-            circle.SetActive(false);
-            if (circlesEnnemy == null)
-            {
-                continue;
-            }
+            if (circle != null)
+                circle.SetActive(false);
         }
 
         foreach (var circle in circlesPlayer)
         {
-            circle.SetActive(false);
-            if (circlesPlayer == null)
-            {
-                continue;
-            }
+            if (circle != null)
+                circle.SetActive(false);
         }
-
     }
     public void UseCapacity(CapacityData cpt)
     {

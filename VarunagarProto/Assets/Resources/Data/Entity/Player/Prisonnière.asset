@@ -21,9 +21,12 @@ MonoBehaviour:
   UnitLife: 300
   UnitAtk: 10
   UnitSpeed: 50
-  UnitDef: 5
+  UnitDef: 4
   UnitAim: 100
-  ActiveBuffs: []
+  ActiveBuffs:
+  - type: 2
+    value: 0.8
+    duration: 1
   ActiveCooldowns: []
   Affinity: 0
   ChargePower: 4

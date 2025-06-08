@@ -56,24 +56,27 @@ public class EntiityManager : MonoBehaviour
                 enemy.instance.SetActive(false);
                 enemy.UnitLife = -1;
             }
-
             enemiesAlreadyDestroyed.Add(i);
+            if (enemy.TargetCircle != null)
+            {
+                Object.Destroy(enemy.TargetCircle);
+                enemy.TargetCircle = null;
+            }
         }
 
         for (int j = indicesToRemove.Count - 1; j >= 0; j--)
         {
+            DataEntity enemy = entityHandler.ennemies[j];
             int index = indicesToRemove[j];
             if (index < CombatManager.SINGLETON.circlesEnnemy.Count)
             {
                 GameObject deadCircle = CombatManager.SINGLETON.circlesEnnemy[index];
                 if (deadCircle != null)
                 {
-                    Object.Destroy(deadCircle);
+                    Object.Destroy(enemy.TargetCircle); 
+                    CombatManager.SINGLETON.circlesEnnemy.Remove(enemy.TargetCircle);
                     CombatManager.SINGLETON.circlesEnnemy[index] = null;
-                    if (CombatManager.SINGLETON.circlesEnnemy[index] == null)
-                    {
-                        continue;
-                    }
+                    
                 }
             }
         }
@@ -114,6 +117,11 @@ public class EntiityManager : MonoBehaviour
             {
                 player.instance.SetActive(false);
                 player.UnitLife = -1;
+            }
+            if (player.TargetCircle != null)
+            {
+                Object.Destroy(player.TargetCircle);
+                player.TargetCircle = null;
             }
         }
     }

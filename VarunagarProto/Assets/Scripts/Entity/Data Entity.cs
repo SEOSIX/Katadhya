@@ -44,6 +44,7 @@ public class DataEntity : ScriptableObject
     public int provokingDuration;
     [HideInInspector] public DataEntity provokingCaracter;
     [HideInInspector] public bool hasBeenInitialized = false;
+    [HideInInspector] public GameObject TargetCircle;
 
     [Header("Art")]
     public Sprite portrait;
