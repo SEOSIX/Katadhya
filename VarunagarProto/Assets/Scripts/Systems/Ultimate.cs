@@ -175,10 +175,10 @@ public class Ultimate : MonoBehaviour
 
     public void SyncSliderWithEntity()
     {
-            if (CurrentEntity != null && (int)sliderUltimate.value != CurrentEntity.UltimateSlider)
-            {
-                sliderUltimate.value = CurrentEntity.UltimateSlider;
-            }
+        if (CurrentEntity != null && (int)sliderUltimate.value != CurrentEntity.UltimateSlider)
+        {
+            sliderUltimate.value = CurrentEntity.UltimateSlider;
+        }
     }
     public void GainUltimateCharge(int chargeAmount)
     {
