@@ -121,7 +121,7 @@ public class CombatManager : MonoBehaviour
                 player.hasBeenInitialized = true;
             }
         }
-        //ReseterData.ResetPlayersComplete(entityHandler, entiityManager);  //a retirer avant de build
+        ReseterData.ResetPlayersComplete(entityHandler, entiityManager);  //a retirer avant de build
         ReseterData.ResetEnemies(entityHandler);
         foreach (var enemy in entityHandler.ennemies)
         {
@@ -390,7 +390,7 @@ public class CombatManager : MonoBehaviour
         AI.SINGLETON.Attack(currentEntity, 50);
     }
 
-    #endregion
+    
     void HideTargetIndicators()
     {
         foreach (var circle in circlesEnnemy)
@@ -427,6 +427,7 @@ public class CombatManager : MonoBehaviour
             Debug.Log("Pas assez de charge pour utiliser cette compétence.");
         }
     }
+    #endregion
 
     #region Selection
     public IEnumerator StartTargetSelectionMode(CapacityData capacity)
@@ -670,7 +671,8 @@ public class CombatManager : MonoBehaviour
 
             if (!alreadyInCooldown)
             {
-                caster.ActiveCooldowns.Add(new CooldownData(capacity, capacity.cooldown));
+                CapacityData baseCapacity = GetBaseCapacity(capacity);
+                caster.ActiveCooldowns.Add(new CooldownData(baseCapacity, capacity.cooldown));
                 Debug.Log($"[Cooldown] Ajouté à {caster.name} pour capacité {capacity.name}, durée {capacity.cooldown}");
             }
         }
