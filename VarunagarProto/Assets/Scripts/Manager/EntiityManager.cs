@@ -22,8 +22,9 @@ public class EntiityManager : MonoBehaviour
     
     public void DestroyDeadEnemies()
     {
-        
+        enemiesAlreadyDestroyed.Clear();
         List<int> indicesToRemove = new List<int>();
+
         for (int i = entityHandler.ennemies.Count - 1; i >= 0; i--)
         {
             var enemy = entityHandler.ennemies[i];
@@ -33,7 +34,7 @@ public class EntiityManager : MonoBehaviour
             int visualIndex = enemy.index;
             EffectsManager.SINGLETON.ClearEffectsForEntity(visualIndex);
             CombatManager.SINGLETON.RemoveUnitFromList(enemy);
-            
+
             if (i < CombatManager.SINGLETON.circlesEnnemy.Count)
             {
                 GameObject deadCircle = CombatManager.SINGLETON.circlesEnnemy[i];
@@ -42,14 +43,12 @@ public class EntiityManager : MonoBehaviour
                     indicesToRemove.Add(i);
                 }
             }
-            
 
             if (i < LifeEntity.SINGLETON.enemySliders.Length)
             {
                 LifeEntity.SINGLETON.enemySliders[i].gameObject.SetActive(false);
                 LifeEntity.SINGLETON.enemyShieldSliders[i].gameObject.SetActive(false);
                 LifeEntity.SINGLETON.enemyPVTexts[i].gameObject.SetActive(false);
-
             }
 
             if (enemy.instance != null)
@@ -57,17 +56,25 @@ public class EntiityManager : MonoBehaviour
                 enemy.instance.SetActive(false);
                 enemy.UnitLife = -1;
             }
+
+            enemiesAlreadyDestroyed.Add(i);
         }
-        foreach (int index in indicesToRemove.OrderByDescending(x => x))
+
+        for (int j = indicesToRemove.Count - 1; j >= 0; j--)
         {
+            int index = indicesToRemove[j];
             if (index < CombatManager.SINGLETON.circlesEnnemy.Count)
             {
                 GameObject deadCircle = CombatManager.SINGLETON.circlesEnnemy[index];
                 if (deadCircle != null)
                 {
                     Object.Destroy(deadCircle);
+                    CombatManager.SINGLETON.circlesEnnemy[index] = null;
+                    if (CombatManager.SINGLETON.circlesEnnemy[index] == null)
+                    {
+                        continue;
+                    }
                 }
-                CombatManager.SINGLETON.circlesEnnemy.RemoveAt(index);
             }
         }
     }
@@ -136,6 +143,7 @@ public class EntiityManager : MonoBehaviour
         }
     }
 
+    
     void Start()
     {
         foreach(var player in entityHandler.players.Where(p => p != null))
@@ -148,13 +156,29 @@ public class EntiityManager : MonoBehaviour
         RestoreShield();
     }
 
+    private HashSet<int> enemiesAlreadyDestroyed = new HashSet<int>();
+    private HashSet<int> playersAlreadyDestroyed = new HashSet<int>();
     void Update()
     {
-        if (entityHandler.ennemies.Any(e => e != null && e.UnitLife <= 0))
-            DestroyDeadEnemies();
+        for (int i = 0; i < entityHandler.ennemies.Count; i++)
+        {
+            var enemy = entityHandler.ennemies[i];
+            if (enemy != null && enemy.UnitLife <= 0 && !enemiesAlreadyDestroyed.Contains(i))
+            {
+                DestroyDeadEnemies();
+                break;
+            }
+        }
 
-        if (entityHandler.players.Any(p => p != null && p.UnitLife <= 0))
-            DestroyDeadPlayers();
+        for (int i = 0; i < entityHandler.ennemies.Count; i++)
+        {
+            var players = entityHandler.players[i];
+            if (players != null && players.UnitLife <= 0 && !playersAlreadyDestroyed.Contains(i))
+            {
+                DestroyDeadPlayers();
+                break; 
+            }
+        }
 
         LifeEntity.SINGLETON.LifeManage();
 
