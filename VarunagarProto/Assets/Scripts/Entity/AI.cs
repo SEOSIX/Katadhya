@@ -118,7 +118,7 @@ public class AI : MonoBehaviour
             StartCoroutine(CombatManager.SINGLETON.ApplyCapacityToTarget(choosenSpell, target));
         }
 
-        PostAttackProcessing(attacker); 
+        //PostAttackProcessing(attacker); 
 
         yield return new WaitForSeconds(0.2f);
         CombatManager.SINGLETON.EndUnitTurn();
@@ -148,7 +148,7 @@ public class AI : MonoBehaviour
 
         }
 
-        PostAttackProcessing(attacker);
+        //PostAttackProcessing(attacker);
 
         yield return new WaitForSeconds(0.2f);
         CombatManager.SINGLETON.EndUnitTurn();
@@ -156,7 +156,7 @@ public class AI : MonoBehaviour
         DisableTargetIndicators();
     }
 
-    private void PostAttackProcessing(DataEntity attacker)
+    /*private void PostAttackProcessing(DataEntity attacker)
     {
         //CombatManager.SINGLETON.DecrementBuffDurations(attacker);
 
@@ -173,7 +173,7 @@ public class AI : MonoBehaviour
         }
 
         //CombatManager.SINGLETON.RecalculateStats(attacker);
-    }
+    }*/
 
     private void ToggleTargetIndicator(DataEntity target)
     {

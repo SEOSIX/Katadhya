@@ -203,7 +203,7 @@ public class AutelStats : MonoBehaviour
             if (levelText != null && levelText.Length > i && currentEntity != null)
             {
                 levelText[i].text = "Niveau " + GetCurrentLevel(i);
-                levelText[i].color = isMax ? goldColor : Color.black;
+                levelText[i].color = isMax ? Color.black : Color.black;
             }
         }
     }
@@ -294,9 +294,9 @@ public class AutelStats : MonoBehaviour
         statCurrentText.text = $"{statName} : {currentStat}";
         statNextText.text = isMaxLevel ? $"{statName} : MAX" : $"{statName} : {nextStat}";
 
-        levelCurrentText.color = isMaxLevel ? goldColor : Color.black;
-        levelNextText.color = isMaxLevel ? goldColor : Color.black;
-        statNextText.color = isMaxLevel ? goldColor : Color.black;
+        levelCurrentText.color = isMaxLevel ? Color.black : Color.black;
+        levelNextText.color = isMaxLevel ? Color.black : Color.black;
+        statNextText.color = isMaxLevel ? Color.black : Color.black;
 
         tooltipPanel.SetActive(true);
         tooltipPanel.transform.position = buttonPosition + new Vector3(-3, 0, 0);

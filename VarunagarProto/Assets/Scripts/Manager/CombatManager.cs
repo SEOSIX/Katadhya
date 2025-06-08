@@ -260,7 +260,7 @@ public class CombatManager : MonoBehaviour
     {
         DataEntity caster = currentTurnOrder[0];
         Debug.Log($"[Tour] Début du tour pour {currentTurnOrder[0].namE} (HP: {currentTurnOrder[0].UnitLife})");
-        ChargePower(caster, 2);
+        ChargePower(caster, caster.SpeedLevel /3 + 1);
         if (caster.beenHurtThisTurn == false && caster.RageTick > 0)
         {
             caster.RageTick -= 1;
@@ -1677,22 +1677,22 @@ public class CombatManager : MonoBehaviour
             var effect = target.necrosis[0];
             int oldLevel = effect.level;
             effect.level = Mathf.Clamp(effect.level + levelToAdd, 1, 5);
-            Debug.Log($"[NÉCROSE] Niveau augmenté de {oldLevel} à {effect.level} (tours restants : {effect.remainingTurns})");
+            Debug.Log($"[NÉCROSE] Niveau cumulé de {oldLevel} à {effect.level}");
         }
 
         var necrosis = target.necrosis[0];
-        Debug.Log($"{target.namE} est maintenant affecté par la nécrose niveau {necrosis.level}, {necrosis.remainingTurns} tours restants");
+        Debug.Log($"{target.namE} est maintenant affecté par la nécrose, {necrosis.level} ticks restants");
     }
-
-
     public void TickNecrosisEffect(DataEntity target)
     {
         if (target.necrosis?.Count > 0)
         {
+            var effect = target.necrosis[0];
+            int level = Mathf.Clamp(effect.level, 1, 5); 
+
             int[] baseDamage = { 0, 5, 6, 7, 8, 10 };
             float[] speedPercents = { 0f, 0.10f, 0.15f, 0.20f, 0.25f, 0.30f };
-            var necrosisEffect = target.necrosis[0];
-            int level = necrosisEffect.level;
+
             int speedDamage = Mathf.RoundToInt(target.UnitSpeed * speedPercents[level]);
             int damage = baseDamage[level] + speedDamage;
 
@@ -1702,17 +1702,18 @@ public class CombatManager : MonoBehaviour
             target.UnitLife -= damage;
             if (target.Affinity == 4) target.RageTick += 2;
 
-            Debug.Log($"{target.namE} subit {damage} dégâts de nécrose (niveau {necrosisEffect.level})");
+            Debug.Log($"{target.namE} subit {damage} dégâts de nécrose (niveau {level})");
 
-            necrosisEffect.remainingTurns--;
+            effect.level--; 
 
-            if (target.necrosis != null && target.necrosis.Count > 0 && target.necrosis[0].IsExpired)
+            if (effect.level <= 0)
             {
                 target.necrosis.Clear();
                 Debug.Log($"{target.namE} n'est plus affecté par la nécrose");
             }
         }
     }
+
     #endregion
 
     #region Miscellaneous
