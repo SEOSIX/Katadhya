@@ -50,6 +50,7 @@ public class DataEntity : ScriptableObject
     public Sprite portraitUI;
     public Sprite bandeauUI;
     public GameObject Animator;
+    public GameObject NecrosisParticles;
 
     [Header("Capacities")]
     [SerializeField] private CapacityData capacityData1Source;

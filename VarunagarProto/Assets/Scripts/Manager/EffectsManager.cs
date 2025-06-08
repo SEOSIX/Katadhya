@@ -102,7 +102,26 @@ public class EffectsManager : MonoBehaviour
             CombatManager.SINGLETON.StopCoroutine(AfficherAttaqueNécrose(typeNécrose, index, entity, damage));
         }
         yield return new WaitForSeconds(0.3f);
-        if (damage != 0f) AfficherTexteDegats(index, Mathf.RoundToInt(damage), Color.magenta, entity);
+        if (damage != 0f) AfficherTexteDegats(index, Mathf.RoundToInt(damage), new Color(0.5f,0f,1f), entity);
+        if (entity.NecrosisParticles == null)
+        {
+            Renderer[] renderers = entity.instance.GetComponentsInChildren<Renderer>();
+            Bounds AllRenderers = renderers[0].bounds;
+            foreach (Renderer r in renderers) AllRenderers.Encapsulate(r.bounds);
+            entity.NecrosisParticles = Instantiate(ParticlePrefabs[5], new Vector3(AllRenderers.center.x, AllRenderers.center.y, AllRenderers.center.z), Quaternion.identity, ParticleParent);
+        }
+        else
+        {
+            var emission = entity.NecrosisParticles.GetComponent<ParticleSystem>().emission;
+            emission.rateOverTime = new ParticleSystem.MinMaxCurve(entity.necrosis.Count); 
+        }
+       
+        while (entity.necrosis.Count > 0 && entity.UnitLife>0 )
+        {
+            yield return null;
+        }
+        Destroy(entity.NecrosisParticles);
+        entity.NecrosisParticles = null;
 
     }
     public void AfficherMiss(DataEntity entity, float modifier)
