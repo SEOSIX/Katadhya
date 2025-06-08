@@ -652,7 +652,7 @@ public class CombatManager : MonoBehaviour
         }*/
     }
 
-    private IEnumerator MoveTowardsTarget(DataEntity caster, DataEntity target, float distance = 1.0f, float speed = 5f)
+    /*private IEnumerator MoveTowardsTarget(DataEntity caster, DataEntity target, float distance = 1.0f, float speed = 5f)
     {
         if (caster.instance == null || target.instance == null)
              yield break;
@@ -678,7 +678,7 @@ public class CombatManager : MonoBehaviour
                 casterTransform.position = Vector3.Lerp(end, start, t);
                 yield return null;
             }
-    }
+    }*/
 
     public void ApplyNormalCapacity(CapacityData capacity, DataEntity caster, DataEntity target, float UltMoine = 0, float UltPriso = 0, float UltGarde = 0)
     {
@@ -773,7 +773,10 @@ public class CombatManager : MonoBehaviour
             //StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(5));
             ApplyRage(target);
         }
-
+        if (capacity.ChargePowerGiven > 0)
+        {
+            ChargePower(target,capacity.ChargePowerGiven);
+        }
         if (capacity.Necrosis > 0)
         {
             StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(6));
