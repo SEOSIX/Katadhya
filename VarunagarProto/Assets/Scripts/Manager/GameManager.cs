@@ -152,6 +152,7 @@ public class GameManager : MonoBehaviour
             if (i >= healthSliders.Length || healthSliders[i] == null)
                 continue;
 
+            DataEntity player = entityHandler.players[i];
             Camera uiCamera = Camera.main;
             Vector3 screenPos = Camera.main.WorldToScreenPoint(healthSliders[i].transform.position);
 
@@ -169,8 +170,8 @@ public class GameManager : MonoBehaviour
             ).GetComponent<RectTransform>();
 
             newCircle.anchoredPosition = localPoint;
-
             CombatManager.SINGLETON.circlesPlayer.Add(newCircle.gameObject);
+            player.TargetCircle = newCircle.gameObject;
         }
     }
 
@@ -288,6 +289,7 @@ public class GameManager : MonoBehaviour
 
                 newCircle.anchoredPosition = anchoredPos;
                 CombatManager.SINGLETON.circlesEnnemy.Add(newCircle.gameObject);
+                enemy.TargetCircle = newCircle.gameObject;
             }
         }
     }
