@@ -183,7 +183,7 @@ public class EffectsManager : MonoBehaviour
         
     }
 
-    private void AfficherTexteDegats(int index, int degats, Color couleur, DataEntity entity, float modifier = 1, string Replace = "")
+    public void AfficherTexteDegats(int index, int degats, Color couleur, DataEntity entity, float modifier = 1, string Replace = "")
     {
         if (!IsValid(index) || damageTextPrefab == null || canvas == null) return;
 

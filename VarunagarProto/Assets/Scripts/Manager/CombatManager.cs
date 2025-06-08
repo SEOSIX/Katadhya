@@ -134,12 +134,10 @@ public class CombatManager : MonoBehaviour
                 Debug.Log($"[Start] Ennemi '{enemy.namE}' - HP: {enemy.UnitLife} / {enemy.BaseLife}");
             }
         }
-        Debug.LogWarning("Skibidi avant l'initialisation");
         ReseterData.ResetPlayersBeforeCombat(entityHandler, entiityManager);
     }
 
     
-    [ContextMenu("pipi")]
     void Start()
     {
         currentTurnOrder = GetUnitTurn();
@@ -817,6 +815,8 @@ public class CombatManager : MonoBehaviour
                 {
                     caster.skipNextTurn = true;
                     caster.delayedActions.Add(new DelayedAction(capacity, target));
+                    EffectsManager.SINGLETON.AfficherTexteDegats(caster.index, 0, Color.white, caster, 1, "Préparation");
+
                     Debug.Log($"{caster.namE} prépare une attaque différée !");
                 }
                 else
