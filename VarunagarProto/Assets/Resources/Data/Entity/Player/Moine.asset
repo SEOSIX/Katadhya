@@ -18,17 +18,15 @@ MonoBehaviour:
   BaseSpeed: 40
   BaseDef: 5
   BaseAim: 100
-  UnitLife: 187
+  UnitLife: 33
   UnitAtk: 5
   UnitSpeed: 40
   UnitDef: 5
   UnitAim: 100
   ActiveBuffs: []
-  ActiveCooldowns:
-  - capacity: {fileID: 11400000, guid: 61295d1f04e126c48ad7deea93460813, type: 2}
-    remainingCooldown: 1
+  ActiveCooldowns: []
   Affinity: 0
-  ChargePower: 4
+  ChargePower: 0
   UltChargePowerCost: 8
   UnitShield: 0
   ShockMark: 0
@@ -44,6 +42,7 @@ MonoBehaviour:
   portraitUI: {fileID: 21300000, guid: c7c7f85af6d269a4681482747a4a8408, type: 3}
   bandeauUI: {fileID: 21300000, guid: 6c06cf1fd04d2c44b829c9f002d658bf, type: 3}
   Animator: {fileID: 1624137427931347417, guid: f776c726f2e39cf4db7483b1f17ccf67, type: 3}
+  NecrosisParticles: {fileID: 0}
   capacityData1Source: {fileID: 11400000, guid: 70dd0b3adc5127c439dc05f54c11c0d7, type: 2}
   capacity1: {fileID: 21300000, guid: 430094b588f0ce8448b16531b6de98f0, type: 3}
   Cpt1lvl: 0

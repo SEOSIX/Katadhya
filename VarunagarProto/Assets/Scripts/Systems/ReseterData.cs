@@ -77,6 +77,7 @@ public static class HealingPlayer
 {
     public static void HealByPercent(DataEntity entity, float lifePercent)
     {
+        if (entity.UnitLife <= 0) return;
         lifePercent = Mathf.Clamp01(lifePercent);
         int healAmount = Mathf.FloorToInt(entity.BaseLife * lifePercent);
         entity.UnitLife = Mathf.Min(entity.BaseLife, entity.UnitLife + healAmount);

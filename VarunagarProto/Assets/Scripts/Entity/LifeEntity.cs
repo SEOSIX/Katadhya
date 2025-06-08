@@ -142,16 +142,14 @@ public class LifeEntity : MonoBehaviour
         }
     }
 
-    public void HealSpecificPlayer(int playerIndex)
+    public void HealSpecificPlayer(int playerIndex, float healAmount = 0f)
     {
         if (playerIndex < 0 || playerIndex >= entityHandler.players.Count) return;
 
         var player = entityHandler.players[playerIndex];
         if (player != null)
         {
-            float healAmount = healingPlayers.Length > playerIndex ? healingPlayers[playerIndex] : 0f;
-
-            player.UnitLife = Mathf.Min(player.BaseLife, player.UnitLife + (int)healAmount);
+            player.UnitLife = Mathf.RoundToInt(Mathf.Max(player.UnitLife, 0) + player.BaseLife * healAmount);
         }
     }
 
