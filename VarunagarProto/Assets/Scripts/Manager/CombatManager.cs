@@ -312,6 +312,8 @@ public class CombatManager : MonoBehaviour
             yield break;
         }
         DetectEnnemyTurn();
+        
+        
     
         if (entityHandler.ennemies.Contains(current))
         {
@@ -355,7 +357,17 @@ public class CombatManager : MonoBehaviour
             canvasGroup.alpha = 0f;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
-            ennemyTurn.SetActive(true);
+            ennemyTurn.SetActive(true); 
+            var selectedSpell = AI.SINGLETON.SelectSpell(currentEntity);
+            if (selectedSpell != null)
+            {
+                AI.SINGLETON.choosenSpell = selectedSpell;
+                attackEnnemy.text = $"cc{selectedSpell.Description}";
+            }
+            else
+            {
+                return;
+            }
         }
         else
         {
