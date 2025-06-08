@@ -20,4 +20,7 @@ public class Combat
     public int CaurisSpe4;
 
     public string[] RoomOptions = new string[2];
+    public bool TwoRoomsInARow;
+    public string[] SecondRoomOptions = new string[2];
+
 }

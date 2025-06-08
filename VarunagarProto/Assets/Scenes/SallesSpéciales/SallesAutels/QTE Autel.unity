@@ -2005,6 +2005,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8efac6f8678e98488ec34e859d3fcfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelDesign: {fileID: 0}
+  FirstRoom: 1
 --- !u!1 &415669530
 GameObject:
   m_ObjectHideFlags: 0
@@ -2460,6 +2462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8efac6f8678e98488ec34e859d3fcfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelDesign: {fileID: 11400000, guid: 54ce8f7a81240cd48967746b505b7121, type: 2}
+  FirstRoom: 1
 --- !u!1 &504952858
 GameObject:
   m_ObjectHideFlags: 0
@@ -6154,9 +6158,15 @@ MonoBehaviour:
     RoomOptions:
     - 
     - 
+    TwoRoomsInARow: 0
+    SecondRoomOptions:
+    - 
+    - 
   allEnemiesEncountered: []
   sizeChara: 0.21
   combatUI: {fileID: 0}
+  NewWavePanel: {fileID: 0}
+  WaveText: {fileID: 0}
   ispressed: 0
   circleOffset: {x: 0, y: 0, z: 0}
   offsetX: 1000

@@ -37,6 +37,8 @@ public class ExplorationManager : MonoBehaviour
 
     public string EntranceScene;
     public string ExitScene;
+    public bool FirstRoom = true;
+
 
 
     [Header("Values")]
@@ -71,14 +73,24 @@ public class ExplorationManager : MonoBehaviour
         Combat combat = GameManager.SINGLETON.currentCombat;
         if (combat.RoomOptions.Length == 0 || combat.WaveList.Count == 0)
         {
-            Debug.Log(ChoicesHolder.SINGLETON);
-            Debug.Log(combat);
-            Debug.Log(combat.RoomOptions.Length);
-            Debug.Log(combat.WaveList.Count);
             Debug.LogWarning("pas de sorties");
             return;
         }
         foreach (string option in combat.RoomOptions)
+        {
+            if (option == CombatScene) V.CombatSceneButton.SetActive(true);
+            if (option == AutelQTEScene) V.QTESceneButton.SetActive(true);
+            if (option == AutelStatScene) V.StatSceneButton.SetActive(true);
+            if (option == HealingScene) V.HealingSceneButton.SetActive(true);
+        }
+    }
+
+    public void LoadChoicesFromList(string[] Options)
+    {
+        ChoicesHolder V = null;
+        if (ChoicesHolder.SINGLETON != null) V = ChoicesHolder.SINGLETON;
+
+        foreach (string option in Options)
         {
             if (option == CombatScene) V.CombatSceneButton.SetActive(true);
             if (option == AutelQTEScene) V.QTESceneButton.SetActive(true);
