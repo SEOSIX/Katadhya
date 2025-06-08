@@ -259,8 +259,7 @@ public class CombatManager : MonoBehaviour
     public void StartUnitTurn()
     {
         DataEntity caster = currentTurnOrder[0];
-        Debug.Log($"[Tour] Début du tour pour {currentTurnOrder[0].namE} (HP: {currentTurnOrder[0].UnitLife})");
-        ChargePower(caster, caster.SpeedLevel /3 + 1);
+        ChargePower(caster, caster.SpeedLevel /3 + 1); 
         caster.UltimateSlider = 100;
         if (caster.ChargePower >= caster.UltChargePowerCost) caster.UltimateSlider = 0;
         if (caster.beenHurtThisTurn == false && caster.RageTick > 0)
@@ -506,7 +505,7 @@ public class CombatManager : MonoBehaviour
             {
                 pool = entityHandler.players;
             }
-            if (capacity.name[4] == 'd') caster.ChargePower -= caster.UltChargePowerCost;
+            //if (capacity.name[4] == 'd') caster.ChargePower -= caster.UltChargePowerCost;
             foreach (var target in pool)
             {
                 if (target.UnitLife > 0)
@@ -516,6 +515,7 @@ public class CombatManager : MonoBehaviour
             }
             GlobalVars.currentSelectedCapacity = null;
             Debug.Log("Capacité de zone appliquée à tous les ennemis !");
+            caster.ChargePower -= chargeCost;
             EndUnitTurn();
             yield return null;
         }
@@ -655,7 +655,7 @@ public class CombatManager : MonoBehaviour
             else
             {
                 ApplyNormalCapacity(capacity, caster, target);
-                caster.ChargePower -= chargeCost;
+                if (!capacity.MultipleAttack) caster.ChargePower -= chargeCost;
             }
         }
         if (capacity.cooldown > 0)
