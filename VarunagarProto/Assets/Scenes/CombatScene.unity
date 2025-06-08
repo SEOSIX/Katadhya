@@ -8456,6 +8456,18 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7c42d2c9357cb9148a42ac1050631dd7, type: 3}
   feedBackVFX: {fileID: 1262745839}
   animator: {fileID: 83124361}
+  BackgroundParent: {fileID: 433323616}
+  UltParentPrefab: {fileID: 5931185369149229179, guid: f1845684132a24d4cbc608f7f560babe, type: 3}
+  UltAnimPrefabs:
+  - {fileID: 6706675874655302630, guid: 540a81dc3821e6d44a1fde17e435f98a, type: 3}
+  - {fileID: 4772431362772945177, guid: b4973e5f309f43745aedd87e403bca18, type: 3}
+  - {fileID: 5590928932800651479, guid: 080b6af7856e467478421621cc4a9123, type: 3}
+  - {fileID: 4661751758498426763, guid: 353bfe2c553c00146bf4e8787cf33d48, type: 3}
+  UltAudioClips:
+  - {fileID: 8300000, guid: 448c453e6d87bdd41bbc5b83a647387e, type: 3}
+  - {fileID: 8300000, guid: ed626f07ebe64e947be8c0a4340890e3, type: 3}
+  - {fileID: 8300000, guid: 2bcd2e504402ac843bdf70bdaf0c3a35, type: 3}
+  - {fileID: 8300000, guid: cd464929ec291654d9a1858ce53c969c, type: 3}
 --- !u!114 &711964559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8492,16 +8504,16 @@ MonoBehaviour:
   PlayerCptSounds:
   - Cpt1: {fileID: 8300000, guid: 69e3a5756f43cfe4fa05635b6e8bf463, type: 3}
     Cpt2: {fileID: 8300000, guid: 57ed9c870b9d17a41abd649a5c00520b, type: 3}
-    Cpt3: {fileID: 8300000, guid: 69e3a5756f43cfe4fa05635b6e8bf463, type: 3}
-    Cpt4: {fileID: 8300000, guid: 69e3a5756f43cfe4fa05635b6e8bf463, type: 3}
+    Cpt3: {fileID: 8300000, guid: 7b7e3de86ada7c945bf883fd2750f74d, type: 3}
+    Cpt4: {fileID: 8300000, guid: 671a07e0d14f82642b2cbd5f7994161d, type: 3}
   - Cpt1: {fileID: 8300000, guid: 7fdec3c8ff5c4254ebb85456bd1c3535, type: 3}
     Cpt2: {fileID: 8300000, guid: 48b34dad0856a4544bc02b93351cf4c4, type: 3}
     Cpt3: {fileID: 8300000, guid: 2c42734e680cc7f4d9daab86738287ef, type: 3}
-    Cpt4: {fileID: 8300000, guid: 7fdec3c8ff5c4254ebb85456bd1c3535, type: 3}
+    Cpt4: {fileID: 8300000, guid: 7b0100444508c2c459834958779b9675, type: 3}
   - Cpt1: {fileID: 8300000, guid: 934b29840fb26e84badb38fd619abe4d, type: 3}
     Cpt2: {fileID: 8300000, guid: b99e36e5d922f8945a9337c4536aaeb3, type: 3}
-    Cpt3: {fileID: 8300000, guid: 934b29840fb26e84badb38fd619abe4d, type: 3}
-    Cpt4: {fileID: 8300000, guid: 934b29840fb26e84badb38fd619abe4d, type: 3}
+    Cpt3: {fileID: 8300000, guid: a2eeef4fec8fe4d4f8d8ce225946d3f5, type: 3}
+    Cpt4: {fileID: 8300000, guid: 5cbdaf69eea684c45a3861be2016bdfb, type: 3}
   DamagePosition:
   - {fileID: 1918882185}
   - {fileID: 289581611}
@@ -22668,10 +22680,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 433323616}
     m_Modifications:
-    - target: {fileID: 502283477884983654, guid: c6f6ce3e9ef4d4f4ebd53a79d750cc5c, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1379132150842486011, guid: c6f6ce3e9ef4d4f4ebd53a79d750cc5c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.021314621
@@ -22712,25 +22720,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3136496689600327871, guid: c6f6ce3e9ef4d4f4ebd53a79d750cc5c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4083029498134861548, guid: c6f6ce3e9ef4d4f4ebd53a79d750cc5c, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5917855331848024953, guid: c6f6ce3e9ef4d4f4ebd53a79d750cc5c, type: 3}
       propertyPath: m_Name
       value: Background_001
-      objectReference: {fileID: 0}
-    - target: {fileID: 6437538375756295846, guid: c6f6ce3e9ef4d4f4ebd53a79d750cc5c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6748427444484543164, guid: c6f6ce3e9ef4d4f4ebd53a79d750cc5c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

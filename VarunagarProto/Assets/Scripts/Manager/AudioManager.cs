@@ -23,10 +23,10 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] gameClips = new AudioClip[10];
     public GameObject AudioSources;
     public AudioSource QTERoll;
-    public IEnumerator PlayClip(AudioClip clip)
+    public IEnumerator PlayClip(AudioClip clip, float volume = 0.1f)
     {
         AudioSource source = AudioSources.AddComponent<AudioSource>();
-        source.PlayOneShot(clip,0.1f);
+        source.PlayOneShot(clip,volume);
         yield return new WaitForSeconds(clip.length);
         Destroy(source);
     }
@@ -39,13 +39,14 @@ public class AudioManager : MonoBehaviour
             yield return new WaitForSeconds(delay);
             AudioClip clip = combatClips[index]; 
             source.PlayOneShot(clip, 0.1f);
-            yield return new WaitForSeconds(clip.length);
             if (index == 13) QTERoll = source;
+            yield return new WaitForSeconds(clip.length);
         }
         Destroy(source);
     }
     public void StopQTERoll()
     {
+        Debug.Log(QTERoll);
         Destroy(QTERoll);
         QTERoll = null;
     }

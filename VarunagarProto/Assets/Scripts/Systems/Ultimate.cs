@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 using static CombatManager;
+using static UnityEngine.EventSystems.EventTrigger;
 using Random = UnityEngine.Random;
 
 public class QTEZone
@@ -290,12 +291,15 @@ public class Ultimate : MonoBehaviour
         }
         
     }
+    public Transform BackgroundParent;
+    public GameObject UltParentPrefab;
+    public GameObject[] UltAnimPrefabs;
+    public AudioClip[] UltAudioClips;
 
-    private IEnumerator QTEStop(float time = 1f)
+    private IEnumerator QTEStop(float time = 0.5f)
     {
         if (qteCoroutine != null)
         {
-            Debug.Log("Coroutine stoppée et tout");
             StopCoroutine(qteCoroutine);
             qteCoroutine = null;
         }
@@ -303,11 +307,6 @@ public class Ultimate : MonoBehaviour
         {
             CurrentEntity.UltLvlHit = 0;
         }
-        if (CurrentEntity.Affinity == 2)
-        {
-            CurrentEntity.UnitSpeed += 10;
-        }
-
         qteAnimator.speed = 0f;
         CurrentEntity.UltimateSlider = 100;
         CurrentEntity.UltIsReady = false;
@@ -316,6 +315,16 @@ public class Ultimate : MonoBehaviour
 
         yield return new WaitForSeconds(time);
         qteUI.SetActive(false);
+        yield return new WaitForSeconds(0.2f);
+        if (CurrentAffinity != 0)
+        {
+            GameObject UltParent = Instantiate(UltParentPrefab, new Vector3(1.1f, 0.15f, 0), Quaternion.identity, BackgroundParent);
+            UltParent.GetComponent<UltiAnimData>().Ultis[CurrentAffinity - 1].SetActive(true);
+            UltParent.GetComponent<UltiAnimData>().Face.sprite = UltParent.GetComponent<UltiAnimData>().FaceArray[CurrentEntity.ID-2];
+            StartCoroutine(AudioManager.SINGLETON.PlayClip(UltAudioClips[CurrentAffinity - 1], 0.05f));
+            yield return new WaitForSeconds(1.5f);
+            Destroy(UltParent);
+        }
         CombatManager.SINGLETON.SetUltimate();
         CombatManager.SINGLETON.UseCapacity(GlobalVars.currentSelectedCapacity);
 
