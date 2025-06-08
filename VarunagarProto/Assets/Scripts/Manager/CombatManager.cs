@@ -1692,7 +1692,7 @@ public class CombatManager : MonoBehaviour
             int level = Mathf.Clamp(effect.level, 1, 5); 
 
             int[] baseDamage = { 0, 5, 6, 7, 8, 10 };
-            float[] speedPercents = { 0f, 0.10f, 0.15f, 0.20f, 0.25f, 0.30f };
+            float[] speedPercents = { 0f, 0.10f, 0.14f, 0.18f, 0.22f, 0.25f };
 
             int speedDamage = Mathf.RoundToInt(target.UnitSpeed * speedPercents[level]);
             int damage = baseDamage[level] + speedDamage;
