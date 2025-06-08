@@ -260,7 +260,7 @@ public class CombatManager : MonoBehaviour
     {
         DataEntity caster = currentTurnOrder[0];
         Debug.Log($"[Tour] Début du tour pour {currentTurnOrder[0].namE} (HP: {currentTurnOrder[0].UnitLife})");
-        ChargePower(caster, 2);
+        ChargePower(caster, caster.SpeedLevel /3 + 1);
         if (caster.beenHurtThisTurn == false && caster.RageTick > 0)
         {
             caster.RageTick -= 1;
