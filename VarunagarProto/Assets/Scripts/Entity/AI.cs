@@ -34,16 +34,6 @@ public class AI : MonoBehaviour
 
         enemyTurnCounter++;
         StartCoroutine(SingleAttackCoroutine(attacker));
-        /*if (enemyTurnCounter % 2 == 0)
-        {
-            Debug.Log("L'ennemi lance une attaque multiple");
-            StartCoroutine(MultiAttackCoroutine(attacker));
-        }
-        else
-        {
-            Debug.Log("L'ennemi lance une attaque simple");
-            StartCoroutine(SingleAttackCoroutine(attacker));
-        }*/
     }
 
     private bool IsCombatReady()
@@ -53,28 +43,11 @@ public class AI : MonoBehaviour
                CombatManager.SINGLETON.entityHandler.players != null &&
                CombatManager.SINGLETON.entityHandler.players.Count > 0;
     }
-
+    
     private IEnumerator SingleAttackCoroutine(DataEntity attacker)
     {
         var entityHandler = CombatManager.SINGLETON.entityHandler;
 
-        bool playerIsProvoking = entityHandler.players.Any(p => p.provoking);
-
-        List<CapacityData> allSpells = new List<CapacityData>();
-        if (attacker._CapacityData1 != null) allSpells.Add(attacker._CapacityData1);
-        if (attacker._CapacityData2 != null) allSpells.Add(attacker._CapacityData2);
-
-        List<CapacityData> validSpells = playerIsProvoking
-            ? allSpells.Where(s => !s.TargetingAlly).ToList()
-            : allSpells;
-
-        if (validSpells.Count == 0)
-        {
-            CombatManager.SINGLETON.EndUnitTurn();
-            yield break;
-        }
-        choosenSpell = SelectSpellFromList(validSpells);
-        CombatManager.SINGLETON.attackEnnemy.text = $"{attacker.namE} lance {choosenSpell.Description}";
         List<DataEntity> possibleTargets;
 
         if (choosenSpell.TargetingAlly)
@@ -96,15 +69,18 @@ public class AI : MonoBehaviour
 
         if (possibleTargets.Count == 0)
         {
-            Debug.Log("Aucune cible valide trouvee.");
+            Debug.Log("Aucune cible valide trouvée.");
             CombatManager.SINGLETON.EndUnitTurn();
             yield break;
         }
 
         DataEntity target = possibleTargets[Random.Range(0, possibleTargets.Count)];
 
-        yield return new WaitForSeconds(0.2f);
+        //Delais entre selction spells et attaque
+        yield return new WaitForSeconds(2f);
+        
         Debug.Log($"skibidi {attacker.namE} attaque");
+
         if (choosenSpell.MultipleAttack)
         {
             Debug.Log("[AI] Attaque multiple déclenchée !");
@@ -118,13 +94,11 @@ public class AI : MonoBehaviour
             StartCoroutine(CombatManager.SINGLETON.ApplyCapacityToTarget(choosenSpell, target));
         }
 
-        //PostAttackProcessing(attacker); 
-
         yield return new WaitForSeconds(0.2f);
         CombatManager.SINGLETON.EndUnitTurn();
-
         DisableTargetIndicators();
     }
+
 
 
     private IEnumerator MultiAttackCoroutine(DataEntity attacker)
@@ -141,15 +115,12 @@ public class AI : MonoBehaviour
             DataEntity target = provokers.Count > 0
                 ? provokers[Random.Range(0, provokers.Count)]
                 : targets[Random.Range(0, targets.Count)];
-            //ToggleTargetIndicator(target);
 
             CapacityData chosenSpell = SelectSpell(attacker);
             StartCoroutine(CombatManager.SINGLETON.ApplyCapacityToTarget(chosenSpell, target));
 
         }
-
         //PostAttackProcessing(attacker);
-
         yield return new WaitForSeconds(0.2f);
         CombatManager.SINGLETON.EndUnitTurn();
 

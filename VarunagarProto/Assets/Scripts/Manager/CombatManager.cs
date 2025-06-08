@@ -297,7 +297,11 @@ public class CombatManager : MonoBehaviour
             yield return null;
         }
 
-        if (currentTurnOrder.Count == 0) yield break;
+        if (currentTurnOrder.Count == 0)
+        {
+            EndGlobalTurn();
+            StartCoroutine(StartUnitTurnRoutine());
+        }
 
         DataEntity current = currentTurnOrder[0];
         GlobalVars.currentPlayer = current;
@@ -312,6 +316,8 @@ public class CombatManager : MonoBehaviour
             yield break;
         }
         DetectEnnemyTurn();
+        
+        
     
         if (entityHandler.ennemies.Contains(current))
         {
@@ -355,7 +361,17 @@ public class CombatManager : MonoBehaviour
             canvasGroup.alpha = 0f;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
-            ennemyTurn.SetActive(true);
+            ennemyTurn.SetActive(true); 
+            var selectedSpell = AI.SINGLETON.SelectSpell(currentEntity);
+            if (selectedSpell != null)
+            {
+                AI.SINGLETON.choosenSpell = selectedSpell;
+                attackEnnemy.text = $"{selectedSpell.name}";
+            }
+            else
+            {
+                return;
+            }
         }
         else
         {
