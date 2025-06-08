@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: Cpt3d41
   m_EditorClassIdentifier: 
   atk: 0
-  heal: 20
+  heal: 15
   critique: 0
   "pr\xE9cision": 100
   cooldown: 1
-  chargeUlti: 0
   MultipleHeal: 1
   MultipleAttack: 0
   MultipleBuff: 0
@@ -28,6 +27,10 @@ MonoBehaviour:
   buffType: 1
   buffValue: 1.3
   buffDuration: 1
+  buffType2: 0
+  buffValue2: 0
+  buffDuration2: 0
+  ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 0
   Shock: 0

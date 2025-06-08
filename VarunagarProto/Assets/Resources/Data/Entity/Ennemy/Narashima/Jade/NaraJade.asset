@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
   BaseLife: 240
-  BaseAtk: 30
+  BaseAtk: 35
   BaseSpeed: 52
   BaseDef: 35
   BaseAim: 100
@@ -38,10 +38,12 @@ MonoBehaviour:
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
   hasBeenInitialized: 0
+  TargetCircle: {fileID: 0}
   portrait: {fileID: 21300000, guid: 7f257d4dc90d23a4d88873463175f492, type: 3}
   portraitUI: {fileID: 21300000, guid: 22d7690e71ba79d479ed783afa8f4ea2, type: 3}
   bandeauUI: {fileID: 0}
   Animator: {fileID: 0}
+  NecrosisParticles: {fileID: 0}
   capacityData1Source: {fileID: 11400000, guid: defbee423f7f9ff4391c3072d7f497dd, type: 2}
   capacity1: {fileID: 0}
   Cpt1lvl: 0

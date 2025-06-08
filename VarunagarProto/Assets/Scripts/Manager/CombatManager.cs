@@ -121,7 +121,7 @@ public class CombatManager : MonoBehaviour
                 player.hasBeenInitialized = true;
             }
         }
-        ReseterData.ResetPlayersComplete(entityHandler, entiityManager);  //a retirer avant de build
+        //ReseterData.ResetPlayersComplete(entityHandler, entiityManager);  //a retirer avant de build
         ReseterData.ResetEnemies(entityHandler);
         foreach (var enemy in entityHandler.ennemies)
         {
@@ -1443,7 +1443,7 @@ public class CombatManager : MonoBehaviour
         Value = Math.Max(CData.atk, CData.heal);
         if (CData.heal > 0)
         {
-            Value = Mathf.RoundToInt((Mathf.Sqrt(2 * player.UnitAtk) + CData.heal));
+            Value = Mathf.RoundToInt((player.UnitAtk/3) + CData.heal);
         }
         if (CData.atk > 0)
         {
