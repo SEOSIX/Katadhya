@@ -420,8 +420,8 @@ public class CombatManager : MonoBehaviour
             int level = capacity.name[6] - '0';
             switch (level)
             {
-                case 1: chargeCost = 2; break;
-                case 2: chargeCost = 3; break;
+                case 1: chargeCost = 1; break;
+                case 2: chargeCost = 2; break;
                 default: chargeCost = 0; break;
             }
         }
@@ -613,8 +613,8 @@ public class CombatManager : MonoBehaviour
             int level = capacity.name[6] - '0';
             switch (level)
             {
-                case 1: chargeCost = 2; break;
-                case 2: chargeCost = 3; break;
+                case 1: chargeCost = 1; break;
+                case 2: chargeCost = 2; break;
                 default: chargeCost = 0; break;
             }
         }
@@ -971,12 +971,7 @@ public class CombatManager : MonoBehaviour
     #region PowerCharge
     public void ChargePower(DataEntity player,int amount)
     {
-        Debug.Log($"Player : {player.namE}");
-        Debug.Log($"Player ChargePower : {player.ChargePower}");
-        Debug.Log($"ChargePower : {amount}");
         player.ChargePower = Mathf.Clamp(player.ChargePower + amount, 0, 10);
-        Debug.Log($"ChargePower after : {player.ChargePower}");
-
     }
     public string CycleCapacityName(string currentName, int maxLevel = 2)
     {
@@ -1050,8 +1045,8 @@ public class CombatManager : MonoBehaviour
         switch (level)
         {
             case 0: return 0;
-            case 1: return 2;
-            case 2: return 3;
+            case 1: return 1;
+            case 2: return 2;
             default:
                 Debug.LogWarning($"[CombatManager] Niveau de capacité inconnu : {level}, retour de 0.");
                 return 0;
@@ -1109,8 +1104,6 @@ public class CombatManager : MonoBehaviour
             {
                 if (IsCapacityOnCooldown(player, C)) CoolDown = true;
             }
-            Debug.Log($"[ResetListener] CData : {CData.name}, Button : {button}, CurrentSelected : {currentSelectedButton}");
-            Debug.Log($"[ResetListener] Cooldown status : {CoolDown}");
             if (currentSelectedButton == button && currentSelectedButton != null && !CoolDown)
             {
                 StopAllCoroutines();
@@ -1300,7 +1293,7 @@ public class CombatManager : MonoBehaviour
                     {
                         PlayerChargePreview.value = 0;
                     }
-                    else { PlayerChargePreview.value = player.ChargePower - 2; }
+                    else { PlayerChargePreview.value = player.ChargePower - 1; }
                     break;
                 case '2':
                     capacityUpgradePoints[i].GetChild(0).GetComponent<Image>().color = Color.white;
@@ -1309,7 +1302,7 @@ public class CombatManager : MonoBehaviour
                     {
                         PlayerChargePreview.value = 0;
                     }
-                    else { PlayerChargePreview.value = player.ChargePower - 3; }
+                    else { PlayerChargePreview.value = player.ChargePower - 2; }
 
                     break;
             }
