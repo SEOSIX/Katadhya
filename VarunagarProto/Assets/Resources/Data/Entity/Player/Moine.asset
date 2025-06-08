@@ -13,29 +13,30 @@ MonoBehaviour:
   m_Name: Moine
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  BaseLife: 300
+  BaseLife: 280
   BaseAtk: 5
   BaseSpeed: 40
   BaseDef: 5
   BaseAim: 100
-  UnitLife: 300
+  UnitLife: 159
   UnitAtk: 5
   UnitSpeed: 40
   UnitDef: 5
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns:
-  - capacity: {fileID: 11400000, guid: f845f7eb8e898aa40a7582af25e08e8e, type: 2}
+  - capacity: {fileID: 11400000, guid: 61295d1f04e126c48ad7deea93460813, type: 2}
     remainingCooldown: 1
   Affinity: 0
-  ChargePower: 3
-  UltChargePowerCost: 8
+  ChargePower: 4
+  UltChargePowerCost: 7
   UnitShield: 0
   ShockMark: 0
   RageTick: 0
   LastRageTick: 0
-  necrosis: []
-  beenHurtThisTurn: 1
+  necrosis:
+  - level: 1
+  beenHurtThisTurn: 0
   provoking: 0
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
@@ -57,7 +58,7 @@ MonoBehaviour:
   capacityDataUltimateSource: {fileID: 11400000, guid: b500928d3256d974a861842354ea55e6, type: 2}
   Ultimate: {fileID: 21300000, guid: 47156ee7c606bda4db4e0c7d377a295c, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: ce4265b8a8608f148b8c0bdfbd50f510, type: 3}
-  CptUltlvl: 0
+  CptUltlvl: 2
   UltimateSlider: 100
   UltIsReady: 0
   UltLvl_1: 0

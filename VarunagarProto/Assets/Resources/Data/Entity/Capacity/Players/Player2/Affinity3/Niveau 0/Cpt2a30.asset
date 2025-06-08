@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177f3480044770c4dbbc775b957b477e, type: 3}
   m_Name: Cpt2a30
   m_EditorClassIdentifier: 
-  atk: 15
+  atk: 16
   heal: 0
   critique: 15
   "pr\xE9cision": 90
   cooldown: 0
-  chargeUlti: 18
   MultipleHeal: 0
   MultipleAttack: 0
   MultipleBuff: 0
@@ -28,6 +27,9 @@ MonoBehaviour:
   buffType: 0
   buffValue: 0
   buffDuration: 0
+  buffType2: 0
+  buffValue2: 0
+  buffDuration2: 0
   ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 0
