@@ -13,23 +13,21 @@ MonoBehaviour:
   m_Name: Moine
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  BaseLife: 300
+  BaseLife: 280
   BaseAtk: 5
   BaseSpeed: 40
   BaseDef: 5
   BaseAim: 100
-  UnitLife: 300
-  UnitAtk: 5
+  UnitLife: 280
+  UnitAtk: 10
   UnitSpeed: 40
-  UnitDef: 5
+  UnitDef: 10
   UnitAim: 100
   ActiveBuffs: []
-  ActiveCooldowns:
-  - capacity: {fileID: 11400000, guid: f845f7eb8e898aa40a7582af25e08e8e, type: 2}
-    remainingCooldown: 1
+  ActiveCooldowns: []
   Affinity: 0
-  ChargePower: 3
-  UltChargePowerCost: 8
+  ChargePower: 0
+  UltChargePowerCost: 7
   UnitShield: 0
   ShockMark: 0
   RageTick: 0
@@ -40,6 +38,7 @@ MonoBehaviour:
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
   hasBeenInitialized: 1
+  TargetCircle: {fileID: 0}
   portrait: {fileID: 21300000, guid: 720a7ef09d762164291f08f84ceca96b, type: 3}
   portraitUI: {fileID: 21300000, guid: c7c7f85af6d269a4681482747a4a8408, type: 3}
   bandeauUI: {fileID: 21300000, guid: 6c06cf1fd04d2c44b829c9f002d658bf, type: 3}

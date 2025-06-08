@@ -16,31 +16,29 @@ MonoBehaviour:
   BaseLife: 300
   BaseAtk: 10
   BaseSpeed: 50
-  BaseDef: 5
+  BaseDef: 0
   BaseAim: 100
   UnitLife: 300
   UnitAtk: 10
   UnitSpeed: 50
-  UnitDef: 4
+  UnitDef: 5
   UnitAim: 100
-  ActiveBuffs:
-  - type: 2
-    value: 0.8
-    duration: 1
+  ActiveBuffs: []
   ActiveCooldowns: []
   Affinity: 0
-  ChargePower: 4
-  UltChargePowerCost: 7
+  ChargePower: 1
+  UltChargePowerCost: 6
   UnitShield: 0
   ShockMark: 0
   RageTick: 0
   LastRageTick: 0
   necrosis: []
-  beenHurtThisTurn: 1
+  beenHurtThisTurn: 0
   provoking: 0
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
   hasBeenInitialized: 1
+  TargetCircle: {fileID: 0}
   portrait: {fileID: 21300000, guid: d6dffbf58b723a84993b7caa718951db, type: 3}
   portraitUI: {fileID: 21300000, guid: 57a6313c21a563a45a78962343cc960a, type: 3}
   bandeauUI: {fileID: 21300000, guid: d44e05a51a6079049a283f37c58e4709, type: 3}
