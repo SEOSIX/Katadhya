@@ -297,7 +297,11 @@ public class CombatManager : MonoBehaviour
             yield return null;
         }
 
-        if (currentTurnOrder.Count == 0) yield break;
+        if (currentTurnOrder.Count == 0)
+        {
+            EndGlobalTurn();
+            StartCoroutine(StartUnitTurnRoutine());
+        }
 
         DataEntity current = currentTurnOrder[0];
         GlobalVars.currentPlayer = current;
@@ -362,7 +366,7 @@ public class CombatManager : MonoBehaviour
             if (selectedSpell != null)
             {
                 AI.SINGLETON.choosenSpell = selectedSpell;
-                attackEnnemy.text = $"cc{selectedSpell.Description}";
+                attackEnnemy.text = $"{selectedSpell.name}";
             }
             else
             {
