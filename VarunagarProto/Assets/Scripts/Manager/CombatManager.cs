@@ -159,9 +159,9 @@ public class CombatManager : MonoBehaviour
         DataEntity currentEntity = currentTurnOrder[0];
 
         textplayer.text = currentEntity.name;
-        speed.text = "VIT :" + currentEntity.UnitSpeed;
-        def.text = "DEF :" + currentEntity.UnitDef;
-        atck.text = "ATQ :" + currentEntity.UnitAtk;
+        speed.text = "VIT : " + currentEntity.UnitSpeed;
+        def.text = "DEF : " + currentEntity.UnitDef;
+        atck.text = "ATQ : " + currentEntity.UnitAtk;
         lifeText.text = currentEntity.UnitLife + "/" + currentEntity.BaseLife;
         playerPortrait.sprite = currentEntity.bandeauUI;
         PlayerCharge.value = currentEntity.ChargePower;

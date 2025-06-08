@@ -305,7 +305,7 @@ public class EntiityManager : MonoBehaviour
     
   private void OnMouseEnter()
 {
-    if (!Clickable || GlobalVars.currentSelectedCapacity == null)
+        if (!Clickable || GlobalVars.currentSelectedCapacity == null)
         return;
 
     DataEntity caster = CombatManager.SINGLETON.currentTurnOrder[0];

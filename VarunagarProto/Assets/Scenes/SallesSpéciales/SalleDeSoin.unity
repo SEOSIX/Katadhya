@@ -1907,6 +1907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459e94a74c334254ab908feaed74ba7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityHandler: {fileID: 11400000, guid: 1cc7fee22bc149049a1bcda2676c8263, type: 2}
   BackgroundPrefabs: []
   PriceTexts:
   - {fileID: 1455667166}
@@ -1922,6 +1923,10 @@ MonoBehaviour:
   ObjectDescription: {fileID: 61771411}
   ConfirmationPrice: {fileID: 932173000}
   StatueIndex: 0
+  Statues:
+  - {fileID: 1595094109}
+  - {fileID: 2139659211}
+  - {fileID: 1474731791}
   StatuesImages:
   - {fileID: 262207109}
   - {fileID: 1776345829}

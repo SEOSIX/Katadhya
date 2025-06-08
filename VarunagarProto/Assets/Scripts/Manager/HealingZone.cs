@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class HealingZone : MonoBehaviour
 {
+    public EntityHandler entityHandler;
     public GameObject[] BackgroundPrefabs;
     public TextMeshProUGUI[] PriceTexts = new TextMeshProUGUI[4];
     public int PriceIndex;
@@ -16,11 +17,25 @@ public class HealingZone : MonoBehaviour
     public TextMeshProUGUI ObjectDescription;
     public TextMeshProUGUI ConfirmationPrice;
     public int StatueIndex;
+    public GameObject[] Statues;
     public GameObject[] StatuesImages;
     public GameObject OrangeImage;
     public GameObject PlayerLife;
 
-
+    public void Start()
+    {
+        for(int i = 0; i < entityHandler.players.Count; i++)
+        {
+            if (entityHandler.players[i].UnitLife <= 0)
+            {
+                Statues[i].SetActive(true);
+            }
+            else
+            {
+                Statues[i].SetActive(false);
+            }
+        }
+    }
 
     public void LoadRandomBackground()
     {
@@ -33,10 +48,6 @@ public class HealingZone : MonoBehaviour
         {
             G.text = $"{Prices[PriceIndex]}";
         }
-    }
-    public void ResetAll()
-    {
-
     }
 
     public void SelectItem(string ItemType)
