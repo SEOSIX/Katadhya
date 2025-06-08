@@ -18,22 +18,22 @@ MonoBehaviour:
   BaseSpeed: 50
   BaseDef: 5
   BaseAim: 100
-  UnitLife: 165
+  UnitLife: 300
   UnitAtk: 10
   UnitSpeed: 50
   UnitDef: 5
   UnitAim: 100
   ActiveBuffs: []
   ActiveCooldowns: []
-  Affinity: 2
-  ChargePower: 5
+  Affinity: 0
+  ChargePower: 4
   UltChargePowerCost: 7
   UnitShield: 0
   ShockMark: 0
   RageTick: 0
   LastRageTick: 0
   necrosis: []
-  beenHurtThisTurn: 0
+  beenHurtThisTurn: 1
   provoking: 0
   provokingDuration: 0
   provokingCaracter: {fileID: 0}

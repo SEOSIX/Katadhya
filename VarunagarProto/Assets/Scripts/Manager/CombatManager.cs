@@ -366,7 +366,7 @@ public class CombatManager : MonoBehaviour
             if (selectedSpell != null)
             {
                 AI.SINGLETON.choosenSpell = selectedSpell;
-                attackEnnemy.text = $"{selectedSpell.name}";
+                attackEnnemy.text = $"{selectedSpell.Name}";
             }
             else
             {
@@ -394,9 +394,21 @@ public class CombatManager : MonoBehaviour
         foreach (var circle in circlesEnnemy)
         {
             circle.SetActive(false);
+            if (circlesEnnemy == null)
+            {
+                continue;
+            }
         }
+
         foreach (var circle in circlesPlayer)
+        {
             circle.SetActive(false);
+            if (circlesPlayer == null)
+            {
+                continue;
+            }
+        }
+
     }
     public void UseCapacity(CapacityData cpt)
     {

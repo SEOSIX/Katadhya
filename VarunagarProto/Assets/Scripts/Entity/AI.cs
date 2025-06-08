@@ -77,7 +77,7 @@ public class AI : MonoBehaviour
         DataEntity target = possibleTargets[Random.Range(0, possibleTargets.Count)];
 
         //Delais entre selction spells et attaque
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.1f);
         
         Debug.Log($"skibidi {attacker.namE} attaque");
 
