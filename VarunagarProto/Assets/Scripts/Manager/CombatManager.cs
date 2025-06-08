@@ -366,7 +366,7 @@ public class CombatManager : MonoBehaviour
             if (selectedSpell != null)
             {
                 AI.SINGLETON.choosenSpell = selectedSpell;
-                attackEnnemy.text = $"{selectedSpell.name}";
+                attackEnnemy.text = $"{selectedSpell.Name}";
             }
             else
             {
