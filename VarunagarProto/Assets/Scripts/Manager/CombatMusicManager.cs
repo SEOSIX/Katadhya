@@ -18,10 +18,10 @@ public class CombatMusicManager : MonoBehaviour
     {
         this.GetComponent<AudioSource>().clip = Combat1;
         this.GetComponent<AudioSource>().Play();
-        yield return new WaitForSeconds(Combat1.length);
+        yield return new WaitForSeconds(Combat1.length-7f);
         this.GetComponent<AudioSource>().clip = Combat2;
         this.GetComponent<AudioSource>().Play();
-        yield return new WaitForSeconds(Combat2.length);
+        yield return new WaitForSeconds(Combat2.length-8f);
         StartCoroutine(MusicLoop());
 
     }

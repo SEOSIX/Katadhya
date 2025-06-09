@@ -209,7 +209,7 @@ public class EntiityManager : MonoBehaviour
                 entityHandler.ennemies.RemoveAll(e => e == null || e.UnitLife <= 0);
                 GameManager.SINGLETON.EnemyPackIndex += 1;
                 CombatManager.SINGLETON.entityHandler.ennemies.Clear();
-                GameManager.SINGLETON.SpawnEnemies();
+                StartCoroutine(GameManager.SINGLETON.SpawnEnemies());
                 LifeEntity.SINGLETON.LifeManage();
                 ReseterData.ResetEnemies(entityHandler);
                 CombatManager.SINGLETON.currentTurnOrder = CombatManager.SINGLETON.GetUnitTurn();
@@ -231,7 +231,7 @@ public class EntiityManager : MonoBehaviour
             {
                 if (!SoundPlayed)
                 {
-                    StartCoroutine(AudioManager.SINGLETON.PlayGameClip(7, 0f, 01f));
+                    StartCoroutine(AudioManager.SINGLETON.PlayGameClip(7, 0f, 0.2f));
                     SoundPlayed = true;
                 }
                 GameManager.SINGLETON.EndScreen.SetActive(true);
@@ -240,7 +240,7 @@ public class EntiityManager : MonoBehaviour
             {
                 if (!SoundPlayed)
                 {
-                    StartCoroutine(AudioManager.SINGLETON.PlayGameClip(7, 0f, 1f));
+                    StartCoroutine(AudioManager.SINGLETON.PlayGameClip(7, 0f, 0.2f));
                     SoundPlayed = true;
                 }
                 VictoryDefeatUI.SINGLETON.DisplayEndCombat(isVictory, GameManager.SINGLETON.allEnemiesEncountered);

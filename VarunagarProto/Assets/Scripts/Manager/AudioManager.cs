@@ -64,4 +64,12 @@ public class AudioManager : MonoBehaviour
         }
         Destroy(source);
     }
+    public void ResetCoroutines()
+    {
+        this.StopAllCoroutines();
+        foreach (AudioSource A in this.GetComponents<AudioSource>())
+        {
+            Destroy(A);
+        }
+    }
 }

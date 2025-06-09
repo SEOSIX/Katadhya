@@ -113,7 +113,8 @@ public class ExplorationManager : MonoBehaviour
     }
     public IEnumerator LoadScene(string SceneName)
     {
-        //FadeManager.Instance.FadeOut();
+        AudioManager.SINGLETON.ResetCoroutines();
+        FadeManager.Instance.FadeOut();
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(SceneName);
     }

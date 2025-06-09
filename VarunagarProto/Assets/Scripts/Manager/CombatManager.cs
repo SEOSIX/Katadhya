@@ -940,13 +940,13 @@ public class CombatManager : MonoBehaviour
         {
             if (target.UnitShield < icalculatedDamage)
             {
-                StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(2));
+                StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(3));
                 icalculatedDamage -= target.UnitShield;
                 target.UnitShield = 0;
             }
             else
             {
-                StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(3));
+                StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(2));
                 target.UnitShield -= icalculatedDamage;
                 icalculatedDamage = 0;
             }
