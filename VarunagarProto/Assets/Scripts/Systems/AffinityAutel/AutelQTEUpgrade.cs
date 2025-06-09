@@ -129,6 +129,7 @@ public class AutelQTEUpgrade : MonoBehaviour
             NotEnoughCaurisFeedback(affinityIndex);
             return;
         }
+        StartCoroutine(AudioManager.SINGLETON.PlayGameClip(9));
         IncrementAffinity(affinityIndex);
         UpdateAffinityTexts(currentEntity);
         UpdateAffText(affinityIndex);
@@ -239,7 +240,7 @@ public class AutelQTEUpgrade : MonoBehaviour
         currentEntity.CptUltlvl = currentEntity.UltLvl_1 + currentEntity.UltLvl_2 + currentEntity.UltLvl_3 + currentEntity.UltLvl_4;
         UltLvl.text = $"Niv {currentEntity.CptUltlvl}";
         if(isSelectedGard) bio.text = $"Buff de défense augmenté de {currentEntity.CptUltlvl *5}%";
-        if (isSelectedMonk) bio.text = $"Soin augmenté de {currentEntity.CptUltlvl * 2}";
+        if (isSelectedMonk) bio.text = $"Soin augmenté de {currentEntity.CptUltlvl}";
         if (isSelectedPriso) bio.text = $"Attaque augmentée de {currentEntity.CptUltlvl * 2}";
 
 

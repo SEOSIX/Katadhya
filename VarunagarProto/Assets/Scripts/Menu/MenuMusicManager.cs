@@ -29,7 +29,7 @@ public class MenuMusicManager : MonoBehaviour
     void PlayIntroThenLoopWithCrossfade()
     {
         audioIntro.clip = menuIntroClip;
-        audioIntro.volume = 0.7f;
+        audioIntro.volume = 0.2f;
         audioIntro.Play();
 
         audioLoop.clip = menuLoopClip;
@@ -55,12 +55,12 @@ public class MenuMusicManager : MonoBehaviour
             timer += Time.deltaTime;
             float t = timer / crossfadeDuration;
 
-            audioLoop.volume = Mathf.Lerp(0f, 1f, t);
-            audioIntro.volume = Mathf.Lerp(1f, 0f, t);
+            audioLoop.volume = Mathf.Lerp(0f, 0.2f, t);
+            audioIntro.volume = Mathf.Lerp(0.2f, 0f, t);
 
             yield return null;
         }
-        audioLoop.volume = 1f;
+        audioLoop.volume = 0.2f;
         audioIntro.Stop();
     }
 
@@ -68,7 +68,7 @@ public class MenuMusicManager : MonoBehaviour
     {
         audioLoop.clip = menuLoopClip;
         audioLoop.loop = true;
-        audioLoop.volume = 1f;
+        audioLoop.volume = 0.2f;
         audioLoop.Play();
     }
 }

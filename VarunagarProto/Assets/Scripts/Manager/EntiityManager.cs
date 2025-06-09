@@ -19,6 +19,7 @@ public class EntiityManager : MonoBehaviour
 
     private int currentLifeValue;
     public bool Clickable = true;
+    public bool SoundPlayed = false;
     
     public void DestroyDeadEnemies()
     {
@@ -197,6 +198,7 @@ public class EntiityManager : MonoBehaviour
         if (!anyPlayerAlive)
         {
             Debug.Log("Game Over");
+            StartCoroutine(AudioManager.SINGLETON.PlayGameClip(10));
             CombatManager.SINGLETON.EndGlobalTurn();
             CombatManager.SINGLETON.EndGameOver.SetActive(true);
         }
@@ -227,10 +229,20 @@ public class EntiityManager : MonoBehaviour
         {
             if (GameManager.SINGLETON.FinalFight == true)
             {
+                if (!SoundPlayed)
+                {
+                    StartCoroutine(AudioManager.SINGLETON.PlayGameClip(7, 0f, 01f));
+                    SoundPlayed = true;
+                }
                 GameManager.SINGLETON.EndScreen.SetActive(true);
             }
             else
             {
+                if (!SoundPlayed)
+                {
+                    StartCoroutine(AudioManager.SINGLETON.PlayGameClip(7, 0f, 1f));
+                    SoundPlayed = true;
+                }
                 VictoryDefeatUI.SINGLETON.DisplayEndCombat(isVictory, GameManager.SINGLETON.allEnemiesEncountered);
             }
         }

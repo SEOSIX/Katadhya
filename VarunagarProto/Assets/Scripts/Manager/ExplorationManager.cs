@@ -132,6 +132,8 @@ public class ExplorationManager : MonoBehaviour
             BigData.AddCauris(CauriSpe[i], i);
         }
         BigData.AddGlobalCauris(C.CaurisDor);
+        StartCoroutine(AudioManager.SINGLETON.PlayGameClip(8));
+
     }
 
 

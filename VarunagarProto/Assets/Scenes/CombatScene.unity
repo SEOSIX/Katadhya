@@ -3243,6 +3243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityHandler: {fileID: 11400000, guid: 1cc7fee22bc149049a1bcda2676c8263, type: 2}
   Clickable: 0
+  SoundPlayed: 0
 --- !u!1 &279680328
 GameObject:
   m_ObjectHideFlags: 0
@@ -7502,6 +7503,63 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1001 &565629656
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.05960828
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.047225192
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.042567212
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451091791506078170, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4545506566806401993, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+      propertyPath: m_Name
+      value: Exploration_Manager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
 --- !u!1 &580337220
 GameObject:
   m_ObjectHideFlags: 0
@@ -20021,6 +20079,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1317918625}
   - component: {fileID: 1317918624}
+  - component: {fileID: 1317918626}
   m_Layer: 0
   m_Name: Katadhya - Fight 1
   m_TagString: Untagged
@@ -20040,9 +20099,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9ad28ac7e1ae8994cbf737c82a6bc326, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.5
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -20139,6 +20198,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1317918626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317918623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61008ac5b73111644854b5491912f8c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Combat1: {fileID: 8300000, guid: 9ad28ac7e1ae8994cbf737c82a6bc326, type: 3}
+  Combat2: {fileID: 8300000, guid: 626e35fdc295c854582da447280b830d, type: 3}
 --- !u!1 &1319826709
 GameObject:
   m_ObjectHideFlags: 0
@@ -29175,3 +29248,4 @@ SceneRoots:
   - {fileID: 1305942522}
   - {fileID: 195214874}
   - {fileID: 954936428}
+  - {fileID: 565629656}

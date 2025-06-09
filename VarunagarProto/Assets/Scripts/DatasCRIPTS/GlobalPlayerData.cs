@@ -57,6 +57,7 @@ public class GlobalPlayerData : ScriptableObject
     public void AddCauris(int amount, int affinityIndex)
     {
         caurisPerAffinity[affinityIndex] += amount;
+        AudioManager.SINGLETON.PlayGameClip(8);
     }
 
     public int GetCauris(int affinityIndex)

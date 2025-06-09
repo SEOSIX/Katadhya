@@ -253,7 +253,7 @@ public class AutelStats : MonoBehaviour
                 prices.lifePrice += lifePriceIncrement;
                 break;
         }
-
+        StartCoroutine(AudioManager.SINGLETON.PlayGameClip(9));
         UpdateStatDisplay();
         CaurisManage.Instance.UpdateCaurisDisplay();
 

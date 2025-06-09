@@ -102,6 +102,7 @@ public class HealingZone : MonoBehaviour
         }
         SelectedObj.SetActive(false);
         UpdatePrices();
+        StartCoroutine(AudioManager.SINGLETON.PlayGameClip(9));
 
 
     }

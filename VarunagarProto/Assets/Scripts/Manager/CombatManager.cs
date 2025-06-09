@@ -825,7 +825,7 @@ public class CombatManager : MonoBehaviour
                 break;
             case SpecialCapacityType.UltMoine:
                 caster.CptUltlvl = caster.UltLvl_1 + caster.UltLvl_2 + caster.UltLvl_3 + caster.UltLvl_4;
-                ApplyNormalCapacity(capacity, caster, target, 2 * caster.CptUltlvl);
+                ApplyNormalCapacity(capacity, caster, target, caster.CptUltlvl);
                 Debug.Log($"skibidi garde {caster.ChargePower}");
                 break;
             case SpecialCapacityType.UltPriso:
