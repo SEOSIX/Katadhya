@@ -8,6 +8,10 @@ public class CheatConsole : MonoBehaviour
     public TMP_InputField inputField;
     public TextMeshProUGUI outputText;
 
+    public EntityHandler entityHandler;
+    public ExplorationManager globalData;
+    public EntiityManager entityManager;
+    
     private Dictionary<string, System.Action<string[]>> commands;
     private Dictionary<DataEntity, (int baseLife, int unitLife)> godModeOriginalValues = new();
 
@@ -101,8 +105,6 @@ public class CheatConsole : MonoBehaviour
         }
 
         bool enable = args[0].ToLower() == "on";
-
-        var entityHandler = FindObjectOfType<EntiityManager>()?.entityHandler;
         if (entityHandler == null || entityHandler.players == null || entityHandler.players.Count == 0)
         {
             AppendOutput("Aucun joueur trouvé.");
@@ -145,7 +147,7 @@ public class CheatConsole : MonoBehaviour
             return;
         }
 
-        var entityHandler = FindObjectOfType<EntityHandler>();
+        
         if (entityHandler == null || entityHandler.ennemies == null)
         {
             AppendOutput("EntityHandler non trouvé.");
@@ -163,15 +165,13 @@ public class CheatConsole : MonoBehaviour
         {
             enemy.UnitLife = 0;
             AppendOutput($"Ennemi {index} tué.");
-
-            var entityManager = FindObjectOfType<EntiityManager>();
+            
             entityManager?.DestroyDeadEnemies();
         }
     }
 
     void SkipFight(string[] args)
     {
-        var entityHandler = FindObjectOfType<EntityHandler>();
         if (entityHandler != null && entityHandler.ennemies != null)
         {
             foreach (var enemy in entityHandler.ennemies)
@@ -181,8 +181,6 @@ public class CheatConsole : MonoBehaviour
                     enemy.UnitLife = 0;
                 }
             }
-
-            var entityManager = FindObjectOfType<EntiityManager>();
             entityManager?.DestroyDeadEnemies();
 
             AppendOutput("Combat terminé.");
@@ -195,14 +193,13 @@ public class CheatConsole : MonoBehaviour
 
     void SetInfiniteCauris(string[] args)
     {
-        var globalData = FindObjectOfType<ExplorationManager>()?.BigData;
         if (globalData != null)
         {
-            for (int i = 0; i < globalData.caurisPerAffinity.Length; i++)
+            for (int i = 0; i < globalData.BigData.caurisPerAffinity.Length; i++)
             {
-                globalData.caurisPerAffinity[i] = 9999;
+                globalData.BigData.caurisPerAffinity[i] = 9999;
             }
-            globalData.caurisCount = 9999;
+            globalData.BigData.caurisCount = 9999;
 
             AppendOutput("Cauris infinis ajoutés.");
         }
@@ -214,7 +211,6 @@ public class CheatConsole : MonoBehaviour
     
     void ResetCheats()
     {
-        var entityHandler = FindObjectOfType<EntiityManager>()?.entityHandler;
         if (entityHandler == null || entityHandler.players == null)
             return;
 
