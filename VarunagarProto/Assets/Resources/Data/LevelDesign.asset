@@ -24,6 +24,10 @@ MonoBehaviour:
     CaurisSpe4: 0
     RoomOptions:
     - Stat Autel
+    TwoRoomsInARow: 0
+    SecondRoomOptions:
+    - 
+    - 
   - WaveList:
     - enemyPrefab1: {fileID: 6938047018459641208, guid: 9d27db757ed603d429915904e8f47b09, type: 3}
       enemyPrefab2: {fileID: 4951434115971887546, guid: c838876ec0f9d7446863beb8fd8b369d, type: 3}
@@ -35,6 +39,10 @@ MonoBehaviour:
     CaurisSpe4: 0
     RoomOptions:
     - QTE Autel
+    TwoRoomsInARow: 0
+    SecondRoomOptions:
+    - 
+    - 
   - WaveList:
     - enemyPrefab1: {fileID: 3739328305999535302, guid: 40f02ebafd4499d4d87b421d0d10a380, type: 3}
       enemyPrefab2: {fileID: 8483852927188996029, guid: 54e958e4317b0b344a42e14405885e84, type: 3}
@@ -48,6 +56,10 @@ MonoBehaviour:
     CaurisSpe4: 5
     RoomOptions:
     - SalleDeSoin
+    TwoRoomsInARow: 0
+    SecondRoomOptions:
+    - 
+    - 
   - WaveList:
     - enemyPrefab1: {fileID: 6460546652352324216, guid: 0d2cb3a0e3d533f48871b7e38375ca9d, type: 3}
       enemyPrefab2: {fileID: 4493399983760142657, guid: b705acfbb7b78cd4c8b6cfc5ff0038eb, type: 3}
@@ -62,6 +74,10 @@ MonoBehaviour:
     RoomOptions:
     - Stat Autel
     - SalleDeSoin
+    TwoRoomsInARow: 0
+    SecondRoomOptions:
+    - 
+    - 
   - WaveList:
     - enemyPrefab1: {fileID: 3739328305999535302, guid: 40f02ebafd4499d4d87b421d0d10a380, type: 3}
       enemyPrefab2: {fileID: 4818978143353986945, guid: afa28b24309443942bbf16c2295ecc67, type: 3}
@@ -73,6 +89,9 @@ MonoBehaviour:
     CaurisSpe4: 0
     RoomOptions:
     - QTE Autel
+    TwoRoomsInARow: 1
+    SecondRoomOptions:
+    - SalleDeSoin
   - WaveList:
     - enemyPrefab1: {fileID: 3606779365312333612, guid: b4e02c6b5719a064da335e50028c1681, type: 3}
       enemyPrefab2: {fileID: 7475588758634168079, guid: 75ff5a4ebf5c0084a969ea7ae4b36766, type: 3}
@@ -87,6 +106,10 @@ MonoBehaviour:
     RoomOptions:
     - QTE Autel
     - Stat Autel
+    TwoRoomsInARow: 0
+    SecondRoomOptions:
+    - 
+    - 
   - WaveList:
     - enemyPrefab1: {fileID: 5133236681666948725, guid: 3b8cd6ea653952c4a942996d4e3134eb, type: 3}
       enemyPrefab2: {fileID: 3387936825564613640, guid: 24f6b626489991f4698f539052dba855, type: 3}
@@ -101,6 +124,10 @@ MonoBehaviour:
     RoomOptions:
     - QTE Autel
     - SalleDeSoin
+    TwoRoomsInARow: 0
+    SecondRoomOptions:
+    - 
+    - 
   - WaveList:
     - enemyPrefab1: {fileID: 9061989563688303963, guid: 5f3bad04545fc724e92a167d1160aaa2, type: 3}
       enemyPrefab2: {fileID: 6650424179341839513, guid: d294421069d4ef7459c0a29232b3951f, type: 3}
@@ -117,6 +144,10 @@ MonoBehaviour:
     RoomOptions:
     - QTE Autel
     - Stat Autel
+    TwoRoomsInARow: 0
+    SecondRoomOptions:
+    - 
+    - 
   - WaveList:
     - enemyPrefab1: {fileID: 6938047018459641208, guid: 9d27db757ed603d429915904e8f47b09, type: 3}
       enemyPrefab2: {fileID: 2089746155996912209, guid: c7c466d2c273af44ebb39d56e594582a, type: 3}
@@ -136,6 +167,11 @@ MonoBehaviour:
     - QTE Autel
     - Stat Autel
     - SalleDeSoin
+    TwoRoomsInARow: 1
+    SecondRoomOptions:
+    - SalleDeSoin
+    - QTE Autel
+    - Stat Autel
   - WaveList:
     - enemyPrefab1: {fileID: 8605999127470874899, guid: 9fb0ecb6459bb3245b06e7d4b6cf4bc0, type: 3}
       enemyPrefab2: {fileID: 3387936825564613640, guid: 24f6b626489991f4698f539052dba855, type: 3}
@@ -153,3 +189,7 @@ MonoBehaviour:
     CaurisSpe4: 0
     RoomOptions:
     - QTE Autel
+    TwoRoomsInARow: 0
+    SecondRoomOptions:
+    - 
+    - 
