@@ -210,7 +210,8 @@ public class Ultimate : MonoBehaviour
         ResetAllZones();
         StartCoroutine(AudioManager.SINGLETON.PlayCombatClip(13, 0f));
         player = Player;
-       
+        CombatManager.SINGLETON.currentSelectedButton = UltButton.gameObject;
+        CombatManager.SINGLETON.ResetAllCapacities();
         player.UltLvlHit = 1;
         UltButton.interactable = false; 
         if (qteAnimator == null || qteUI == null)
@@ -318,8 +319,6 @@ public class Ultimate : MonoBehaviour
         CurrentEntity.UltIsReady = false;
         animator.SetTrigger("QTEStop");
         AudioClip UltClip = this.GetComponent<EffectsManager>().PlayerCptSounds[CurrentEntity.ID - 2].Cpt4;
-        Debug.Log(UltClip);
-        StartCoroutine(AudioManager.SINGLETON.PlayClip(UltClip, 1f));
         yield return new WaitForSeconds(time);
         qteUI.SetActive(false);
         yield return new WaitForSeconds(0.2f);
@@ -333,6 +332,7 @@ public class Ultimate : MonoBehaviour
             Destroy(UltParent);
         }
         GameObject UltAnim =Instantiate(PrefabUlts[CurrentEntity.ID-2], new Vector3(0,0,0), Quaternion.identity, BackgroundParent);
+        StartCoroutine(AudioManager.SINGLETON.PlayClip(UltClip, 1f));
         yield return new WaitForSeconds(2f);
         AudioManager.SINGLETON.StopQTERoll();
         Destroy(UltAnim);

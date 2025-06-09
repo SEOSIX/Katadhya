@@ -70,6 +70,7 @@ public static class ReseterData
         entity.provoking = false;
         entity.provokingDuration = 0;
         entity.ChargePower = 0;
+        if(entity.NecrosisParticles!=null)entity.NecrosisParticles.SetActive(false);
     }
 }
 

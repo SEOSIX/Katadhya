@@ -8,6 +8,7 @@ using System.Linq;
 using static CombatManager;
 using System.IO.IsolatedStorage;
 using Object = UnityEngine.Object;
+using static UnityEngine.EventSystems.EventTrigger;
 
 
 public class EntiityManager : MonoBehaviour
@@ -31,7 +32,7 @@ public class EntiityManager : MonoBehaviour
             var enemy = entityHandler.ennemies[i];
             if (enemy == null || enemy.UnitLife > 0)
                 continue;
-
+            if(enemy.necrosis != null)enemy.NecrosisParticles.SetActive(false);
             int visualIndex = enemy.index;
             EffectsManager.SINGLETON.ClearEffectsForEntity(visualIndex);
             CombatManager.SINGLETON.RemoveUnitFromList(enemy);
@@ -89,7 +90,7 @@ public class EntiityManager : MonoBehaviour
             var player = entityHandler.players[i];
             if (player == null || player.UnitLife > 0)
                 continue;
-
+            player.NecrosisParticles.SetActive(false);
             int visualIndex = player.index;
             EffectsManager.SINGLETON.ClearEffectsForEntity(visualIndex);
 
@@ -201,6 +202,8 @@ public class EntiityManager : MonoBehaviour
             StartCoroutine(AudioManager.SINGLETON.PlayGameClip(10));
             CombatManager.SINGLETON.EndGlobalTurn();
             CombatManager.SINGLETON.EndGameOver.SetActive(true);
+            CombatMusicManager.SINGLETON.CutMusic();
+
         }
         else if (!anyEnemyAlive)
         {
