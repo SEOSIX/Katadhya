@@ -17,7 +17,6 @@ MonoBehaviour:
   critique: 5
   "pr\xE9cision": 100
   cooldown: 1
-  chargeUlti: 27
   MultipleHeal: 0
   MultipleAttack: 1
   MultipleBuff: 0
@@ -28,6 +27,9 @@ MonoBehaviour:
   buffType: 1
   buffValue: 0.7
   buffDuration: 1
+  buffType2: 0
+  buffValue2: 0
+  buffDuration2: 0
   ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 60
@@ -41,8 +43,10 @@ MonoBehaviour:
   specialType: 0
   specialDelay: 1
   Name: Charge
-  Description: "Inflige des d\xE9g\xE2ts et baisse l'attaque des ennemis pour 1 tour"
-  AffinityDescription: "Gagne un pourcentage des d\xE9g\xE2ts inflig\xE9s en bouclier."
+  Description: "Inflige des d\xE9g\xE2ts et baisse l'attaque de tous les ennemis
+    pendant 1 tour"
+  AffinityDescription: "Gagne du bouclier en fonction d'un pourcentage de d\xE9g\xE2ts
+    inflig\xE9s"
   PictoType: 0
   TargetType: 0
   ValueAI: 0

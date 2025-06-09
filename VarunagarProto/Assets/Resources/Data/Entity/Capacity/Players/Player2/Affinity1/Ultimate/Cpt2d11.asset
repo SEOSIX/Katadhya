@@ -17,7 +17,6 @@ MonoBehaviour:
   critique: 0
   "pr\xE9cision": 100
   cooldown: 0
-  chargeUlti: 0
   MultipleHeal: 0
   MultipleAttack: 0
   MultipleBuff: 1
@@ -28,6 +27,9 @@ MonoBehaviour:
   buffType: 2
   buffValue: 1.2
   buffDuration: 1
+  buffType2: 0
+  buffValue2: 0
+  buffDuration2: 0
   ChargePowerGiven: 1
   Shield: 10
   ShieldRatioAtk: 0
@@ -41,8 +43,7 @@ MonoBehaviour:
   specialType: 4
   specialDelay: 1
   Name: Protection
-  Description: "Augmente la d\xE9fense de l'\xE9quipe. Donne 1 point de pouvoir \xE0
-    toute l'\xE9quipe"
+  Description: "Augmente la d\xE9fense des allies et leur donne 1 point de pouvoir"
   AffinityDescription: 
   PictoType: 0
   TargetType: 3

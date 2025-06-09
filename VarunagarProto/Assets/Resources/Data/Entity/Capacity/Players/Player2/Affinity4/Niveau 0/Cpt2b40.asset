@@ -17,7 +17,6 @@ MonoBehaviour:
   critique: 5
   "pr\xE9cision": 95
   cooldown: 1
-  chargeUlti: 27
   MultipleHeal: 0
   MultipleAttack: 0
   MultipleBuff: 0
@@ -28,6 +27,9 @@ MonoBehaviour:
   buffType: 1
   buffValue: 0.8
   buffDuration: 1
+  buffType2: 0
+  buffValue2: 0
+  buffDuration2: 0
   ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 0
@@ -41,7 +43,8 @@ MonoBehaviour:
   specialType: 0
   specialDelay: 1
   Name: Charge
-  Description: "Inflige des d\xE9g\xE2ts et baisse l'attaque de la cible pour 1 tour"
+  Description: "Inflige des d\xE9g\xE2ts et baisse l'attaque de la cible pendant
+    1 tour"
   AffinityDescription: "Augmente les d\xE9g\xE2ts de la capacit\xE9 en fonction de
     la rage"
   PictoType: 0

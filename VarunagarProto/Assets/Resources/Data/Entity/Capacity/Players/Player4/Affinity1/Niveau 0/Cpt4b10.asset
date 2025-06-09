@@ -17,7 +17,6 @@ MonoBehaviour:
   critique: 5
   "pr\xE9cision": 90
   cooldown: 1
-  chargeUlti: 19
   MultipleHeal: 0
   MultipleAttack: 1
   MultipleBuff: 0
@@ -28,6 +27,10 @@ MonoBehaviour:
   buffType: 0
   buffValue: 0
   buffDuration: 0
+  buffType2: 0
+  buffValue2: 0
+  buffDuration2: 0
+  ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 30
   Shock: 0
@@ -40,8 +43,9 @@ MonoBehaviour:
   specialType: 0
   specialDelay: 1
   Name: Swing
-  Description: "Inflige des d\xE9gats aux ennemis."
-  AffinityDescription: "Gagne un pourcentage des d\xE9g\xE2ts inflig\xE9s en bouclier."
+  Description: "Inflige des d\xE9g\xE2ts \xE0 tous les ennemis"
+  AffinityDescription: "Gagne du bouclier en fonction d'un pourcentage de d\xE9g\xE2ts
+    inflig\xE9s"
   PictoType: 0
   TargetType: 1
   ValueAI: 0

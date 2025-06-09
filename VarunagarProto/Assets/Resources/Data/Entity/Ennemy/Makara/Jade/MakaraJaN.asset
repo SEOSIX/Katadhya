@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MakaraJaN
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  BaseLife: 260
+  BaseLife: 240
   BaseAtk: 50
   BaseSpeed: 54
   BaseDef: 35
@@ -38,10 +38,12 @@ MonoBehaviour:
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
   hasBeenInitialized: 0
+  TargetCircle: {fileID: 0}
   portrait: {fileID: 21300000, guid: 38143f535456992438e985b58e4bbfe4, type: 3}
   portraitUI: {fileID: 21300000, guid: 7ead80e831c3aad448ba91dc66ece7b9, type: 3}
   bandeauUI: {fileID: 0}
   Animator: {fileID: 0}
+  NecrosisParticles: {fileID: 0}
   capacityData1Source: {fileID: 11400000, guid: 7c3b446e252f61446ad25ea468404ae1, type: 2}
   capacity1: {fileID: 0}
   Cpt1lvl: 0
