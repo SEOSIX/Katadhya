@@ -18,6 +18,7 @@ public class GameManagerEditor : Editor
     private SerializedProperty uiCamera;
     private SerializedProperty NewWavePanel;
     private SerializedProperty WaveText;
+    private SerializedProperty EndScreen;
 
 
     private void OnEnable()
@@ -30,6 +31,7 @@ public class GameManagerEditor : Editor
         sizeChara = serializedObject.FindProperty("sizeChara");
         NewWavePanel = serializedObject.FindProperty("NewWavePanel");
         WaveText = serializedObject.FindProperty("WaveText");
+        EndScreen = serializedObject.FindProperty("EndScreen");
 
 
         enemySpawnPoints = serializedObject.FindProperty("enemySpawnPoints");
@@ -62,6 +64,8 @@ public class GameManagerEditor : Editor
             EditorGUILayout.PropertyField(allEnemiesEncountered, true);
             EditorGUILayout.PropertyField(NewWavePanel);
             EditorGUILayout.PropertyField(WaveText);
+            EditorGUILayout.PropertyField(EndScreen);
+
 
 
         }

@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -59,6 +60,7 @@ public class ExplorationManager : MonoBehaviour
         ChoicesHolder V = null;
         if (ChoicesHolder.SINGLETON != null) V = ChoicesHolder.SINGLETON;
         GameManager.SINGLETON.currentCombat = LD.CombatList[CombatIndex];
+        if(CombatIndex == LD.CombatList.Count() - 1) { GameManager.SINGLETON.FinalFight = true; }
         Debug.Log(V);
         Debug.Log(V.combatUI);
         V.combatUI.SetActive(true);

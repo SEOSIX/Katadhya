@@ -548,6 +548,7 @@ GameObject:
   - component: {fileID: 3166549628971780502}
   - component: {fileID: -6372338238547629926}
   - component: {fileID: 2733759532923932116}
+  - component: {fileID: 4487324342961245619}
   m_Layer: 0
   m_Name: MoineV2 with Hitbox
   m_TagString: Untagged
@@ -693,6 +694,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.3448943, y: 3.8499167}
   m_EdgeRadius: 0
+--- !u!210 &4487324342961245619
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624137427931347417}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 4
+  m_SortAtRoot: 0
 --- !u!1 &1743630698506509671
 GameObject:
   m_ObjectHideFlags: 0

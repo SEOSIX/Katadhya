@@ -548,6 +548,7 @@ GameObject:
   - component: {fileID: 3166549628971780502}
   - component: {fileID: 2733759532923932116}
   - component: {fileID: 6047557528678759397}
+  - component: {fileID: 5195012168279839821}
   m_Layer: 0
   m_Name: MoineExplo
   m_TagString: Untagged
@@ -690,7 +691,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1877cb7219c16e640ad2807d4f3bd28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifePercent: 4.91
+--- !u!210 &5195012168279839821
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624137427931347417}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 4
+  m_SortAtRoot: 0
 --- !u!1 &1743630698506509671
 GameObject:
   m_ObjectHideFlags: 0

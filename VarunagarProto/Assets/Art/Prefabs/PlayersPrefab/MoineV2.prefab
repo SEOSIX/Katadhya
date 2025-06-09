@@ -459,6 +459,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 0485b6cbcb9b5374b8629984d62c238e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7116036156576922690}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 0485b6cbcb9b5374b8629984d62c238e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8620842502467727233}
     - targetCorrespondingSourceObject: {fileID: 8269929621929659070, guid: 0485b6cbcb9b5374b8629984d62c238e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2091832690968641079}
@@ -565,6 +568,18 @@ PolygonCollider2D:
       - {x: 0.58778536, y: -0.80901694}
       - {x: 0.9510565, y: 0.30901712}
   m_UseDelaunayMesh: 0
+--- !u!210 &-8620842502467727233
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624137427931347417}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 4
+  m_SortAtRoot: 0
 --- !u!4 &2363213982231525261 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3577552614289076201, guid: 0485b6cbcb9b5374b8629984d62c238e, type: 3}

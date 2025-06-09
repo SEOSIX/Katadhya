@@ -225,7 +225,14 @@ public class EntiityManager : MonoBehaviour
 
         if (isVictory)
         {
-            VictoryDefeatUI.SINGLETON.DisplayEndCombat(isVictory, GameManager.SINGLETON.allEnemiesEncountered);
+            if (GameManager.SINGLETON.FinalFight == true)
+            {
+                GameManager.SINGLETON.EndScreen.SetActive(true);
+            }
+            else
+            {
+                VictoryDefeatUI.SINGLETON.DisplayEndCombat(isVictory, GameManager.SINGLETON.allEnemiesEncountered);
+            }
         }
     }
 

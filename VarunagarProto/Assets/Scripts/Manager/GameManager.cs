@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
     [Header("Enemy Packs")]
     public int EnemyPackIndex = 0;
     public Combat currentCombat;
+    public bool FinalFight;
+    public GameObject EndScreen;
     public List<DataEntity> allEnemiesEncountered = new List<DataEntity>();
 
     [Header("Parameters")]
