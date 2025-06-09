@@ -26,6 +26,7 @@ public class Ultimate : MonoBehaviour
     public static Ultimate SINGLETON;
     private int CurrentAffinity;
     public DataEntity player;
+    public CapacityData SpeedBuff;
 
     [Header("UI")]
     public Slider sliderUltimate;
@@ -258,11 +259,10 @@ public class Ultimate : MonoBehaviour
             {
                 
                 if (zone.successZone)
-                    hitSuccess = true;
+                hitSuccess = true;
                 CurrentAffinity = zone.Affinity;
                 zone.gameObject.GetComponent<QTEZoneMarker>().Hit = true;
                 CombatManager.SINGLETON.SetupNewAffinity(zone.Affinity);
-
 
                 // Jeanne et Tonin qui ont setup les feedbacks oeoe
                 Debug.Log("Successful click");
@@ -307,6 +307,11 @@ public class Ultimate : MonoBehaviour
         if (CurrentEntity.Affinity == 0)
         {
             CurrentEntity.UltLvlHit = 0;
+            CurrentAffinity = 0;
+        }
+        if (CurrentEntity.Affinity == 2)
+        {
+            CombatManager.SINGLETON.GiveBuff(SpeedBuff, CurrentEntity);
         }
         qteAnimator.speed = 0f;
         CurrentEntity.UltimateSlider = 100;
