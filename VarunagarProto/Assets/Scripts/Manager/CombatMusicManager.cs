@@ -1,28 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CombatMusicManager : MonoBehaviour
 {
     public AudioClip Combat1;
     public AudioClip Combat2;
+    public static CombatMusicManager SINGLETON {get; private set; }
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
+        if (SINGLETON != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        SINGLETON = this;
         StartCoroutine(MusicLoop());
     }
 
-    // Update is called once per frame
     private IEnumerator MusicLoop()
     {
         this.GetComponent<AudioSource>().clip = Combat1;
         this.GetComponent<AudioSource>().Play();
-        yield return new WaitForSeconds(Combat1.length-7f);
+        yield return new WaitForSeconds(Combat1.length-6f);
         this.GetComponent<AudioSource>().clip = Combat2;
         this.GetComponent<AudioSource>().Play();
-        yield return new WaitForSeconds(Combat2.length-8f);
+        yield return new WaitForSeconds(Combat2.length-7f);
         StartCoroutine(MusicLoop());
 
+    }
+
+    public void CutMusic()
+    {
+        this.GetComponent<AudioSource>().volume = 0f;
     }
 }

@@ -233,6 +233,7 @@ public class EntiityManager : MonoBehaviour
                 {
                     StartCoroutine(AudioManager.SINGLETON.PlayGameClip(7, 0f, 0.2f));
                     SoundPlayed = true;
+                    CombatMusicManager.SINGLETON.CutMusic();
                 }
                 GameManager.SINGLETON.EndScreen.SetActive(true);
             }
@@ -242,6 +243,7 @@ public class EntiityManager : MonoBehaviour
                 {
                     StartCoroutine(AudioManager.SINGLETON.PlayGameClip(7, 0f, 0.2f));
                     SoundPlayed = true;
+                    CombatMusicManager.SINGLETON.CutMusic();
                 }
                 VictoryDefeatUI.SINGLETON.DisplayEndCombat(isVictory, GameManager.SINGLETON.allEnemiesEncountered);
             }

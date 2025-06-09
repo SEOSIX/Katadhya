@@ -2006,7 +2006,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelDesign: {fileID: 0}
-  FirstRoom: 1
 --- !u!1 &415669530
 GameObject:
   m_ObjectHideFlags: 0
@@ -2463,7 +2462,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelDesign: {fileID: 11400000, guid: 54ce8f7a81240cd48967746b505b7121, type: 2}
-  FirstRoom: 1
 --- !u!1 &504952858
 GameObject:
   m_ObjectHideFlags: 0
@@ -4177,7 +4175,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &930390621
 RectTransform:
@@ -6162,6 +6160,8 @@ MonoBehaviour:
     SecondRoomOptions:
     - 
     - 
+  FinalFight: 0
+  EndScreen: {fileID: 0}
   allEnemiesEncountered: []
   sizeChara: 0.21
   combatUI: {fileID: 0}
