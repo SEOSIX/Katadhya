@@ -18,21 +18,19 @@ MonoBehaviour:
   BaseSpeed: 45
   BaseDef: 10
   BaseAim: 100
-  UnitLife: 297
-  UnitAtk: 15
-  UnitSpeed: 60
-  UnitDef: 15
+  UnitLife: 340
+  UnitAtk: 5
+  UnitSpeed: 45
+  UnitDef: 10
   UnitAim: 100
   ActiveBuffs: []
-  ActiveCooldowns:
-  - capacity: {fileID: 11400000, guid: 3f87ccd68e817fb4b8c04dbf7a8f8ed8, type: 2}
-    remainingCooldown: 1
-  Affinity: 4
-  ChargePower: 10
+  ActiveCooldowns: []
+  Affinity: 0
+  ChargePower: 0
   UltChargePowerCost: 5
   UnitShield: 0
-  ShockMark: 1
-  RageTick: 6
+  ShockMark: 0
+  RageTick: 0
   LastRageTick: 0
   necrosis: []
   beenHurtThisTurn: 0
@@ -59,13 +57,13 @@ MonoBehaviour:
   Ultimate: {fileID: 21300000, guid: f0f3d14119d252b4595754ed73d77782, type: 3}
   UltimateEmpty: {fileID: 21300000, guid: 6a68f6d10d7cb754dbbcb47f8340e7e1, type: 3}
   CptUltlvl: 2
-  UltimateSlider: 0
-  UltIsReady: 1
+  UltimateSlider: 100
+  UltIsReady: 0
   UltLvl_1: 0
   UltLvl_2: 0
   UltLvl_3: 0
   UltLvl_4: 0
-  UltLvlHit: 1
+  UltLvlHit: 0
   namE: Garde
   size: 0.94
   index: 2

@@ -90,7 +90,7 @@ public class EntiityManager : MonoBehaviour
             var player = entityHandler.players[i];
             if (player == null || player.UnitLife > 0)
                 continue;
-            player.NecrosisParticles.SetActive(false);
+            if(player.necrosis != null)player.NecrosisParticles.SetActive(false);
             int visualIndex = player.index;
             EffectsManager.SINGLETON.ClearEffectsForEntity(visualIndex);
 
@@ -234,7 +234,7 @@ public class EntiityManager : MonoBehaviour
             {
                 if (!SoundPlayed)
                 {
-                    StartCoroutine(AudioManager.SINGLETON.PlayGameClip(7, 0f, 0.2f));
+                    StartCoroutine(AudioManager.SINGLETON.PlayGameClip(7, 0f, 0.1f));
                     SoundPlayed = true;
                     CombatMusicManager.SINGLETON.CutMusic();
                 }
@@ -244,7 +244,7 @@ public class EntiityManager : MonoBehaviour
             {
                 if (!SoundPlayed)
                 {
-                    StartCoroutine(AudioManager.SINGLETON.PlayGameClip(7, 0f, 0.2f));
+                    StartCoroutine(AudioManager.SINGLETON.PlayGameClip(7, 0f, 0.1f));
                     SoundPlayed = true;
                     CombatMusicManager.SINGLETON.CutMusic();
                 }
