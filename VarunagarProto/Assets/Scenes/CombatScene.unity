@@ -11974,7 +11974,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f152cdefcc7521c43b0e39c7dac85081, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de7c175bd2a11f042a848c900f1f13e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -20060,6 +20060,10 @@ MonoBehaviour:
     CaurisSpe3: 0
     CaurisSpe4: 0
     RoomOptions:
+    - 
+    - 
+    TwoRoomsInARow: 0
+    SecondRoomOptions:
     - 
     - 
   allEnemiesEncountered: []
