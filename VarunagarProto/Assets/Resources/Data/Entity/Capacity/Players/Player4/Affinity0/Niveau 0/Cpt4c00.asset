@@ -17,7 +17,6 @@ MonoBehaviour:
   critique: 40
   "pr\xE9cision": 100
   cooldown: 2
-  chargeUlti: 62
   MultipleHeal: 0
   MultipleAttack: 0
   MultipleBuff: 0
@@ -28,6 +27,9 @@ MonoBehaviour:
   buffType: 0
   buffValue: 0
   buffDuration: 0
+  buffType2: 0
+  buffValue2: 0
+  buffDuration2: 0
   ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 0
@@ -41,7 +43,7 @@ MonoBehaviour:
   specialType: 1
   specialDelay: 1
   Name: 'Frappe lourde '
-  Description: "Inflige des d\xE9gats a un ennemi. N\xE9cessite 1 tour d'activation."
+  Description: "Inflige des d\xE9g\xE2ts \xE0 la cible. N\xE9cessite 1 tour de pr\xE9paration"
   AffinityDescription: 
   PictoType: 0
   TargetType: 0

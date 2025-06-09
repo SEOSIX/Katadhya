@@ -17,7 +17,6 @@ MonoBehaviour:
   critique: 0
   "pr\xE9cision": 100
   cooldown: 0
-  chargeUlti: 0
   MultipleHeal: 0
   MultipleAttack: 1
   MultipleBuff: 0
@@ -28,6 +27,9 @@ MonoBehaviour:
   buffType: 0
   buffValue: 0
   buffDuration: 0
+  buffType2: 0
+  buffValue2: 0
+  buffDuration2: 0
   ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 25
@@ -41,7 +43,7 @@ MonoBehaviour:
   specialType: 3
   specialDelay: 1
   Name: "D\xE9cha\xEEnement"
-  Description: "Inflige des d\xE9gats aux ennemis."
+  Description: "Inflige des d\xE9g\xE2ts \xE0 tous les ennemis"
   AffinityDescription: 
   PictoType: 0
   TargetType: 1

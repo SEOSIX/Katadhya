@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NagaJadeRage
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  BaseLife: 240
+  BaseLife: 220
   BaseAtk: 60
   BaseSpeed: 58
   BaseDef: 25
@@ -38,10 +38,12 @@ MonoBehaviour:
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
   hasBeenInitialized: 0
+  TargetCircle: {fileID: 0}
   portrait: {fileID: 21300000, guid: e7af767f4ebe2f8428096772caef3660, type: 3}
   portraitUI: {fileID: 21300000, guid: e364bb09771517e4baa793e6dd80c90f, type: 3}
   bandeauUI: {fileID: 0}
   Animator: {fileID: 0}
+  NecrosisParticles: {fileID: 0}
   capacityData1Source: {fileID: 11400000, guid: acf254833d7c7b44eb8354fbe1b16f15, type: 2}
   capacity1: {fileID: 0}
   Cpt1lvl: 0

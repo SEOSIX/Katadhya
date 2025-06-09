@@ -17,16 +17,20 @@ MonoBehaviour:
   critique: 5
   "pr\xE9cision": 95
   cooldown: 0
-  chargeUlti: 25
   MultipleHeal: 0
   MultipleAttack: 0
   MultipleBuff: 0
   TargetingAlly: 0
   Provocation: 0
+  ProvocationDuration: 0
   BuffFromAffinity: 0
   buffType: 0
   buffValue: 0
   buffDuration: 0
+  buffType2: 0
+  buffValue2: 0
+  buffDuration2: 0
+  ChargePowerGiven: 0
   Shield: 0
   ShieldRatioAtk: 0
   Shock: 0
@@ -39,7 +43,7 @@ MonoBehaviour:
   specialType: 0
   specialDelay: 1
   Name: "Coup d'Ep\xE9e"
-  Description: "Inflige des d\xE9gats \xE0 un ennemi."
+  Description: "Inflige des d\xE9g\xE2ts \xE0 la cible."
   AffinityDescription: "Augmente les d\xE9g\xE2ts de la capacit\xE9 en fonction de
     la rage"
   PictoType: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MakaraPiB
   m_EditorClassIdentifier: 
   instance: {fileID: 0}
-  BaseLife: 160
+  BaseLife: 140
   BaseAtk: 25
   BaseSpeed: 44
   BaseDef: 15
@@ -38,10 +38,12 @@ MonoBehaviour:
   provokingDuration: 0
   provokingCaracter: {fileID: 0}
   hasBeenInitialized: 0
+  TargetCircle: {fileID: 0}
   portrait: {fileID: 21300000, guid: 38143f535456992438e985b58e4bbfe4, type: 3}
   portraitUI: {fileID: 21300000, guid: 6cdeeccb208f98c4db6809942a7dbbc7, type: 3}
   bandeauUI: {fileID: 0}
   Animator: {fileID: 0}
+  NecrosisParticles: {fileID: 0}
   capacityData1Source: {fileID: 11400000, guid: 10968ab8a600bdd48a36fa100ecc54d6, type: 2}
   capacity1: {fileID: 0}
   Cpt1lvl: 0

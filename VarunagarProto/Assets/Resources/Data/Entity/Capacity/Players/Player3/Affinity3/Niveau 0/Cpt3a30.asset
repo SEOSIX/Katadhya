@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cpt3a30
   m_EditorClassIdentifier: 
   atk: 0
-  heal: 20
+  heal: 22
   critique: 5
   "pr\xE9cision": 100
   cooldown: 1
@@ -43,8 +43,8 @@ MonoBehaviour:
   specialType: 0
   specialDelay: 1
   Name: Soin
-  Description: "Soigne un alli\xE9."
-  AffinityDescription: 'Augmente le soin. '
+  Description: Soigne la cible
+  AffinityDescription: Augmente le soin
   PictoType: 1
   TargetType: 2
   ValueAI: 0
