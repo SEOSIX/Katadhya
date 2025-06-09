@@ -2214,6 +2214,17 @@ Transform:
   - {fileID: 1256993902}
   m_Father: {fileID: 221121161}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &191098947 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3494264557948280066, guid: 2caa4c28d6923134799a48f07e3fd1d4, type: 3}
+  m_PrefabInstance: {fileID: 565629656}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73fa98beb25ebe24c83299b4f52d9545, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &195214872
 GameObject:
   m_ObjectHideFlags: 0
@@ -2246,6 +2257,9 @@ MonoBehaviour:
   consolePanel: {fileID: 253029799}
   inputField: {fileID: 86706709}
   outputText: {fileID: 2115980857}
+  entityHandler: {fileID: 11400000, guid: 1cc7fee22bc149049a1bcda2676c8263, type: 2}
+  globalData: {fileID: 191098947}
+  entityManager: {fileID: 278383200}
 --- !u!4 &195214874
 Transform:
   m_ObjectHideFlags: 0
@@ -8968,14 +8982,14 @@ MonoBehaviour:
   - {fileID: 71675285}
   - {fileID: 1027082575}
   Effects1Position:
-  - {fileID: 2124261804}
   - {fileID: 1030676871}
+  - {fileID: 2124261804}
   - {fileID: 1030676871}
   - {fileID: 554599626}
   - {fileID: 1633288027}
   Effects2Position:
-  - {fileID: 999233520}
   - {fileID: 80938484}
+  - {fileID: 999233520}
   - {fileID: 999233520}
   - {fileID: 1293000921}
   - {fileID: 1884638008}
