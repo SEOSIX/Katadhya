@@ -24,7 +24,6 @@ public class EntiityManager : MonoBehaviour
     
     public void DestroyDeadEnemies()
     {
-        enemiesAlreadyDestroyed.Clear();
         List<int> indicesToRemove = new List<int>();
 
         for (int i = entityHandler.ennemies.Count - 1; i >= 0; i--)
@@ -209,7 +208,7 @@ public class EntiityManager : MonoBehaviour
         {
             if (GameManager.SINGLETON.EnemyPackIndex+1 < GameManager.SINGLETON.currentCombat.WaveList.Count)
             {
-                entityHandler.ennemies.RemoveAll(e => e == null || e.UnitLife <= 0);
+                DestroyDeadEnemies();
                 GameManager.SINGLETON.EnemyPackIndex += 1;
                 CombatManager.SINGLETON.entityHandler.ennemies.Clear();
                 StartCoroutine(GameManager.SINGLETON.SpawnEnemies());
